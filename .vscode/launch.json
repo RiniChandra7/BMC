@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Main<bmc>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "digit.Main",
+            "projectName": "bmc",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
