@@ -1,11 +1,6 @@
--- Need to Refer eg_user where ever usermaster is refered.
+-- Need to Refer eg_user where ever eg_user is refered.
 
-CREATE TABLE UserMaster(
-    Id SERIAL ,
-    uuid UUID PRIMARY KEY
-);
-
-CREATE TABLE Caste (
+CREATE TABLE eg_bmc_Caste (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -15,7 +10,7 @@ CREATE TABLE Caste (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE Religion (
+CREATE TABLE eg_bmc_Religion (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -25,7 +20,7 @@ CREATE TABLE Religion (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE Divyang (
+CREATE TABLE eg_bmc_Divyang (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -35,17 +30,20 @@ CREATE TABLE Divyang (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE FileUploaded (
-    UUID UUID NOT NULL,
+CREATE TABLE eg_bmc_FileUploaded (
+    ID SERIAL PRIMARY KEY,
+    userid bigint NOT NULL,
+    tenantid VARCHAR(255) NOT NULL,
     FILEID VARCHAR(255) NOT NULL,
     URL VARCHAR(255) NOT NULL,
     Type VARCHAR(255) NOT NULL,
-    CONSTRAINT fk_fileuploaded_usermaster FOREIGN KEY (UUID) REFERENCES UserMaster(uuid)
+    CONSTRAINT fk_fileuploaded_eg_user FOREIGN KEY (userid, tenantid)
+        REFERENCES eg_user (id, tenantid) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
-CREATE TABLE WardMaster (
+CREATE TABLE eg_bmc_WardMaster (
     ID SERIAL PRIMARY KEY,
     CityName VARCHAR(255) NOT NULL,
     WardName VARCHAR(255) NOT NULL,
@@ -56,7 +54,7 @@ CREATE TABLE WardMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE ElectoralWardMaster (
+CREATE TABLE eg_bmc_ElectoralWardMaster (
     ID SERIAL PRIMARY KEY,
     CityName VARCHAR(255) NOT NULL,
     WardName VARCHAR(255) NOT NULL,
@@ -68,7 +66,7 @@ CREATE TABLE ElectoralWardMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE BankMaster (
+CREATE TABLE eg_bmc_BankMaster (
     ID SERIAL PRIMARY KEY,
     BankName VARCHAR(255) NOT NULL,
     BankCode VARCHAR(255) NOT NULL,
@@ -79,7 +77,7 @@ CREATE TABLE BankMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE CourseMaster (
+CREATE TABLE eg_bmc_CourseMaster (
     ID SERIAL PRIMARY KEY,
     Sector VARCHAR(255) NOT NULL,
     CourseCode VARCHAR(255) NOT NULL UNIQUE,
@@ -95,7 +93,7 @@ CREATE TABLE CourseMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE QualificationMaster (
+CREATE TABLE eg_bmc_QualificationMaster (
     ID SERIAL PRIMARY KEY,
     Qualification VARCHAR(255) NOT NULL,
     Remark VARCHAR(1000),
@@ -105,7 +103,7 @@ CREATE TABLE QualificationMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE SectorMaster (
+CREATE TABLE eg_bmc_SectorMaster (
     ID SERIAL PRIMARY KEY,
     Sector VARCHAR(255) NOT NULL,
     Remark VARCHAR(1000),
@@ -115,7 +113,7 @@ CREATE TABLE SectorMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE Schemes (
+CREATE TABLE eg_bmc_Schemes (
     Id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000) NOT NULL,
@@ -125,7 +123,7 @@ CREATE TABLE Schemes (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE Event (
+CREATE TABLE eg_bmc_Event (
     Id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     StartDt BIGINT NOT NULL,
@@ -136,7 +134,7 @@ CREATE TABLE Event (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE SchemeEvent (
+CREATE TABLE eg_bmc_SchemeEvent (
     Id SERIAL PRIMARY KEY,
     SchemeID INT NOT NULL,
     EventID INT NOT NULL,
@@ -152,10 +150,11 @@ CREATE TABLE SchemeEvent (
         ON DELETE CASCADE
 );
 
-CREATE TABLE AadharUser (
+CREATE TABLE eg_bmc_AadharUser (
     id SERIAL PRIMARY KEY,
     AadharRef VARCHAR(12) NOT NULL,
-    uuid UUID NOT NULL,
+    userid bigint NOT NULL,
+    tenantid VARCHAR(255) NOT NULL,
     AadharFatherName VARCHAR(255) NOT NULL,
     AadharName VARCHAR(255) NOT NULL,
     AadharDOB DATE NOT NULL,
@@ -165,14 +164,16 @@ CREATE TABLE AadharUser (
     ModifiedOn BIGINT,
     CreatedBy VARCHAR(255) NOT NULL,
     ModifiedBy VARCHAR(255),
-    CONSTRAINT fk_aadharuser_usermaster FOREIGN KEY (uuid) REFERENCES UserMaster(uuid)
+    CONSTRAINT fk_aadharuser_eg_user FOREIGN KEY (userid, tenantid)
+        REFERENCES eg_user (id, tenantid) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
-CREATE TABLE Address (
+CREATE TABLE eg_bmc_Address (
     ID SERIAL PRIMARY KEY,
-    UUID UUID NOT NULL,
+    userid bigint NOT NULL,
+    tenantid VARCHAR(255) NOT NULL,
     Address1 VARCHAR(255) NOT NULL,
     Address2 VARCHAR(255),
     Location VARCHAR(255),
@@ -186,14 +187,16 @@ CREATE TABLE Address (
     ModifiedOn BIGINT,
     CreatedBy VARCHAR(255) NOT NULL,
     ModifiedBy VARCHAR(255),
-    CONSTRAINT fk_address_usermaster FOREIGN KEY (UUID) REFERENCES UserMaster(uuid)
+    CONSTRAINT fk_address_eg_user FOREIGN KEY (userid, tenantid)
+        REFERENCES eg_user (id, tenantid) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
-CREATE TABLE UserOtherDetails (
+CREATE TABLE eg_bmc_UserOtherDetails (
     ID SERIAL PRIMARY KEY,
-    UUID UUID NOT NULL,
+    userid bigint NOT NULL,
+    tenantid VARCHAR(255) NOT NULL,
     CasteID INT,
     ReligionID INT,
     DivyangCardID VARCHAR(255),
@@ -207,7 +210,8 @@ CREATE TABLE UserOtherDetails (
     rationCardCategory VARCHAR(255), -- Added rationCardCategory
     educationLevel VARCHAR(255), -- Added educationLevel
     udid VARCHAR(255), -- Added udid
-    CONSTRAINT fk_userotherdetails_usermaster FOREIGN KEY (UUID) REFERENCES UserMaster(uuid)
+    CONSTRAINT fk_userotherdetails_eg_user FOREIGN KEY (userid, tenantid)
+        REFERENCES eg_user (id, tenantid) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT fk_userotherdetails_cast FOREIGN KEY (CasteID) REFERENCES Caste(ID)
@@ -221,9 +225,10 @@ CREATE TABLE UserOtherDetails (
         ON DELETE CASCADE
 );
 
-CREATE TABLE UserSchemeApplication (
+CREATE TABLE eg_bmc_UserSchemeApplication (
     id SERIAL PRIMARY KEY,
-    uuid UUID NOT NULL,
+    userid bigint NOT NULL,
+    tenantid VARCHAR(255) NOT NULL,
     optedId INT NOT NULL,
     ApplicationStatus BOOLEAN NOT NULL,
     VerificationStatus BOOLEAN NOT NULL,
@@ -234,12 +239,13 @@ CREATE TABLE UserSchemeApplication (
     ModifiedOn BIGINT,
     CreatedBy VARCHAR(255) NOT NULL,
     ModifiedBy VARCHAR(255),
-    CONSTRAINT fk_userschemeapplication_usermaster FOREIGN KEY (uuid) REFERENCES UserMaster(uuid)
+    CONSTRAINT fk_userschemeapplication_eg_user FOREIGN KEY (userid, tenantid)
+        REFERENCES eg_user (id, tenantid) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
 
-CREATE TABLE Courses (
+CREATE TABLE eg_bmc_Courses (
     ID SERIAL PRIMARY KEY,
     CourseName VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -257,7 +263,7 @@ CREATE TABLE Courses (
     Amount FLOAT
 );
 
-CREATE TABLE SchemeCourse (
+CREATE TABLE eg_bmc_SchemeCourse (
     id SERIAL PRIMARY KEY,
     SchemeID INT NOT NULL,
     CourseID INT NOT NULL,
@@ -270,14 +276,14 @@ CREATE TABLE SchemeCourse (
         ON DELETE CASCADE
 );
 
-CREATE TABLE Machines (
+CREATE TABLE eg_bmc_Machines (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
     Amount FLOAT
 );
 
-CREATE TABLE SchemeMachine (
+CREATE TABLE eg_bmc_SchemeMachine (
     id SERIAL PRIMARY KEY,
     MachineID INT NOT NULL,
     SchemeID INT NOT NULL,
