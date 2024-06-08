@@ -104,7 +104,7 @@
     </dependency>
     <!--  Egov dependencies  -->
     <dependency>
-<<<<<<< HEAD
+
   <groupId>org.egov.services</groupId>
   <artifactId>tracer</artifactId>
   <version>2.0.0-SNAPSHOT</version>
@@ -115,15 +115,11 @@
   <version>1.0.1-SNAPSHOT</version>
 </dependency>
 
-    <dependency>
-      <groupId>org.egov.services</groupId>
-      <artifactId>digit-models</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-=======
+      <dependency>
       <groupId>org.egov.services</groupId>
       <artifactId>tracer</artifactId>
       <version>2.9.0-SNAPSHOT</version>
->>>>>>> 4a57ee7e49c074c5191838282f52a29465f0df0a
+
     </dependency>
     <dependency>
       <groupId>org.egov</groupId>
