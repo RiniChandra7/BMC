@@ -1,20 +1,22 @@
 package digit.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import digit.repository.ServiceRequestRepository;
-import digit.web.models.Role;
-import digit.web.models.User;
-import digit.models.coremodels.UserDetailResponse;
-import org.egov.tracer.model.CustomException;
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Value;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import org.egov.common.contract.request.Role;
+import org.egov.common.contract.request.User;
+import org.egov.common.contract.user.UserDetailResponse;
+import org.egov.tracer.model.CustomException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import digit.repository.ServiceRequestRepository;
 
 @Component
 public class UserUtil {
@@ -115,7 +117,8 @@ public class UserUtil {
         userInfo.setType("CITIZEN");
         userInfo.setUserName(mobileNumber);
         userInfo.setTenantId(getStateLevelTenant(tenantId));
-        userInfo.setActive(true);
+        //Commented by sundeep as SetActive funtion does not exist in repo.
+        //userInfo.setActive(true); 
     }
 
     /**
