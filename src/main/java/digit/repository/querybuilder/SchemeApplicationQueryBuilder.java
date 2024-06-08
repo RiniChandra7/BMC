@@ -12,7 +12,7 @@ import digit.web.models.SchemeApplicationSearchCriteria;
 public class SchemeApplicationQueryBuilder {
 
     // Base query to select fields from SchemeApplication table
-    private static final String BASE_QUERY = "SELECT usa.id as usa_id, usa.userid as usa_userid, usa.tenantid as usa_tenantid, usa.optedId as usa_optedId, " +
+    private static final String BASE_QUERY = "SELECT usa.id as usa_id, usa.applicationNumber as usa_applicationNumber, usa.tenantid as usa_tenantid, usa.optedId as usa_optedId, " +
             "usa.ApplicationStatus as usa_ApplicationStatus, usa.VerificationStatus as usa_VerificationStatus, usa.FirstApprovalStatus as usa_FirstApprovalStatus, " +
             "usa.RandomSelection as usa_RandomSelection, usa.FinalApproval as usa_FinalApproval, usa.Submitted as usa_Submitted, usa.ModifiedOn as usa_ModifiedOn, " +
             "usa.CreatedBy as usa_CreatedBy, usa.ModifiedBy as usa_ModifiedBy, ";
@@ -69,6 +69,13 @@ public class SchemeApplicationQueryBuilder {
             preparedStmtList.add(criteria.getApplicationStatus());
         }
 
+        // Add where clause for application number if it is not empty
+        if (!ObjectUtils.isEmpty(criteria.getApplicationNumber())) {
+            addClauseIfRequired(query, preparedStmtList);
+            query.append(" usa.applicationNumber = ? ");
+            preparedStmtList.add(criteria.getApplicationNumber());
+        }
+        
         // Append the order by clause to the query
         query.append(ORDERBY_MODIFIEDTIME);
 

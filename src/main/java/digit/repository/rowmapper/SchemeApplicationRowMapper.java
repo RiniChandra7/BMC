@@ -17,26 +17,36 @@ import org.springframework.stereotype.Component;
 import digit.web.models.Address;
 import digit.web.models.SchemeApplication;
 
-
 @Component
-public class SchemeApplicationRowMapper implements
-        ResultSetExtractor<List<SchemeApplication>> {
-    public List<SchemeApplication> extractData(@NonNull ResultSet rs) throws SQLException,
-            DataAccessException {
+public class SchemeApplicationRowMapper implements ResultSetExtractor<List<SchemeApplication>> {
+
+    @Override
+    public List<SchemeApplication> extractData(@NonNull ResultSet rs) throws SQLException, DataAccessException {
         // Map to hold SchemeApplication objects with their IDs as keys
-        Map<String, SchemeApplication> schemeApplicationMap = new LinkedHashMap<>();
+        Map<Long, SchemeApplication> schemeApplicationMap = new LinkedHashMap<>();
+
         // Iterate through the ResultSet
         while (rs.next()) {
-            String id = rs.getString("usa_id");
+            Long id = rs.getLong("usa_id");
             SchemeApplication schemeApplication = schemeApplicationMap.get(id);
+
             // If the SchemeApplication object is not already in the map, create it
             if (schemeApplication == null) {
                 Long lastModifiedTime = rs.getLong("usa_ModifiedOn");
                 if (rs.wasNull()) {
                     lastModifiedTime = null;
                 }
-                // Create User object
-                User user = User.builder().uuid(rs.getString("usa_userid")).build();
+
+                // Create User object with all user details
+                User user = User.builder()
+                        .id(rs.getLong("usa_userid"))
+                        .uuid(rs.getString("user_uuid"))
+                        .userName(rs.getString("user_username"))
+                        .name(rs.getString("user_name"))
+                        .emailId(rs.getString("user_emailid"))
+                        .mobileNumber(rs.getString("user_mobilenumber"))
+                        .build();
+
                 // Create AuditDetails object
                 AuditDetails auditDetails = AuditDetails.builder()
                         .createdBy(rs.getString("usa_CreatedBy"))
@@ -44,9 +54,11 @@ public class SchemeApplicationRowMapper implements
                         .lastModifiedBy(rs.getString("usa_ModifiedBy"))
                         .lastModifiedTime(lastModifiedTime)
                         .build();
+
                 // Create SchemeApplication object
                 schemeApplication = SchemeApplication.builder()
                         .id(rs.getLong("usa_id"))
+                        .applicationNumber(rs.getString("usa_applicationNumber"))
                         .userId(rs.getLong("usa_userid"))
                         .tenantId(rs.getString("usa_tenantid"))
                         .optedId(rs.getInt("usa_optedId"))
@@ -55,7 +67,6 @@ public class SchemeApplicationRowMapper implements
                         .firstApprovalStatus(rs.getBoolean("usa_FirstApprovalStatus"))
                         .randomSelection(rs.getBoolean("usa_RandomSelection"))
                         .finalApproval(rs.getBoolean("usa_FinalApproval"))
-
                         .submitted(rs.getBoolean("usa_Submitted"))
                         .modifiedOn(rs.getLong("usa_ModifiedOn"))
                         .createdBy(rs.getString("usa_CreatedBy"))
@@ -63,8 +74,10 @@ public class SchemeApplicationRowMapper implements
                         .user(user)
                         .auditDetails(auditDetails)
                         .build();
+
                 // Add the children properties to the SchemeApplication object
                 addChildrenToProperty(rs, schemeApplication);
+
                 // Add the SchemeApplication object to the map
                 schemeApplicationMap.put(id, schemeApplication);
             }
@@ -74,14 +87,12 @@ public class SchemeApplicationRowMapper implements
     }
 
     // Method to add child properties to the SchemeApplication object
-    private void addChildrenToProperty(ResultSet rs, SchemeApplication schemeApplication)
-            throws SQLException {
+    private void addChildrenToProperty(ResultSet rs, SchemeApplication schemeApplication) throws SQLException {
         addAddressToApplication(rs, schemeApplication);
     }
 
     // Method to add address details to the SchemeApplication object
-    private void addAddressToApplication(ResultSet rs, SchemeApplication schemeApplication)
-            throws SQLException {
+    private void addAddressToApplication(ResultSet rs, SchemeApplication schemeApplication) throws SQLException {
         Address address = Address.builder()
                 .id(rs.getLong("addr_id"))
                 .userId(rs.getLong("addr_userid"))
@@ -96,6 +107,7 @@ public class SchemeApplicationRowMapper implements
                 .country(rs.getString("addr_Country"))
                 .pincode(rs.getString("addr_Pincode"))
                 .build();
+
         schemeApplication.setAddress(address);
     }
 }

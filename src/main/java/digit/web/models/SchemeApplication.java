@@ -26,6 +26,9 @@ public class SchemeApplication {
     @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("applicationNumber")
+    private String applicationNumber;
+
     @JsonProperty("userId")
     private Long userId;
 

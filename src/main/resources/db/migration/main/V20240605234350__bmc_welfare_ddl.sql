@@ -227,6 +227,7 @@ CREATE TABLE eg_bmc_UserOtherDetails (
 
 CREATE TABLE eg_bmc_UserSchemeApplication (
     id SERIAL PRIMARY KEY,
+    applicationNumber VARCHAR(64),
     userid bigint NOT NULL,
     tenantid VARCHAR(255) NOT NULL,
     optedId INT NOT NULL,
