@@ -15,29 +15,29 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
   private Long	id;
-  @Column(name = "")
+  @Column(name = "uuid")
   private String uuid;
-  @Column(name = "")
+  @Column(name = "address1")
   private String address1;
-  @Column(name = "")
+  @Column(name = "address2")
   private String address2;
-  @Column(name = "")
+  @Column(name = "location")
   private String location;
-  @Column(name = "")
+  @Column(name = "ward")
   private String ward;
-  @Column(name = "")
+  @Column(name = "city")
   private String city;
-  @Column(name = "")
+  @Column(name = "district")
   private String district;
-  @Column(name = "")
+  @Column(name = "pincode")
   private String pincode;
-  @Column(name = "")
+  @Column(name = "createdon")
   private Date createdon;
-  @Column(name = "")
+  @Column(name = "modifiedon")
   private Date modifiedon;
-  @Column(name = "")
+  @Column(name = "createdby")
   private int createdby;
-  @Column(name = "")
+  @Column(name = "modifiedby")
   private int modifiedby;
 public Long getId() {
 	return id;

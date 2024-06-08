@@ -1,5 +1,4 @@
 package digit.config;
-
 import java.util.TimeZone;
 
 import org.egov.tracer.config.TracerConfiguration;
@@ -15,32 +14,35 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Import({ TracerConfiguration.class })
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Component
+@Data
+//@Import({TracerConfiguration.class})
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class BmcConfiguration {
 
-	@Value("${app.timezone}")
-	private String timeZone;
+	 @Value("${app.timezone}")
+	    private String timeZone;
 
-	@PostConstruct
-	public void initialize() {
-		TimeZone.setDefault(TimeZone.getTimeZone(timeZone));
-	}
+	    @PostConstruct
+	    public void initialize() {
+	        TimeZone.setDefault(TimeZone.getTimeZone(timeZone));
+	    }
 
-	@Bean
-	@Autowired
-	public MappingJackson2HttpMessageConverter jacksonConverter(ObjectMapper objectMapper) {
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setObjectMapper(objectMapper);
-		return converter;
-	}
+	    @Bean
+	    @Autowired
+	    public MappingJackson2HttpMessageConverter jacksonConverter(ObjectMapper objectMapper) {
+	        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+	        converter.setObjectMapper(objectMapper);
+	        return converter;
+	    }
 
 	// PERSISTER
 	@Value("${bmc.kafka.create.topic}")
