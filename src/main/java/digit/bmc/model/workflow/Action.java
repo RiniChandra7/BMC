@@ -6,20 +6,13 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @ApiModel(description = "A Object holds the basic data for a Action in workflow")
 @Validated
@@ -59,7 +52,7 @@ public class Action {
 	@Valid
 	private List<String> roles;
 
-	private digit.models.coremodels.AuditDetails auditDetails;
+	private org.egov.common.contract.models.AuditDetails auditDetails;
 
 	public Action addRolesItem(String rolesItem) {
 		if (this.roles == null) {

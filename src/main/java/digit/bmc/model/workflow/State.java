@@ -1,5 +1,8 @@
 package digit.bmc.model.workflow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
@@ -8,16 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A Object holds the basic data of state
@@ -71,7 +65,7 @@ public class State   {
         @Valid
         private List<Action> actions;
 
-        private digit.models.coremodels.AuditDetails auditDetails;
+        private org.egov.common.contract.models.AuditDetails auditDetails;
 
 
         public State addActionsItem(Action actionsItem) {

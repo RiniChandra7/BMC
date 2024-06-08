@@ -5,11 +5,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.egov.common.contract.models.AuditDetails;
+import org.egov.common.contract.models.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import digit.models.coremodels.AuditDetails;
-import digit.models.coremodels.Document;
 
 public class BmcRegistrationApplication {
 	

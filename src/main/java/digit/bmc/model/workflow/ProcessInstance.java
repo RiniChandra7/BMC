@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -80,12 +79,12 @@ public class ProcessInstance {
 
 	@JsonProperty("documents")
 	@Valid
-	private List<digit.models.coremodels.Document> documents;
+	private List<org.egov.common.contract.models.Document> documents;
 
 	@JsonProperty("assignes")
 	private List<digit.bmc.model.User> assignes;
 
-	public ProcessInstance addDocumentsItem(digit.models.coremodels.Document documentsItem) {
+	public ProcessInstance addDocumentsItem(org.egov.common.contract.models.Document documentsItem) {
 		if (this.documents == null) {
 			this.documents = new ArrayList<>();
 		}

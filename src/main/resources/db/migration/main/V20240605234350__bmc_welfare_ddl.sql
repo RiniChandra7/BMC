@@ -142,10 +142,10 @@ CREATE TABLE eg_bmc_SchemeEvent (
     ModifiedOn BIGINT,
     CreatedBy VARCHAR(255) NOT NULL,
     ModifiedBy VARCHAR(255),
-    CONSTRAINT fk_schemeevent_scheme FOREIGN KEY (SchemeID) REFERENCES Schemes(Id)
+    CONSTRAINT fk_schemeevent_scheme FOREIGN KEY (SchemeID) REFERENCES eg_bmc_Schemes(Id)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_schemeevent_event FOREIGN KEY (EventID) REFERENCES Event(Id)
+    CONSTRAINT fk_schemeevent_event FOREIGN KEY (EventID) REFERENCES eg_bmc_Event(Id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -214,13 +214,13 @@ CREATE TABLE eg_bmc_UserOtherDetails (
         REFERENCES eg_user (id, tenantid) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_userotherdetails_cast FOREIGN KEY (CasteID) REFERENCES Caste(ID)
+    CONSTRAINT fk_userotherdetails_cast FOREIGN KEY (CasteID) REFERENCES eg_bmc_Caste(ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_userotherdetails_religion FOREIGN KEY (ReligionID) REFERENCES Religion(ID)
+    CONSTRAINT fk_userotherdetails_religion FOREIGN KEY (ReligionID) REFERENCES eg_bmc_Religion(ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_userotherdetails_divyang FOREIGN KEY (DivyangID) REFERENCES Divyang(ID)
+    CONSTRAINT fk_userotherdetails_divyang FOREIGN KEY (DivyangID) REFERENCES eg_bmc_Divyang(ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -269,10 +269,10 @@ CREATE TABLE eg_bmc_SchemeCourse (
     SchemeID INT NOT NULL,
     CourseID INT NOT NULL,
     GrantAmount FLOAT,
-    CONSTRAINT fk_schemecourse_scheme FOREIGN KEY (SchemeID) REFERENCES Schemes(Id)
+    CONSTRAINT fk_schemecourse_scheme FOREIGN KEY (SchemeID) REFERENCES eg_bmc_Schemes(Id)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_schemecourse_course FOREIGN KEY (CourseID) REFERENCES Courses(ID)
+    CONSTRAINT fk_schemecourse_course FOREIGN KEY (CourseID) REFERENCES eg_bmc_Courses(ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
@@ -289,10 +289,10 @@ CREATE TABLE eg_bmc_SchemeMachine (
     MachineID INT NOT NULL,
     SchemeID INT NOT NULL,
     GrantAmount FLOAT,
-    CONSTRAINT fk_schemachine_machine FOREIGN KEY (MachineID) REFERENCES Machines(ID)
+    CONSTRAINT fk_schemachine_machine FOREIGN KEY (MachineID) REFERENCES eg_bmc_Machines(ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_schemachine_scheme FOREIGN KEY (SchemeID) REFERENCES Schemes(ID)
+    CONSTRAINT fk_schemachine_scheme FOREIGN KEY (SchemeID) REFERENCES eg_bmc_Schemes(ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );

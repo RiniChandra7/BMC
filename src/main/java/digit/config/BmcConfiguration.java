@@ -1,188 +1,137 @@
 package digit.config;
 import java.util.TimeZone;
 
-import org.egov.tracer.config.TracerConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Component
+
+
+
+
+
+@Configuration
 @Data
-//@Import({TracerConfiguration.class})
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 public class BmcConfiguration {
 
-	 @Value("${app.timezone}")
-	    private String timeZone;
+    @Value("${app.timezone}")
+    private String timeZone;
 
-	    @PostConstruct
-	    public void initialize() {
-	        TimeZone.setDefault(TimeZone.getTimeZone(timeZone));
-	    }
+    @PostConstruct
+    public void initialize() {
+        TimeZone.setDefault(TimeZone.getTimeZone(timeZone));
+    }
 
-	    @Bean
-	    @Autowired
-	    public MappingJackson2HttpMessageConverter jacksonConverter(ObjectMapper objectMapper) {
-	        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-	        converter.setObjectMapper(objectMapper);
-	        return converter;
-	    }
+    @Bean
+    @Autowired
+    public MappingJackson2HttpMessageConverter jacksonConverter(ObjectMapper objectMapper) {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(objectMapper);
+        return converter;
+    }
 
-	// PERSISTER
-	@Value("${bmc.kafka.create.topic}")
-	private String createBmcTopic;
+    // User Config
+    @Value("${egov.user.host}")
+    private String userHost;
 
-	@Value("${bmc.kafka.update.topic}")
-	private String updateBmcTopic;
+    @Value("${egov.user.context.path}")
+    private String userContextPath;
 
-	// USER
-	@Value("${egov.user.host}")
-	private String userHost;
+    @Value("${egov.user.create.path}")
+    private String userCreateEndpoint;
 
-	@Value("${egov.user.search.path}")
-	private String userSearchEndpoint;
+    @Value("${egov.user.search.path}")
+    private String userSearchEndpoint;
 
-	// IDGEN config
+    @Value("${egov.user.update.path}")
+    private String userUpdateEndpoint;
 
-	@Value("${egov.idgen.host}")
-	private String idGenHost;
+    // Idgen Config
+    @Value("${egov.idgen.host}")
+    private String idGenHost;
 
-	@Value("${egov.idgen.path}")
-	private String idGenPath;
+    @Value("${egov.idgen.path}")
+    private String idGenPath;
 
-	@Value("${egov.idgen.bmcid.format}")
-	private String bmcIdGenFormat;
+    @Value("${egov.idgen.bmcid.format}")
+    private String bmcIdGenFormat;
 
-	@Value("${egov.idgen.bmcid.name}")
-	private String bmcIdGenName;
+    @Value("${egov.idgen.bmcid.name}")
+    private String bmcIdGenName;
 
-	// NOTIFICATION TOPICS
-//	@Value("${kafka.topics.notification.sms}")
-//	private String smsNotifTopic;
+    // Workflow Config
+    @Value("${egov.workflow.host}")
+    //@Value("http://sundeep.localhost.com")
+	private String wfHost;
 
-//	@Value("${kafka.topics.notification.email}")
-//	private String emailNotifTopic;
+    @Value("${egov.workflow.transition.path}")
+    //@Value("/egov-workflow-v2/egov-wf/process/_transition")
+	private String wfTransitionPath;
 
-//	@Value("${kafka.topics.receipt.create}")
-//	private String receiptTopic;
+    @Value("${egov.workflow.businessservice.search.path}")
+    //@Value("/egov-workflow-v2/egov-wf/businessservice/_search")
+	private String wfBusinessServiceSearchPath;
 
-//	@Value("${kafka.topics.notification.pg.save.txns}")
-//	private String pgTopic;
+    @Value("${egov.workflow.processinstance.search.path}")
+    //@Value("/egov-workflow-v2/egov-wf/process/_search")
+	private String wfProcessInstanceSearchPath;
 
-	@Value("${egov.localization.statelevel}")
-	private Boolean isStateLevel;
+    @Value("${is.workflow.enabled}")
+    private Boolean isWorkflowEnabled;
 
-//	@Value("${notif.sms.enabled}")
-//	private Boolean isSMSNotificationEnabled;
+    // BMC Variables
+    @Value("${bmc.kafka.create.topic}")
+    private String createTopic;
 
-//	@Value("${notif.email.enabled}")
-//	private Boolean isEmailNotificationEnabled;
+    @Value("${bmc.kafka.update.topic}")
+    private String updateTopic;
 
-//	@Value("${egov.ptr.businessService}")
-	private String businessService;
+    @Value("${bmc.default.offset}")
+    private Integer defaultOffset;
 
-	// Notif variables
+    @Value("${bmc.default.limit}")
+    private Integer defaultLimit;
 
-//	@Value("${egov.usr.events.download.receipt.link}")
-//	private String userEventReceiptDownloadLink;
+    @Value("${bmc.search.max.limit}")
+    private Integer maxLimit;
 
-	// Localization
-//	@Value("${egov.localization.host}")
-//	private String localizationHost;
-//
-//	@Value("${egov.localization.context.path}")
-//	private String localizationContextPath;
-//
-//	@Value("${egov.localization.search.endpoint}")
-//	private String localizationSearchEndpoint;
-//
-//	@Value("${egov.localization.fallback.locale}")
-//	private String fallBackLocale;
-	// USER EVENTS
-//	@Value("${egov.ui.app.host}")
-//	private String uiAppHost;
-//
-//	@Value("${egov.usr.events.create.topic}")
-//	private String saveUserEventsTopic;
-//
-//	@Value("${egov.usr.events.pay.code}")
-//	private String payCode;
-//
-//	@Value("${egov.user.event.notification.enabled}")
-//	private Boolean isUserEventsNotificationEnabled;
-//
-//	@Value("${egov.msg.download.receipt.link}")
-//	private String receiptDownloadLink;
-//
-//	@Value("${egov.msg.pay.link}")
-//	private String payLinkSMS;
-//
-//	@Value("${workflow.host}")
-//	private String wfHost;
-//
-//	@Value("${workflow.transition.path}")
-//	private String wfTransitionPath;
-//
-//	@Value("${workflow.businessservice.search.path}")
-//	private String wfBusinessServiceSearchPath;
-//
-//	@Value("${workflow.processinstance.search.path}")
-//	private String wfProcessInstanceSearchPath;
-//
-//	@Value("${is.workflow.enabled}")
-//	private Boolean isWorkflowEnabled;
-//
-//	@Value("${workflow.status.active}")
-//	private String wfStatusActive;
-//
-//	// ##### mdms
-//
-//	@Value("${egov.mdms.host}")
-//	private String mdmsHost;
-//
-//	@Value("${egov.mdms.search.endpoint}")
-//	private String mdmsEndpoint;
+    // MDMS
+    @Value("${egov.mdms.host}")
+    private String mdmsHost;
 
-//	// Billing-Service
-//
-//	@Value("${egbs.host}")
-//	private String egbsHost;
-//
-//	@Value("${egbs.fetchbill.endpoint}")
-//	private String egbsFetchBill;
-//
-//	@Value("${egov.localization.statelevel}")
-//	private Boolean isLocalizationStateLevel;
-//
-//	@Value("${egov.billingservice.host}")
-//	private String billingHost;
-//
-//	@Value("${egov.demand.create.endpoint}")
-//	private String demandCreateEndpoint;
-//
-//	@Value("${egov.demand.update.endpoint}")
-//	private String demandUpdateEndpoint;
-//
-//	@Value("${egov.demand.search.endpoint}")
-//	private String demandSearchEndpoint;
-//
-//	@Value("${egov.bill.gen.endpoint}")
-//	private String billGenerateEndpoint;
+    @Value("${egov.mdms.search.endpoint}")
+    private String mdmsEndPoint;
 
+    // HRMS
+    @Value("${egov.hrms.host}")
+    private String hrmsHost;
+
+    @Value("${egov.hrms.search.endpoint}")
+    private String hrmsEndPoint;
+
+    // URL Shortener
+    @Value("${egov.url.shortner.host}")
+    private String urlShortnerHost;
+
+    @Value("${egov.url.shortner.endpoint}")
+    private String urlShortnerEndpoint;
+
+    // SMS Notification
+    @Value("${egov.sms.notification.topic}")
+    private String smsNotificationTopic;
 }

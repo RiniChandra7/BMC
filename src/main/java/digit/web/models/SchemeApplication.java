@@ -1,6 +1,7 @@
 package digit.web.models;
 
 import org.egov.common.contract.models.AuditDetails;
+import org.egov.common.contract.models.Workflow;
 import org.egov.common.contract.request.User;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -73,4 +74,14 @@ public class SchemeApplication {
 
     @JsonProperty("user")
     private User user;
+
+    public Workflow getWorkflow() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWorkflow'");
+    }
+
+    public void setWorkflow(Object workflow) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setWorkflow'");
+    }
 }

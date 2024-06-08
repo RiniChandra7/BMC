@@ -1,22 +1,18 @@
 package digit.bmc.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import digit.bmc.model.workflow.State;
-import digit.models.coremodels.Document;
-import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Builder;
-import java.util.ArrayList;
-import java.util.List;
+import org.egov.common.contract.models.Document;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import digit.bmc.model.workflow.State;
+import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(of = { "id" })
 

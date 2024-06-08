@@ -1,10 +1,10 @@
 package digit.bmc.model;
 
-import jakarta.validation.constraints.NotNull;
+import org.egov.common.contract.models.AuditDetails;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import digit.models.coremodels.AuditDetails;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
