@@ -1,4 +1,4 @@
-package digit.web.contracts;
+package digit.web.models;
 
 import javax.validation.constraints.NotNull;
 

@@ -5,7 +5,6 @@ import java.util.List;
 import org.egov.common.contract.models.AuditDetails;
 import org.egov.common.contract.request.User;
 import org.egov.common.contract.user.UserDetailResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import digit.service.UserService;
@@ -19,14 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SchemeApplicationEnrichment {
 
-    @Autowired
-    private IdgenUtil idgenUtil;
+    private final IdgenUtil idgenUtil;
+    private final UserService userService;
+    private final UserUtil userUtils;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserUtil userUtils;
+    public SchemeApplicationEnrichment(IdgenUtil idgenUtil, UserService userService, UserUtil userUtils) {
+        this.idgenUtil = idgenUtil;
+        this.userService = userService;
+        this.userUtils = userUtils;
+    }
 
     /**
      * Enriches the SchemeApplicationRequest with system-generated values like id, auditDetails, etc.
@@ -40,19 +40,17 @@ public class SchemeApplicationEnrichment {
             // Enrich audit details
             AuditDetails auditDetails = AuditDetails.builder().createdBy(schemeApplicationRequest.getRequestInfo().getUserInfo().getUuid()).createdTime(System.currentTimeMillis()).lastModifiedBy(schemeApplicationRequest.getRequestInfo().getUserInfo().getUuid()).lastModifiedTime(System.currentTimeMillis()).build();
             application.setAuditDetails(auditDetails);
-            /*Sundeep Removed it as we do not have uuid fields in Address and Application Tables */
+            /* Sundeep Removed it as we do not have uuid fields in Address and Application Tables */
             
-            /*  Enrich UUID
-                application.setId(UUID.randomUUID().toString());
-                // Enrich address UUID
-                if (application.getAddress() != null) {
-                    application.getAddress().setId(UUID.randomUUID().toString());
-                }
+            /* Enrich UUID
+               application.setId(UUID.randomUUID().toString());
+               // Enrich address UUID
+               if (application.getAddress() != null) {
+                   application.getAddress().setId(UUID.randomUUID().toString());
+               }
             */
             // Enrich application number from IDgen
             application.setApplicationNumber(schemeApplicationIdList.get(index++));
-
-       
         }
     }
 
@@ -72,7 +70,7 @@ public class SchemeApplicationEnrichment {
      * @param application The application to be enriched.
      */
     public void enrichUserDetailsOnSearch(SchemeApplication application) {
-        UserDetailResponse userResponse = userService.searchUser(userUtils.getStateLevelTenant(application.getTenantId()), application.getUserId(), null);
+        UserDetailResponse userResponse = userService.searchUser(userUtils.getStateLevelTenant(application.getTenantId()), application.getUserId(),"");
         User user = userResponse.getUser().get(0);
         log.info(user.toString());
         User enrichedUser = User.builder()

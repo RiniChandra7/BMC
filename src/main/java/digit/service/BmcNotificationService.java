@@ -3,38 +3,37 @@ package digit.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import digit.config.BmcConfiguration;
 import digit.kafka.Producer;
-import digit.web.contracts.SMSRequest;
+import digit.web.models.SMSRequest;
 import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationRequest;
+import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class BmcNotificationService {
 
-    @Autowired
-    private Producer producer;
+    private final Producer producer;
+    private final BmcConfiguration config;
 
-    @Autowired
-    private BmcConfiguration config;
+    private static final String SMS_TEMPLATE = "Dear {USER_NAME}, your scheme application has been successfully created with application number - {APPNUMBER}.";
 
-    @Autowired
-    private RestTemplate restTemplate;
+    @Inject
+    public BmcNotificationService(Producer producer, BmcConfiguration config) {
+        this.producer = producer;
+        this.config = config;
+    }
 
-    private static final String smsTemplate = "Dear {USER_NAME}, your scheme application has been successfully created with application number - {APPNUMBER}.";
-
-    public void process(SchemeApplicationRequest request){
+    public void process(SchemeApplicationRequest request) {
         List<SMSRequest> smsRequestList = new ArrayList<>();
         request.getSchemeApplications().forEach(application -> {
             SMSRequest smsRequest = SMSRequest.builder()
                     .mobileNumber(application.getUser().getMobileNumber())
-                    .message(getCustomMessage(smsTemplate, application))
+                    .message(getCustomMessage(SMS_TEMPLATE, application))
                     .build();
             smsRequestList.add(smsRequest);
         });

@@ -1,6 +1,8 @@
-package digit.web.contracts;
+package digit.web.models;
 
 import org.egov.common.contract.request.RequestInfo;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,13 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Setter
-@Getter
-public class EmailRequest {
-	private RequestInfo requestInfo;
+public class RequestInfoWrapper {
 
-	private Email email;
+	@JsonProperty("RequestInfo")
+	private RequestInfo requestInfo;
 }
