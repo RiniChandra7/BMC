@@ -151,7 +151,7 @@ public class UserService {
             return null;
 
         if (accountId != null)
-            userSearchRequest.setId(Collections.singletonList(accountId));
+            userSearchRequest.setId(Collections.singletonList(accountId.toString()));
 
         if (!StringUtils.isEmpty(userName))
             userSearchRequest.setUserName(userName);
@@ -171,7 +171,7 @@ public class UserService {
         userSearchRequest.setUserType("CITIZEN");
 
         if (!CollectionUtils.isEmpty(ids))
-            userSearchRequest.setId(ids);
+            userSearchRequest.setId(ids.stream().map(String::valueOf).collect(Collectors.toList()));
 
         StringBuilder uri = new StringBuilder(config.getUserHost()).append(config.getUserSearchEndpoint());
         UserDetailResponse userDetailResponse = userUtils.userCall(userSearchRequest, uri);
