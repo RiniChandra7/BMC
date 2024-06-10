@@ -1,4 +1,4 @@
-package digit.repository.builder;
+package digit.repository.querybuilder;
 
 import org.springframework.stereotype.Component;
 

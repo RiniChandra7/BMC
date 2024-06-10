@@ -75,13 +75,6 @@ public class SchemeApplication {
     @JsonProperty("user")
     private User user;
 
-    public Workflow getWorkflow() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWorkflow'");
-    }
-
-    public void setWorkflow(Object workflow) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setWorkflow'");
-    }
+    @JsonProperty("Workflow")
+    private Workflow workflow;
 }
