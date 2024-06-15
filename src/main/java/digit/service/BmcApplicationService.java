@@ -1,5 +1,13 @@
 package digit.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.egov.common.contract.request.RequestInfo;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import digit.enrichment.SchemeApplicationEnrichment;
 import digit.kafka.Producer;
 import digit.repository.SchemeApplicationRepository;
@@ -8,14 +16,6 @@ import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationRequest;
 import digit.web.models.SchemeApplicationSearchCriteria;
 import lombok.extern.slf4j.Slf4j;
-import org.egov.common.contract.request.RequestInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -28,7 +28,6 @@ public class BmcApplicationService {
     private final SchemeApplicationRepository schemeApplicationRepository;
     private final Producer producer;
 
-    @Autowired
     public BmcApplicationService(
             SchemeApplicationValidator validator,
             SchemeApplicationEnrichment enrichmentUtil,

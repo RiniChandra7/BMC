@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
 @jakarta.annotation.Generated(value = "org.egov.codegen.SpringBootCodegen", date = "2024-06-05T23:24:36.608+05:30")
 
 @Controller
@@ -27,9 +28,11 @@ import jakarta.servlet.http.HttpServletRequest;
         }
 
                 @PostMapping("/aadhaar/authenticate")
-                public ResponseEntity<Void> aadhaarAuthenticatePost() {
+                public ResponseEntity<String> aadhaarAuthenticatePost() {
                         String accept = request.getHeader("Accept");
-                        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+                        String jsonResponse = "{'name':'sundeep'}";
+                        
+                        return ResponseEntity.accepted().body(jsonResponse);
                 }
 
                 @PostMapping("/aadhaar/verify")
@@ -37,5 +40,4 @@ import jakarta.servlet.http.HttpServletRequest;
                         String accept = request.getHeader("Accept");
                         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
                 }
-
         }

@@ -3,12 +3,12 @@ package digit.bmc.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.egov.common.contract.models.AuditDetails;
 import org.egov.common.contract.models.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.validation.Valid;
 
 public class BmcRegistrationApplication {
 	

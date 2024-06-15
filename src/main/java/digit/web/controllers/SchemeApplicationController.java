@@ -37,7 +37,6 @@ public class SchemeApplicationController {
     @Autowired
     private ResponseInfoFactory responseInfoFactory;
 
-    @Autowired
     public SchemeApplicationController(ObjectMapper objectMapper, HttpServletRequest request, BmcApplicationService schemeApplicationService) {
         this.objectMapper = objectMapper;
         this.request = request;

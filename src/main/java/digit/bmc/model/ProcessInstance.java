@@ -3,15 +3,14 @@ package digit.bmc.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.egov.common.contract.models.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import digit.bmc.model.workflow.State;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(of = { "id" })

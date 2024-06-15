@@ -1,6 +1,7 @@
--- Need to Refer eg_user where ever eg_user is refered.
+-- Need to Refer eg_user where ever eg_user is referred.
 
-CREATE TABLE eg_bmc_Caste (
+-- Create table if not exists for eg_bmc_Caste
+CREATE TABLE IF NOT EXISTS eg_bmc_Caste (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -10,7 +11,8 @@ CREATE TABLE eg_bmc_Caste (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_Religion (
+-- Create table if not exists for eg_bmc_Religion
+CREATE TABLE IF NOT EXISTS eg_bmc_Religion (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -20,7 +22,8 @@ CREATE TABLE eg_bmc_Religion (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_Divyang (
+-- Create table if not exists for eg_bmc_Divyang
+CREATE TABLE IF NOT EXISTS eg_bmc_Divyang (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -30,7 +33,8 @@ CREATE TABLE eg_bmc_Divyang (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_FileUploaded (
+-- Create table if not exists for eg_bmc_FileUploaded
+CREATE TABLE IF NOT EXISTS eg_bmc_FileUploaded (
     ID SERIAL PRIMARY KEY,
     userid bigint NOT NULL,
     tenantid VARCHAR(255) NOT NULL,
@@ -43,7 +47,8 @@ CREATE TABLE eg_bmc_FileUploaded (
         ON DELETE CASCADE
 );
 
-CREATE TABLE eg_bmc_WardMaster (
+-- Create table if not exists for eg_bmc_WardMaster
+CREATE TABLE IF NOT EXISTS eg_bmc_WardMaster (
     ID SERIAL PRIMARY KEY,
     CityName VARCHAR(255) NOT NULL,
     WardName VARCHAR(255) NOT NULL,
@@ -54,7 +59,8 @@ CREATE TABLE eg_bmc_WardMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_ElectoralWardMaster (
+-- Create table if not exists for eg_bmc_ElectoralWardMaster
+CREATE TABLE IF NOT EXISTS eg_bmc_ElectoralWardMaster (
     ID SERIAL PRIMARY KEY,
     CityName VARCHAR(255) NOT NULL,
     WardName VARCHAR(255) NOT NULL,
@@ -66,7 +72,8 @@ CREATE TABLE eg_bmc_ElectoralWardMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_BankMaster (
+-- Create table if not exists for eg_bmc_BankMaster
+CREATE TABLE IF NOT EXISTS eg_bmc_BankMaster (
     ID SERIAL PRIMARY KEY,
     BankName VARCHAR(255) NOT NULL,
     BankCode VARCHAR(255) NOT NULL,
@@ -77,7 +84,8 @@ CREATE TABLE eg_bmc_BankMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_CourseMaster (
+-- Create table if not exists for eg_bmc_CourseMaster
+CREATE TABLE IF NOT EXISTS eg_bmc_CourseMaster (
     ID SERIAL PRIMARY KEY,
     Sector VARCHAR(255) NOT NULL,
     CourseCode VARCHAR(255) NOT NULL UNIQUE,
@@ -93,7 +101,8 @@ CREATE TABLE eg_bmc_CourseMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_QualificationMaster (
+-- Create table if not exists for eg_bmc_QualificationMaster
+CREATE TABLE IF NOT EXISTS eg_bmc_QualificationMaster (
     ID SERIAL PRIMARY KEY,
     Qualification VARCHAR(255) NOT NULL,
     Remark VARCHAR(1000),
@@ -103,7 +112,8 @@ CREATE TABLE eg_bmc_QualificationMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_SectorMaster (
+-- Create table if not exists for eg_bmc_SectorMaster
+CREATE TABLE IF NOT EXISTS eg_bmc_SectorMaster (
     ID SERIAL PRIMARY KEY,
     Sector VARCHAR(255) NOT NULL,
     Remark VARCHAR(1000),
@@ -113,7 +123,8 @@ CREATE TABLE eg_bmc_SectorMaster (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_Schemes (
+-- Create table if not exists for eg_bmc_Schemes
+CREATE TABLE IF NOT EXISTS eg_bmc_Schemes (
     Id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000) NOT NULL,
@@ -123,7 +134,8 @@ CREATE TABLE eg_bmc_Schemes (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_Event (
+-- Create table if not exists for eg_bmc_Event
+CREATE TABLE IF NOT EXISTS eg_bmc_Event (
     Id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     StartDt BIGINT NOT NULL,
@@ -134,7 +146,8 @@ CREATE TABLE eg_bmc_Event (
     ModifiedBy VARCHAR(255)
 );
 
-CREATE TABLE eg_bmc_SchemeEvent (
+-- Create table if not exists for eg_bmc_SchemeEvent
+CREATE TABLE IF NOT EXISTS eg_bmc_SchemeEvent (
     Id SERIAL PRIMARY KEY,
     SchemeID INT NOT NULL,
     EventID INT NOT NULL,
@@ -150,7 +163,8 @@ CREATE TABLE eg_bmc_SchemeEvent (
         ON DELETE CASCADE
 );
 
-CREATE TABLE eg_bmc_AadharUser (
+-- Create table if not exists for eg_bmc_AadharUser
+CREATE TABLE IF NOT EXISTS eg_bmc_AadharUser (
     id SERIAL PRIMARY KEY,
     AadharRef VARCHAR(12) NOT NULL,
     userid bigint NOT NULL,
@@ -170,7 +184,8 @@ CREATE TABLE eg_bmc_AadharUser (
         ON DELETE CASCADE
 );
 
-CREATE TABLE eg_bmc_Address (
+-- Create table if not exists for eg_bmc_Address
+CREATE TABLE IF NOT EXISTS eg_bmc_Address (
     ID SERIAL PRIMARY KEY,
     userid bigint NOT NULL,
     tenantid VARCHAR(255) NOT NULL,
@@ -193,7 +208,8 @@ CREATE TABLE eg_bmc_Address (
         ON DELETE CASCADE
 );
 
-CREATE TABLE eg_bmc_UserOtherDetails (
+-- Create table if not exists for eg_bmc_UserOtherDetails
+CREATE TABLE IF NOT EXISTS eg_bmc_UserOtherDetails (
     ID SERIAL PRIMARY KEY,
     userid bigint NOT NULL,
     tenantid VARCHAR(255) NOT NULL,
@@ -225,7 +241,8 @@ CREATE TABLE eg_bmc_UserOtherDetails (
         ON DELETE CASCADE
 );
 
-CREATE TABLE eg_bmc_UserSchemeApplication (
+-- Create table if not exists for eg_bmc_UserSchemeApplication
+CREATE TABLE IF NOT EXISTS eg_bmc_UserSchemeApplication (
     id SERIAL PRIMARY KEY,
     applicationNumber VARCHAR(64),
     userid bigint NOT NULL,
@@ -246,7 +263,8 @@ CREATE TABLE eg_bmc_UserSchemeApplication (
         ON DELETE CASCADE
 );
 
-CREATE TABLE eg_bmc_Courses (
+-- Create table if not exists for eg_bmc_Courses
+CREATE TABLE IF NOT EXISTS eg_bmc_Courses (
     ID SERIAL PRIMARY KEY,
     CourseName VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
@@ -264,7 +282,8 @@ CREATE TABLE eg_bmc_Courses (
     Amount FLOAT
 );
 
-CREATE TABLE eg_bmc_SchemeCourse (
+-- Create table if not exists for eg_bmc_SchemeCourse
+CREATE TABLE IF NOT EXISTS eg_bmc_SchemeCourse (
     id SERIAL PRIMARY KEY,
     SchemeID INT NOT NULL,
     CourseID INT NOT NULL,
@@ -277,14 +296,16 @@ CREATE TABLE eg_bmc_SchemeCourse (
         ON DELETE CASCADE
 );
 
-CREATE TABLE eg_bmc_Machines (
+-- Create table if not exists for eg_bmc_Machines
+CREATE TABLE IF NOT EXISTS eg_bmc_Machines (
     ID SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description VARCHAR(1000),
     Amount FLOAT
 );
 
-CREATE TABLE eg_bmc_SchemeMachine (
+-- Create table if not exists for eg_bmc_SchemeMachine
+CREATE TABLE IF NOT EXISTS eg_bmc_SchemeMachine (
     id SERIAL PRIMARY KEY,
     MachineID INT NOT NULL,
     SchemeID INT NOT NULL,
@@ -292,11 +313,7 @@ CREATE TABLE eg_bmc_SchemeMachine (
     CONSTRAINT fk_schemachine_machine FOREIGN KEY (MachineID) REFERENCES eg_bmc_Machines(ID)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINT fk_schemachine_scheme FOREIGN KEY (SchemeID) REFERENCES eg_bmc_Schemes(ID)
+    CONSTRAINT fk_schemachine_scheme FOREIGN KEY (SchemeID) REFERENCES eg_bmc_Schemes(Id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
-
-
-
-
