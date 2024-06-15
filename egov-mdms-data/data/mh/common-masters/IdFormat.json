@@ -1,0 +1,10 @@
+{
+  "tenantId": "mh",
+  "moduleName": "common-masters",
+  "IdFormat": [
+    {
+      "format": "MH-BMC-[cy:yyyy-MM-dd]-[SEQ_EG_BMC_ID]",
+      "idname": "bmc.schemeapplicationid"
+    }
+  ]
+}
