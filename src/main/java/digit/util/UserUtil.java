@@ -11,11 +11,12 @@ import org.egov.common.contract.request.Role;
 import org.egov.common.contract.request.User;
 import org.egov.common.contract.user.UserDetailResponse;
 import org.egov.tracer.model.CustomException;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import digit.config.BmcConfiguration;
 import digit.repository.ServiceRequestRepository;
 
 @Component
@@ -26,14 +27,8 @@ public class UserUtil {
 
     private ServiceRequestRepository serviceRequestRepository;
 
-    @Value("${egov.user.create.path}")
-    private String userCreateEndpoint;
-
-    @Value("${egov.user.search.path}")
-    private String userSearchEndpoint;
-
-    @Value("${egov.user.update.path}")
-    private String userUpdateEndpoint;
+    @Autowired
+    private BmcConfiguration configs;
 
     public UserUtil(ObjectMapper mapper, ServiceRequestRepository serviceRequestRepository) {
         this.mapper = mapper;
@@ -49,9 +44,9 @@ public class UserUtil {
 
     public UserDetailResponse userCall(Object userRequest, StringBuilder uri) {
         String dobFormat = null;
-        if(uri.toString().contains(userSearchEndpoint)  || uri.toString().contains(userUpdateEndpoint))
+        if(uri.toString().contains(configs.getUserSearchEndpoint())  || uri.toString().contains(configs.getUserUpdateEndpoint()))
             dobFormat="yyyy-MM-dd";
-        else if(uri.toString().contains(userCreateEndpoint))
+        else if(uri.toString().contains(configs.getUserCreateEndpoint()))
             dobFormat = "dd/MM/yyyy";
         try{
             LinkedHashMap responseMap = (LinkedHashMap)serviceRequestRepository.fetchResult(uri, userRequest);
