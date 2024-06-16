@@ -1,0 +1,14 @@
+{
+  "tenantId": "mh",
+  "moduleName": "tenant",
+  "nationalInfo": [
+    {
+      "stateCode": "Maharashtra",
+      "stateName": "Maharashtra",
+      "code": "mh.mumbai",
+      "name": "Mumbai",
+      "active": true,
+      "module": "NationalDashboard"
+    }
+  ]
+}

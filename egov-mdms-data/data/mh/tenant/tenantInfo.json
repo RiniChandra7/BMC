@@ -1,0 +1,16 @@
+{
+  "tenantId": "mh",
+  "moduleName": "tenant",
+  "tenantInfo": [
+    {
+      "code": "mh.mumbai",
+      "districtCode": "Mumbai",
+      "population": "156716",
+      "malePopulation": "82045",
+      "femalePopultion": "74671",
+      "workingPopulation": "37.2",
+      "literacyRate": "79.2",
+      "languagesSpoken": ["MR", "HI", "EN"]
+    }
+  ]
+}
