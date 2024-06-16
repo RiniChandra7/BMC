@@ -123,29 +123,9 @@
       "description": "Collection Report Viewer can view Reports"
     },
     {
-      "code": "testonecode112234324",
-      "name": "test3test2",
-      "description": "test123description"
-    },
-    {
-      "code": "testtwocode11234354",
-      "name": "test4test1",
-      "description": "testcodedescription"
-    },
-    {
-      "code": "testonecode112234324",
-      "name": "test3test21",
-      "description": "test123description"
-    },
-    {
       "code": "STORE INCHARGE",
       "name": "Store Incharge",
       "description": "Incharge of the ULB store"
-    },
-    {
-      "code": "directortestcode112234324",
-      "name": "director123456",
-      "description": "test123description"
     },
     {
       "code": "COMMISSIONER",
