@@ -1,13 +1,13 @@
 {
-  "tenantId": "pb",
+  "tenantId": "pg",
   "moduleName": "tenant",
   "tenants": [
     {
-      "code": "pb",
+      "code": "pg",
       "name": "Punjab",
       "description": "Punjab",
-      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.jalandhar/logo.png",
-      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.jalandhar/logo.png",
+      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.jalandhar/logo.png",
+      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.jalandhar/logo.png",
       "domainUrl": "www.mcjalandhar.in",
       "type": "CITY",
       "twitterUrl": "https://twitter.com/search?q=%23jalandhar",
@@ -37,7 +37,7 @@
       "pdfContactDetails": "PB_CONTACT_DETAILS"
     },
     {
-      "code": "pb.jalandhar",
+      "code": "pg.jalandhar",
       "name": "Jalandhar",
       "description": "Jalandhar",
       "logoId": "",
@@ -71,11 +71,11 @@
       "pdfContactDetails": "PB_JALANDHAR_CONTACT_DETAILS"
     },
     {
-      "code": "pb.phagwara",
+      "code": "pg.phagwara",
       "name": "Phagwara",
       "description": "Phagwara",
-      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.phagwara/logo.png",
-      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.phagwara/logo.png",
+      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.phagwara/logo.png",
+      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.phagwara/logo.png",
       "domainUrl": "http://www.mcphagwara.com/index.php",
       "type": "CITY",
       "twitterUrl": null,
@@ -105,11 +105,11 @@
       "pdfContactDetails": "PB_PHAGWARA_CONTACT_DETAILS"
     },
     {
-      "code": "pb.amritsar",
+      "code": "pg.amritsar",
       "name": "Amritsar",
       "description": null,
-      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.amritsar/logo.png",
-      "imageId": "/pb-egov-assets/pb.amritsar/logo.png",
+      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.amritsar/logo.png",
+      "imageId": "/pb-egov-assets/pg.amritsar/logo.png",
       "domainUrl": "www.amritsarcorp.com",
       "type": "CITY",
       "twitterUrl": "https://twitter.com/search?q=%23AMRITSAR",
@@ -141,11 +141,11 @@
       "pdfContactDetails": "PB_AMRITSAR_CONTACT_DETAILS"
     },
     {
-      "code": "pb.nawanshahr",
+      "code": "pg.nawanshahr",
       "name": "Nawanshahr",
       "description": null,
-      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.nawanshahr/logo.png",
-      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.nawanshahr/logo.png",
+      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.nawanshahr/logo.png",
+      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.nawanshahr/logo.png",
       "domainUrl": "www.nawanshahr.com",
       "type": "CITY",
       "twitterUrl": null,
@@ -176,11 +176,11 @@
       "pdfContactDetails": "PB_NAWANSHAHR_CONTACT_DETAILS"
     },
     {
-      "code": "pb.mohali",
+      "code": "pg.mohali",
       "name": "Mohali",
       "description": "Mohali",
-      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.mohali/logo.png",
-      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.mohali/logo.png",
+      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.mohali/logo.png",
+      "imageId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.mohali/logo.png",
       "domainUrl": "www.mcjalandhar.in",
       "type": "CITY",
       "twitterUrl": "https://twitter.com/search?q=%23mohali",
@@ -210,10 +210,10 @@
       "pdfContactDetails": "PB_MOHALI_CONTACT_DETAILS"
     },
     {
-      "code": "pb.nayagaon",
+      "code": "pg.nayagaon",
       "name": "Nayagaon",
       "description": "Nayagaon",
-      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.nayagaon/logo.png",
+      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.nayagaon/logo.png",
       "imageId": null,
       "domainUrl": "http://lgpunjab.gov.in/eSewa/nayagaon",
       "type": "CITY",
@@ -244,10 +244,10 @@
       "pdfContactDetails": "PB_NAYAGAON_CONTACT_DETAILS"
     },
     {
-      "code": "pb.derabassi",
+      "code": "pg.derabassi",
       "name": "Derabassi",
       "description": "Derabassi",
-      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pb.derabassi/logo.png",
+      "logoId": "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/pg.derabassi/logo.png",
       "imageId": null,
       "domainUrl": "http://lgpunjab.gov.in/eSewa/derabassi",
       "type": "CITY",

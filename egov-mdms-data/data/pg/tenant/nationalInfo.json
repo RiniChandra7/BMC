@@ -1,11 +1,11 @@
 {
-  "tenantId": "pb",
+  "tenantId": "pg",
   "moduleName": "tenant",
   "nationalInfo": [
     {
       "stateCode": "Punjab",
       "stateName": "Punjab",
-      "code": "pb.amritsar",
+      "code": "pg.amritsar",
       "name": "Amritsar",
       "active": true,
       "module": "NationalDashboard"
@@ -13,7 +13,7 @@
     {
       "stateCode": "Punjab",
       "stateName": "Punjab",
-      "code": "pb.jalandhar",
+      "code": "pg.jalandhar",
       "name": "Jalandhar",
       "active": true,
       "module": "NationalDashboard"
@@ -21,7 +21,7 @@
     {
       "stateCode": "Punjab",
       "stateName": "Punjab",
-      "code": "pb.phagwara",
+      "code": "pg.phagwara",
       "name": "Phagwara",
       "active": true,
       "module": "NationalDashboard"
@@ -29,7 +29,7 @@
     {
       "stateCode": "Punjab",
       "stateName": "Punjab",
-      "code": "pb.nawanshahr",
+      "code": "pg.nawanshahr",
       "name": "Nawanshahr",
       "active": true,
       "module": "NationalDashboard"
@@ -37,7 +37,7 @@
     {
       "stateCode": "Punjab",
       "stateName": "Punjab",
-      "code": "pb.derabassi",
+      "code": "pg.derabassi",
       "name": "Derabassi",
       "active": true,
       "module": "NationalDashboard"

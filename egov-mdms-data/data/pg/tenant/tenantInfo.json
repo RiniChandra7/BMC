@@ -1,9 +1,9 @@
 {
-  "tenantId": "pb",
+  "tenantId": "pg",
   "moduleName": "tenant",
   "tenantInfo": [
     {
-      "code": "pb.jalandhar",
+      "code": "pg.jalandhar",
       "districtCode": "Barnala",
       "population": "156716",
       "malePopulation": "82045",
@@ -13,7 +13,7 @@
       "languagesSpoken": ["PN", "HN", "EN"]
     },
     {
-      "code": "pb.amritsar",
+      "code": "pg.amritsar",
       "districtCode": "Bahadaur",
       "population": "116449",
       "malePopulation": "62554",
@@ -24,7 +24,7 @@
     },
   
     {
-      "code": "pb.patankot",
+      "code": "pg.patankot",
       "districtCode": "Dhanaula",
       "population": "17331",
       "malePopulation": "10521",
@@ -34,7 +34,7 @@
       "languagesSpoken": ["GR", "PN", "HN"]
     },
     {
-      "code": "pb.nawanshahr",
+      "code": "pg.nawanshahr",
       "districtCode": "Dhanaula",
       "population": "12507",
       "malePopulation": "6810",
