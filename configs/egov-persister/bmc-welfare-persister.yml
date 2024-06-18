@@ -1,0 +1,554 @@
+serviceMaps:
+  serviceName: bmc-welfare-services
+  mappings:
+    - version: 1.0
+      description: Persists BMC scheme details in tables
+      fromTopic: save-bmc-application
+      isTransaction: true
+      queryMaps:
+        - query: INSERT INTO eg_bmc_Caste(ID, Name, Description, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?);
+          basePath: Caste.*
+          jsonMaps:
+            - jsonPath: $.Caste.*.id
+            - jsonPath: $.Caste.*.name
+            - jsonPath: $.Caste.*.description
+            - jsonPath: $.Caste.*.createdOn
+            - jsonPath: $.Caste.*.modifiedOn
+            - jsonPath: $.Caste.*.createdBy
+            - jsonPath: $.Caste.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_Religion(ID, Name, Description, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?);
+          basePath: Religion.*
+          jsonMaps:
+            - jsonPath: $.Religion.*.id
+            - jsonPath: $.Religion.*.name
+            - jsonPath: $.Religion.*.description
+            - jsonPath: $.Religion.*.createdOn
+            - jsonPath: $.Religion.*.modifiedOn
+            - jsonPath: $.Religion.*.createdBy
+            - jsonPath: $.Religion.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_Divyang(ID, Name, Description, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?);
+          basePath: Divyang.*
+          jsonMaps:
+            - jsonPath: $.Divyang.*.id
+            - jsonPath: $.Divyang.*.name
+            - jsonPath: $.Divyang.*.description
+            - jsonPath: $.Divyang.*.createdOn
+            - jsonPath: $.Divyang.*.modifiedOn
+            - jsonPath: $.Divyang.*.createdBy
+            - jsonPath: $.Divyang.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_FileUploaded(ID, userid, tenantid, FILEID, URL, Type) VALUES (?, ?, ?, ?, ?, ?);
+          basePath: FileUploaded.*
+          jsonMaps:
+            - jsonPath: $.FileUploaded.*.id
+            - jsonPath: $.FileUploaded.*.userid
+            - jsonPath: $.FileUploaded.*.tenantid
+            - jsonPath: $.FileUploaded.*.fileid
+            - jsonPath: $.FileUploaded.*.url
+            - jsonPath: $.FileUploaded.*.type
+
+        - query: INSERT INTO eg_bmc_WardMaster(ID, CityName, WardName, Remark, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: WardMaster.*
+          jsonMaps:
+            - jsonPath: $.WardMaster.*.id
+            - jsonPath: $.WardMaster.*.cityName
+            - jsonPath: $.WardMaster.*.wardName
+            - jsonPath: $.WardMaster.*.remark
+            - jsonPath: $.WardMaster.*.createdOn
+            - jsonPath: $.WardMaster.*.modifiedOn
+            - jsonPath: $.WardMaster.*.createdBy
+            - jsonPath: $.WardMaster.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_ElectoralWardMaster(ID, CityName, WardName, ElectoralWardName, Remark, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: ElectoralWardMaster.*
+          jsonMaps:
+            - jsonPath: $.ElectoralWardMaster.*.id
+            - jsonPath: $.ElectoralWardMaster.*.cityName
+            - jsonPath: $.ElectoralWardMaster.*.wardName
+            - jsonPath: $.ElectoralWardMaster.*.electoralWardName
+            - jsonPath: $.ElectoralWardMaster.*.remark
+            - jsonPath: $.ElectoralWardMaster.*.createdOn
+            - jsonPath: $.ElectoralWardMaster.*.modifiedOn
+            - jsonPath: $.ElectoralWardMaster.*.createdBy
+            - jsonPath: $.ElectoralWardMaster.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_BankMaster(ID, BankName, BankCode, Remark, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: BankMaster.*
+          jsonMaps:
+            - jsonPath: $.BankMaster.*.id
+            - jsonPath: $.BankMaster.*.bankName
+            - jsonPath: $.BankMaster.*.bankCode
+            - jsonPath: $.BankMaster.*.remark
+            - jsonPath: $.BankMaster.*.createdOn
+            - jsonPath: $.BankMaster.*.modifiedOn
+            - jsonPath: $.BankMaster.*.createdBy
+            - jsonPath: $.BankMaster.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_CourseMaster(ID, Sector, CourseCode, CourseName, Qualification, CourseDuration, TotalCost, NSQFLevel, NQRCode, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: CourseMaster.*
+          jsonMaps:
+            - jsonPath: $.CourseMaster.*.id
+            - jsonPath: $.CourseMaster.*.sector
+            - jsonPath: $.CourseMaster.*.courseCode
+            - jsonPath: $.CourseMaster.*.courseName
+            - jsonPath: $.CourseMaster.*.qualification
+            - jsonPath: $.CourseMaster.*.courseDuration
+            - jsonPath: $.CourseMaster.*.totalCost
+            - jsonPath: $.CourseMaster.*.nsqfLevel
+            - jsonPath: $.CourseMaster.*.nqrcode
+            - jsonPath: $.CourseMaster.*.createdOn
+            - jsonPath: $.CourseMaster.*.modifiedOn
+            - jsonPath: $.CourseMaster.*.createdBy
+            - jsonPath: $.CourseMaster.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_QualificationMaster(ID, Qualification, Remark, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?);
+          basePath: QualificationMaster.*
+          jsonMaps:
+            - jsonPath: $.QualificationMaster.*.id
+            - jsonPath: $.QualificationMaster.*.qualification
+            - jsonPath: $.QualificationMaster.*.remark
+            - jsonPath: $.QualificationMaster.*.createdOn
+            - jsonPath: $.QualificationMaster.*.modifiedOn
+            - jsonPath: $.QualificationMaster.*.createdBy
+            - jsonPath: $.QualificationMaster.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_SectorMaster(ID, Sector, Remark, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?);
+          basePath: SectorMaster.*
+          jsonMaps:
+            - jsonPath: $.SectorMaster.*.id
+            - jsonPath: $.SectorMaster.*.sector
+            - jsonPath: $.SectorMaster.*.remark
+            - jsonPath: $.SectorMaster.*.createdOn
+            - jsonPath: $.SectorMaster.*.modifiedOn
+            - jsonPath: $.SectorMaster.*.createdBy
+            - jsonPath: $.SectorMaster.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_Schemes(ID, Name, Description, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?);
+          basePath: Schemes.*
+          jsonMaps:
+            - jsonPath: $.Schemes.*.id
+            - jsonPath: $.Schemes.*.name
+            - jsonPath: $.Schemes.*.description
+            - jsonPath: $.Schemes.*.createdOn
+            - jsonPath: $.Schemes.*.modifiedOn
+            - jsonPath: $.Schemes.*.createdBy
+            - jsonPath: $.Schemes.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_Event(ID, Name, StartDt, EndDt, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: Event.*
+          jsonMaps:
+            - jsonPath: $.Event.*.id
+            - jsonPath: $.Event.*.name
+            - jsonPath: $.Event.*.startDt
+            - jsonPath: $.Event.*.endDt
+            - jsonPath: $.Event.*.createdOn
+            - jsonPath: $.Event.*.modifiedOn
+            - jsonPath: $.Event.*.createdBy
+            - jsonPath: $.Event.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_SchemeEvent(ID, SchemeID, EventID, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?);
+          basePath: SchemeEvent.*
+          jsonMaps:
+            - jsonPath: $.SchemeEvent.*.id
+            - jsonPath: $.SchemeEvent.*.schemeId
+            - jsonPath: $.SchemeEvent.*.eventId
+            - jsonPath: $.SchemeEvent.*.createdOn
+            - jsonPath: $.SchemeEvent.*.modifiedOn
+            - jsonPath: $.SchemeEvent.*.createdBy
+            - jsonPath: $.SchemeEvent.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_AadharUser(ID, AadharRef, userid, tenantid, AadharFatherName, AadharName, AadharDOB, AAdharMobile, Gender, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: AadharUser.*
+          jsonMaps:
+            - jsonPath: $.AadharUser.*.id
+            - jsonPath: $.AadharUser.*.aadharRef
+            - jsonPath: $.AadharUser.*.userid
+            - jsonPath: $.AadharUser.*.tenantid
+            - jsonPath: $.AadharUser.*.aadharFatherName
+            - jsonPath: $.AadharUser.*.aadharName
+            - jsonPath: $.AadharUser.*.aadharDOB
+            - jsonPath: $.AadharUser.*.aadharMobile
+            - jsonPath: $.AadharUser.*.gender
+            - jsonPath: $.AadharUser.*.createdOn
+            - jsonPath: $.AadharUser.*.modifiedOn
+            - jsonPath: $.AadharUser.*.createdBy
+            - jsonPath: $.AadharUser.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_Address(ID, userid, tenantid, Address1, Address2, Location, Ward, City, District, State, Country, Pincode, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: Address.*
+          jsonMaps:
+            - jsonPath: $.Address.*.id
+            - jsonPath: $.Address.*.userid
+            - jsonPath: $.Address.*.tenantid
+            - jsonPath: $.Address.*.address1
+            - jsonPath: $.Address.*.address2
+            - jsonPath: $.Address.*.location
+            - jsonPath: $.Address.*.ward
+            - jsonPath: $.Address.*.city
+            - jsonPath: $.Address.*.district
+            - jsonPath: $.Address.*.state
+            - jsonPath: $.Address.*.country
+            - jsonPath: $.Address.*.pincode
+            - jsonPath: $.Address.*.createdOn
+            - jsonPath: $.Address.*.modifiedOn
+            - jsonPath: $.Address.*.createdBy
+            - jsonPath: $.Address.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_UserOtherDetails(ID, userid, tenantid, CasteID, ReligionID, DivyangCardID, DivyangPercent, TransgenderID, CreatedOn, ModifiedOn, CreatedBy, ModifiedBy, DivyangID, rationCardCategory, educationLevel, udid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: UserOtherDetails.*
+          jsonMaps:
+            - jsonPath: $.UserOtherDetails.*.id
+            - jsonPath: $.UserOtherDetails.*.userid
+            - jsonPath: $.UserOtherDetails.*.tenantid
+            - jsonPath: $.UserOtherDetails.*.casteId
+            - jsonPath: $.UserOtherDetails.*.religionId
+            - jsonPath: $.UserOtherDetails.*.divyangCardId
+            - jsonPath: $.UserOtherDetails.*.divyangPercent
+            - jsonPath: $.UserOtherDetails.*.transgenderId
+            - jsonPath: $.UserOtherDetails.*.createdOn
+            - jsonPath: $.UserOtherDetails.*.modifiedOn
+            - jsonPath: $.UserOtherDetails.*.createdBy
+            - jsonPath: $.UserOtherDetails.*.modifiedBy
+            - jsonPath: $.UserOtherDetails.*.divyangId
+            - jsonPath: $.UserOtherDetails.*.rationCardCategory
+            - jsonPath: $.UserOtherDetails.*.educationLevel
+            - jsonPath: $.UserOtherDetails.*.udid
+
+        - query: INSERT INTO eg_bmc_UserSchemeApplication(ID, applicationNumber, userid, tenantid, optedId, ApplicationStatus, VerificationStatus, FirstApprovalStatus, RandomSelection, FinalApproval, Submitted, ModifiedOn, CreatedBy, ModifiedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: UserSchemeApplication.*
+          jsonMaps:
+            - jsonPath: $.UserSchemeApplication.*.id
+            - jsonPath: $.UserSchemeApplication.*.applicationNumber
+            - jsonPath: $.UserSchemeApplication.*.userid
+            - jsonPath: $.UserSchemeApplication.*.tenantid
+            - jsonPath: $.UserSchemeApplication.*.optedId
+            - jsonPath: $.UserSchemeApplication.*.applicationStatus
+            - jsonPath: $.UserSchemeApplication.*.verificationStatus
+            - jsonPath: $.UserSchemeApplication.*.firstApprovalStatus
+            - jsonPath: $.UserSchemeApplication.*.randomSelection
+            - jsonPath: $.UserSchemeApplication.*.finalApproval
+            - jsonPath: $.UserSchemeApplication.*.submitted
+            - jsonPath: $.UserSchemeApplication.*.modifiedOn
+            - jsonPath: $.UserSchemeApplication.*.createdBy
+            - jsonPath: $.UserSchemeApplication.*.modifiedBy
+
+        - query: INSERT INTO eg_bmc_Courses(ID, CourseName, Description, Duration, StartDt, EndDt, TypeID, URL, Institute, ImgURL, InstituteAddress, ModifiedOn, CreatedBy, ModifiedBy, Amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+          basePath: Courses.*
+          jsonMaps:
+            - jsonPath: $.Courses.*.id
+            - jsonPath: $.Courses.*.courseName
+            - jsonPath: $.Courses.*.description
+            - jsonPath: $.Courses.*.duration
+            - jsonPath: $.Courses.*.startDt
+            - jsonPath: $.Courses.*.endDt
+            - jsonPath: $.Courses.*.typeId
+            - jsonPath: $.Courses.*.url
+            - jsonPath: $.Courses.*.institute
+            - jsonPath: $.Courses.*.imgUrl
+            - jsonPath: $.Courses.*.instituteAddress
+            - jsonPath: $.Courses.*.modifiedOn
+            - jsonPath: $.Courses.*.createdBy
+            - jsonPath: $.Courses.*.modifiedBy
+            - jsonPath: $.Courses.*.amount
+
+        - query: INSERT INTO eg_bmc_SchemeCourse(ID, SchemeID, CourseID, GrantAmount) VALUES (?, ?, ?, ?);
+          basePath: SchemeCourse.*
+          jsonMaps:
+            - jsonPath: $.SchemeCourse.*.id
+            - jsonPath: $.SchemeCourse.*.schemeId
+            - jsonPath: $.SchemeCourse.*.courseId
+            - jsonPath: $.SchemeCourse.*.grantAmount
+
+        - query: INSERT INTO eg_bmc_Machines(ID, Name, Description, Amount) VALUES (?, ?, ?, ?);
+          basePath: Machines.*
+          jsonMaps:
+            - jsonPath: $.Machines.*.id
+            - jsonPath: $.Machines.*.name
+            - jsonPath: $.Machines.*.description
+            - jsonPath: $.Machines.*.amount
+
+        - query: INSERT INTO eg_bmc_SchemeMachine(ID, MachineID, SchemeID, GrantAmount) VALUES (?, ?, ?, ?);
+          basePath: SchemeMachine.*
+          jsonMaps:
+            - jsonPath: $.SchemeMachine.*.id
+            - jsonPath: $.SchemeMachine.*.machineId
+            - jsonPath: $.SchemeMachine.*.schemeId
+            - jsonPath: $.SchemeMachine.*.grantAmount
+
+    - version: 1.0
+      description: Updates BMC scheme details in tables
+      fromTopic: update-bmc-application
+      isTransaction: true
+      queryMaps:
+        - query: UPDATE eg_bmc_Caste SET Name=?, Description=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: Caste.*
+          jsonMaps:
+            - jsonPath: $.Caste.*.name
+            - jsonPath: $.Caste.*.description
+            - jsonPath: $.Caste.*.createdOn
+            - jsonPath: $.Caste.*.modifiedOn
+            - jsonPath: $.Caste.*.createdBy
+            - jsonPath: $.Caste.*.modifiedBy
+            - jsonPath: $.Caste.*.id
+
+        - query: UPDATE eg_bmc_Religion SET Name=?, Description=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: Religion.*
+          jsonMaps:
+            - jsonPath: $.Religion.*.name
+            - jsonPath: $.Religion.*.description
+            - jsonPath: $.Religion.*.createdOn
+            - jsonPath: $.Religion.*.modifiedOn
+            - jsonPath: $.Religion.*.createdBy
+            - jsonPath: $.Religion.*.modifiedBy
+            - jsonPath: $.Religion.*.id
+
+        - query: UPDATE eg_bmc_Divyang SET Name=?, Description=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: Divyang.*
+          jsonMaps:
+            - jsonPath: $.Divyang.*.name
+            - jsonPath: $.Divyang.*.description
+            - jsonPath: $.Divyang.*.createdOn
+            - jsonPath: $.Divyang.*.modifiedOn
+            - jsonPath: $.Divyang.*.createdBy
+            - jsonPath: $.Divyang.*.modifiedBy
+            - jsonPath: $.Divyang.*.id
+
+        - query: UPDATE eg_bmc_FileUploaded SET userid=?, tenantid=?, FILEID=?, URL=?, Type=? WHERE ID=?;
+          basePath: FileUploaded.*
+          jsonMaps:
+            - jsonPath: $.FileUploaded.*.userid
+            - jsonPath: $.FileUploaded.*.tenantid
+            - jsonPath: $.FileUploaded.*.fileid
+            - jsonPath: $.FileUploaded.*.url
+            - jsonPath: $.FileUploaded.*.type
+            - jsonPath: $.FileUploaded.*.id
+
+        - query: UPDATE eg_bmc_WardMaster SET CityName=?, WardName=?, Remark=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: WardMaster.*
+          jsonMaps:
+            - jsonPath: $.WardMaster.*.cityName
+            - jsonPath: $.WardMaster.*.wardName
+            - jsonPath: $.WardMaster.*.remark
+            - jsonPath: $.WardMaster.*.createdOn
+            - jsonPath: $.WardMaster.*.modifiedOn
+            - jsonPath: $.WardMaster.*.createdBy
+            - jsonPath: $.WardMaster.*.modifiedBy
+            - jsonPath: $.WardMaster.*.id
+
+        - query: UPDATE eg_bmc_ElectoralWardMaster SET CityName=?, WardName=?, ElectoralWardName=?, Remark=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: ElectoralWardMaster.*
+          jsonMaps:
+            - jsonPath: $.ElectoralWardMaster.*.cityName
+            - jsonPath: $.ElectoralWardMaster.*.wardName
+            - jsonPath: $.ElectoralWardMaster.*.electoralWardName
+            - jsonPath: $.ElectoralWardMaster.*.remark
+            - jsonPath: $.ElectoralWardMaster.*.createdOn
+            - jsonPath: $.ElectoralWardMaster.*.modifiedOn
+            - jsonPath: $.ElectoralWardMaster.*.createdBy
+            - jsonPath: $.ElectoralWardMaster.*.modifiedBy
+            - jsonPath: $.ElectoralWardMaster.*.id
+
+        - query: UPDATE eg_bmc_BankMaster SET BankName=?, BankCode=?, Remark=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: BankMaster.*
+          jsonMaps:
+            - jsonPath: $.BankMaster.*.bankName
+            - jsonPath: $.BankMaster.*.bankCode
+            - jsonPath: $.BankMaster.*.remark
+            - jsonPath: $.BankMaster.*.createdOn
+            - jsonPath: $.BankMaster.*.modifiedOn
+            - jsonPath: $.BankMaster.*.createdBy
+            - jsonPath: $.BankMaster.*.modifiedBy
+            - jsonPath: $.BankMaster.*.id
+
+        - query: UPDATE eg_bmc_CourseMaster SET Sector=?, CourseCode=?, CourseName=?, Qualification=?, CourseDuration=?, TotalCost=?, NSQFLevel=?, NQRCode=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: CourseMaster.*
+          jsonMaps:
+            - jsonPath: $.CourseMaster.*.sector
+            - jsonPath: $.CourseMaster.*.courseCode
+            - jsonPath: $.CourseMaster.*.courseName
+            - jsonPath: $.CourseMaster.*.qualification
+            - jsonPath: $.CourseMaster.*.courseDuration
+            - jsonPath: $.CourseMaster.*.totalCost
+            - jsonPath: $.CourseMaster.*.nsqfLevel
+            - jsonPath: $.CourseMaster.*.nqrcode
+            - jsonPath: $.CourseMaster.*.createdOn
+            - jsonPath: $.CourseMaster.*.modifiedOn
+            - jsonPath: $.CourseMaster.*.createdBy
+            - jsonPath: $.CourseMaster.*.modifiedBy
+            - jsonPath: $.CourseMaster.*.id
+
+        - query: UPDATE eg_bmc_QualificationMaster SET Qualification=?, Remark=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: QualificationMaster.*
+          jsonMaps:
+            - jsonPath: $.QualificationMaster.*.qualification
+            - jsonPath: $.QualificationMaster.*.remark
+            - jsonPath: $.QualificationMaster.*.createdOn
+            - jsonPath: $.QualificationMaster.*.modifiedOn
+            - jsonPath: $.QualificationMaster.*.createdBy
+            - jsonPath: $.QualificationMaster.*.modifiedBy
+            - jsonPath: $.QualificationMaster.*.id
+
+        - query: UPDATE eg_bmc_SectorMaster SET Sector=?, Remark=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: SectorMaster.*
+          jsonMaps:
+            - jsonPath: $.SectorMaster.*.sector
+            - jsonPath: $.SectorMaster.*.remark
+            - jsonPath: $.SectorMaster.*.createdOn
+            - jsonPath: $.SectorMaster.*.modifiedOn
+            - jsonPath: $.SectorMaster.*.createdBy
+            - jsonPath: $.SectorMaster.*.modifiedBy
+            - jsonPath: $.SectorMaster.*.id
+
+        - query: UPDATE eg_bmc_Schemes SET Name=?, Description=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: Schemes.*
+          jsonMaps:
+            - jsonPath: $.Schemes.*.name
+            - jsonPath: $.Schemes.*.description
+            - jsonPath: $.Schemes.*.createdOn
+            - jsonPath: $.Schemes.*.modifiedOn
+            - jsonPath: $.Schemes.*.createdBy
+            - jsonPath: $.Schemes.*.modifiedBy
+            - jsonPath: $.Schemes.*.id
+
+        - query: UPDATE eg_bmc_Event SET Name=?, StartDt=?, EndDt=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: Event.*
+          jsonMaps:
+            - jsonPath: $.Event.*.name
+            - jsonPath: $.Event.*.startDt
+            - jsonPath: $.Event.*.endDt
+            - jsonPath: $.Event.*.createdOn
+            - jsonPath: $.Event.*.modifiedOn
+            - jsonPath: $.Event.*.createdBy
+            - jsonPath: $.Event.*.modifiedBy
+            - jsonPath: $.Event.*.id
+
+        - query: UPDATE eg_bmc_SchemeEvent SET SchemeID=?, EventID=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: SchemeEvent.*
+          jsonMaps:
+            - jsonPath: $.SchemeEvent.*.schemeId
+            - jsonPath: $.SchemeEvent.*.eventId
+            - jsonPath: $.SchemeEvent.*.createdOn
+            - jsonPath: $.SchemeEvent.*.modifiedOn
+            - jsonPath: $.SchemeEvent.*.createdBy
+            - jsonPath: $.SchemeEvent.*.modifiedBy
+            - jsonPath: $.SchemeEvent.*.id
+
+        - query: UPDATE eg_bmc_AadharUser SET AadharRef=?, userid=?, tenantid=?, AadharFatherName=?, AadharName=?, AadharDOB=?, AAdharMobile=?, Gender=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: AadharUser.*
+          jsonMaps:
+            - jsonPath: $.AadharUser.*.aadharRef
+            - jsonPath: $.AadharUser.*.userid
+            - jsonPath: $.AadharUser.*.tenantid
+            - jsonPath: $.AadharUser.*.aadharFatherName
+            - jsonPath: $.AadharUser.*.aadharName
+            - jsonPath: $.AadharUser.*.aadharDOB
+            - jsonPath: $.AadharUser.*.aadharMobile
+            - jsonPath: $.AadharUser.*.gender
+            - jsonPath: $.AadharUser.*.createdOn
+            - jsonPath: $.AadharUser.*.modifiedOn
+            - jsonPath: $.AadharUser.*.createdBy
+            - jsonPath: $.AadharUser.*.modifiedBy
+            - jsonPath: $.AadharUser.*.id
+
+        - query: UPDATE eg_bmc_Address SET userid=?, tenantid=?, Address1=?, Address2=?, Location=?, Ward=?, City=?, District=?, State=?, Country=?, Pincode=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: Address.*
+          jsonMaps:
+            - jsonPath: $.Address.*.userid
+            - jsonPath: $.Address.*.tenantid
+            - jsonPath: $.Address.*.address1
+            - jsonPath: $.Address.*.address2
+            - jsonPath: $.Address.*.location
+            - jsonPath: $.Address.*.ward
+            - jsonPath: $.Address.*.city
+            - jsonPath: $.Address.*.district
+            - jsonPath: $.Address.*.state
+            - jsonPath: $.Address.*.country
+            - jsonPath: $.Address.*.pincode
+            - jsonPath: $.Address.*.createdOn
+            - jsonPath: $.Address.*.modifiedOn
+            - jsonPath: $.Address.*.createdBy
+            - jsonPath: $.Address.*.modifiedBy
+            - jsonPath: $.Address.*.id
+
+        - query: UPDATE eg_bmc_UserOtherDetails SET userid=?, tenantid=?, CasteID=?, ReligionID=?, DivyangCardID=?, DivyangPercent=?, TransgenderID=?, CreatedOn=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=?, DivyangID=?, rationCardCategory=?, educationLevel=?, udid=? WHERE ID=?;
+          basePath: UserOtherDetails.*
+          jsonMaps:
+            - jsonPath: $.UserOtherDetails.*.userid
+            - jsonPath: $.UserOtherDetails.*.tenantid
+            - jsonPath: $.UserOtherDetails.*.casteId
+            - jsonPath: $.UserOtherDetails.*.religionId
+            - jsonPath: $.UserOtherDetails.*.divyangCardId
+            - jsonPath: $.UserOtherDetails.*.divyangPercent
+            - jsonPath: $.UserOtherDetails.*.transgenderId
+            - jsonPath: $.UserOtherDetails.*.createdOn
+            - jsonPath: $.UserOtherDetails.*.modifiedOn
+            - jsonPath: $.UserOtherDetails.*.createdBy
+            - jsonPath: $.UserOtherDetails.*.modifiedBy
+            - jsonPath: $.UserOtherDetails.*.divyangId
+            - jsonPath: $.UserOtherDetails.*.rationCardCategory
+            - jsonPath: $.UserOtherDetails.*.educationLevel
+            - jsonPath: $.UserOtherDetails.*.udid
+            - jsonPath: $.UserOtherDetails.*.id
+
+        - query: UPDATE eg_bmc_UserSchemeApplication SET applicationNumber=?, userid=?, tenantid=?, optedId=?, ApplicationStatus=?, VerificationStatus=?, FirstApprovalStatus=?, RandomSelection=?, FinalApproval=?, Submitted=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=? WHERE ID=?;
+          basePath: UserSchemeApplication.*
+          jsonMaps:
+            - jsonPath: $.UserSchemeApplication.*.applicationNumber
+            - jsonPath: $.UserSchemeApplication.*.userid
+            - jsonPath: $.UserSchemeApplication.*.tenantid
+            - jsonPath: $.UserSchemeApplication.*.optedId
+            - jsonPath: $.UserSchemeApplication.*.applicationStatus
+            - jsonPath: $.UserSchemeApplication.*.verificationStatus
+            - jsonPath: $.UserSchemeApplication.*.firstApprovalStatus
+            - jsonPath: $.UserSchemeApplication.*.randomSelection
+            - jsonPath: $.UserSchemeApplication.*.finalApproval
+            - jsonPath: $.UserSchemeApplication.*.submitted
+            - jsonPath: $.UserSchemeApplication.*.modifiedOn
+            - jsonPath: $.UserSchemeApplication.*.createdBy
+            - jsonPath: $.UserSchemeApplication.*.modifiedBy
+            - jsonPath: $.UserSchemeApplication.*.id
+
+        - query: UPDATE eg_bmc_Courses SET CourseName=?, Description=?, Duration=?, StartDt=?, EndDt=?, TypeID=?, URL=?, Institute=?, ImgURL=?, InstituteAddress=?, ModifiedOn=?, CreatedBy=?, ModifiedBy=?, Amount=? WHERE ID=?;
+          basePath: Courses.*
+          jsonMaps:
+            - jsonPath: $.Courses.*.courseName
+            - jsonPath: $.Courses.*.description
+            - jsonPath: $.Courses.*.duration
+            - jsonPath: $.Courses.*.startDt
+            - jsonPath: $.Courses.*.endDt
+            - jsonPath: $.Courses.*.typeId
+            - jsonPath: $.Courses.*.url
+            - jsonPath: $.Courses.*.institute
+            - jsonPath: $.Courses.*.imgUrl
+            - jsonPath: $.Courses.*.instituteAddress
+            - jsonPath: $.Courses.*.modifiedOn
+            - jsonPath: $.Courses.*.createdBy
+            - jsonPath: $.Courses.*.modifiedBy
+            - jsonPath: $.Courses.*.amount
+            - jsonPath: $.Courses.*.id
+
+        - query: UPDATE eg_bmc_SchemeCourse SET SchemeID=?, CourseID=?, GrantAmount=? WHERE ID=?;
+          basePath: SchemeCourse.*
+          jsonMaps:
+            - jsonPath: $.SchemeCourse.*.schemeId
+            - jsonPath: $.SchemeCourse.*.courseId
+            - jsonPath: $.SchemeCourse.*.grantAmount
+            - jsonPath: $.SchemeCourse.*.id
+
+        - query: UPDATE eg_bmc_Machines SET Name=?, Description=?, Amount=? WHERE ID=?;
+          basePath: Machines.*
+          jsonMaps:
+            - jsonPath: $.Machines.*.name
+            - jsonPath: $.Machines.*.description
+            - jsonPath: $.Machines.*.amount
+            - jsonPath: $.Machines.*.id
+
+        - query: UPDATE eg_bmc_SchemeMachine SET MachineID=?, SchemeID=?, GrantAmount=? WHERE ID=?;
+          basePath: SchemeMachine.*
+          jsonMaps:
+            - jsonPath: $.SchemeMachine.*.machineId
+            - jsonPath: $.SchemeMachine.*.schemeId
+            - jsonPath: $.SchemeMachine.*.grantAmount
+            - jsonPath: $.SchemeMachine.*.id
