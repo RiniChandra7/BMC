@@ -1,7 +1,6 @@
+import { DisplayPhotos, TelePhone } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TelePhone, DisplayPhotos } from "@upyog/digit-ui-react-components";
-import BMCReason from "./bmcReason";
 
 const BMCCaption = ({ data, OpenImage }) => {
   const { t } = useTranslation();

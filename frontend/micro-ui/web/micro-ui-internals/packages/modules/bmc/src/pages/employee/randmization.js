@@ -4,7 +4,7 @@
 // import { useTranslation } from "react-i18next";
 // import { Controller, useForm } from "react-hook-form";
 // import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-// import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
+// import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 
 // const headers = ["Name", "Application Number", "Ward Name", "Gender", "Pincode"];
 // const RandmizationPage = () => {
@@ -182,7 +182,7 @@
 // import { useHistory } from "react-router-dom";
 // import { Controller, useForm } from "react-hook-form";
 // import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-// import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
+// import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 // import { useTranslation } from "react-i18next";
 
 // const data = [
@@ -452,13 +452,13 @@
 
 // export default RandmizationPage;
 
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import Pagination from "../../components/pagination";
+import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
 
 const data = [
   {

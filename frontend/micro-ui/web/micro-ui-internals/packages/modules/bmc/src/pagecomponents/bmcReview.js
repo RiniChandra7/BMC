@@ -1,9 +1,9 @@
+import { CardLabel, LabelFieldPair, Modal, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation, Link, useHistory } from "react-router-dom";
-import Timeline from "../components/bmcTimeline";
-import { CardLabel, LabelFieldPair, TextInput, Card, Modal } from "@upyog/digit-ui-react-components";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import Timeline from "../components/bmcTimeline";
 import { ProfileImage } from "./profile";
 
 const createOwnerDetail = () => ({

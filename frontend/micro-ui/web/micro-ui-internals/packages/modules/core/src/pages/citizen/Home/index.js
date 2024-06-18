@@ -1,5 +1,5 @@
 import {
-  Calender, CardBasedOptions, CaseIcon, ComplaintIcon, DocumentIcon, HomeIcon, Loader, OBPSIcon, PTIcon, WhatsNewCard
+  Calender, CardBasedOptions, CaseIcon, ComplaintIcon, DocumentIcon, HomeIcon, Loader, OBPSIcon, PTIcon, PersonIcon, WhatsNewCard
 } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -73,11 +73,11 @@ const Home = () => {
         Icon: <CaseIcon className="fill-path-primary-main" />,
         onClick: () => history.push(citizenServicesObj?.props?.[2]?.navigationUrl),
       },
-      // {
-      //     name: t("ACTION_TEST_WATER_AND_SEWERAGE"),
-      //     Icon: <DropIcon/>,
-      //     onClick: () => history.push(`/${window?.contextPath}/citizen`)
-      // },
+      {
+        name: t("Citizen Scheems"),
+        Icon: <PersonIcon />,
+        onClick: () => history.push("/digit-ui/citizen/bmc/home")
+      },
       {
         name: t(citizenServicesObj?.props?.[3]?.label),
         Icon: <OBPSIcon />,
