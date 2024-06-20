@@ -65,9 +65,9 @@ public class WorkflowService {
         ProcessInstance processInstance = new ProcessInstance();
         processInstance.setBusinessId(application.getApplicationNumber());
         processInstance.setAction(workflow.getAction());
-        processInstance.setModuleName("bmc-planning");
+        processInstance.setModuleName("bmc-schemes");
         processInstance.setTenantId(application.getTenantId());
-        processInstance.setBusinessService("BMC_SCHEME_APPLICATION");
+        processInstance.setBusinessService("bmc");
         processInstance.setDocuments(workflow.getDocuments());
         processInstance.setComment(workflow.getComments());
 
@@ -101,7 +101,7 @@ public class WorkflowService {
 
     private BusinessService getBusinessService(SchemeApplication application, RequestInfo requestInfo) {
         String tenantId = application.getTenantId();
-        StringBuilder url = getSearchURLWithParams(tenantId, "BMC_SCHEME_APPLICATION");
+        StringBuilder url = getSearchURLWithParams(tenantId, "bmc");
         RequestInfoWrapper requestInfoWrapper = RequestInfoWrapper.builder().requestInfo(requestInfo).build();
         Object result = repository.fetchResult(url, requestInfoWrapper);
         if (result == null) {
@@ -109,7 +109,7 @@ public class WorkflowService {
         }
         BusinessServiceResponse response = mapper.convertValue(result, BusinessServiceResponse.class);
         if (CollectionUtils.isEmpty(response.getBusinessServices()))
-            throw new CustomException("BUSINESSSERVICE_NOT_FOUND", "The businessService BMC_SCHEME_APPLICATION is not found");
+            throw new CustomException("BUSINESSSERVICE_NOT_FOUND", "The businessService bmc is not found");
         return response.getBusinessServices().get(0);
     }
 

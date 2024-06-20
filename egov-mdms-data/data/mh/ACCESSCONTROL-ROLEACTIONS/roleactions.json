@@ -27011,6 +27011,24 @@
       "tenantId": "mh"
     },
     {
+      "rolecode": "SUPERUSER",
+      "actionid": 5001,
+      "actioncode": "",
+      "tenantId": "mh"
+    },
+    {
+      "rolecode": "SUPERUSER",
+      "actionid": 5002,
+      "actioncode": "",
+      "tenantId": "mh"
+    },
+    {
+      "rolecode": "SUPERUSER",
+      "actionid": 5003,
+      "actioncode": "",
+      "tenantId": "mh"
+    },
+    {
       "rolecode": "EMPLOYEE",
       "actionid": 605,
       "actioncode": "",

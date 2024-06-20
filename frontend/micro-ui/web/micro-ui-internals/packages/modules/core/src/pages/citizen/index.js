@@ -74,7 +74,32 @@ const Home = ({
   const handleClickOnWhatsApp = (obj) => {
     window.open(obj);
   };
-
+  console.log("Modules")
+  {
+    "module": "PGR",
+    "code": "PGR",
+    "bannerImage": "https://egov-uat-assets.s3.amazonaws.com/PGR.png",
+    "active": true,
+    "order": 2,
+    "tenants": [
+        {
+            "code": "pg.citya"
+        },
+        {
+            "code": "pg.cityb"
+        },
+        {
+            "code": "pg.cityc"
+        },
+        {
+            "code": "pg.cityd"
+        },
+        {
+            "code": "pg.citye"
+        }
+    ]
+  }
+  console.log(modules)
   const hideSidebar = sidebarHiddenFor.some((e) => window.location.href.includes(e));
   const appRoutes = modules.map(({ code, tenants }, index) => {
     const Module = Digit.ComponentRegistryService.getComponent(`${code}Module`);

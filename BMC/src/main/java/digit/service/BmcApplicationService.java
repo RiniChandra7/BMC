@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.egov.common.contract.request.RequestInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -20,12 +21,17 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class BmcApplicationService {
-
+    @Autowired
     private final SchemeApplicationValidator validator;
+    @Autowired
     private final SchemeApplicationEnrichment enrichmentUtil;
+    @Autowired
     private final UserService userService;
+    @Autowired
     private final WorkflowService workflowService;
+    @Autowired
     private final SchemeApplicationRepository schemeApplicationRepository;
+    @Autowired
     private final Producer producer;
 
     public BmcApplicationService(
@@ -57,7 +63,7 @@ public class BmcApplicationService {
         workflowService.updateWorkflowStatus(schemeApplicationRequest);
 
         // Push the application to the topic for persister to listen and persist
-        producer.push("save-scheme-application", schemeApplicationRequest);
+        producer.push("save-bmc-application", schemeApplicationRequest);
 
         // Return the response back to user
         return schemeApplicationRequest.getSchemeApplications();
@@ -91,7 +97,7 @@ public class BmcApplicationService {
         workflowService.updateWorkflowStatus(schemeApplicationRequest);
 
         // Just like create request, update request will be handled asynchronously by the persister
-        producer.push("update-scheme-application", schemeApplicationRequest);
+        producer.push("update-bmc-application", schemeApplicationRequest);
 
         return schemeApplicationRequest.getSchemeApplications().get(0);
     }
