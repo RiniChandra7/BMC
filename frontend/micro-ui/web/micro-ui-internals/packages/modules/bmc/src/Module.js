@@ -1,34 +1,34 @@
-import { CitizenHomeCard } from "@egovernments/digit-ui-react-components";
 import React, { useEffect } from "react";
+import { CitizenHomeCard } from "@upyog/digit-ui-react-components";
+import getRootReducer from "./redux/reducers";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
-import AadhaarVerification from "./pagecomponents/aadhaarVerification";
-import AadhaarFullForm from "./pagecomponents/aadhaarfullformpge";
-import BMCReviewPage from "./pagecomponents/bmcReview";
-import OwnerDetailFull from "./pagecomponents/ownerDetails";
-import SelectSchemePage from "./pagecomponents/selectScheme";
 import CitizenApp from "./pages/citizen";
 import Create from "./pages/citizen/create";
-import ApprovePage from "./pages/employee/Approve";
+import { useRouteMatch } from "react-router-dom";
+import OwnerDetailFull from "./pagecomponents/ownerDetails";
+import AadhaarVerification from "./pagecomponents/aadhaarVerification";
+import AadhaarFullForm from "./pagecomponents/aadhaarfullformpge";
+import SelectSchemePage from "./pagecomponents/selectScheme";
+import BMCReviewPage from "./pagecomponents/bmcReview";
+import {
+  wardMasterPage,
+  electoralMasterPage,
+  religionMasterPage,
+  casteCategoryMasterPage,
+  bankMasterPage,
+  qualificationMasterPage,
+  sectorMasterPage,
+  courseMasterPage,
+  courseWiseApplication,
+  wardWiseApplication,
+  schemeWiseApplication,
+} from "./pages/master/aadhaarMaster";
+// import AadhaarSatutsVerificationPage from "./pages/employee/aadhaarSatutsVerification";
 import AadhaarEmployeePage from "./pages/employee/aadhaarEmployee";
-import AadhaarSatutsVerificationPage from "./pages/employee/aadhaarSatutsVerification";
+import RandmizationPage from "./pages/employee/randmization";
 import AadhaarVerifyPage from "./pages/employee/aadhaarVerify";
 import CrossVerifyPage from "./pages/employee/crossVerify";
-import RandmizationPage from "./pages/employee/randmization";
-import {
-    bankMasterPage,
-    casteCategoryMasterPage,
-    courseMasterPage,
-    courseWiseApplication,
-    electoralMasterPage,
-    qualificationMasterPage,
-    religionMasterPage,
-    schemeWiseApplication,
-    sectorMasterPage,
-    wardMasterPage,
-    wardWiseApplication,
-} from "./pages/master/aadhaarMaster";
-import getRootReducer from "./redux/reducers";
+import ApprovePage from "./pages/employee/Approve";
 
 export const BMCReducers = getRootReducer;
 
@@ -83,7 +83,7 @@ const componentsToRegister = {
   qualificationMasterPage,
   sectorMasterPage,
   courseMasterPage,
-  AadhaarSatutsVerificationPage,
+  // AadhaarSatutsVerificationPage,
   AadhaarEmployeePage,
   RandmizationPage,
   wardWiseApplication,

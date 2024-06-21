@@ -4,6 +4,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
 import RadioButton from "../components/radiobutton";
 import dropdownOptions from "./dropdownOptions.json";
+import Title from "../components/title";
 
 const SelectSchemePage = () => {
   const { t } = useTranslation();
@@ -33,9 +34,8 @@ const SelectSchemePage = () => {
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") && <Timeline currentStep={2} />}
-        <div className="bmc-title" style={{ paddingLeft: "3rem" }}>
-          Select Scheme
-        </div>
+        <Title text={"Select Scheme"} />
+
         <div className="bmc-card-grid">
           <div className="bmc-row-card-header">
             <div className="bmc-title" style={{ color: "#F47738" }}>
@@ -50,6 +50,7 @@ const SelectSchemePage = () => {
                 onClick={() => setSelectScheme("skill developement")}
                 selectedOption={selectedRadio}
                 style={{ paddingLeft: "1rem", margin: "0" }}
+                isMisMandatory={true}
               />
               <RadioButton
                 t={t}
@@ -60,6 +61,7 @@ const SelectSchemePage = () => {
                 selectedOption={selectedRadio}
                 style={{ paddingLeft: "1rem", margin: "0" }}
                 disabled={selectedOption === "NO" ? true : false}
+                isMandatory={true}
               />
             </div>
           </div>
@@ -76,6 +78,7 @@ const SelectSchemePage = () => {
                 onClick={() => setSelectScheme("empowerment")}
                 style={{ paddingLeft: "1rem", margin: "0" }}
                 selectedOption={selectedRadio}
+                isMandatory={true}
               />
               <RadioButton
                 t={t}
@@ -84,6 +87,7 @@ const SelectSchemePage = () => {
                 onSelect={setSelectedRadio}
                 onClick={() => setSelectScheme("empowerment")}
                 selectedOption={selectedRadio}
+                isMandatory={true}
                 style={{ paddingLeft: "1rem", margin: "0" }}
                 disabled={selectedOption === "NO" ? true : false}
               />
@@ -102,6 +106,7 @@ const SelectSchemePage = () => {
                 onClick={() => setSelectScheme("pension")}
                 style={{ margin: "1rem" }}
                 selectedOption={selectedRadio}
+                isMandatory={true}
                 disabled={selectedOption === "NO" ? true : false}
               />
             </div>
@@ -121,6 +126,7 @@ const SelectSchemePage = () => {
                   onSelect={setRadioValueCheck}
                   style={{ marginTop: "0", marginBottom: "0" }}
                   value={selectedRadio}
+                  isMandatory={true}
                 />
                 <p style={{ paddingLeft: "4rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
@@ -155,6 +161,7 @@ const SelectSchemePage = () => {
                   onSelect={setRadioValueCheck}
                   style={{ marginTop: "0", marginBottom: "0" }}
                   value={selectedRadio}
+                  isMandatory={true}
                 />
                 <p style={{ paddingLeft: "4rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
@@ -193,6 +200,7 @@ const SelectSchemePage = () => {
                   onSelect={setRadioValueCheck}
                   style={{ marginTop: "0", marginBottom: "0" }}
                   value={selectedRadio}
+                  isMandatory={true}
                 />
                 <p style={{ paddingLeft: "4rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
@@ -226,6 +234,7 @@ const SelectSchemePage = () => {
                   onSelect={setRadioValueCheck}
                   style={{ marginTop: "0", marginBottom: "0" }}
                   value={selectedRadio}
+                  isMandatory={true}
                 />
                 <p style={{ paddingLeft: "4rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
@@ -263,6 +272,8 @@ const SelectSchemePage = () => {
                   selectedOption={radioValueCheck}
                   onSelect={setRadioValueCheck}
                   style={{ marginTop: "0", marginBottom: "0" }}
+                  isMandatory={true}
+                  value={selectedRadio}
                 />
                 <p style={{ paddingLeft: "4rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
@@ -296,6 +307,8 @@ const SelectSchemePage = () => {
                   selectedOption={radioValueCheck}
                   onSelect={setRadioValueCheck}
                   style={{ marginTop: "0", marginBottom: "0" }}
+                  isMandatory={true}
+                  value={selectedRadio}
                 />
                 <p style={{ paddingLeft: "4rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text

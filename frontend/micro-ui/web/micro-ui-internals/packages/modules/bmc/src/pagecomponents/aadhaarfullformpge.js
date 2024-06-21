@@ -1,10 +1,12 @@
-import { CardLabel, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
+import _ from "lodash";
+import { useTranslation } from "react-i18next";
+import { useLocation, useHistory } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { CardLabel, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
 import RadioButton from "../components/radiobutton";
+import Title from "../components/title";
 import { ProfileImage } from "./profile";
 
 const AadhaarFullFormPage = (_props) => {
@@ -40,6 +42,7 @@ const AadhaarFullFormPage = (_props) => {
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={1} /> : null}
+        <Title text={"Aadhaar Form Details"} />
         <div className="bmc-row-card-header">
           <div className="bmc-title">Personal Details</div>
           <div className="bmc-card-row">
@@ -478,6 +481,7 @@ const AadhaarFullFormPage = (_props) => {
           </div>
           <div className="bmc-col1-card">
             <RadioButton
+              isMandatory={true}
               t={t}
               defaultValue="value"
               optionsKey={"value"}

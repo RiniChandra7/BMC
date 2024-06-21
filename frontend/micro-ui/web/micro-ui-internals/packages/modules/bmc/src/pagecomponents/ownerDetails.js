@@ -1,11 +1,13 @@
-import { CardLabel, CheckBox, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
-import RadioButton from "../components/radiobutton";
+import _ from "lodash";
+import { useLocation, useHistory, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput, CheckBox } from "@upyog/digit-ui-react-components";
+import { Controller, useForm } from "react-hook-form";
 import dropdownOptions from "../pagecomponents/dropdownOptions.json";
+import RadioButton from "../components/radiobutton";
+import Title from "../components/title";
 
 const OwnerDetail = () => ({
   rationCard: "",
@@ -59,9 +61,11 @@ const OwnerDetailFull = (_props) => {
   const [voterId, setVoterId] = useState("");
   const [panCard, setPanCard] = useState("");
   const [business, setBusiness] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [checkbox1, setCheckbox1] = useState(false);
+  const [checkbox2, setCheckbox2] = useState(false);
   const [isCheckedShow, setIsCheckedShow] = useState(false);
   const [rangeValue, setRangeValue] = useState(0);
+
   const history = useHistory();
 
   const rangeMap = [10, 30, 50, 70, 90, 100];
@@ -72,15 +76,19 @@ const OwnerDetailFull = (_props) => {
     console.log(rangeMap[value]);
   };
 
-  // console.log("Received Selected Radio Value:", selectedRadio.value);
-
   const handleCheckbox = () => {
     setIsCheckedShow(!isCheckedShow);
   };
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+  const handleCheckbox1Change = (event) => {
+    setCheckbox1(event.target.checked);
   };
+
+  const handleCheckbox2Change = (event) => {
+    setCheckbox2(event.target.checked);
+  };
+
+  const isConfirmButtonEnabled = checkbox1 && checkbox2;
 
   const onSubmit = (data) => {
     history.push("/digit-ui/citizen/bmc/review");
@@ -94,6 +102,7 @@ const OwnerDetailFull = (_props) => {
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={4} /> : null}
+        <Title text={"Owner Details"} />
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Scheme Details</div>
@@ -120,6 +129,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.rationcardtype}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -145,6 +155,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Course}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -170,6 +181,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Income}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -191,6 +203,7 @@ const OwnerDetailFull = (_props) => {
                         render={(props) => (
                           <TextInput
                             value={props.value}
+                            isMandatory={true}
                             placeholder={"Enter the Transgender Id"}
                             autoFocus={focusIndex.index === owner?.key && focusIndex.type === "transgenderId"}
                             onChange={(e) => {
@@ -226,6 +239,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.rationcardtype}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -251,6 +265,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Course}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -276,6 +291,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Income}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -297,6 +313,7 @@ const OwnerDetailFull = (_props) => {
                         render={(props) => (
                           <TextInput
                             value={props.value}
+                            isMandatory={true}
                             placeholder={"Enter the udid ID"}
                             autoFocus={focusIndex.index === owner?.key && focusIndex.type === "udid"}
                             onChange={(e) => {
@@ -332,6 +349,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Education}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -357,6 +375,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Course}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -382,6 +401,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.disablityType}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -443,6 +463,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.rationcardtype}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -468,6 +489,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.machine}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -493,6 +515,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Income}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -515,6 +538,7 @@ const OwnerDetailFull = (_props) => {
                         render={(props) => (
                           <TextInput
                             value={props.value}
+                            isMandatory={true}
                             placeholder={"Enter the udid ID"}
                             autoFocus={focusIndex.index === owner?.key && focusIndex.type === "udid"}
                             onChange={(e) => {
@@ -550,6 +574,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Education}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -575,6 +600,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.machine}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -600,6 +626,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.disablityType}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -651,6 +678,7 @@ const OwnerDetailFull = (_props) => {
                         render={(props) => (
                           <TextInput
                             value={props.value}
+                            isMandatory={true}
                             placeholder={"Enter the udid ID"}
                             autoFocus={focusIndex.index === owner?.key && focusIndex.type === "udid"}
                             onChange={(e) => {
@@ -686,6 +714,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.Education}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -711,6 +740,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.pension}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -736,6 +766,7 @@ const OwnerDetailFull = (_props) => {
                             option={dropdownOptions.disablityType}
                             optionKey="value"
                             t={t}
+                            isMandatory={true}
                           />
                         )}
                       />
@@ -798,6 +829,7 @@ const OwnerDetailFull = (_props) => {
                       option={dropdownOptions.ward}
                       optionKey="value"
                       t={t}
+                      isMandatory={true}
                     />
                   )}
                 />
@@ -823,6 +855,7 @@ const OwnerDetailFull = (_props) => {
                       option={dropdownOptions.subWard}
                       optionKey="value"
                       t={t}
+                      isMandatory={true}
                     />
                   )}
                 />
@@ -848,6 +881,7 @@ const OwnerDetailFull = (_props) => {
                       option={dropdownOptions.religion}
                       optionKey="value"
                       t={t}
+                      isMandatory={true}
                     />
                   )}
                 />
@@ -873,6 +907,7 @@ const OwnerDetailFull = (_props) => {
                       option={dropdownOptions.caste}
                       optionKey="value"
                       t={t}
+                      isMandatory={true}
                     />
                   )}
                 />
@@ -903,6 +938,7 @@ const OwnerDetailFull = (_props) => {
                       option={dropdownOptions.bankName}
                       optionKey="value"
                       t={t}
+                      isMandatory={true}
                     />
                   )}
                 />
@@ -928,6 +964,7 @@ const OwnerDetailFull = (_props) => {
                       option={dropdownOptions.bankBranch}
                       optionKey="value"
                       t={t}
+                      isMandatory={true}
                     />
                   )}
                 />
@@ -943,6 +980,7 @@ const OwnerDetailFull = (_props) => {
                   render={(props) => (
                     <TextInput
                       value={props.value}
+                      isMandatory={true}
                       placeholder={"Enter the accountNumber"}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "accountNumber"}
                       onChange={(e) => {
@@ -968,6 +1006,7 @@ const OwnerDetailFull = (_props) => {
                   render={(props) => (
                     <TextInput
                       value={props.value}
+                      isMandatory={true}
                       placeholder={"Enter the ifscCode"}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "ifscCode"}
                       onChange={(e) => {
@@ -995,6 +1034,7 @@ const OwnerDetailFull = (_props) => {
                   render={(props) => (
                     <TextInput
                       value={props.value}
+                      isMandatory={true}
                       placeholder={"Enter the micrCode"}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "micrCode"}
                       onChange={(e) => {
@@ -1135,40 +1175,45 @@ const OwnerDetailFull = (_props) => {
             </div>
           </div>
         </div>
-        <div>
-          <CheckBox
-            label={"To the best of my knowledge, the information provided above is correct.."}
-            styles={{ height: "auto", color: "#f47738", fontWeight: "bold", fontSize: "18px", marginLeft: "3rem", float: "left" }}
-            value={isChecked}
-            onChange={handleCheckboxChange}
-          />
-        </div>
-        <div>
-          {/* <CheckBox
-            label={"Agree to pay 5% Contribution"}
-            styles={{ height: "auto", color: "#f47738", fontWeight: "bold", fontSize: "18px", float: "left" }}
-            value={isChecked}
-            onChange={handleCheckboxChange}
-          /> */}
-        </div>
-
-        <div style={{ textAlign: "end", paddingBottom: "1rem" }}>
-          {/* <Link to="/digit-ui/citizen/bmc/review" style={{ textDecoration: "none" }}> */}
-          <button
-            type="button"
-            onClick={handleSubmit(onSubmit)}
-            className="bmc-card-button"
-            style={{
-              backgroundColor: isChecked ? "#F47738" : "gray",
-              borderBottom: "3px solid black",
-              outline: "none",
-              marginRight: "11rem",
-            }}
-            disabled={!isChecked}
-          >
-            {t("BMC_Confirm")}
-          </button>
-          {/* </Link> */}
+        <div className="bmc-card-row">
+          <div className="bmc-col-large-header">
+            <div className="bmc-card-row">
+              <CheckBox
+                label={"Agree to pay 5% Contribution."}
+                styles={{ height: "auto", color: "#f47738", fontWeight: "bold", fontSize: "18px", marginLeft: "3rem", float: "left" }}
+                value={checkbox2}
+                onChange={handleCheckbox2Change}
+              />
+            </div>
+            <div className="bmc-card-row">
+              <CheckBox
+                label={"To the best of my knowledge, the information provided above is correct.."}
+                styles={{ height: "auto", color: "#f47738", fontWeight: "bold", fontSize: "18px", marginLeft: "3rem", float: "left" }}
+                value={checkbox1}
+                onChange={handleCheckbox1Change}
+              />
+            </div>
+          </div>
+          <div className="bmc-col-small-header">
+            <div style={{ textAlign: "end", paddingBottom: "1rem" }}>
+              {/* <Link to="/digit-ui/citizen/bmc/review" style={{ textDecoration: "none" }}> */}
+              <button
+                type="button"
+                onClick={handleSubmit(onSubmit)}
+                className="bmc-card-button"
+                style={{
+                  backgroundColor: isConfirmButtonEnabled ? "#F47738" : "gray",
+                  borderBottom: "3px solid black",
+                  outline: "none",
+                  marginRight: "11rem",
+                }}
+                disabled={!isConfirmButtonEnabled}
+              >
+                {t("BMC_Confirm")}
+              </button>
+              {/* </Link> */}
+            </div>
+          </div>
         </div>
       </div>
     </React.Fragment>

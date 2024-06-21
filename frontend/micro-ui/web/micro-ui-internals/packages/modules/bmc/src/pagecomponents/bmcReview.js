@@ -1,10 +1,91 @@
-import { CardLabel, LabelFieldPair, Modal, TextInput } from "@egovernments/digit-ui-react-components";
-import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useLocation, Link, useHistory } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
-import { ProfileImage } from "./profile";
+import { CardLabel, LabelFieldPair, TextInput, Card, Modal } from "@upyog/digit-ui-react-components";
+import { Controller, useForm } from "react-hook-form";
+import Title from "../components/title";
+
+import {
+  StandaloneSearchBar,
+  Loader,
+  CardBasedOptions,
+  ComplaintIcon,
+  PTIcon,
+  CaseIcon,
+  DropIcon,
+  HomeIcon,
+  Calender,
+  DocumentIcon,
+  PersonIcon,
+  HelpIcon,
+  WhatsNewCard,
+  OBPSIcon,
+  WSICon,
+  EditIcon,
+} from "@upyog/digit-ui-react-components";
+
+const defaultImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO4AAADUCAMAAACs0e/bAAAAM1BMVEXK0eL" +
+  "/" +
+  "/" +
+  "/" +
+  "/Dy97GzuD4+fvL0uPg5O7T2efb4OvR1+Xr7vTk5/Df4+37/P3v8fbO1eTt8PUsnq5FAAAGqElEQVR4nO2d25ajIBBFCajgvf/" +
+  "/a0eMyZgEjcI5xgt7Hmatme507UaxuJXidiDqjmSgeVIMlB1ZR1WZAf2gbdu0QwixSYzjOJPmHurfEGEfY9XzjNGG9whQCeVAuv5xQEySLtR9hPuIcwj0EeroN5m3D1IbsbgHK0esiQ9MKs" +
+  "qXVr8Hm/a/Pulk6wihpCIXBw3dh7bTvRBt9+dC5NfS1VH3xETdM3MxXRN1T0zUPTNR98xcS1dlV9NNfx3DhkTdM6PKqHteVBF1z0vU5f0sKdpc2zWLKutXrjJjdLvpesRmukqYonauPhXpds" +
+  "Lb6CppmpnltsYIuY2yavi6Mi2/rzAWm1zUfF0limVLqkZyA+mDYevKBS37aGC+L1lX5e7uyU1Cv565uiua9k5LFqbqqrnu2I3m+jJ11ZoLeRtfmdB0Uw/ZDsP0VTxdn7a1VERfmq7Xl" +
+  "Xyn5D2QWLoq8bZlPoBJumphJjVBw/Ll6CoTZGsTDs4NrGqKbqBth8ZHJUi6cn168QmleSm6GmB7Kxm+6obXlf7PoDHosCwM3QpiS2legi6ocSl3L0G3BdneDDgwQdENfeY+SfDJBkF37Z" +
+  "B+GvwzA6/rMaafAn8143VhPZWdjMWG1oHXhdnemgPoAvLlB/iZyRTfVeF06wPoQhJmlm4bdcOAZRlRN5gcPc5SoPEQR1fDdbOo6wn+uYvXxY0QCLom6gYROKH+Aj5nvphuFXWDiLpRdxl" +
+  "/19LFT95k6CHCrnW7pCDqBn1i1PUFvii2c11oZOJ6usWeH0RRNzC4Zs+6FTi2nevCVwCjbugnXklX5fkfTldL8PEilUB1kfNyN1u9MME2sATr4lbuB7AjfLAuvsRm1A0g6gYRdcPAjvBlje" +
+  "2Z8brI8OC68AcRdlCkwLohx2mcZMjw9q+LzarQurjtnwPYAydX08WecECO/u6Ad0GBdYG7jO5gB4Ap+PwKcA9ZT43dn4/W9TyiPAn4OAJaF7h3uwe8StSCddFdM3jqFa2LvnnB5zzhuuBBAj" +
+  "Y4gi50cg694gnXhTYvfMdrjtcFZhrwE9r41gUem8IXWMC3LrBzxh+a0gRd1N1LOK7M0IUUGuggvEmHoStA2/MJh7MpupiDU4TzjhxdzLAoO4ouZvqVURbFMHQlZD6SUeWHoguZsSLUGegreh" +
+  "A+FZFowPdUWTi6iMoZlIpGGUUXkDbjj/9ZOLqAQS/+GIKl5BQOCn/ycqpzkXSDm5dU7ZWkG7wUyGlcmm7g5Ux56AqirgoaJ7BeokPTDbp9CbVunjFxPrl7+HqnkrSq1Da7JX20f3dV8yJi6v" +
+  "oO81mX8vV0mx3qUsZCPRfTlVRdz2EvdufYGDvNQvvwqHtmXd+a1ITinwNcXc+lT6JuzdT1XDyBn/x7wtX1HCQQdW9MXc8xArGrirowfLeUEbMqqq6f7TF1lfRdOuGNiGi6SpT+WxY06xUfNN" +
+  "2wBfyE9I4tlm7w5hvOPDNJN3yNiLMipji6gE3chKhouoCtN5x3QlF0EZt8OW/8ougitqJQlk1aii7iFC9l0MvRReyao7xNjKML2Z/PuHlzhi5mFxljiZeiC9rPTEisNEMX9KYAwo5Xhi7qaA" +
+  "3hamboYm7dG+NVrXhdaYDv5zFaQZsYrCtbbAGnjkQDX2+J1FXCwOsqWOpKoIQNTFdqYBWydxqNqUoG0pVpCS+H8kaJaGKErlIaXj7CRRE+gRWuKwW9YZ80oVOUgbpdT0zpnSZJTIiwCtJVelv" +
+  "Xntr4P5j6BWfPb5Wcx84C4cq3hb11lco2u2Mdwp6XdJ/Ne3wb8DWdfiRenZaXrhLwOj4e+GQeHroy3YOspS7TlU28Wle2m2QUS0mqdcbrdNW+ZHsSsyK7tBfm0q/dWcv+Z3mytVx3t7KWulq" +
+  "Ue6ilunu8jF8pFwgv1FXp3mUt35OtRbr7eM4u4Gs6vUBXgeuHc5kfE/cbvWZtkROLm1DMtLCy80tzsu2PRj0hTI8fvrQuvsjlJkyutszq+m423wHaLTyniy/XuiGZ84LuT+m5ZfNfRxyGs7L" +
+  "XZOvia7VujatUwVTrIt+Q/Csc7Tuhe+BOakT10b4TuoiiJjvgU9emTO42PwEfBa+cuodKkuf42DXr1D3JpXz73Hnn0j10evHKe+nufgfUm+7B84sX9FfdEzXux2DBpWuKokkCqN/5pa/8pmvn" +
+  "L+RGKCddCGmatiPyPB/+ekO/M/q/7uvbt22kTt3zEnXPzCV13T3Gel4/6NduDu66xRvlPNkM1RjjxUdv+4WhGx6TftD19Q/dfzpwcHO+rE3fAAAAAElFTkSuQmCC";
+
+export const Profile = ({ info, stateName, t }) => {
+  const [profilePic, setProfilePic] = useState(null);
+  useEffect(async () => {
+    const tenant = Digit.ULBService.getCurrentTenantId();
+    const uuid = info?.uuid;
+    if (uuid) {
+      const usersResponse = await Digit.UserService.userSearch(tenant, { uuid: [uuid] }, {});
+
+      if (usersResponse && usersResponse.user && usersResponse.user.length) {
+        const userDetails = usersResponse.user[0];
+        const thumbs = userDetails?.photo?.split(",");
+        setProfilePic(thumbs?.at(0));
+      }
+    }
+  }, [profilePic !== null]);
+  return (
+    <div className="profile-section" style={{ padding: "0" }}>
+      <div className="imageloader imageloader-loaded">
+        <img
+          className="img-responsive img-circle img-Profile"
+          src={profilePic ? profilePic : defaultImage}
+          style={{ objectFit: "cover", objectPosition: "center", borderRadius: "0", width: "14rem", height: "14rem", margin: "0" }}
+        />
+      </div>
+      <div id="profile-name" className="label-container name-Profile">
+        <div className="label-text"> {info?.name} </div>
+      </div>
+      <div id="profile-location" className="label-container loc-Profile">
+        <div className="label-text"> {info?.mobileNumber} </div>
+      </div>
+      {info?.emailId && (
+        <div id="profile-emailid" className="label-container loc-Profile">
+          <div className="label-text"> {info.emailId} </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const createOwnerDetail = () => ({
   applicationNumber: "BMC/2024-25/00001",
@@ -21,8 +102,8 @@ const createOwnerDetail = () => ({
   subDistrict: "Lucknow",
   dob: "20/11/1990",
   religion: "Hindu",
-  wardName: "A",
-  subWardName: "A",
+  wardName: "",
+  subWardName: "",
   caste: "Caste Name",
   rationCardType: "BPL",
   bankName: "SBI",
@@ -91,8 +172,19 @@ const ReviewDetailForm = (_props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const { aadhaarInfo, selectedScheme, selectedRadio } = location.state || {};
+  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState({});
 
-  console.log(selectedScheme);
+  const handleEdit = (field) => {
+    setIsEdit((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
+
+  const openSecondModal = () => {
+    setIsModalOpen(false);
+    setIsSecondModalOpen(true);
+  };
+
+  console.log(owner);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -100,14 +192,31 @@ const ReviewDetailForm = (_props) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setIsSecondModalOpen(false);
+  };
+
+  const Close = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FFFFFF">
+      <path d="M0 0h24v24H0V0z" fill="none" />
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+    </svg>
+  );
+
+  const CloseBtn = (props) => {
+    return (
+      <div className="icon-bg-secondary" onClick={props.onClick}>
+        <Close />
+      </div>
+    );
   };
 
   return (
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={5} /> : null}
+        <Title text={"Review Page"} />
         <div className="bmc-row-card-header">
-          <div className="bmc-title" style={{ padding: "0" }}>
+          <div className="bmc-title" style={{ paddingBottom: "0" }}>
             Scheme Details
           </div>
           <div className="bmc-card-row">
@@ -126,12 +235,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "applicationNumber"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "applicationNumber" });
                       }}
                       onBlur={(e) => {
@@ -159,12 +268,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === selectedScheme?.key && focusIndex.type === "scheme"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: selectedScheme.key, type: "scheme" });
                       }}
                       onBlur={(e) => {
@@ -192,12 +301,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "machineName"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "machineName" });
                       }}
                       onBlur={(e) => {
@@ -233,13 +342,13 @@ const ReviewDetailForm = (_props) => {
                       defaultValue={aadhaarInfo?.name}
                       render={(props) => (
                         <TextInput
-                          readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          // readOnly={props.disable}
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === aadhaarInfo?.key && focusIndex.type === "name"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: aadhaarInfo.key, type: "name" });
                           }}
                           onBlur={(e) => {
@@ -267,12 +376,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "fatherName"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "fatherName" });
                           }}
                           onBlur={(e) => {
@@ -300,12 +409,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "gender"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "gender" });
                           }}
                           onBlur={(e) => {
@@ -335,12 +444,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "dob"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "dob" });
                           }}
                           onBlur={(e) => {
@@ -368,12 +477,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "address"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "address" });
                           }}
                           onBlur={(e) => {
@@ -401,12 +510,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "pincode"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "pincode" });
                           }}
                           onBlur={(e) => {
@@ -436,12 +545,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "district"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "district" });
                           }}
                           onBlur={(e) => {
@@ -469,12 +578,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "state"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "state" });
                           }}
                           onBlur={(e) => {
@@ -501,13 +610,13 @@ const ReviewDetailForm = (_props) => {
                       defaultValue={owner?.religion}
                       render={(props) => (
                         <TextInput
-                          readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          readOnly={!isEdit.religion}
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "religion"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "religion" });
                           }}
                           onBlur={(e) => {
@@ -517,6 +626,7 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
+                    <EditIcon className="fill-path-primary-main" onClick={() => handleEdit("religion")} />
                   </LabelFieldPair>
                 </div>
               </div>
@@ -537,12 +647,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "caste"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "caste" });
                           }}
                           onBlur={(e) => {
@@ -552,6 +662,7 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
+                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
                 <div className="bmc-col1-card">
@@ -570,12 +681,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "wardName"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "wardName" });
                           }}
                           onBlur={(e) => {
@@ -585,6 +696,7 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
+                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
                 <div className="bmc-col1-card">
@@ -603,12 +715,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "subWardName"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "subWardName" });
                           }}
                           onBlur={(e) => {
@@ -618,6 +730,7 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
+                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
               </div>
@@ -638,12 +751,12 @@ const ReviewDetailForm = (_props) => {
                       render={(props) => (
                         <TextInput
                           readOnly={props.disable}
-                          style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                          disabled
+                          style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                          // disabled
                           value={props.value}
                           autoFocus={focusIndex.index === owner?.key && focusIndex.type === "rationCardType"}
                           onChange={(e) => {
-                            props.onChange(e.target.value);
+                            // props.onChange(e.target.value);
                             setFocusIndex({ index: owner.key, type: "rationCardType" });
                           }}
                           onBlur={(e) => {
@@ -653,12 +766,13 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
+                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
               </div>
             </div>
             <div className="bmc-col-small-header">
-              <ProfileImage />
+              <Profile />
 
               {/* <img src="" style={{ height: "250px", width: "250px", backgroundColor: "#F0EFEF" }} /> */}
             </div>
@@ -685,12 +799,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "bankName"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "bankName" });
                       }}
                       onBlur={(e) => {
@@ -718,12 +832,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "branchName"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "branchName" });
                       }}
                       onBlur={(e) => {
@@ -751,12 +865,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "accountNumber"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "accountNumber" });
                       }}
                       onBlur={(e) => {
@@ -784,12 +898,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "ifscCode"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "ifscCode" });
                       }}
                       onBlur={(e) => {
@@ -819,12 +933,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "micrCode"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "micrCode" });
                       }}
                       onBlur={(e) => {
@@ -859,12 +973,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "profession"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "profession" });
                       }}
                       onBlur={(e) => {
@@ -892,12 +1006,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "docimile"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "docimile" });
                       }}
                       onBlur={(e) => {
@@ -925,12 +1039,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "income"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "income" });
                       }}
                       onBlur={(e) => {
@@ -958,12 +1072,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "voterId"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "voterId" });
                       }}
                       onBlur={(e) => {
@@ -993,12 +1107,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "pan"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "pan" });
                       }}
                       onBlur={(e) => {
@@ -1026,12 +1140,12 @@ const ReviewDetailForm = (_props) => {
                   render={(props) => (
                     <TextInput
                       readOnly={props.disable}
-                      style={{ border: "none", fontSize: "18px", fontWeight: "700" }}
-                      disabled
+                      style={{ border: "none", fontSize: "17px", color: "#626161", fontWeight: "600" }}
+                      // disabled
                       value={props.value}
                       autoFocus={focusIndex.index === owner?.key && focusIndex.type === "bankPassBook"}
                       onChange={(e) => {
-                        props.onChange(e.target.value);
+                        // props.onChange(e.target.value);
                         setFocusIndex({ index: owner.key, type: "bankPassBook" });
                       }}
                       onBlur={(e) => {
@@ -1070,22 +1184,69 @@ const ReviewDetailForm = (_props) => {
           </React.Fragment>
         )}
         {isModalOpen && (
-          <Modal onClose={closeModal} fullScreen hideSubmit={true}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "80%",
-                margin: "auto",
-                backgroundColor: "white",
-                padding: "2rem",
-                borderRadius: "10px",
-              }}
+          <div className="bmc-modal">
+            <Modal
+              onClose={closeModal}
+              fullScreen
+              hideSubmit={true}
+              headerBarEnd={<CloseBtn onClick={closeModal} />}
+              headerBarMain={
+                <h1 className="bmc-title" style={{ textAlign: "center", padding: "1rem" }}>
+                  Confirmation
+                </h1>
+              }
             >
-              <p style={{ fontSize: "20px", fontWeight: "700", padding: "1rem" }}>Your Applicaton has been submitted.</p>
-              <div style={{ textAlign: "end" }}>
+              <hr></hr>
+              <p style={{ fontSize: "15px", padding: "2rem" }}>Are you sure you want to submit your application?</p>
+              <div style={{ textAlign: "center" }}>
+                <button
+                  className="bmc-card-button"
+                  style={{
+                    borderBottom: "3px solid black",
+                    outline: "none",
+                    marginRight: "1rem",
+                    width: "100px",
+                    height: "40px",
+                  }}
+                  onClick={openSecondModal}
+                >
+                  Agree
+                </button>
+                <button
+                  onClick={closeModal}
+                  className="bmc-card-button-cancel"
+                  style={{
+                    borderBottom: "3px solid black",
+                    outline: "none",
+                    width: "100px",
+                    height: "40px",
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </Modal>
+          </div>
+        )}
+        {isSecondModalOpen && (
+          <div className="bmc-modal">
+            <Modal
+              onClose={closeModal}
+              fullScreen
+              hideSubmit={true}
+              headerBarEnd={<CloseBtn onClick={closeModal} />}
+              headerBarMain={
+                <h1 className="bmc-title" style={{ textAlign: "center", padding: "1rem" }}>
+                  Notification
+                </h1>
+              }
+            >
+              <hr></hr>
+              <p style={{ fontSize: "15px", padding: "2rem", textAlign: "justify" }}>
+                Your Application has been submitted successfully. your Application number is
+                <span style={{ fontWeight: "bold" }}> 1234567890</span>. Please Note this Apllication Number for future Reference.
+              </p>
+              <div style={{ textAlign: "center" }}>
                 <Link to="/bmc/dashboard" style={{ textDecoration: "none" }}>
                   <button
                     className="bmc-card-button"
@@ -1093,24 +1254,16 @@ const ReviewDetailForm = (_props) => {
                       borderBottom: "3px solid black",
                       outline: "none",
                       marginRight: "1rem",
+                      width: "100px",
+                      height: "40px",
                     }}
                   >
-                    Agree
+                    OK
                   </button>
                 </Link>
-                <button
-                  onClick={closeModal}
-                  className="bmc-card-button-cancel"
-                  style={{
-                    borderBottom: "3px solid black",
-                    outline: "none",
-                  }}
-                >
-                  Cancel
-                </button>
               </div>
-            </div>
-          </Modal>
+            </Modal>
+          </div>
         )}
       </div>
     </React.Fragment>

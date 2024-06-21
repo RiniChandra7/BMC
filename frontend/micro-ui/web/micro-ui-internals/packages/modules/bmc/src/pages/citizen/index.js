@@ -1,7 +1,7 @@
 import React from "react";
 
-import { AppContainer, BackButton, PrivateRoute } from "@egovernments/digit-ui-react-components";
-import { Switch, useLocation, useRouteMatch } from "react-router-dom";
+import { useRouteMatch, Switch, useLocation } from "react-router-dom";
+import { AppContainer, BackButton, PrivateRoute } from "@upyog/digit-ui-react-components";
 
 import { useTranslation } from "react-i18next";
 
@@ -16,7 +16,7 @@ const App = () => {
   const AadhaarFullForm = Digit?.ComponentRegistryService?.getComponent("AadhaarFullForm");
   const SelectSchemePage = Digit?.ComponentRegistryService?.getComponent("SelectSchemePage");
   const BMCReviewPage = Digit?.ComponentRegistryService?.getComponent("BMCReviewPage");
-  const AadhaarSatutsVerificationPage = Digit?.ComponentRegistryService?.getComponent("AadhaarSatutsVerificationPage");
+  // const AadhaarSatutsVerificationPage = Digit?.ComponentRegistryService?.getComponent("AadhaarSatutsVerificationPage");
   const AadhaarEmployeePage = Digit?.ComponentRegistryService?.getComponent("AadhaarEmployeePage");
   const RandmizationPage = Digit.ComponentRegistryService?.getComponent("RandmizationPage");
   const CrossVerifyPage = Digit.ComponentRegistryService?.getComponent("CrossVerifyPage");
@@ -47,7 +47,7 @@ const App = () => {
             <PrivateRoute exact path={`${path}/aadhaarForm`} component={AadhaarFullForm} />
             <PrivateRoute exact path={`${path}/selectScheme`} component={SelectSchemePage} />
             <PrivateRoute exact path={`${path}/review`} component={BMCReviewPage} />
-            <PrivateRoute exact path={`${path}/aadhaarSatutsVerificationPage`} component={AadhaarSatutsVerificationPage} />
+            {/* <PrivateRoute exact path={`${path}/aadhaarSatutsVerificationPage`} component={AadhaarSatutsVerificationPage} /> */}
             <PrivateRoute exact path={`${path}/aadhaarVerify`} component={AadhaarVerifyPage} />
             <PrivateRoute exact path={`${path}/aadhaarEmployee`} component={AadhaarEmployeePage} />
             <PrivateRoute exact path={`${path}/randmization`} component={RandmizationPage} />

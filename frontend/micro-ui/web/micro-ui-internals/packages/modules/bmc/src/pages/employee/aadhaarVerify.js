@@ -1,9 +1,11 @@
-import { CardLabel, Dropdown, LabelFieldPair } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
+import { CardLabel, Dropdown, LabelFieldPair } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
+import Pagination from "../../components/pagination";
+import Title from "../../components/title";
 
 const data = [
   {
@@ -54,9 +56,16 @@ const AadhaarVerifyPage = (_props) => {
   const { t } = useTranslation();
   const { control } = useForm();
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
 
   return (
     <React.Fragment>
+      <Title text={t("BMC_Aadhaar_Verify")} />
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
@@ -160,7 +169,7 @@ const AadhaarVerifyPage = (_props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((row, index) => (
+                  {currentRows.map((row, index) => (
                     <tr key={index}>
                       <td style={{ color: "#F47738" }}>{row.name}</td>
                       <td>{row.applicationNumber}</td>
@@ -185,6 +194,13 @@ const AadhaarVerifyPage = (_props) => {
                   ))}
                 </tbody>
               </table>
+              <Pagination
+                totalRecords={data.length}
+                rowsPerPage={rowsPerPage}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+                onRowsPerPageChange={setRowsPerPage}
+              />
             </div>
           </div>
         </div>
