@@ -1,53 +1,55 @@
-// import React from "react";
-
-// const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-//   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-
-//   return (
-//     <div className="bmc-pagination">
-//       {pageNumbers.map((page) => (
-//         <button key={page} className={page === currentPage ? "active" : ""} onClick={() => onPageChange(page)}>
-//           {page}
-//         </button>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default Pagination;
-
-
-
-
-
 import React from "react";
-import PropTypes from "prop-types";
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-  const renderPaginationButtons = () => {
-    const buttons = [];
-    for (let i = 1; i <= totalPages; i++) {
-      buttons.push(
-        <button
-          key={i}
-          className={`pagination-button ${currentPage === i ? "active" : ""}`}
-          onClick={() => onPageChange(i)}
-        >
-          {i}
-        </button>
-      );
+const Pagination = ({ totalRecords, rowsPerPage, currentPage, onPageChange, onRowsPerPageChange }) => {
+  const totalPages = Math.ceil(totalRecords / rowsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page !== currentPage) {
+      onPageChange(page);
     }
-    return buttons;
   };
 
-  return <div className="bmc-pagination">{renderPaginationButtons()}</div>;
-};
+  const renderPaginationNumbers = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers.map((page) => (
+      <li key={page} className={`page-item ${page === currentPage ? "active" : ""}`} onClick={() => handlePageChange(page)}>
+        <button className="page-link">{page}</button>
+      </li>
+    ));
+  };
 
-Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
+  return (
+    <React.Fragment>
+      <div className="bmc-pagination-container">
+        <div className="bmc-pagination-info">
+          Showing {(currentPage - 1) * rowsPerPage + 1} to {Math.min(currentPage * rowsPerPage, totalRecords)} of {totalRecords} records
+          <span style={{ paddingLeft: "10px" }}>Rows per page:</span>
+          <select value={rowsPerPage} onChange={(e) => onRowsPerPageChange(Number(e.target.value))}>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
+        <ul className="bmc-pagination">
+          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`} onClick={() => handlePageChange(currentPage - 1)}>
+            <button className="page-link" aria-label="Previous">
+              &laquo;
+            </button>
+          </li>
+          {renderPaginationNumbers()}
+          <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`} onClick={() => handlePageChange(currentPage + 1)}>
+            <button className="page-link" aria-label="Next">
+              &raquo;
+            </button>
+          </li>
+        </ul>
+      </div>
+    </React.Fragment>
+  );
 };
 
 export default Pagination;
-

@@ -1,7 +1,8 @@
-import { CardLabel, Dropdown, LabelFieldPair, TextArea, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import _ from "lodash";
 import { useTranslation } from "react-i18next";
+import { CardLabel, Dropdown, LabelFieldPair, TextArea, TextInput } from "@upyog/digit-ui-react-components";
+import { Controller, useForm } from "react-hook-form";
 import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
 
 const createMasterDetail = () => ({
@@ -72,7 +73,7 @@ export const wardMasterPage = (_props) => {
     <React.Fragment>
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
-          <div className="bmc-card-row" style={{ width: "80%" }}>
+          <div className="bmc-card-row">
             <div className="bmc-title">Ward Master</div>
             <div className="bmc-col2-card">
               <LabelFieldPair>
@@ -125,7 +126,7 @@ export const wardMasterPage = (_props) => {
             </div>
           </div>
           <div className="bmc-card-row">
-            <div className="bmc-col2-card" style={{ width: "80%" }}>
+            <div className="bmc-col2-card">
               <LabelFieldPair>
                 <Controller
                   control={control}
@@ -194,7 +195,7 @@ export const electoralMasterPage = (_props) => {
     <React.Fragment>
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
-          <div className="bmc-card-row" style={{ width: "80%" }}>
+          <div className="bmc-card-row">
             <div className="bmc-title">Electoral Ward Master</div>
             <div className="bmc-col2-card">
               <LabelFieldPair>
@@ -247,7 +248,7 @@ export const electoralMasterPage = (_props) => {
             </div>
           </div>
           <div className="bmc-card-row">
-            <div className="bmc-col2-card" style={{ width: "80%" }}>
+            <div className="bmc-col2-card">
               <LabelFieldPair>
                 <Controller
                   control={control}
@@ -317,7 +318,7 @@ export const religionMasterPage = (_props) => {
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
           <div className="bmc-title">Religion Master</div>
-          <div className="bmc-card-row" style={{ width: "80%" }}>
+          <div className="bmc-card-row">
             <div className="bmc-col2-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Religion_Name"}</CardLabel>
@@ -413,7 +414,7 @@ export const casteCategoryMasterPage = (_props) => {
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
           <div className="bmc-title">Caste Category Master</div>
-          <div className="bmc-card-row" style={{ width: "80%" }}>
+          <div className="bmc-card-row">
             <div className="bmc-col2-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Caste_Category"}</CardLabel>
@@ -509,7 +510,7 @@ export const bankMasterPage = (_props) => {
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
           <div className="bmc-title">Bank Master</div>
-          <div className="bmc-card-row" style={{ width: "80%" }}>
+          <div className="bmc-card-row">
             <div className="bmc-col2-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Bank_Name"}</CardLabel>
@@ -562,7 +563,7 @@ export const bankMasterPage = (_props) => {
             </div>
           </div>
           <div className="bmc-card-row">
-            <div className="bmc-col2-card" style={{ width: "80%" }}>
+            <div className="bmc-col2-card">
               <LabelFieldPair>
                 <Controller
                   control={control}
@@ -631,7 +632,7 @@ export const sectorMasterPage = (_props) => {
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
           <div className="bmc-title">Sector Master</div>
-          <div className="bmc-card-row" style={{ width: "80%" }}>
+          <div className="bmc-card-row">
             <div className="bmc-col2-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Sector_Name"}</CardLabel>
@@ -727,7 +728,7 @@ export const qualificationMasterPage = (_props) => {
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
           <div className="bmc-title">Qualification Master</div>
-          <div className="bmc-card-row" style={{ width: "80%" }}>
+          <div className="bmc-card-row">
             <div className="bmc-col2-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Ward_Name"}</CardLabel>
@@ -1047,12 +1048,15 @@ export const courseMasterPage = (_props) => {
 };
 
 export const wardWiseApplication = () => {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
-          <div className="bmc-title">Ward wise applications summary for machines</div>
-          <div className="bmc-table-container">
+          <div className="bmc-table-container" style={{ padding: "1rem" }}>
+            <div className="bmc-title" style={{ paddingBottom: "2rem", paddingLeft: "0" }}>
+              Ward Wise Applications Summary For Machines
+            </div>
             <table className="bmc-hover-table">
               <thead>
                 <tr>
@@ -1065,7 +1069,26 @@ export const wardWiseApplication = () => {
                   <th>{"BMC_Approved"}</th>
                 </tr>
               </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Ward Name</td>
+                  <td>Sub Ward Name</td>
+                  <td>10</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>5</td>
+                </tr>
+              </tbody>
             </table>
+          </div>
+          <div style={{ textAlign: "center", padding: "1rem" }}>
+            <button className="bmc-card-button" style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
+              {t("BMC_Print")}
+            </button>
+            <button className="bmc-card-master-button" style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}>
+              {t("BMC_Download_Excel")}
+            </button>
           </div>
         </div>
       </div>
@@ -1074,41 +1097,15 @@ export const wardWiseApplication = () => {
 };
 
 export const schemeWiseApplication = () => {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
       <div className="bmc-card-full">
         <div className="bmc-row-card-header">
-          <div className="bmc-title">Scheme wise application report</div>
-          <div className="bmc-card-row">
-            <div className="bmc-table-container">
-              <table className="bmc-hover-table">
-                <thead>
-                  <th>{"BMC_S.No"}</th>
-                  <th>{"BMC_Ward_Name"}</th>
-                  <th>{"BMC_SubWard_Name"}</th>
-                  <th>{"BMC_Application_Name"}</th>
-                  <th>{"BMC_Address"}</th>
-                  <th>{"BMC_Gender"}</th>
-                  <th>{"BMC_Machine"}</th>
-                  <th>{"BMC_Application Status"}</th>
-                  <th>{"BMC_Date"}</th>
-                </thead>
-              </table>
+          <div className="bmc-table-container" style={{ padding: "1rem" }}>
+            <div className="bmc-title" style={{ paddingBottom: "2rem", paddingLeft: "0" }}>
+              Scheme Wise Application Report
             </div>
-          </div>
-        </div>
-      </div>
-    </React.Fragment>
-  );
-};
-
-export const courseWiseApplication = () => {
-  return (
-    <React.Fragment>
-      <div className="bmc-card-full">
-        <div className="bmc-row-card-header">
-          <div className="bmc-title">Course wise report</div>
-          <div className="bmc-table-container">
             <table className="bmc-hover-table">
               <thead>
                 <th>{"BMC_S.No"}</th>
@@ -1121,7 +1118,79 @@ export const courseWiseApplication = () => {
                 <th>{"BMC_Application Status"}</th>
                 <th>{"BMC_Date"}</th>
               </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Ward Name</td>
+                  <td>Sub Ward Name</td>
+                  <td>Application Name</td>
+                  <td>Address</td>
+                  <td>Gender</td>
+                  <td>Machine</td>
+                  <td>Application Status</td>
+                  <td>Date</td>
+                </tr>
+              </tbody>
             </table>
+          </div>
+          <div style={{ textAlign: "center", padding: "1rem" }}>
+            <button className="bmc-card-button" style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
+              {t("BMC_Print")}
+            </button>
+            <button className="bmc-card-master-button" style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}>
+              {t("BMC_Download_Excel")}
+            </button>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+};
+
+export const courseWiseApplication = () => {
+  const { t } = useTranslation();
+  return (
+    <React.Fragment>
+      <div className="bmc-card-full">
+        <div className="bmc-row-card-header">
+          <div className="bmc-table-container" style={{ padding: "1rem" }}>
+            <div className="bmc-title" style={{ paddingBottom: "2rem", paddingLeft: "0" }}>
+              Course Wise Report
+            </div>
+            <table className="bmc-hover-table">
+              <thead>
+                <th>{"BMC_S.No"}</th>
+                <th>{"BMC_Ward_Name"}</th>
+                <th>{"BMC_SubWard_Name"}</th>
+                <th>{"BMC_Application_Name"}</th>
+                <th>{"BMC_Address"}</th>
+                <th>{"BMC_Gender"}</th>
+                <th>{"BMC_Machine"}</th>
+                <th>{"BMC_Application Status"}</th>
+                <th>{"BMC_Date"}</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Ward Name</td>
+                  <td>Sub Ward Name</td>
+                  <td>Application Name</td>
+                  <td>Address</td>
+                  <td>Gender</td>
+                  <td>Machine</td>
+                  <td>Application Status</td>
+                  <td>Date</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style={{ textAlign: "center", padding: "1rem" }}>
+            <button className="bmc-card-button" style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
+              {t("BMC_Print")}
+            </button>
+            <button className="bmc-card-master-button" style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}>
+              {t("BMC_Download_Excel")}
+            </button>
           </div>
         </div>
       </div>
