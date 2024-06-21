@@ -656,6 +656,21 @@
       "code": "REINDEXING_ROLE",
       "name": "Reindexing Role",
       "description": "Role for reindexing for encrypted data access"
+    },
+    {
+      "code": "APP_VERIFIER",
+      "name": "Application Verifier",
+      "description": "BMC Scheme Application Verifier."
+    },
+    {
+      "code": "APP_RANDOMIZER",
+      "name": "Application Ramdomizer",
+      "description": "Select BMC Scheme Application using Randomizer"
+    },
+    {
+      "code": "APP_APPROVER",
+      "name": "Aplication Approver",
+      "description": "Approves BMC Scheme Application."
     }
   ]
 }
