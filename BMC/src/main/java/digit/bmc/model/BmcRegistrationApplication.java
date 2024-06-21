@@ -8,8 +8,10 @@ import org.egov.common.contract.models.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import digit.web.models.Address;
 import jakarta.validation.Valid;
-
+import lombok.Data;
+@Data
 public class BmcRegistrationApplication {
 	
 	@JsonProperty("id")

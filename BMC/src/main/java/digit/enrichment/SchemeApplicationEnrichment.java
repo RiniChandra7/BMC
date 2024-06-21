@@ -1,12 +1,23 @@
 package digit.enrichment;
 
+
 import java.util.List;
 
 import org.egov.common.contract.models.AuditDetails;
 import org.egov.common.contract.request.User;
 import org.egov.common.contract.user.UserDetailResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import digit.config.BmcConfiguration;
+import digit.service.AadharService;
+import digit.service.AddressService;
+import digit.service.BmcRegistrationApplicationService;
+import digit.service.CastService;
+import digit.service.CourseService;
+import digit.service.DivyangService;
+import digit.service.MachineService;
+import digit.service.UserOtherDetailsService;
 import digit.service.UserService;
 import digit.util.IdgenUtil;
 import digit.util.UserUtil;
@@ -17,16 +28,32 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class SchemeApplicationEnrichment {
+    
+    @Autowired
+    private  IdgenUtil idgenUtil;
+    @Autowired
+    private  UserService userService;
+    @Autowired
+    private  UserUtil userUtils;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private UserOtherDetailsService userOtherDetailsService;
+    @Autowired
+    private DivyangService divyangService;
+    @Autowired
+    private CastService castService;
+    @Autowired
+    private MachineService machineService;
+    @Autowired
+    private BmcConfiguration configuration;
+  
+    @Autowired
+    private AadharService aadharService;
+    @Autowired
+    private BmcRegistrationApplicationService bmcRegistrationApplicationService;
 
-    private final IdgenUtil idgenUtil;
-    private final UserService userService;
-    private final UserUtil userUtils;
-
-    public SchemeApplicationEnrichment(IdgenUtil idgenUtil, UserService userService, UserUtil userUtils) {
-        this.idgenUtil = idgenUtil;
-        this.userService = userService;
-        this.userUtils = userUtils;
-    }
+    
 
     /**
      * Enriches the SchemeApplicationRequest with system-generated values like id, auditDetails, etc.
@@ -34,24 +61,33 @@ public class SchemeApplicationEnrichment {
      * @param schemeApplicationRequest The request to be enriched.
      */
     public void enrichSchemeApplication(SchemeApplicationRequest schemeApplicationRequest) {
-        List<String> schemeApplicationIdList = idgenUtil.getIdList(schemeApplicationRequest.getRequestInfo(), schemeApplicationRequest.getSchemeApplications().get(0).getTenantId(), "bmc.schemeapplicationid", "", schemeApplicationRequest.getSchemeApplications().size());
-        Integer index = 0;
-        for (SchemeApplication application : schemeApplicationRequest.getSchemeApplications()) {
+
+        List<String> schemeApplicationIdList = idgenUtil.getIdList(schemeApplicationRequest.getRequestInfo(), schemeApplicationRequest.getSchemeApplications().get(0).getTenantId(),configuration.getBmcIdGenName(),configuration.getBmcIdGenFormat(), schemeApplicationRequest.getSchemeApplications().size());
+        SchemeApplication application = schemeApplicationRequest.getSchemeApplications().get(0);
+
             // Enrich audit details
             AuditDetails auditDetails = AuditDetails.builder().createdBy(schemeApplicationRequest.getRequestInfo().getUserInfo().getUuid()).createdTime(System.currentTimeMillis()).lastModifiedBy(schemeApplicationRequest.getRequestInfo().getUserInfo().getUuid()).lastModifiedTime(System.currentTimeMillis()).build();
             application.setAuditDetails(auditDetails);
-            /* Sundeep Removed it as we do not have uuid fields in Address and Application Tables */
+
+            // Enrich UserOtherDetails
+         //   UserOtherDetails userOtherDetails = userOtherDetailsService.getbyUserOtherDetailsByApplication(schemeApplicationRequest);
+           // Address addres = addressService.getAddressByApplication(schemeApplicationRequest);
+//            AadharUser aadharUser = aadharService.getAadharUserByApplication(schemeApplicationRequest);
+//            if (userOtherDetails != null) {
+//             application.setUserOtherDetails(userOtherDetails);
+//    
+//            }
+            // Enrich User Address Details
+           // if (addres != null){
+          //      application.setAddress(addres);
+          //  }
+             // Enrich User Aadhar Details
+//            if (aadharUser != null){
+//                application.setAadharUser(aadharUser);
+//            }
             
-            /* Enrich UUID
-               application.setId(UUID.randomUUID().toString());
-               // Enrich address UUID
-               if (application.getAddress() != null) {
-                   application.getAddress().setId(UUID.randomUUID().toString());
-               }
-            */
-            // Enrich application number from IDgen
-            application.setApplicationNumber(schemeApplicationIdList.get(index++));
-        }
+            
+
     }
 
     /**

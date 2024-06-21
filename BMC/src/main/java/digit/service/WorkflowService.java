@@ -5,15 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.egov.common.contract.models.RequestInfoWrapper;
-import org.egov.common.contract.models.Workflow;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.common.contract.request.User;
-import org.egov.common.contract.workflow.BusinessService;
-import org.egov.common.contract.workflow.BusinessServiceResponse;
-import org.egov.common.contract.workflow.ProcessInstance;
-import org.egov.common.contract.workflow.ProcessInstanceRequest;
-import org.egov.common.contract.workflow.ProcessInstanceResponse;
-import org.egov.common.contract.workflow.State;
 import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +14,17 @@ import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import digit.bmc.model.Workflow;
 import digit.config.BmcConfiguration;
 import digit.repository.ServiceRequestRepository;
+import digit.web.models.BusinessService;
+import digit.web.models.BusinessServiceResponse;
+import digit.web.models.ProcessInstance;
+import digit.web.models.ProcessInstanceRequest;
+import digit.web.models.ProcessInstanceResponse;
 import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationRequest;
+import digit.web.models.State;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -67,7 +67,7 @@ public class WorkflowService {
         processInstance.setAction(workflow.getAction());
         processInstance.setModuleName("bmc-schemes");
         processInstance.setTenantId(application.getTenantId());
-        processInstance.setBusinessService("bmc");
+        processInstance.setBusinessService("BMC");
         processInstance.setDocuments(workflow.getDocuments());
         processInstance.setComment(workflow.getComments());
 
@@ -80,7 +80,7 @@ public class WorkflowService {
                 users.add(user);
             });
 
-            processInstance.setAssignes(users);
+            processInstance.setAssignes(null);
         }
 
         return processInstance;
@@ -101,7 +101,7 @@ public class WorkflowService {
 
     private BusinessService getBusinessService(SchemeApplication application, RequestInfo requestInfo) {
         String tenantId = application.getTenantId();
-        StringBuilder url = getSearchURLWithParams(tenantId, "bmc");
+        StringBuilder url = getSearchURLWithParams(tenantId, "BMC_SCHEME_APPLICATION");
         RequestInfoWrapper requestInfoWrapper = RequestInfoWrapper.builder().requestInfo(requestInfo).build();
         Object result = repository.fetchResult(url, requestInfoWrapper);
         if (result == null) {
@@ -109,7 +109,7 @@ public class WorkflowService {
         }
         BusinessServiceResponse response = mapper.convertValue(result, BusinessServiceResponse.class);
         if (CollectionUtils.isEmpty(response.getBusinessServices()))
-            throw new CustomException("BUSINESSSERVICE_NOT_FOUND", "The businessService bmc is not found");
+            throw new CustomException("BUSINESSSERVICE_NOT_FOUND", "The businessService BMC_SCHEME_APPLICATION is not found");
         return response.getBusinessServices().get(0);
     }
 

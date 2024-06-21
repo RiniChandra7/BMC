@@ -3,18 +3,17 @@ package digit.bmc.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.egov.common.contract.models.Document;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import digit.web.models.Document;
 import io.swagger.annotations.ApiModel;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Fields related to workflow service
@@ -23,8 +22,7 @@ import lombok.Setter;
 @Validated
 @jakarta.annotation.Generated(value = "org.egov.codegen.SpringBootCodegen", date = "2023-08-20T09:30:27.617+05:30")
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

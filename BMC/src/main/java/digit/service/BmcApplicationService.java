@@ -21,34 +21,23 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class BmcApplicationService {
-    @Autowired
-    private final SchemeApplicationValidator validator;
-    @Autowired
-    private final SchemeApplicationEnrichment enrichmentUtil;
-    @Autowired
-    private final UserService userService;
-    @Autowired
-    private final WorkflowService workflowService;
-    @Autowired
-    private final SchemeApplicationRepository schemeApplicationRepository;
-    @Autowired
-    private final Producer producer;
 
-    public BmcApplicationService(
-            SchemeApplicationValidator validator,
-            SchemeApplicationEnrichment enrichmentUtil,
-            UserService userService,
-            WorkflowService workflowService,
-            SchemeApplicationRepository schemeApplicationRepository,
-            Producer producer) {
-        this.validator = validator;
-        this.enrichmentUtil = enrichmentUtil;
-        this.userService = userService;
-        this.workflowService = workflowService;
-        this.schemeApplicationRepository = schemeApplicationRepository;
-        this.producer = producer;
-    }
 
+    @Autowired
+    private  SchemeApplicationValidator validator;
+    @Autowired
+    private  SchemeApplicationEnrichment enrichmentUtil;
+    @Autowired
+    private  UserService userService;
+    @Autowired
+    private  WorkflowService workflowService;
+    @Autowired
+    private  SchemeApplicationRepository schemeApplicationRepository;
+    @Autowired
+    private  Producer producer;
+
+
+    
     public List<SchemeApplication> registerSchemeApplication(SchemeApplicationRequest schemeApplicationRequest) {
         // Validate applications
         validator.validateSchemeApplication(schemeApplicationRequest);

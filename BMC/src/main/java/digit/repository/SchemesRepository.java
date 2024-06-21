@@ -1,5 +1,7 @@
 package digit.repository;
 
-public interface SchemesRepository {
+import org.springframework.stereotype.Repository;
+@Repository
+public interface SchemesRepository  {
 
 }

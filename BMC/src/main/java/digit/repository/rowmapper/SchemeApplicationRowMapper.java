@@ -61,7 +61,7 @@ public class SchemeApplicationRowMapper implements ResultSetExtractor<List<Schem
                         .applicationNumber(rs.getString("usa_applicationNumber"))
                         .userId(rs.getLong("usa_userid"))
                         .tenantId(rs.getString("usa_tenantid"))
-                        .optedId(rs.getInt("usa_optedId"))
+                        .optedId(rs.getLong("usa_optedId"))
                         .applicationStatus(rs.getBoolean("usa_ApplicationStatus"))
                         .verificationStatus(rs.getBoolean("usa_VerificationStatus"))
                         .firstApprovalStatus(rs.getBoolean("usa_FirstApprovalStatus"))
