@@ -64,17 +64,13 @@ const OwnerDetailFull = (_props) => {
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
   const [isCheckedShow, setIsCheckedShow] = useState(false);
-  const [rangeValue, setRangeValue] = useState(0);
+  const [rangeValue, setRangeValue] = useState(1);
+
+  const handleChange = (e) => {
+    setRangeValue(parseInt(e.target.value));
+  };
 
   const history = useHistory();
-
-  const rangeMap = [10, 30, 50, 70, 90, 100];
-
-  const handleChange = (event) => {
-    const value = parseInt(event.target.value);
-    setRangeValue(value);
-    console.log(rangeMap[value]);
-  };
 
   const handleCheckbox = () => {
     setIsCheckedShow(!isCheckedShow);
@@ -414,26 +410,19 @@ const OwnerDetailFull = (_props) => {
                     <div className="bmc-range-container">
                       <input
                         type="range"
-                        min="0"
-                        max="1"
-                        step="1"
+                        min="1"
+                        max="100"
                         className="bmc-range-slider"
                         value={rangeValue}
                         onChange={handleChange}
                         list="tickmarks"
-                        style={{
-                          "--value": `'${rangeMap[rangeValue]}'`,
-                          "--value-percent": `${(rangeValue / 5) * 100}%`,
-                        }}
                       />
                       <datalist id="tickmarks">
-                        {Object.keys(rangeMap).map((key) => (
-                          <option key={key} value={key} label={rangeMap[key]} />
+                        {Array.from({ length: 100 }, (_, i) => (
+                          <option key={i} value={i + 1}></option>
                         ))}
                       </datalist>
-                      <div className="bmc-range-value-display">
-                        {t("Selected Value")}: {rangeMap[rangeValue]}
-                      </div>
+                      <span className="range-value">Selected value:{rangeValue}</span>
                     </div>
                   </div>
                 </div>
@@ -639,26 +628,19 @@ const OwnerDetailFull = (_props) => {
                     <div className="bmc-range-container">
                       <input
                         type="range"
-                        min="0"
-                        max="5"
-                        step="1"
+                        min="1"
+                        max="100"
                         className="bmc-range-slider"
                         value={rangeValue}
                         onChange={handleChange}
                         list="tickmarks"
-                        style={{
-                          "--value": `'${rangeMap[rangeValue]}'`,
-                          "--value-percent": `${(rangeValue / 5) * 100}%`,
-                        }}
                       />
                       <datalist id="tickmarks">
-                        {Object.keys(rangeMap).map((key) => (
-                          <option key={key} value={key} label={rangeMap[key]} />
+                        {Array.from({ length: 100 }, (_, i) => (
+                          <option key={i} value={i + 1}></option>
                         ))}
                       </datalist>
-                      <div className="bmc-range-value-display">
-                        {t("Selected Value")}: {rangeMap[rangeValue]}
-                      </div>
+                      <span className="range-value">Selected value:{rangeValue}</span>
                     </div>
                   </div>
                 </div>
@@ -779,26 +761,19 @@ const OwnerDetailFull = (_props) => {
                     <div className="bmc-range-container">
                       <input
                         type="range"
-                        min="0"
-                        max="5"
-                        step="1"
+                        min="1"
+                        max="100"
                         className="bmc-range-slider"
                         value={rangeValue}
                         onChange={handleChange}
                         list="tickmarks"
-                        style={{
-                          "--value": `'${rangeMap[rangeValue]}'`,
-                          "--value-percent": `${(rangeValue / 5) * 100}%`,
-                        }}
                       />
                       <datalist id="tickmarks">
-                        {Object.keys(rangeMap).map((key) => (
-                          <option key={key} value={key} label={rangeMap[key]} />
+                        {Array.from({ length: 100 }, (_, i) => (
+                          <option key={i} value={i + 1}></option>
                         ))}
                       </datalist>
-                      <div className="bmc-range-value-display">
-                        {t("Selected Value")}: {rangeMap[rangeValue]}
-                      </div>
+                      <span className="range-value">Selected value:{rangeValue}</span>
                     </div>
                   </div>
                 </div>

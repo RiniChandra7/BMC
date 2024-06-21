@@ -504,7 +504,7 @@ const ApprovePage = () => {
                   }}
                   render={(props) => (
                     <Dropdown
-                      placeholder={t("Select Scheme")}
+                      placeholder={t("Select Scheme Type")}
                       selected={props.value}
                       select={(value) => {
                         props.onChange(value);
@@ -529,7 +529,7 @@ const ApprovePage = () => {
                   }}
                   render={(props) => (
                     <Dropdown
-                      placeholder={t("Select Machine")}
+                      placeholder={t("Select Scheme")}
                       selected={props.value}
                       select={(value) => {
                         props.onChange(value);
@@ -554,7 +554,7 @@ const ApprovePage = () => {
                   }}
                   render={(props) => (
                     <Dropdown
-                      placeholder={t("Select Machine")}
+                      placeholder={t("Select Scheme Name")}
                       selected={props.value}
                       select={(value) => {
                         props.onChange(value);

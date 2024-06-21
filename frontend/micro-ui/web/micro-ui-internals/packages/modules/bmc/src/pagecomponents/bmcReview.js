@@ -88,7 +88,7 @@ export const Profile = ({ info, stateName, t }) => {
 };
 
 const createOwnerDetail = () => ({
-  applicationNumber: "BMC/2024-25/00001",
+  applicationNumber: "",
   scheme: "Scheme Name",
   machineName: "Sewing Machine",
   name: "Bal Krishana Yadav",
@@ -102,8 +102,8 @@ const createOwnerDetail = () => ({
   subDistrict: "Lucknow",
   dob: "20/11/1990",
   religion: "Hindu",
-  wardName: "",
-  subWardName: "",
+  wardName: "A",
+  subWardName: "B",
   caste: "Caste Name",
   rationCardType: "BPL",
   bankName: "SBI",
@@ -175,8 +175,8 @@ const ReviewDetailForm = (_props) => {
   const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState({});
 
-  const handleEdit = (field) => {
-    setIsEdit((prev) => ({ ...prev, [field]: !prev[field] }));
+  const handleEdit = (value) => {
+    setIsEdit((prev) => ({ ...prev, [value]: !prev[value] }));
   };
 
   const openSecondModal = () => {
@@ -626,7 +626,7 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
-                    <EditIcon className="fill-path-primary-main" onClick={() => handleEdit("religion")} />
+                    <EditIcon className="fill-path-primary-main" onChange={() => handleEdit("religion")} />
                   </LabelFieldPair>
                 </div>
               </div>
@@ -814,6 +814,7 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
+                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
             <div className="bmc-col3-card">
@@ -847,6 +848,7 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
+                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
             <div className="bmc-col3-card">
@@ -880,6 +882,7 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
+                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
             <div className="bmc-col3-card">
@@ -913,6 +916,7 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
+                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
           </div>
@@ -948,6 +952,7 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
+                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
           </div>

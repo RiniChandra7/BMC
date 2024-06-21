@@ -334,7 +334,7 @@ const SelectSchemePage = () => {
           </React.Fragment>
         )}
       </div>
-      <div style={{ float: "right", paddingRight: "6rem", paddingBottom: "1rem" }}>
+      <div style={{ textAlign:"end", padding:"1rem"}}>
         <Link
           to={{
             pathname: "/digit-ui/citizen/bmc/ownerdetails",
@@ -350,7 +350,7 @@ const SelectSchemePage = () => {
             {t("BMC_Next")}
           </button>
         </Link>
-        <button className="bmc-card-button-cancel" style={{ borderBottom: "3px solid black", outline: "none" }} onClick={() => history.goBack()}>
+        <button className="bmc-card-button-cancel" style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }} onClick={() => history.goBack()}>
           {t("BMC_Cancel")}
         </button>
       </div>
