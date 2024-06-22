@@ -29,6 +29,18 @@
       ]
     },
     {
+      "module": "HRMS",
+      "code": "HRMS",
+      "active": true,
+      "order": 3,
+      "tenants": [
+        {
+          "code": "mh.mumbai",
+          "name": "Mumbai"
+        }
+      ]
+    },
+    {
       "module": "PGR.WHATSAPP",
       "code": "PGR.WHATSAPP",
       "active": false,
