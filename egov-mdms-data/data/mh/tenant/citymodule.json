@@ -16,6 +16,19 @@
       ]
     },
     {
+      "module": "PGR",
+      "code": "PGR",
+      "bannerImage": "https://egov-qa-assets.s3.amazonaws.com/PGR.png",
+      "active": true,
+      "order": 2,
+      "tenants": [
+        {
+          "code": "mh.mumbai",
+          "name": "Mumbai"
+        }
+      ]
+    },
+    {
       "module": "PGR.WHATSAPP",
       "code": "PGR.WHATSAPP",
       "active": false,
