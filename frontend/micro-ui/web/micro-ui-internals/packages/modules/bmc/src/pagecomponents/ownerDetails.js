@@ -3,7 +3,7 @@ import Timeline from "../components/bmcTimeline";
 import _ from "lodash";
 import { useLocation, useHistory, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput, CheckBox } from "@upyog/digit-ui-react-components";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput, CheckBox } from "@egovernments/digit-ui-react-components";
 import { Controller, useForm } from "react-hook-form";
 import dropdownOptions from "../pagecomponents/dropdownOptions.json";
 import RadioButton from "../components/radiobutton";

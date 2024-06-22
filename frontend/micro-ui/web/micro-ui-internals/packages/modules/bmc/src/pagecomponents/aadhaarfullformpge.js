@@ -4,7 +4,7 @@ import _ from "lodash";
 import { useTranslation } from "react-i18next";
 import { useLocation, useHistory } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
-import { CardLabel, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
+import { CardLabel, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import { ProfileImage } from "./profile";

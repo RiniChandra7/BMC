@@ -18,7 +18,6 @@ const CitizenApp = ({
   pathname,
 }) => {
   const { t } = useTranslation();
-
   return <AppModules stateCode={stateCode} userType="citizen" modules={modules} appTenants={appTenants} />;
 };
 

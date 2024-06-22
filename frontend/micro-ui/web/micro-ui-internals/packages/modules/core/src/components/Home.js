@@ -79,10 +79,14 @@ const iconSelector = (code) => {
       return <PTIcon className="fill-path-primary-main" />;
   }
 };
+
+
 const CitizenHome = ({ modules, getCitizenMenu, fetchedCitizen, isLoading }) => {
+
   const paymentModule = modules.filter(({ code }) => code === "Payment")[0];
   const moduleArr = modules.filter(({ code }) => code !== "Payment");
   const moduleArray = [paymentModule, ...moduleArr];
+
   const { t } = useTranslation();
   if (isLoading) {
     return <Loader />;

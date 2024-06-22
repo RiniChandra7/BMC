@@ -43,7 +43,7 @@ const Home = ({
   appTenants,
   sourceUrl,
   pathname,
-  initData,
+  initData
 }) => {
   const { isLoading: islinkDataLoading, data: linkData, isFetched: isLinkDataFetched } = Digit.Hooks.useCustomMDMS(
     Digit.ULBService.getStateId(),
@@ -74,32 +74,7 @@ const Home = ({
   const handleClickOnWhatsApp = (obj) => {
     window.open(obj);
   };
-  console.log("Modules")
-  {
-    "module": "PGR",
-    "code": "PGR",
-    "bannerImage": "https://egov-uat-assets.s3.amazonaws.com/PGR.png",
-    "active": true,
-    "order": 2,
-    "tenants": [
-        {
-            "code": "pg.citya"
-        },
-        {
-            "code": "pg.cityb"
-        },
-        {
-            "code": "pg.cityc"
-        },
-        {
-            "code": "pg.cityd"
-        },
-        {
-            "code": "pg.citye"
-        }
-    ]
-  }
-  console.log(modules)
+
   const hideSidebar = sidebarHiddenFor.some((e) => window.location.href.includes(e));
   const appRoutes = modules.map(({ code, tenants }, index) => {
     const Module = Digit.ComponentRegistryService.getComponent(`${code}Module`);
@@ -135,12 +110,12 @@ const Home = ({
                   Info={
                     code === "OBPS"
                       ? () => (
-                          <CitizenInfoLabel
-                            style={{ margin: "0px", padding: "10px" }}
-                            info={t("CS_FILE_APPLICATION_INFO_LABEL")}
-                            text={t(`BPA_CITIZEN_HOME_STAKEHOLDER_INCLUDES_INFO_LABEL`)}
-                          />
-                        )
+                        <CitizenInfoLabel
+                          style={{ margin: "0px", padding: "10px" }}
+                          info={t("CS_FILE_APPLICATION_INFO_LABEL")}
+                          text={t(`BPA_CITIZEN_HOME_STAKEHOLDER_INCLUDES_INFO_LABEL`)}
+                        />
+                      )
                       : null
                   }
                   isInfo={code === "OBPS" ? true : false}

@@ -11,7 +11,9 @@ const getTenants = (codes, tenants) => {
 };
 
 export const AppModules = ({ stateCode, userType, modules, appTenants }) => {
+  console.log(modules)
   const ComponentProvider = Digit.Contexts.ComponentProvider;
+  console.log(ComponentProvider)
   const { path } = useRouteMatch();
   const location = useLocation();
 
@@ -20,8 +22,9 @@ export const AppModules = ({ stateCode, userType, modules, appTenants }) => {
   if (!user || !user?.access_token || !user?.info) {
     return <Redirect to={{ pathname: `/${window?.contextPath}/employee/user/login`, state: { from: location.pathname + location.search } }} />;
   }
-
+ 
   const appRoutes = modules.map(({ code, tenants }, index) => {
+    console.log(code);
     const Module = Digit.ComponentRegistryService.getComponent(`${code}Module`);
     return Module ? (
       <Route key={index} path={`${path}/${code.toLowerCase()}`}>

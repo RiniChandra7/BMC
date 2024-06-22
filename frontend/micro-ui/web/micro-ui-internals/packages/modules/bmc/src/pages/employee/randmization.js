@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import Pagination from "../../components/pagination";
 import Title from "../../components/title";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, Link, useHistory } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
-import { CardLabel, LabelFieldPair, TextInput, Card, Modal } from "@upyog/digit-ui-react-components";
+import { CardLabel, LabelFieldPair, TextInput, Card, Modal } from "@egovernments/digit-ui-react-components";
 import { Controller, useForm } from "react-hook-form";
 import Title from "../components/title";
 
@@ -23,7 +23,7 @@ import {
   OBPSIcon,
   WSICon,
   EditIcon,
-} from "@upyog/digit-ui-react-components";
+} from "@egovernments/digit-ui-react-components";
 
 const defaultImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO4AAADUCAMAAACs0e/bAAAAM1BMVEXK0eL" +

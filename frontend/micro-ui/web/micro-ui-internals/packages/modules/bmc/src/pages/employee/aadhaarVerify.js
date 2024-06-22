@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-import { CardLabel, Dropdown, LabelFieldPair } from "@upyog/digit-ui-react-components";
+import { CardLabel, Dropdown, LabelFieldPair } from "@egovernments/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/pagination";

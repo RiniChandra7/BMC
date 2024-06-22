@@ -16,17 +16,17 @@ import AadhaarVerifyPage from "./pages/employee/aadhaarVerify";
 import CrossVerifyPage from "./pages/employee/crossVerify";
 import RandmizationPage from "./pages/employee/randmization";
 import {
-    bankMasterPage,
-    casteCategoryMasterPage,
-    courseMasterPage,
-    courseWiseApplication,
-    electoralMasterPage,
-    qualificationMasterPage,
-    religionMasterPage,
-    schemeWiseApplication,
-    sectorMasterPage,
-    wardMasterPage,
-    wardWiseApplication,
+  bankMasterPage,
+  casteCategoryMasterPage,
+  courseMasterPage,
+  courseWiseApplication,
+  electoralMasterPage,
+  qualificationMasterPage,
+  religionMasterPage,
+  schemeWiseApplication,
+  sectorMasterPage,
+  wardMasterPage,
+  wardWiseApplication,
 } from "./pages/master/aadhaarMaster";
 import getRootReducer from "./redux/reducers";
 
