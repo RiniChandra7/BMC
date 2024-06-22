@@ -20,7 +20,7 @@
       "code": "PGR",
       "bannerImage": "https://egov-qa-assets.s3.amazonaws.com/PGR.png",
       "active": true,
-      "order": 2,
+      "order": 1,
       "tenants": [
         {
           "code": "mh.mumbai",
