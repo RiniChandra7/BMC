@@ -9,7 +9,7 @@ const App = ({}) => {
   const { t } = useTranslation();
   const { path, url, ...match } = useRouteMatch();
   const location = useLocation();
-  const CreareOwnerDetails = Digit?.ComponentRegistryService?.getComponent("OwnerDetailFull");
+  const ApplicationDetail = Digit?.ComponentRegistryService?.getComponent("ApplicationDetail");
   const Aadhar = Digit?.ComponentRegistryService?.getComponent("AadhaarVerification");
   const AadhaarFullForm = Digit?.ComponentRegistryService?.getComponent("AadhaarFullForm");
   const SelectSchemePage = Digit?.ComponentRegistryService?.getComponent("SelectSchemePage");
@@ -28,7 +28,8 @@ const App = ({}) => {
       <div className="bmc-citizen-wrapper" style={{ width: "100%" }}>
         {!location.pathname.includes("/response") && <BackButton>{t("CS_COMMON_BACK")}</BackButton>}
         <Switch>
-            <PrivateRoute exact path={`${path}/ownerdetails`} component={CreareOwnerDetails} />
+          {/* <AppContainer> */}
+            <PrivateRoute exact path={`${path}/applicationDetails`} component={ApplicationDetail} />
             <PrivateRoute exact path={`${path}/aadhaarLogin`} component={Aadhar} />
             <PrivateRoute exact path={`${path}/aadhaarForm`} component={AadhaarFullForm} />
             <PrivateRoute exact path={`${path}/selectScheme`} component={SelectSchemePage} />
@@ -41,7 +42,8 @@ const App = ({}) => {
             <PrivateRoute exact path={`${path}/approve`} component={ApprovePage} />
             <PrivateRoute exact path={`${path}/wardwiseapplication`} component={wardWiseApplication} />
             <PrivateRoute exact path={`${path}/schemewiseapplication`} component={schemeWiseApplication} />
-            <PrivateRoute exact path={`${path}/coursewiseapplication`} component={courseWiseApplication} /> */}
+            <PrivateRoute exact path={`${path}/coursewiseapplication`} component={courseWiseApplication} />
+          {/* </AppContainer> */}
         </Switch>
       </div>
     </React.Fragment>

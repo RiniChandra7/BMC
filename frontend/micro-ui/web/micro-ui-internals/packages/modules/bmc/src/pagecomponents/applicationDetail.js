@@ -3,13 +3,13 @@ import Timeline from "../components/bmcTimeline";
 import _ from "lodash";
 import { useLocation, useHistory, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput, CheckBox } from "@egovernments/digit-ui-react-components";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput, CheckBox } from "@upyog/digit-ui-react-components";
 import { Controller, useForm } from "react-hook-form";
-import dropdownOptions from "../pagecomponents/dropdownOptions.json";
+import dropdownOptions from "./dropdownOptions.json";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 
-const OwnerDetail = () => ({
+const ApplicationDetail = () => ({
   rationCard: "",
   machineName: "",
   income: "",
@@ -38,7 +38,7 @@ const OwnerDetail = () => ({
   selfDeclarationMessage: "",
 });
 
-const OwnerDetailFull = (_props) => {
+const ApplicationDetailFull = (_props) => {
   const { index, allOwners, onSelect, formData, formState, setError, clearErrors, config } = _props;
   const {
     control,
@@ -49,12 +49,13 @@ const OwnerDetailFull = (_props) => {
     clearErrors: clearLocalErrors,
     setValue,
     trigger,
+    reset,
   } = useForm();
   const { t } = useTranslation();
   const location = useLocation();
   const { selectedScheme, selectedRadio } = location.state || {};
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
-  const [owner, setOwner] = useState(formData?.owner || [OwnerDetail()]);
+  const [owner, setOwner] = useState(formData?.owner || [ApplicationDetail()]);
   const [bankPassbook, setBankPassBook] = useState("");
   const [domicileofMumbai, setDomicileofMumbai] = useState("");
   const [incomeCer, setIncomeCer] = useState("");
@@ -98,7 +99,7 @@ const OwnerDetailFull = (_props) => {
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={4} /> : null}
-        <Title text={"Owner Details"} />
+        <Title text={"BMC Scheme Application Details " + selectedRadio.value + ""} />
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Scheme Details</div>
@@ -107,7 +108,7 @@ const OwnerDetailFull = (_props) => {
                 <div className="bmc-card-row">
                   <div className="bmc-col1-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Ration_Card_Type")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Ration_Card_Type*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"rationcardtype"}
@@ -133,7 +134,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col1-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Course")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Course*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"machine"}
@@ -159,7 +160,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col1-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Income")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Income*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"income"}
@@ -191,7 +192,7 @@ const OwnerDetailFull = (_props) => {
                 <div className="bmc-card-row">
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Transgender_Id")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Transgender_Id*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"transgenderid"}
@@ -217,7 +218,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Ration_Card_Type")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Ration_Card_Type*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"rationcardtype"}
@@ -243,7 +244,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Course")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Course*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"course"}
@@ -269,7 +270,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Income")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Income*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"income"}
@@ -301,7 +302,7 @@ const OwnerDetailFull = (_props) => {
                 <div className="bmc-card-row">
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_UDID_Id")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"udidid"}
@@ -327,7 +328,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"educationQualification"}
@@ -353,7 +354,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Course")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Course*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"course"}
@@ -379,7 +380,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Disability_Type")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"disabilitytype"}
@@ -406,7 +407,7 @@ const OwnerDetailFull = (_props) => {
                 </div>
                 <div className="bmc-card-row">
                   <div className="bmc-col2-card">
-                    <CardLabel className="bmc-label">{t("BMC_Disability_Percentage")}</CardLabel>
+                    <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
                     <div className="bmc-range-container">
                       <input
                         type="range"
@@ -434,7 +435,7 @@ const OwnerDetailFull = (_props) => {
                 <div className="bmc-card-row">
                   <div className="bmc-col1-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Ration_Card_Type")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Ration_Card_Type*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"rationcardtype"}
@@ -460,7 +461,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col1-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Machine")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Machine*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"machine"}
@@ -486,7 +487,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col1-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Income")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Income*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"income"}
@@ -519,7 +520,7 @@ const OwnerDetailFull = (_props) => {
                 <div className="bmc-card-row">
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_UDID_Id")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"udidid"}
@@ -545,7 +546,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"educationQualification"}
@@ -571,7 +572,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Machine")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Machine*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"machine"}
@@ -597,7 +598,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Disability_Type")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"disabilitytype"}
@@ -624,7 +625,7 @@ const OwnerDetailFull = (_props) => {
                 </div>
                 <div className="bmc-card-row">
                   <div className="bmc-col2-card">
-                    <CardLabel className="bmc-label">{t("BMC_Disability_Percentage")}</CardLabel>
+                    <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
                     <div className="bmc-range-container">
                       <input
                         type="range"
@@ -652,7 +653,7 @@ const OwnerDetailFull = (_props) => {
                 <div className="bmc-card-row">
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_UDID_Id")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"udidid"}
@@ -678,7 +679,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"educationQualification"}
@@ -704,7 +705,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Pension")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Pension*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"pension"}
@@ -730,7 +731,7 @@ const OwnerDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Disability_Type")}</CardLabel>
+                      <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
                       <Controller
                         control={control}
                         name={"disabilitytype"}
@@ -757,7 +758,7 @@ const OwnerDetailFull = (_props) => {
                 </div>
                 <div className="bmc-card-row">
                   <div className="bmc-col2-card">
-                    <CardLabel className="bmc-label">{t("BMC_Disability_Percentage")}</CardLabel>
+                    <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
                     <div className="bmc-range-container">
                       <input
                         type="range"
@@ -786,7 +787,7 @@ const OwnerDetailFull = (_props) => {
             <div className="bmc-title">Personal Details</div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_Ward_Name"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_Ward_Name*"}</CardLabel>
                 <Controller
                   control={control}
                   name={"wardName"}
@@ -812,7 +813,7 @@ const OwnerDetailFull = (_props) => {
             </div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_SubWard_Name"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_SubWard_Name*"}</CardLabel>
                 <Controller
                   control={control}
                   name={"subWardName"}
@@ -838,7 +839,7 @@ const OwnerDetailFull = (_props) => {
             </div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_Religion"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_Religion*"}</CardLabel>
                 <Controller
                   control={control}
                   name={"religion"}
@@ -864,7 +865,7 @@ const OwnerDetailFull = (_props) => {
             </div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_CasteCategory"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_CasteCategory*"}</CardLabel>
                 <Controller
                   control={control}
                   name={"casteCategory"}
@@ -895,7 +896,7 @@ const OwnerDetailFull = (_props) => {
             <div className="bmc-title">Bank Details</div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{t("BMC_Bank_Name")}</CardLabel>
+                <CardLabel className="bmc-label">{t("BMC_Bank_Name*")}</CardLabel>
                 <Controller
                   control={control}
                   name={"bankName"}
@@ -904,7 +905,7 @@ const OwnerDetailFull = (_props) => {
                   }}
                   render={(props) => (
                     <Dropdown
-                      placeholder={t("Select Bank Name")}
+                      placeholder={"Select Bank"}
                       selected={props.value}
                       select={(value) => {
                         props.onChange(value);
@@ -921,7 +922,7 @@ const OwnerDetailFull = (_props) => {
             </div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{t("BMC_Branch_Name")}</CardLabel>
+                <CardLabel className="bmc-label">{t("BMC_Branch_Name*")}</CardLabel>
                 <Controller
                   control={control}
                   name={"branchName"}
@@ -930,7 +931,7 @@ const OwnerDetailFull = (_props) => {
                   }}
                   render={(props) => (
                     <Dropdown
-                      placeholder={t("Select Branch Name")}
+                      placeholder={"Select Branch"}
                       selected={props.value}
                       select={(value) => {
                         props.onChange(value);
@@ -947,7 +948,7 @@ const OwnerDetailFull = (_props) => {
             </div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_Account_Number"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_Account_Number*"}</CardLabel>
                 <Controller
                   control={control}
                   name={"accountNumber"}
@@ -973,7 +974,7 @@ const OwnerDetailFull = (_props) => {
             </div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_IFSC_Code"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_IFSC_Code*"}</CardLabel>
                 <Controller
                   control={control}
                   name={"ifscCode"}
@@ -1001,7 +1002,7 @@ const OwnerDetailFull = (_props) => {
           <div className="bmc-card-row">
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_MICR_Code"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_MICR_Code*"}</CardLabel>
                 <Controller
                   control={control}
                   name={"micrCode"}
@@ -1032,7 +1033,7 @@ const OwnerDetailFull = (_props) => {
             <div className="bmc-title">Occupation Details</div>
             <div className="bmc-col3-card">
               <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                <CardLabel className="bmc-label">{t("BMC_Occupation")}</CardLabel>
+                <CardLabel className="bmc-label">{t("BMC_Occupation*")}</CardLabel>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <CheckBox
                     label={"Employed"}
@@ -1046,7 +1047,7 @@ const OwnerDetailFull = (_props) => {
             {isCheckedShow && (
               <div className="bmc-col1-card">
                 <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                  <CardLabel className="bmc-label">{t("BMC_Employment Detail")}</CardLabel>
+                  <CardLabel className="bmc-label">{t("BMC_Employment Detail*")}</CardLabel>
                   <RadioButton
                     t={t}
                     optionsKey="value"
@@ -1195,4 +1196,4 @@ const OwnerDetailFull = (_props) => {
   );
 };
 
-export default OwnerDetailFull;
+export default ApplicationDetailFull;

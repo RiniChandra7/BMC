@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TickMark } from "@egovernments/digit-ui-react-components";
+import { TickMark } from "@upyog/digit-ui-react-components";
 
 let actions = [];
 
@@ -10,7 +10,7 @@ const getAction = (flow) => {
       actions = [];
       break;
     default:
-      actions = ["BMC_Aadhaar_Verification", "BMC_Select_Scheme", "BMC_Application_fill", "BMC_Review"];
+      actions = ["BMC_Aadhaar_Verification", "BMC_Disability_Check", "BMC_Select_Scheme", "BMC_Application_fill", "BMC_Review"];
   }
 };
 const Timeline = ({ currentStep = 1, flow = "" }) => {
@@ -18,7 +18,7 @@ const Timeline = ({ currentStep = 1, flow = "" }) => {
   const isMobile = window.Digit.Utils.browser.isMobile();
   getAction(flow);
   return (
-    <div className="timeline-box" style={isMobile ? {} : {width: "100%", minWidth: "640px", marginRight: "auto"}}>
+    <div className="timeline-box" style={isMobile ? {} : { width: "100%", minWidth: "640px", marginRight: "auto" }}>
       {actions.map((action, index, arr) => (
         <div className="timeline-checkpoints" key={index}>
           <div className="timeline-contents">
