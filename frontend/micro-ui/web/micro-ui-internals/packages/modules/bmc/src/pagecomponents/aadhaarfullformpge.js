@@ -4,7 +4,7 @@ import _ from "lodash";
 import { useTranslation } from "react-i18next";
 import { useLocation, useHistory } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
-import { CardLabel, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
+import { CardLabel, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import { ProfileImage } from "./profile";
@@ -35,13 +35,10 @@ const AadhaarFullFormPage = (_props) => {
     setSelectedOption(value);
   }
 
-  console.log(aadhaarInfo);
-  console.log("selectedOption", selectedOption);
-
   return (
     <React.Fragment>
       <div className="bmc-card-full">
-        {window.location.href.includes("/citizen") ? <Timeline currentStep={1} /> : null}
+        {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
         <Title text={"Aadhaar Form Details"} />
         <div className="bmc-row-card-header">
           <div className="bmc-title">Personal Details</div>
@@ -483,7 +480,7 @@ const AadhaarFullFormPage = (_props) => {
             <RadioButton
               isMandatory={true}
               t={t}
-              defaultValue="value"
+              defaultValue={selectedOption}
               optionsKey={"value"}
               options={[
                 { label: "Yes", value: "Yes" },
@@ -498,10 +495,17 @@ const AadhaarFullFormPage = (_props) => {
             <button
               className="bmc-card-button"
               onClick={goNext}
-              style={{ borderBottom: "3px solid black", backgroundColor: selectedOption ? "#F47738" : "gray" }}
+              style={{ borderBottom: "3px solid black", backgroundColor: selectedOption ? "#F47738" : "gray", marginRight: "1rem" }}
               disabled={!selectedOption}
             >
               {t("BMC_Confirm")}
+            </button>
+            <button
+              className="bmc-card-button-cancel"
+              onClick={() => history.push("/bmc/dashboard()")}
+              style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}
+            >
+              {t("BMC_Cancel")}
             </button>
           </div>
         </div>

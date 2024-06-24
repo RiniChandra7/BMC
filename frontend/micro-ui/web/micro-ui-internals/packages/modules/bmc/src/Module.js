@@ -10,7 +10,7 @@ import AadhaarVerification from "./pagecomponents/aadhaarVerification";
 import AadhaarFullForm from "./pagecomponents/aadhaarfullformpge";
 import BMCReviewPage from "./pagecomponents/bmcReview";
 import BMCCitizenHome from "./pagecomponents/citizenhome";
-import OwnerDetailFull from "./pagecomponents/ownerDetails";
+import ApplicationDetail from "./pagecomponents/applicationDetail"
 import SelectSchemePage from "./pagecomponents/selectScheme";
 
 //Employee Pages
@@ -92,7 +92,7 @@ const componentsToRegister = {
   BMCEmployeeHome,
   BMCModule,
   BMCLinks,
-  OwnerDetailFull,
+  ApplicationDetail,
   AadhaarVerification,
   AadhaarFullForm,
   SelectSchemePage,

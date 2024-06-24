@@ -26,7 +26,7 @@ const SelectSchemePage = () => {
     console.log("Effect triggered");
     console.log("Selected option:", selectedOption);
     if (selectedOption === "NO") {
-      alert("you have selected NO option");
+      // alert("you have selected NO option");
     }
   }, [selectedOption]);
 
