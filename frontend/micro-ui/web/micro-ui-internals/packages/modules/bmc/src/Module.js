@@ -10,8 +10,8 @@ import AadhaarVerification from "./pagecomponents/aadhaarVerification";
 import AadhaarFullForm from "./pagecomponents/aadhaarfullformpge";
 import ApplicationDetail from "./pagecomponents/applicationDetail";
 import BMCReviewPage from "./pagecomponents/bmcReview";
-import BMCCitizenHome from "./pagecomponents/citizenhome";
 import SelectSchemePage from "./pagecomponents/selectScheme";
+import BMCCitizenHome from "./pages/citizen";
 
 //Employee Pages
 import BMCCard from "./components/BMCCard";

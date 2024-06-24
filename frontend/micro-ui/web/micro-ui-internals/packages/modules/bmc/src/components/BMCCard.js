@@ -14,12 +14,18 @@ const BMCCard = () => {
       ],
       links: [
         {
-          label: t("Individual Search"),
+          label: t("Verify Applications"),
           link: `/${window?.contextPath}/employee/bmc/aadhaarverify`,
+  
+        }
+        ,
+        {
+          label: t("Randomize Applications"),
+          link: `/${window?.contextPath}/employee/bmc/crossverify`,
   
         },
         {
-          label: t("Individual Create"),
+          label: t("Cross Verify Randomized Applications"),
           link: `/${window?.contextPath}/employee/bmc/crossverify`,
   
         },

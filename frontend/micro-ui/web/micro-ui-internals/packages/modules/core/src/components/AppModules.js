@@ -11,9 +11,7 @@ const getTenants = (codes, tenants) => {
 };
 
 export const AppModules = ({ stateCode, userType, modules, appTenants }) => {
-  console.log(modules)
   const ComponentProvider = Digit.Contexts.ComponentProvider;
-  console.log(ComponentProvider)
   const { path } = useRouteMatch();
   const location = useLocation();
 
@@ -24,7 +22,6 @@ export const AppModules = ({ stateCode, userType, modules, appTenants }) => {
   }
  
   const appRoutes = modules.map(({ code, tenants }, index) => {
-    console.log(code);
     const Module = Digit.ComponentRegistryService.getComponent(`${code}Module`);
     return Module ? (
       <Route key={index} path={`${path}/${code.toLowerCase()}`}>

@@ -49,7 +49,7 @@ export const newConfig = [
                 "withoutLabel": true,
                 "key": "EligibilityCheck",
                 "type": "component",
-                "nextStep": "ownerdetails",
+                "nextStep": "ApplicationDetail",
                 "texts": {
                     "submitBarLabel": "PTR_COMMON_NEXT",
                 }
@@ -60,10 +60,10 @@ export const newConfig = [
         "head": "ES_TITILE_OWNER_DETAILS",
         "body": [
             {
-                "route": "ownerdetails",
-                "component": "OwnerDetails",
+                "route": "ApplicationDetail",
+                "component": "ApplicationDetail",
                 "withoutLabel": true,
-                "key": "OwnerDetails",
+                "key": "ApplicationDetail",
                 "type": "component",
                 "nextStep": "review",
                 "texts": {
