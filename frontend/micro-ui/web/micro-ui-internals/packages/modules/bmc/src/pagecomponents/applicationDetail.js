@@ -1,13 +1,12 @@
+import { CardLabel, CheckBox, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
-import Timeline from "../components/bmcTimeline";
-import _ from "lodash";
-import { useLocation, useHistory, Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput, CheckBox } from "@upyog/digit-ui-react-components";
 import { Controller, useForm } from "react-hook-form";
-import dropdownOptions from "./dropdownOptions.json";
+import { useTranslation } from "react-i18next";
+import { useHistory, useLocation } from "react-router-dom";
+import Timeline from "../components/bmcTimeline";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
+import dropdownOptions from "./dropdownOptions.json";
 
 const ApplicationDetail = () => ({
   rationCard: "",
