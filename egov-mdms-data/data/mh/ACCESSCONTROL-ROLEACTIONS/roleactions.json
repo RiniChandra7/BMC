@@ -27033,6 +27033,12 @@
       "actionid": 605,
       "actioncode": "",
       "tenantId": "mh"
+    },
+    {
+      "rolecode": "CITIZEN",
+      "actionid": 5004,
+      "actioncode": "",
+      "tenantId": "mh.mumbai"
     }
   ]
 }

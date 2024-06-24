@@ -21546,7 +21546,7 @@
       "sidebar": "digit-ui-links",
       "sidebarURL": "/sanitation-ui/citizen/fsm-home"
     },
-     {
+    {
       "id": 2392,
       "name": "FSM zeropricing Create",
       "url": "/fsm-calculator/v1/zeropricing/_create",
@@ -21697,6 +21697,22 @@
       "serviceCode": "BMC",
       "code": "null",
       "path": ""
+    },
+    {
+      "id": 5004,
+      "name": "BMC_CITIZEN_HOME_VIEW_APP_BY_CITIZEN_LABEL",
+      "url": "digit-ui-card",
+      "displayName": "View applications by Citizen",
+      "orderNumber": 1,
+      "parentModule": "BMC",
+      "enabled": true,
+      "serviceCode": "",
+      "code": "",
+      "path": "",
+      "navigationURL": "/digit-ui/citizen/bmc/my-applications",
+      "leftIcon": "PersonIcon",
+      "rightIcon": "",
+      "queryParams": ""
     }
   ]
 }
