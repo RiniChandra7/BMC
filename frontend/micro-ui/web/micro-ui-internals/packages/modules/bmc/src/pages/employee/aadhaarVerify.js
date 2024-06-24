@@ -1,11 +1,11 @@
+import { CardLabel, Dropdown, LabelFieldPair } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-import { CardLabel, Dropdown, LabelFieldPair } from "@egovernments/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/pagination";
 import Title from "../../components/title";
+import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
 
 const data = [
   {
@@ -177,7 +177,7 @@ const AadhaarVerifyPage = (_props) => {
                       <td>{row.gender}</td>
                       <td>{row.pincode}</td>
                       <td style={{ textAlign: "center" }}>
-                        <Link to={"/digit-ui/citizen/bmc/aadhaarEmployee"} style={{ textDecoration: "none" }}>
+                        <Link to={"/digit-ui/employee/bmc/aadhaarEmployee"} style={{ textDecoration: "none" }}>
                           <button
                             className="bmc-card-button"
                             style={{

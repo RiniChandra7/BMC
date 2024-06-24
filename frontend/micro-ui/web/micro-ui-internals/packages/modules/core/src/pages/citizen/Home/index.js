@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 const Home = () => {
   const { t } = useTranslation();
   const history = useHistory();
+  const stateId = Digit.ULBService.getStateId();
   const tenantId = Digit.ULBService.getCitizenCurrentTenant(true);
   const { data: { stateInfo, uiHomePage } = {}, isLoading } = Digit.Hooks.useStore.getInitData();
   let isMobile = window.Digit.Utils.browser.isMobile();
@@ -38,6 +39,8 @@ const Home = () => {
   const whatsAppBannerMobObj = uiHomePage?.whatsAppBannerMobile;
   const whatsNewSectionObj = uiHomePage?.whatsNewSection;
   const redirectURL = uiHomePage?.redirectURL;
+
+  console.log(citizenServicesObj);
   /* configure redirect URL only if it is required to overide the default citizen home screen */
   if (redirectURL) {
     history.push(`/${window?.contextPath}/citizen/${redirectURL}`);
@@ -64,9 +67,9 @@ const Home = () => {
         onClick: () => history.push(citizenServicesObj?.props?.[0]?.navigationUrl),
       },
       {
-        name: t(citizenServicesObj?.props?.[1]?.label),
+        name: t(citizenServicesObj?.props?.[5]?.label),
         Icon: <PTIcon className="fill-path-primary-main" />,
-        onClick: () => history.push(citizenServicesObj?.props?.[1]?.navigationUrl),
+        onClick: () => history.push(citizenServicesObj?.props?.[5]?.navigationUrl),
       },
       {
         name: t(citizenServicesObj?.props?.[2]?.label),
@@ -74,9 +77,9 @@ const Home = () => {
         onClick: () => history.push(citizenServicesObj?.props?.[2]?.navigationUrl),
       },
       {
-        name: t("Citizen Scheams"),
+        name: t(citizenServicesObj?.props?.[1]?.label),
         Icon: <PersonIcon />,
-        onClick: () => history.push("/digit-ui/citizen/bmc")
+        onClick: () => history.push(citizenServicesObj?.props?.[1]?.navigationUrl),
       },
       {
         name: t(citizenServicesObj?.props?.[3]?.label),

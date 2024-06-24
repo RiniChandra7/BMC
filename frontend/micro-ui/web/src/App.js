@@ -1,4 +1,3 @@
-import React from "react";
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 import {
   paymentConfigs,
@@ -9,13 +8,15 @@ import { DigitUI } from "@egovernments/digit-ui-module-core";
 import { initDSSComponents } from "@egovernments/digit-ui-module-dss";
 import { initEngagementComponents } from "@egovernments/digit-ui-module-engagement";
 import { initHRMSComponents } from "@egovernments/digit-ui-module-hrms";
-import { initUtilitiesComponents } from "@egovernments/digit-ui-module-utilities";
-import { UICustomizations } from "./Customisations/UICustomizations";
-import { initWorkbenchComponents } from "@egovernments/digit-ui-module-workbench";
 import {
   initPGRComponents,
   PGRReducers,
 } from "@egovernments/digit-ui-module-pgr";
+import { initUtilitiesComponents } from "@egovernments/digit-ui-module-utilities";
+import { initWorkbenchComponents } from "@egovernments/digit-ui-module-workbench";
+import { BMCLinks, BMCModule, initBMCComponents } from "@tattva/digit-ui-module-bmc";
+import React from "react";
+import { UICustomizations } from "./Customisations/UICustomizations";
 
 window.contextPath = window?.globalConfigs?.getConfig("CONTEXT_PATH");
 
@@ -26,7 +27,8 @@ const enabledModules = [
   "HRMS",
   "Engagement",
   "Workbench",
-  "PGR"
+  "PGR",
+  "BMC"
 
 ];
 
@@ -39,6 +41,8 @@ const initDigitUI = () => {
     PaymentModule,
     ...paymentConfigs,
     PaymentLinks,
+    BMCLinks,
+    BMCModule
   });
 
   initPGRComponents();
@@ -47,6 +51,7 @@ const initDigitUI = () => {
   initEngagementComponents();
   initUtilitiesComponents();
   initWorkbenchComponents();
+  initBMCComponents()
 
   window.Digit.Customizations = {
     PGR: {},

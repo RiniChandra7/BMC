@@ -9,12 +9,13 @@ import { Switch, useRouteMatch } from "react-router-dom";
 import AadhaarVerification from "./pagecomponents/aadhaarVerification";
 import AadhaarFullForm from "./pagecomponents/aadhaarfullformpge";
 import BMCReviewPage from "./pagecomponents/bmcReview";
-import BMCCitizenHome from "./pagecomponents/citizenhome";
 import OwnerDetailFull from "./pagecomponents/ownerDetails";
 import SelectSchemePage from "./pagecomponents/selectScheme";
+import BMCCitizenHome from "./pages/citizen";
 
 //Employee Pages
-import BMCEmployeeHome from "./pagecomponents/employeehome";
+import BMCCard from "./components/BMCCard";
+import BMCEmployeeHome from "./pages/employee";
 import ApprovePage from "./pages/employee/Approve";
 import AadhaarEmployeePage from "./pages/employee/aadhaarEmployee";
 import AadhaarSatutsVerificationPage from "./pages/employee/aadhaarSatutsVerification";
@@ -40,6 +41,7 @@ import {
 
 import getRootReducer from "./redux/reducers";
 
+
 export const BMCModule = ({ stateCode, userType, tenants }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const language = Digit.StoreData.getCurrentLanguage();
@@ -58,13 +60,13 @@ export const BMCModule = ({ stateCode, userType, tenants }) => {
   if (userType === "citizen") {
     return (<Switch>
       <AppContainer className="ground-container">
-        <BMCCitizenHome />
+        <BMCCitizenHome path={path} stateCode={stateCode} />
       </AppContainer>
     </Switch>);
   }
   return (<Switch>
     <AppContainer className="ground-container">
-      <BMCEmployeeHome />
+      <BMCEmployeeHome path={path} stateCode={stateCode} />
     </AppContainer>
   </Switch>);
 };
@@ -114,6 +116,7 @@ const componentsToRegister = {
   AadhaarVerifyPage,
   CrossVerifyPage,
   ApprovePage,
+  BMCCard
 };
 
 export const initBMCComponents = () => {

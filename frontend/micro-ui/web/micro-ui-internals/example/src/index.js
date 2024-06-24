@@ -10,7 +10,7 @@ import { initHRMSComponents } from "@egovernments/digit-ui-module-hrms";
 // import { initUtilitiesComponents } from  "@egovernments/digit-ui-module-utilities";
 import { PGRReducers, initPGRComponents } from "@egovernments/digit-ui-module-pgr";
 import { initWorkbenchComponents } from "@egovernments/digit-ui-module-workbench";
-import { initBMCComponents } from "@tattva/digit-ui-module-bmc";
+import { BMCLinks, BMCModule, initBMCComponents } from "@tattva/digit-ui-module-bmc";
 
 import "@egovernments/digit-ui-css/example/index.css";
 
@@ -64,6 +64,8 @@ const initDigitUI = () => {
     // PaymentModule,
     // ...paymentConfigs,
     // PaymentLinks,
+    BMCLinks,
+    BMCModule
   });
 
   initDSSComponents();
