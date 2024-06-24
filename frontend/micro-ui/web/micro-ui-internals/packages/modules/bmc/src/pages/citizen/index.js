@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useRouteMatch, Switch, useLocation } from "react-router-dom";
 import { AppContainer, BackButton, PrivateRoute } from "@egovernments/digit-ui-react-components";
+import { Switch, useLocation, useRouteMatch } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -10,7 +10,7 @@ const App = () => {
   const { path, url, ...match } = useRouteMatch();
   const location = useLocation();
 
-  const CreateComplaint = Digit?.ComponentRegistryService?.getComponent("BMCCreate");
+  const BMCHome = Digit?.ComponentRegistryService?.getComponent("BMCCitizenHome");
   const CreareOwnerDetails = Digit?.ComponentRegistryService?.getComponent("OwnerDetailFull");
   const Aadhar = Digit?.ComponentRegistryService?.getComponent("AadhaarVerification");
   const AadhaarFullForm = Digit?.ComponentRegistryService?.getComponent("AadhaarFullForm");
@@ -22,14 +22,6 @@ const App = () => {
   const CrossVerifyPage = Digit.ComponentRegistryService?.getComponent("CrossVerifyPage");
   const AadhaarVerifyPage = Digit.ComponentRegistryService?.getComponent("AadhaarVerifyPage");
   const ApprovePage = Digit.ComponentRegistryService?.getComponent("ApprovePage");
-  const wardMasterPage = Digit.ComponentRegistryService?.getComponent("wardMasterPage");
-  const electoralMasterPage = Digit.ComponentRegistryService?.getComponent("electoralMasterPage");
-  const religionMasterPage = Digit.ComponentRegistryService?.getComponent("religionMasterPage");
-  const casteCategoryMasterPage = Digit.ComponentRegistryService?.getComponent("casteCategoryMasterPage");
-  const bankMasterPage = Digit.ComponentRegistryService?.getComponent("bankMasterPage");
-  const qualificationMasterPage = Digit.ComponentRegistryService?.getComponent("qualificationMasterPage");
-  const sectorMasterPage = Digit.ComponentRegistryService?.getComponent("sectorMasterPage");
-  const courseMasterPage = Digit.ComponentRegistryService?.getComponent("courseMasterPage");
   const courseWiseApplication = Digit.ComponentRegistryService?.getComponent("courseWiseApplication");
   const wardWiseApplication = Digit.ComponentRegistryService?.getComponent("wardWiseApplication");
   const schemeWiseApplication = Digit.ComponentRegistryService?.getComponent("schemeWiseApplication");
@@ -41,7 +33,7 @@ const App = () => {
         {!location.pathname.includes("/response") && <BackButton>{t("CS_COMMON_BACK")}</BackButton>}
         <Switch>
           <AppContainer>
-            {/* <PrivateRoute path={`${path}/anc`} component={CreateComplaint} /> */}
+            <PrivateRoute path={`${path}/home`} component={BMCHome} />
             <PrivateRoute exact path={`${path}/ownerdetails`} component={CreareOwnerDetails} />
             <PrivateRoute exact path={`${path}/aadhaarLogin`} component={Aadhar} />
             <PrivateRoute exact path={`${path}/aadhaarForm`} component={AadhaarFullForm} />
@@ -53,14 +45,6 @@ const App = () => {
             <PrivateRoute exact path={`${path}/randmization`} component={RandmizationPage} />
             <PrivateRoute exact path={`${path}/crossverify`} component={CrossVerifyPage} />
             <PrivateRoute exact path={`${path}/approve`} component={ApprovePage} />
-            <PrivateRoute exact path={`${path}/wardmaster`} component={wardMasterPage} />
-            <PrivateRoute exact path={`${path}/electoralmaster`} component={electoralMasterPage} />
-            <PrivateRoute exact path={`${path}/religionmaster`} component={religionMasterPage} />
-            <PrivateRoute exact path={`${path}/castecategory`} component={casteCategoryMasterPage} />
-            <PrivateRoute exact path={`${path}/bankmaster`} component={bankMasterPage} />
-            <PrivateRoute exact path={`${path}/sectormaster`} component={sectorMasterPage} />
-            <PrivateRoute exact path={`${path}/qualificationmaster`} component={qualificationMasterPage} />
-            <PrivateRoute exact path={`${path}/coursemaster`} component={courseMasterPage} />
             <PrivateRoute exact path={`${path}/wardwiseapplication`} component={wardWiseApplication} />
             <PrivateRoute exact path={`${path}/schemewiseapplication`} component={schemeWiseApplication} />
             <PrivateRoute exact path={`${path}/coursewiseapplication`} component={courseWiseApplication} />

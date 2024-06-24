@@ -74,9 +74,9 @@ const Home = () => {
         onClick: () => history.push(citizenServicesObj?.props?.[2]?.navigationUrl),
       },
       {
-        name: t("Citizen Scheems"),
+        name: t("Citizen Scheams"),
         Icon: <PersonIcon />,
-        onClick: () => history.push("/digit-ui/citizen/bmc/aadhaarLogin")
+        onClick: () => history.push("/digit-ui/citizen/bmc")
       },
       {
         name: t(citizenServicesObj?.props?.[3]?.label),

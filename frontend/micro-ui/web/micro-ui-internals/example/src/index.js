@@ -21,11 +21,11 @@ var Digit = window.Digit || {};
 
 const enabledModules = [ "DSS", "HRMS",
 "Workbench"
-,"PGR","BMC"
-//  "Engagement", "NDSS","QuickPayLinks", "Payment",
+,"PGR","BMC",
+"Engagement" //"NDSS","QuickPayLinks", "Payment",
   // "Utilities",
 //added to check fsm
-// "FSM"
+//"FSM"
 ];
 
 const initTokens = (stateCode) => {
@@ -79,7 +79,7 @@ const initDigitUI = () => {
     pgr: PGRReducers(initData),
   });
 
-  const stateCode = window?.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") || "pb";
+  const stateCode = window?.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") || "mh";
   initTokens(stateCode);
 
   ReactDOM.render(<DigitUI stateCode={stateCode} enabledModules={enabledModules}       defaultLanding="employee"  moduleReducers={moduleReducers} />, document.getElementById("root"));

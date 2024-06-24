@@ -84,7 +84,7 @@ const Home = ({
       </Route>
     ) : null;
   });
-
+  console.log(appRoutes);
   const ModuleLevelLinkHomePages = modules.map(({ code, bannerImage }, index) => {
     let Links = Digit.ComponentRegistryService.getComponent(`${code}Links`) || (() => <React.Fragment />);
     let mdmsDataObj = isLinkDataFetched ? processLinkData(linkData, code, t) : undefined;
@@ -223,5 +223,4 @@ const Home = ({
     </div>
   );
 };
-
 export default Home;

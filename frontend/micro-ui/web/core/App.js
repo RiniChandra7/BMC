@@ -1,10 +1,10 @@
-import React from "react";
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 import { DigitUI } from "@egovernments/digit-ui-module-core";
-import { UICustomizations } from "./Customisations/UICustomizations";
-import { initWorkbenchComponents } from "@egovernments/digit-ui-module-workbench";
+import { initPGRComponents, PGRReducers } from "@egovernments/digit-ui-module-pgr";
 import { initUtilitiesComponents } from "@egovernments/digit-ui-module-utilities";
-import { initPGRComponents,PGRReducers } from "@egovernments/digit-ui-module-pgr";
+import { initWorkbenchComponents } from "@egovernments/digit-ui-module-workbench";
+import React from "react";
+import { UICustomizations } from "./Customisations/UICustomizations";
 
 window.contextPath = window?.globalConfigs?.getConfig("CONTEXT_PATH");
 
@@ -14,6 +14,8 @@ const enabledModules = [
   "Utilities",
   "Engagement",
   "Workbench",
+  "PGR",
+  "BMC"
 ];
 
 const moduleReducers = (initData) => ({

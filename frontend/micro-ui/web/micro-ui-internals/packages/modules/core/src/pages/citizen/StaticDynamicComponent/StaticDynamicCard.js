@@ -1,6 +1,8 @@
 import {
   Card,
-  CaseIcon, ComplaintIcon, HelpLineIcon, Loader, MCollectIcon, PTIcon, RupeeSymbol, ServiceCenterIcon, TimerIcon, ValidityTimeIcon,
+  CaseIcon, ComplaintIcon, HelpLineIcon, Loader, MCollectIcon,
+  PersonIcon,
+  PTIcon, RupeeSymbol, ServiceCenterIcon, TimerIcon, ValidityTimeIcon,
   WhatsappIconGreen
 } from "@egovernments/digit-ui-react-components";
 import React from "react";
@@ -30,6 +32,8 @@ const StaticDynamicCard = ({ moduleCode }) => {
         return <MCollectIcon className="fill-path-primary-main" styles={styles} />;
       case "PGR":
         return <ComplaintIcon className="fill-path-primary-main" styles={styles} />;
+      case "BMC":
+          return <PersonIcon className="fill-path-primary-main" styles={styles} />;
       default:
         return <CaseIcon className="fill-path-primary-main" styles={styles} />;
     }
@@ -45,7 +49,8 @@ const StaticDynamicCard = ({ moduleCode }) => {
             <TimerIcon />
           </span>
         );
-      default:
+      case "BMC":
+        default:
         return null;
     }
   };
@@ -80,7 +85,11 @@ const StaticDynamicCard = ({ moduleCode }) => {
         return {
           staticCommonContent: t("ACTION_TEST_COMPLAINT_TYPES"),
         };
-      case "OBPS":
+        case "BMC":
+          return {
+            staticCommonContent: t("ACTION_TEST_BMC_SCHEME"),
+          };
+        case "OBPS":
         return {
           staticCommonContent: t("BUILDING_PLAN_PERMIT_VALIDITY"),
           validity: mdmsConfigResult?.validity + " " + (mdmsConfigResult?.validity === "1" ? t("COMMON_DAY") : t("COMMON_DAYS")),

@@ -1,20 +1,28 @@
-import { CitizenHomeCard } from "@egovernments/digit-ui-react-components";
+import { AppContainer, CitizenHomeCard, Loader } from "@egovernments/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
+import { Switch, useRouteMatch } from "react-router-dom";
+
+
+
+//Citizen Pages
 import AadhaarVerification from "./pagecomponents/aadhaarVerification";
 import AadhaarFullForm from "./pagecomponents/aadhaarfullformpge";
 import BMCReviewPage from "./pagecomponents/bmcReview";
+import BMCCitizenHome from "./pagecomponents/citizenhome";
 import OwnerDetailFull from "./pagecomponents/ownerDetails";
 import SelectSchemePage from "./pagecomponents/selectScheme";
-import CitizenApp from "./pages/citizen";
-import Create from "./pages/citizen/create";
+
+//Employee Pages
+import BMCEmployeeHome from "./pagecomponents/employeehome";
 import ApprovePage from "./pages/employee/Approve";
 import AadhaarEmployeePage from "./pages/employee/aadhaarEmployee";
 import AadhaarSatutsVerificationPage from "./pages/employee/aadhaarSatutsVerification";
 import AadhaarVerifyPage from "./pages/employee/aadhaarVerify";
 import CrossVerifyPage from "./pages/employee/crossVerify";
 import RandmizationPage from "./pages/employee/randmization";
+
+//Master Pages
 import {
   bankMasterPage,
   casteCategoryMasterPage,
@@ -28,27 +36,40 @@ import {
   wardMasterPage,
   wardWiseApplication,
 } from "./pages/master/aadhaarMaster";
+
+
 import getRootReducer from "./redux/reducers";
 
-export const BMCReducers = getRootReducer;
-
-const BMCModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
-  const moduleCode = "BMC";
+export const BMCModule = ({ stateCode, userType, tenants }) => {
+  const tenantId = Digit.ULBService.getCurrentTenantId();
   const language = Digit.StoreData.getCurrentLanguage();
-  const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });
-
-  // if (userType === "citizen") {
-  //   return <CitizenApp path={path} stateCode={stateCode} />;
-  // }
-
-  // return <EmployeeApp path={path} stateCode={stateCode} />;
+  const { path, url } = useRouteMatch();
+  const moduleCode = ["BMC"];
+  const { isLoading, data: store } = Digit.Services.useStore({
+    stateCode,
+    moduleCode,
+    language,
+  });
   Digit.SessionStorage.set("BMC_TENANTS", tenants);
 
-  return <CitizenApp />;
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (userType === "citizen") {
+    return (<Switch>
+      <AppContainer className="ground-container">
+        <BMCCitizenHome />
+      </AppContainer>
+    </Switch>);
+  }
+  return (<Switch>
+    <AppContainer className="ground-container">
+      <BMCEmployeeHome />
+    </AppContainer>
+  </Switch>);
 };
 
-const BMCLinks = ({ matchPath }) => {
+export const BMCLinks = ({ matchPath }) => {
   const { t } = useTranslation();
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage(BMC_CITIZEN_CREATE_COMPLAINT, {});
 
@@ -67,7 +88,8 @@ const BMCLinks = ({ matchPath }) => {
 };
 
 const componentsToRegister = {
-  BMCCreate: Create,
+  BMCCitizenHome,
+  BMCEmployeeHome,
   BMCModule,
   BMCLinks,
   OwnerDetailFull,
@@ -99,3 +121,13 @@ export const initBMCComponents = () => {
     Digit.ComponentRegistryService.setComponent(key, value);
   });
 };
+
+// export const initSampleComponents = () => {
+//   overrideHooks();
+//   updateCustomConfigs();
+//   Object.entries(componentsToRegister).forEach(([key, value]) => {
+//     Digit.ComponentRegistryService.setComponent(key, value);
+//   });
+// };
+
+export const BMCReducers = getRootReducer;
