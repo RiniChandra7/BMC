@@ -9,8 +9,6 @@ const App = () => {
   const { t } = useTranslation();
   const { path, url, ...match } = useRouteMatch();
   const location = useLocation();
-
-  const BMCHome = Digit?.ComponentRegistryService?.getComponent("BMCCitizenHome");
   const CreareOwnerDetails = Digit?.ComponentRegistryService?.getComponent("OwnerDetailFull");
   const Aadhar = Digit?.ComponentRegistryService?.getComponent("AadhaarVerification");
   const AadhaarFullForm = Digit?.ComponentRegistryService?.getComponent("AadhaarFullForm");
@@ -26,14 +24,13 @@ const App = () => {
   const wardWiseApplication = Digit.ComponentRegistryService?.getComponent("wardWiseApplication");
   const schemeWiseApplication = Digit.ComponentRegistryService?.getComponent("schemeWiseApplication");
 
-
+  console.log(path)
   return (
     <React.Fragment>
       <div className="bmc-citizen-wrapper" style={{ width: "100%" }}>
         {!location.pathname.includes("/response") && <BackButton>{t("CS_COMMON_BACK")}</BackButton>}
         <Switch>
           <AppContainer>
-            <PrivateRoute path={`${path}/home`} component={BMCHome} />
             <PrivateRoute exact path={`${path}/ownerdetails`} component={CreareOwnerDetails} />
             <PrivateRoute exact path={`${path}/aadhaarLogin`} component={Aadhar} />
             <PrivateRoute exact path={`${path}/aadhaarForm`} component={AadhaarFullForm} />

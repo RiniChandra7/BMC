@@ -10,6 +10,7 @@ import {
 } from "@egovernments/digit-ui-react-components";
 
 const BMCCitizenHome = ({ parentRoute }) => {
+  debugger
   const queryClient = useQueryClient();
   const match = useRouteMatch();
   const { t } = useTranslation();
@@ -48,10 +49,21 @@ const BMCCitizenHome = ({ parentRoute }) => {
     },
     options: [
       {
-        name: t("Welfare"),
+        name: t("New Application"),
         Icon: <OBPSIcon />,
         onClick: () => history.push("/digit-ui/citizen/bmc/aadhaarLogin"),
       },
+      {
+        name: t("Past Applications"),
+        Icon: <DocumentIcon />,
+        onClick: () => history.push("/digit-ui/citizen/bmc/aadhaarLogin"),
+      },
+      {
+        name: t("Upcoming Schemes"),
+        Icon: <Calender />,
+        onClick: () => history.push("/digit-ui/citizen/bmc/aadhaarLogin"),
+      },
+
     ],
     styles: { display: "flex", flexWrap: "wrap", justifyContent: "flex-start", width: "100%" },
   };
@@ -98,7 +110,6 @@ const BMCCitizenHome = ({ parentRoute }) => {
 
       <div className="ServicesSection">
         <CardBasedOptions {...allCitizenServicesProps} />
-        <CardBasedOptions {...allInfoAndUpdatesProps} />
       </div>
 
       {conditionsToDisableNotificationCountTrigger() ? (
