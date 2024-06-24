@@ -15,14 +15,6 @@ const App = ({}) => {
   const SelectSchemePage = Digit?.ComponentRegistryService?.getComponent("SelectSchemePage");
   const BMCReviewPage = Digit?.ComponentRegistryService?.getComponent("BMCReviewPage");
   // const AadhaarSatutsVerificationPage = Digit?.ComponentRegistryService?.getComponent("AadhaarSatutsVerificationPage");
-  const AadhaarEmployeePage = Digit?.ComponentRegistryService?.getComponent("AadhaarEmployeePage");
-  const RandmizationPage = Digit.ComponentRegistryService?.getComponent("RandmizationPage");
-  const CrossVerifyPage = Digit.ComponentRegistryService?.getComponent("CrossVerifyPage");
-  const AadhaarVerifyPage = Digit.ComponentRegistryService?.getComponent("AadhaarVerifyPage");
-  const ApprovePage = Digit.ComponentRegistryService?.getComponent("ApprovePage");
-  const courseWiseApplication = Digit.ComponentRegistryService?.getComponent("courseWiseApplication");
-  const wardWiseApplication = Digit.ComponentRegistryService?.getComponent("wardWiseApplication");
-  const schemeWiseApplication = Digit.ComponentRegistryService?.getComponent("schemeWiseApplication");
   return (
     <React.Fragment>
       <div className="bmc-citizen-wrapper" style={{ width: "100%" }}>

@@ -12,17 +12,17 @@ const Inbox = ({ parentRoute, businessService = "BMC", initialStates = {}, filte
 //     return initialStates.searchParams || {};
 //   });
 
-//   let isMobile = window.Digit.Utils.browser.isMobile();
-//   let paginationParams = isMobile
-//     ? { limit: 100, offset: pageOffset, sortOrder: sortParams?.[0]?.desc ? "DESC" : "ASC" }
-//     : { limit: pageSize, offset: pageOffset, sortOrder: sortParams?.[0]?.desc ? "DESC" : "ASC" };
-//   const isupdate = Digit.SessionStorage.get("isupdate");
-//   const { isLoading: hookLoading, isError, error, data, ...rest } = Digit.Hooks.hrms.useHRMSSearch(
-//     searchParams,
-//     tenantId,
-//     paginationParams,
-//     isupdate
-//   );
+  let isMobile = window.Digit.Utils.browser.isMobile();
+  let paginationParams = isMobile
+    ? { limit: 100, offset: pageOffset, sortOrder: sortParams?.[0]?.desc ? "DESC" : "ASC" }
+    : { limit: pageSize, offset: pageOffset, sortOrder: sortParams?.[0]?.desc ? "DESC" : "ASC" };
+  const isupdate = Digit.SessionStorage.get("isupdate");
+  const { isLoading: hookLoading, isError, error, data, ...rest } = Digit.Hooks.hrms.useHRMSSearch(
+    searchParams,
+    tenantId,
+    paginationParams,
+    isupdate
+  );
 
 //   useEffect(() => {
 //     // setTotalReacords(res?.EmployeCount?.totalEmployee);
@@ -81,69 +81,69 @@ const Inbox = ({ parentRoute, businessService = "BMC", initialStates = {}, filte
 //     ];
 //   };
 
-//   if (isLoading) {
-//     return <Loader />;
-//   }
+  if (isLoading) {
+    return <Loader />;
+  }
 
-//   if (data?.length !== null) {
-//     if (isMobile) {
-//       return (
-//         <MobileInbox
-//           businessService={businessService}
-//           data={data}
-//           isLoading={hookLoading}
-//           defaultSearchParams={initialStates.searchParams}
-//           isSearch={!isInbox}
-//           onFilterChange={handleFilterChange}
-//           searchFields={getSearchFields()}
-//           onSearch={handleFilterChange}
-//           onSort={handleSort}
-//           onNextPage={fetchNextPage}
-//           tableConfig={rest?.tableConfig}
-//           onPrevPage={fetchPrevPage}
-//           currentPage={Math.floor(pageOffset / pageSize)}
-//           pageSizeLimit={pageSize}
-//           disableSort={false}
-//           onPageSizeChange={handlePageSizeChange}
-//           parentRoute={parentRoute}
-//           searchParams={searchParams}
-//           sortParams={sortParams}
-//           totalRecords={totalRecords}
-//           linkPrefix={ `/${window?.contextPath}/employee/hrms/details/`}
-//           filterComponent={filterComponent}
-//         />
-//         // <div></div>
-//       );
-//     } else {
-//       return (
-//         <div>
-//           {isInbox && <Header>{t("HR_HOME_SEARCH_RESULTS_HEADING")}</Header>}
-//           <DesktopInbox
-//             businessService={businessService}
-//             data={data}
-//             isLoading={hookLoading}
-//             defaultSearchParams={initialStates.searchParams}
-//             isSearch={!isInbox}
-//             onFilterChange={handleFilterChange}
-//             searchFields={getSearchFields()}
-//             onSearch={handleFilterChange}
-//             onSort={handleSort}
-//             onNextPage={fetchNextPage}
-//             onPrevPage={fetchPrevPage}
-//             currentPage={Math.floor(pageOffset / pageSize)}
-//             pageSizeLimit={pageSize}
-//             disableSort={false}
-//             onPageSizeChange={handlePageSizeChange}
-//             parentRoute={parentRoute}
-//             searchParams={searchParams}
-//             sortParams={sortParams}
-//             totalRecords={totalRecords}
-//             filterComponent={filterComponent}
-//           />
-//         </div>
-//       );
-//     }
-//   }
+  if (data?.length !== null) {
+    if (isMobile) {
+      return (
+        <MobileInbox
+          businessService={businessService}
+          data={data}
+          isLoading={hookLoading}
+          defaultSearchParams={initialStates.searchParams}
+          isSearch={!isInbox}
+          onFilterChange={handleFilterChange}
+          searchFields={getSearchFields()}
+          onSearch={handleFilterChange}
+          onSort={handleSort}
+          onNextPage={fetchNextPage}
+          tableConfig={rest?.tableConfig}
+          onPrevPage={fetchPrevPage}
+          currentPage={Math.floor(pageOffset / pageSize)}
+          pageSizeLimit={pageSize}
+          disableSort={false}
+          onPageSizeChange={handlePageSizeChange}
+          parentRoute={parentRoute}
+          searchParams={searchParams}
+          sortParams={sortParams}
+          totalRecords={totalRecords}
+          linkPrefix={ `/${window?.contextPath}/employee/hrms/details/`}
+          filterComponent={filterComponent}
+        />
+        // <div></div>
+      );
+    } else {
+      return (
+        <div>
+          {isInbox && <Header>{t("HR_HOME_SEARCH_RESULTS_HEADING")}</Header>}
+          <DesktopInbox
+            businessService={businessService}
+            data={data}
+            isLoading={hookLoading}
+            defaultSearchParams={initialStates.searchParams}
+            isSearch={!isInbox}
+            onFilterChange={handleFilterChange}
+            searchFields={getSearchFields()}
+            onSearch={handleFilterChange}
+            onSort={handleSort}
+            onNextPage={fetchNextPage}
+            onPrevPage={fetchPrevPage}
+            currentPage={Math.floor(pageOffset / pageSize)}
+            pageSizeLimit={pageSize}
+            disableSort={false}
+            onPageSizeChange={handlePageSizeChange}
+            parentRoute={parentRoute}
+            searchParams={searchParams}
+            sortParams={sortParams}
+            totalRecords={totalRecords}
+            filterComponent={filterComponent}
+          />
+        </div>
+      );
+    }
+  }
 };
 
 export default Inbox;

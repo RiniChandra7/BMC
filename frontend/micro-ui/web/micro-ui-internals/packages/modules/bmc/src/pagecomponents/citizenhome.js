@@ -4,13 +4,16 @@ import { useQueryClient } from "react-query";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 
 import {
+  BackButton,
   Calender, CardBasedOptions,
-  DocumentIcon, HomeIcon, Loader, OBPSIcon,
+  DocumentIcon,
+  Loader, OBPSIcon,
   StandaloneSearchBar, WhatsNewCard
 } from "@egovernments/digit-ui-react-components";
 
 const BMCCitizenHome = ({ parentRoute }) => {
   debugger
+  console.log(parentRoute);
   const queryClient = useQueryClient();
   const match = useRouteMatch();
   const { t } = useTranslation();
@@ -20,7 +23,7 @@ const BMCCitizenHome = ({ parentRoute }) => {
   const tenantId = Digit.ULBService.getCitizenCurrentTenant(true);
   const { data: { stateInfo } = {}, isLoading } = Digit.Hooks.useStore.getInitData();
   let config = [];
-
+  const Aadhar = Digit?.ComponentRegistryService?.getComponent("AadhaarVerification");
   const conditionsToDisableNotificationCountTrigger = () => {
     if (Digit.UserService?.getUser()?.info?.type === "EMPLOYEE") return false;
     if (!Digit.UserService?.getUser()?.access_token) return false;
@@ -51,7 +54,7 @@ const BMCCitizenHome = ({ parentRoute }) => {
       {
         name: t("New Application"),
         Icon: <OBPSIcon />,
-        onClick: () => history.push("/digit-ui/citizen/bmc/aadhaarLogin"),
+        onClick: () => history.push(`${parentRoute}/application/aadhaarLogin`),
       },
       {
         name: t("Past Applications"),
@@ -61,47 +64,16 @@ const BMCCitizenHome = ({ parentRoute }) => {
       {
         name: t("Upcoming Schemes"),
         Icon: <Calender />,
-        onClick: () => history.push("/digit-ui/citizen/bmc/aadhaarLogin"),
+        onClick: () => {history.push("/digit-ui/citizen/bmc/aadhaarLogin")},
       },
 
     ],
     styles: { display: "flex", flexWrap: "wrap", justifyContent: "flex-start", width: "100%" },
   };
-
-  const allInfoAndUpdatesProps = {
-    header: t("CS_COMMON_DASHBOARD_INFO_UPDATES"),
-    sideOption: {
-      name: t("DASHBOARD_VIEW_ALL_LABEL"),
-      onClick: () => { },
-    },
-    options: [
-      {
-        name: t("CS_HEADER_MYCITY"),
-        Icon: <HomeIcon />,
-      },
-      {
-        name: t("EVENTS_EVENTS_HEADER"),
-        Icon: <Calender />,
-        onClick: () => history.push("/digit-ui/citizen/engagement/events"),
-      },
-      {
-        name: t("CS_COMMON_DOCUMENTS"),
-        Icon: <DocumentIcon />,
-        onClick: () => history.push("/digit-ui/citizen/engagement/docs"),
-      },
-      {
-        name: t("CS_COMMON_SURVEYS"),
-        Icon: <DocumentIcon />,
-        onClick: () => history.push("/digit-ui/citizen/engagement/surveys/list"),
-      },
-
-    ],
-    styles: { display: "flex", flexWrap: "wrap", justifyContent: "flex-start", width: "100%" },
-  };
-
   return (
     <div className="HomePageWrapper">
       <div className="BannerWithSearch">
+      {!location.pathname.includes("/response") && <BackButton>{t("CS_COMMON_BACK")}</BackButton>}
         <img src={stateInfo?.bannerUrl} />
         <div className="Search">
           <StandaloneSearchBar placeholder={t("CS_COMMON_SEARCH_PLACEHOLDER")} />
