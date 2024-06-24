@@ -25,7 +25,7 @@ public class AadharService {
          aadharUser.setModifiedOn(schemeApplicationRequest.getModifiedOn()); 
          aadharUser.setCreatedBy(schemeApplicationRequest.getCreatedBy()); 
          aadharUser.setModifiedBy(schemeApplicationRequest.getModifiedby()); 
-        return aadharUser;
+        return addAadharRepository.save(aadharUser);
     }
 
 

@@ -5,16 +5,23 @@ import org.springframework.stereotype.Service;
 
 import digit.bmc.model.Bank;
 import digit.repository.BankRepository;
-import digit.web.models.BmcRequest;
+import digit.web.models.SchemeApplicationRequest;
 
 @Service
 public class BankService {
     @Autowired
     private BankRepository bankRepository;
 
-    public  Bank getBankByApplication(BmcRequest request) {
+    public  Bank getBankByApplication(SchemeApplicationRequest schemeApplicationRequest) {
 
         Bank bank = new Bank();
-        return bank;
+        bank.setName(schemeApplicationRequest.getName());
+        bank.setCode(schemeApplicationRequest.getCode());
+        bank.setId(schemeApplicationRequest.getBankid());
+        bank.setIsActive(schemeApplicationRequest.getIsActive());
+        bank.setNarration(schemeApplicationRequest.getNarration());
+        bank.setType(schemeApplicationRequest.getType());
+        bank.setVersion(schemeApplicationRequest.getVersion());
+        return bankRepository.save(bank);
     }
 }

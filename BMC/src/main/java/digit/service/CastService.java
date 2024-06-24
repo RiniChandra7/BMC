@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import digit.bmc.model.Caste;
 import digit.repository.CasteRepository;
-import digit.web.models.BmcRequest;
+import digit.web.models.SchemeApplicationRequest;
 
 @Service
 public class CastService {
@@ -13,10 +13,16 @@ public class CastService {
     @Autowired
     private CasteRepository casteRepository;
 
-    public Caste getCastByApplication(BmcRequest request) {
+    public Caste getCastByApplication(SchemeApplicationRequest  schemeApplicationRequest) {
 
       Caste caste = new Caste();
-      return  caste;  
+
+      caste.setId(schemeApplicationRequest.getId());
+      caste.setName(schemeApplicationRequest.getName());
+      caste.setDescription(schemeApplicationRequest.getDescription());
+      caste.setCreatedBy(schemeApplicationRequest.getCreatedBy());
+      caste.setModifiedBy(schemeApplicationRequest.getModifiedby());
+      return  casteRepository.save(caste);  
     }
 
 }
