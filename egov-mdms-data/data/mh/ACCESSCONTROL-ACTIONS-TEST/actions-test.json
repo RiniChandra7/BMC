@@ -21709,7 +21709,7 @@
       "serviceCode": "",
       "code": "",
       "path": "",
-      "navigationURL": "/digit-ui/citizen/bmc/my-applications",
+      "navigationURL": "/digit-ui/citizen/bmc/aadhaarLogin",
       "leftIcon": "PersonIcon",
       "rightIcon": "",
       "queryParams": ""
