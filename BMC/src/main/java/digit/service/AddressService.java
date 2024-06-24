@@ -3,14 +3,17 @@ package digit.service;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import digit.repository.AddressRepository;
 import digit.web.models.Address;
 import digit.web.models.SchemeApplicationRequest;
 
 @Service
 public class AddressService {
-     
+     @Autowired
+    private   AddressRepository addressRepository;
 
       public Address getAddressByApplication(SchemeApplicationRequest schemeApplicationRequest) {
        
@@ -22,9 +25,10 @@ public class AddressService {
          address.setCity(schemeApplicationRequest.getCity());
          address.setDistrict(schemeApplicationRequest.getDistrict());
          address.setPincode(schemeApplicationRequest.getPincode());
+        address.setId(schemeApplicationRequest.getId());
         
         
-         return address;
+         return addressRepository.save(address);
      }
 
 }

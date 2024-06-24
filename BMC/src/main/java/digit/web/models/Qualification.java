@@ -1,4 +1,6 @@
-package digit.bmc.model;
+package digit.web.models;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,33 +9,34 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+
 @Data
 @Entity
-@Table(name = "eg_bmc_caste")
-public class Caste {
+@Table(name = "eg_bmc_qualificationmaster")
+
+public class Qualification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "qualification")
+    private String qualification;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "remark")
+    private String remark;
 
     @Column(name = "createdon")
-    private Long createdOn;
+    private LocalDateTime createdOn;
 
     @Column(name = "modifiedon")
-    private Long modifiedOn;
+    private LocalDateTime modifiedOn;
 
     @Column(name = "createdby")
-    private Integer createdBy;
+    private String createdBy;
 
     @Column(name = "modifiedby")
-    private Integer modifiedBy;
-
+    private String modifiedBy;
 
 }

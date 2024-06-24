@@ -3,8 +3,9 @@ package digit.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import digit.bmc.model.Schemes;
+import digit.web.models.Religion;
+
 @Repository
-public interface SchemesRepository  extends  JpaRepository<Schemes, Long> {
+public interface ReligionRepositoty extends  JpaRepository<Religion, Long>{
 
 }

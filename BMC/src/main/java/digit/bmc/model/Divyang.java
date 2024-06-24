@@ -31,9 +31,9 @@ public class Divyang {
     private Long modifiedOn;
 
     @Column(name = "createdby")
-    private String createdBy;
+    private Integer createdBy;
 
     @Column(name = "modifiedby")
-    private String modifiedBy;
+    private Integer modifiedBy;
 
 }

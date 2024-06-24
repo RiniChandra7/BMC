@@ -47,6 +47,8 @@ public class SchemeApplicationRequest {
     
     
  private String aadharRef;
+
+ private Long Id;
 	
      private String uuid ;
 	
@@ -57,14 +59,22 @@ public class SchemeApplicationRequest {
       private Date aadhar_dob;
 	
      private String aadhar_mobile;
+      
 	
      private Date createdOn;
 	
     private Date modifiedOn;
 	
      private Integer createdBy;
+     private String remark;
+
+     private String qualification;
+
+     private String wardName;
 
  
+     private String cityName;
+
    private String address1;
 
    private String address2;
