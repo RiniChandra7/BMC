@@ -1,5 +1,9 @@
 package digit.web.models;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,41 +20,32 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name="eg_bmc_address")
 public class Address {
 
-    @JsonProperty("id")
+    @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @JsonProperty("userId")
+    @Column(name="userId")
     private Long userId;
-
-    @JsonProperty("tenantId")
+    @Column(name="tenantId")
     private String tenantId;
-
-    @JsonProperty("address1")
+    @Column(name="address1")
     private String address1;
-
-    @JsonProperty("address2")
+    @Column(name="address2")
     private String address2;
-
-    @JsonProperty("location")
+    @Column(name="location")
     private String location;
-
-    @JsonProperty("ward")
+    @Column(name="ward")
     private String ward;
-
-    @JsonProperty("city")
+    @Column(name="city")
     private String city;
-
-    @JsonProperty("district")
+    @Column(name="district")
     private String district;
-
-    @JsonProperty("state")
+    @Column(name="state")
     private String state;
-
-    @JsonProperty("country")
+    @Column(name="country")
     private String country;
-
-    @JsonProperty("pincode")
+    @Column(name="pincode")
     private String pincode;
 }

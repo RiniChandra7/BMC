@@ -9,8 +9,13 @@ import digit.web.models.SchemeApplicationRequest;
 
 @Service
 public class AadharService {
+    private final AadharRepository addAadharRepository;
+
     @Autowired
-    private AadharRepository addAadharRepository;
+    public AadharService(AadharRepository addAadharRepository) {
+        this.addAadharRepository = addAadharRepository;
+    }
+
 
     public AadharUser getAadharUserByApplication(SchemeApplicationRequest schemeApplicationRequest) {
        

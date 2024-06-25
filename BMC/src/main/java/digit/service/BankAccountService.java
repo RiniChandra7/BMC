@@ -1,5 +1,10 @@
 package digit.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +35,28 @@ public class BankAccountService {
 
         return  bankAccountRepository.save(bankAccount);
     }
+
+    
+    
+
+    public Map<String, List<String>> getDropdownValues() {
+        Map<String, List<String>> dropdownValues = new HashMap<>();
+        BankAccount bankAccount = new BankAccount();
+        List<String> accountTypes = new ArrayList<>();
+        accountTypes.add(bankAccount.getAccountType());
+        List<String> accountNumbers = new ArrayList<>();
+        accountNumbers.add(bankAccount.getAccountNumber());    
+        dropdownValues.put("AccountType", accountTypes);
+        dropdownValues.put("AccountNumber", accountNumbers);
+
+        return dropdownValues;
+    }
+
+    public List<BankAccount> getBankAccountList (SchemeApplicationRequest schemeApplicationRequest){
+
+        return bankAccountRepository.getByAccountNumber(schemeApplicationRequest.getAccountNumber());
+    }
 }
+
+
+   
