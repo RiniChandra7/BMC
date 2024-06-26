@@ -3,86 +3,81 @@ package digit.web.models;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Data;
+import org.egov.common.contract.models.Address;
 
-@Data
-@Entity
-@Builder
+
+
+
 public class BmcRequest {
-   @Id
-    private Long  id;
-	
-    private String aadharRef;
-	
-    private String uuid ;
-	
-    private String aadhar_fatherName;
-	
-    private String aadhar_name;
-	
-     private Date aadhar_dob;
-	
-    private String aadhar_mobile;
-	
-    private Date createdOn;
-	
-   private Date modifiedOn;
-	
-    private Integer createdBy;
+  @Id
+  private Long id;
 
- 
+  private String aadharRef;
+
+  private String uuid;
+
+  private String aadhar_fatherName;
+
+  private String aadhar_name;
+
+  private Date aadhar_dob;
+
+  private String aadhar_mobile;
+
+  private Date createdOn;
+
+  private Date modifiedOn;
+
+  private Integer createdBy;
+
   private String address1;
 
   private String address2;
-  
+
   private String location;
-  
+
   private String ward;
- 
+
   private String city;
- 
+
   private String district;
- 
+
   private String pincode;
-  
-  	
-    private Integer optedId;
-	
-    private String applicationStatus ;
 
-    private String verificationStatus;
+  private Integer optedId;
 
-    private String firstApprovalStatus ;
+  private String applicationStatus;
 
-    private Boolean randomSelection ;
+  private String verificationStatus;
 
-    private Boolean finalApproval;
+  private String firstApprovalStatus;
 
-    private Boolean submitted;
+  private Boolean randomSelection;
 
-      private String code;
+  private Boolean finalApproval;
 
-	    private String name;
+  private Boolean submitted;
 
-	    private String narration;
+  private String code;
 
-	    private Boolean isActive;
+  private String name;
 
-	    private String type;
- 
-	    private Timestamp createdDate;
+  private String narration;
 
-	    private Timestamp lastModifiedDate;	
-      private Integer modifiedby;
+  private Boolean isActive;
 
-         private Long branchId;
+  private String type;
 
-	    private String accountNumber;
+  private Timestamp createdDate;
 
-	    private String accountType;
+  private Timestamp lastModifiedDate;
+  private Integer modifiedby;
+
+  private Long branchId;
+
+  private String accountNumber;
+
+  private String accountType;
 
 	    private String payTo;
 
@@ -201,8 +196,5 @@ private Long userId;
 	    private Long version;
 
 	    private Long chequeFormatId;
-
-
- 
 
 }

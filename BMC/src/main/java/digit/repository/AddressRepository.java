@@ -1,11 +1,9 @@
 package digit.repository;
-
+import org.egov.common.contract.models.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import digit.web.models.Address;
-
-@Repository
+@EnableJpaRepositories
 public interface AddressRepository extends  JpaRepository<Address, Long> {
 
 }

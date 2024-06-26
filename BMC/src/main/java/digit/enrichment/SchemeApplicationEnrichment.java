@@ -10,14 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import digit.config.BmcConfiguration;
-import digit.service.AadharService;
-import digit.service.AddressService;
-import digit.service.BmcRegistrationApplicationService;
-import digit.service.CastService;
-import digit.service.CourseService;
-import digit.service.DivyangService;
-import digit.service.MachineService;
-import digit.service.UserOtherDetailsService;
 import digit.service.UserService;
 import digit.util.IdgenUtil;
 import digit.util.UserUtil;
@@ -36,22 +28,8 @@ public class SchemeApplicationEnrichment {
     @Autowired
     private  UserUtil userUtils;
     @Autowired
-    private CourseService courseService;
-    @Autowired
-    private UserOtherDetailsService userOtherDetailsService;
-    @Autowired
-    private DivyangService divyangService;
-    @Autowired
-    private CastService castService;
-    @Autowired
-    private MachineService machineService;
-    @Autowired
     private BmcConfiguration configuration;
   
-    @Autowired
-    private AadharService aadharService;
-    @Autowired
-    private BmcRegistrationApplicationService bmcRegistrationApplicationService;
 
     
 

@@ -3,12 +3,12 @@ package digit.bmc.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.egov.common.contract.models.Address;
 import org.egov.common.contract.models.AuditDetails;
 import org.egov.common.contract.models.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import digit.web.models.Address;
 import jakarta.validation.Valid;
 import lombok.Data;
 @Data

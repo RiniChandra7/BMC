@@ -49,7 +49,7 @@ export const newConfig = [
                 "withoutLabel": true,
                 "key": "EligibilityCheck",
                 "type": "component",
-                "nextStep": "ApplicationDetail",
+                "nextStep": "ApplicationDetails",
                 "texts": {
                     "submitBarLabel": "PTR_COMMON_NEXT",
                 }

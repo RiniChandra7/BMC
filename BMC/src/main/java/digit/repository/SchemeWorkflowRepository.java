@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import digit.web.models.SchemeWorkflow;
 
 @Repository
-public interface SchemeWorkflowRepository extends  JpaRepository<SchemeWorkflow, Long>{
+public interface SchemeWorkflowRepository extends  JpaRepository<SchemeWorkflow, String>{
 
 }

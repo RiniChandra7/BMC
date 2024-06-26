@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
 import RadioButton from "../components/radiobutton";
-import dropdownOptions from "./dropdownOptions.json";
 import Title from "../components/title";
+import dropdownOptions from "./dropdownOptions.json";
 
 const SelectSchemePage = () => {
   const { t } = useTranslation();
@@ -337,7 +337,7 @@ const SelectSchemePage = () => {
       <div style={{ textAlign:"end", padding:"1rem"}}>
         <Link
           to={{
-            pathname: "/digit-ui/citizen/bmc/ownerdetails",
+            pathname: "/digit-ui/citizen/bmc/ApplicationDetails",
             state: { selectedScheme: selectScheme, selectedRadio: selectedRadio },
           }}
           style={{ textDecoration: "none" }}

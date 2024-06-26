@@ -21,12 +21,17 @@ const BMCCard = () => {
         ,
         {
           label: t("Randomize Applications"),
-          link: `/${window?.contextPath}/employee/bmc/crossverify`,
+          link: `/${window?.contextPath}/employee/bmc/randmization`,
   
         },
         {
           label: t("Cross Verify Randomized Applications"),
           link: `/${window?.contextPath}/employee/bmc/crossverify`,
+  
+        },
+        {
+          label: t("Approve Crossed Verified Applications"),
+          link: `/${window?.contextPath}/employee/bmc/approve`,
   
         },
     ],};

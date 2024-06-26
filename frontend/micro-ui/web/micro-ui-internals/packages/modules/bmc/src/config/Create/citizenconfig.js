@@ -56,7 +56,7 @@ export const citizenConfig = [
                 "withoutLabel": true,
                 "key": "EgibilityCheck",
                 "type": "component",
-                "nextStep": "ApplicationDetail",
+                "nextStep": "ApplicationDetails",
                 "hideInEmployee": true,
                 "isMandatory": true,
                 "texts": {
@@ -69,10 +69,10 @@ export const citizenConfig = [
         "head": "ES_TITILE_OWNER_DETAILS",
         "body": [
             {
-                "route": "ApplicationDetail",
+                "route": "ApplicationDetails",
                 "component": "ApplicationDetail",
                 "withoutLabel": true,
-                "key": "ApplicationDetail",
+                "key": "ApplicationDetails",
                 "type": "component",
                 "nextStep": "review",
                 "hideInEmployee": true,
