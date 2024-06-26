@@ -5,14 +5,9 @@ import java.util.Date;
 
 import org.egov.common.contract.models.Address;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Data;
 
-@Data
-@Entity
-@Builder
+
+
 public class BmcRequest {
   @Id
   private Long id;
@@ -84,95 +79,122 @@ public class BmcRequest {
 
   private String accountType;
 
-  private String payTo;
+	    private String payTo;
 
-  private String branchcode;
+        private String branchcode;
 
-  private String branchaddress1;
+    
+        private String branchaddress1;
+    
+        private String branchaddress2;
+    
+        private String branchcity;
+    
+        private String branchstate;
+    
+        private String branchpin;
+    
+        private String branchphone;
+    
+        private String branchfax;
+        private Long bankid;
+    
+        private String contactperson;
+    
+        private String micr;
 
-  private String branchaddress2;
+       
+	private String tenantId ;
 
-  private String branchcity;
+	
+	private String applicationNumber ;
 
-  private String branchstate;
+	
+	private String applicantName;
 
-  private String branchpin;
+	
+	private String fatherName ;
 
-  private String branchphone;
+	
+	private String mobileNumber ;
 
-  private String branchfax;
-  private Long bankid;
+	
+	private String emailId ;
 
-  private String contactperson;
+	
+	private String aadharNumber ;
 
-  private String micr;
+	
+	private Address address ;
 
-  private String tenantId;
+    private String courseName;
 
-  private String applicationNumber;
+    private String description;
 
-  private String applicantName;
+    private String duration;
 
-  private String fatherName;
+    private Long startDt;
 
-  private String mobileNumber;
+    private Long endDt;
 
-  private String emailId;
+    private Integer typeId;
 
-  private String aadharNumber;
+   
+    private String url;
 
-  private Address address;
+    
+    private String institute;
 
-  private String courseName;
+   
+    private String imgUrl;
 
-  private String description;
+   
+    private String instituteAddress;
+    
+    private Double amount;
 
-  private String duration;
+    private Integer schemeId;
 
-  private Long startDt;
+    private Integer courseId;
 
-  private Long endDt;
+    private Double grantAmount;
 
-  private Integer typeId;
+    private String sector;
+private Long userId;
 
-  private String url;
+  
 
-  private String institute;
 
-  private String imgUrl;
 
-  private String instituteAddress;
+    private Integer religionId;
 
-  private Double amount;
 
-  private Integer schemeId;
+    private String divyangCardId;
 
-  private Integer courseId;
+    private Double divyangPercent;
 
-  private Double grantAmount;
+    private String transgenderId;
 
-  private String sector;
-  private Long userId;
+  
 
-  private Integer religionId;
 
-  private String divyangCardId;
 
-  private Double divyangPercent;
 
-  private String transgenderId;
+    private String rationCardCategory;
 
-  private String rationCardCategory;
+    private String educationLevel;
 
-  private String educationLevel;
+    private String udid;
+    private String branchName;
 
-  private String udid;
-  private String branchName;
+	    private Long lastModifiedBy;
 
-  private Long lastModifiedBy;
+	  
 
-  private Long version;
+	 
 
-  private Long chequeFormatId;
+	    private Long version;
+
+	    private Long chequeFormatId;
 
 }

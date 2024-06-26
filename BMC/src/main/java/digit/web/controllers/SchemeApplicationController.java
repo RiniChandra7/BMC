@@ -44,7 +44,7 @@ public class SchemeApplicationController {
     }
 
     @PostMapping(value = "/v1/_create")
-    public ResponseEntity<SchemeApplicationResponse> v1SchemeApplicationCreatePost(@ApiParam(value = "Details for the new Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
+    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationCreatePost(@ApiParam(value = "Details for the new Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
         List<SchemeApplication> applications = schemeApplicationService.registerSchemeApplication(schemeApplicationRequest);
         ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(schemeApplicationRequest.getRequestInfo(), true);
         SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(applications).responseInfo(responseInfo).build();
@@ -52,7 +52,7 @@ public class SchemeApplicationController {
     }
 
     @PostMapping(value = "/v1/_search")
-    public ResponseEntity<SchemeApplicationResponse> v1SchemeApplicationSearchPost(@ApiParam(value = "Details for searching Scheme Applications + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationSearchRequest schemeApplicationSearchRequest) {
+    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationSearchPost(@ApiParam(value = "Details for searching Scheme Applications + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationSearchRequest schemeApplicationSearchRequest) {
         List<SchemeApplication> applications = schemeApplicationService.searchSchemeApplications(schemeApplicationSearchRequest.getRequestInfo(), schemeApplicationSearchRequest.getSchemeApplicationSearchCriteria());
         ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(schemeApplicationSearchRequest.getRequestInfo(), true);
         SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(applications).responseInfo(responseInfo).build();
@@ -60,7 +60,7 @@ public class SchemeApplicationController {
     }
 
     @PostMapping(value = "/v1/_update")
-    public ResponseEntity<SchemeApplicationResponse> v1SchemeApplicationUpdatePost(@ApiParam(value = "Details for updating Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
+    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationUpdatePost(@ApiParam(value = "Details for updating Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
         SchemeApplication application = schemeApplicationService.updateSchemeApplication(schemeApplicationRequest);
         ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(schemeApplicationRequest.getRequestInfo(), true);
         SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(Collections.singletonList(application)).responseInfo(responseInfo).build();

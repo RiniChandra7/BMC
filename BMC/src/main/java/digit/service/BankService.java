@@ -1,5 +1,7 @@
 package digit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,15 @@ public class BankService {
         bank.setType(schemeApplicationRequest.getType());
         bank.setVersion(schemeApplicationRequest.getVersion());
         return bankRepository.save(bank);
+    }
+
+    public Bank getBankByCode (SchemeApplicationRequest schemeApplicationRequest){
+        return  bankRepository.getBank(schemeApplicationRequest.getCode());
+    }
+
+
+    public List<Bank> fetchActiveBank (SchemeApplicationRequest schemeApplicationRequest) {
+
+        return  bankRepository.fetchActiveBank(schemeApplicationRequest.getIsActive());
     }
 }

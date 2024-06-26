@@ -1,5 +1,8 @@
 package digit.service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +31,23 @@ public class CourseService {
         
         return coursesRepository.save(course);
     }
+
+    public List<Courses> getActiveCourseByDate(Date startdt, Date enddt) {
+        return coursesRepository.getActiveCourseByDate(startdt, enddt);
+    }
+
+    public Courses getCourseAmount(String courseName) {
+        return coursesRepository.getCourseAmount(courseName);
+    }
+
+    public Courses getCourseDuration(String courseName) {
+        return coursesRepository.getCourseDuration(courseName);
+    }
+
+    public List<Courses> getAllCourses() {
+        return coursesRepository.getALlList();
+    }
+     
+
 
 }

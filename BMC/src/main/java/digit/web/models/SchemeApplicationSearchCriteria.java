@@ -22,29 +22,29 @@ import lombok.ToString;
 @Builder
 public class SchemeApplicationSearchCriteria {
     @JsonProperty("tenantId")
-    private String tenantId; // Tenant ID for filtering by tenant
+    private String tenantId; 
     @JsonProperty("ids")
-    private List<String> ids; // List of application IDs for filtering by specific IDs
+    private List<String> ids; 
     @JsonProperty("applicationStatus")
-    private Boolean applicationStatus; // Filter by application status (e.g., approved, pending)
+    private Boolean applicationStatus; 
     @JsonProperty("verificationStatus")
-    private Boolean verificationStatus; // Filter by verification status
+    private Boolean verificationStatus; 
     @JsonProperty("firstApprovalStatus")
-    private Boolean firstApprovalStatus; // Filter by first approval status
+    private Boolean firstApprovalStatus; 
     @JsonProperty("finalApproval")
-    private Boolean finalApproval; // Filter by final approval status
+    private Boolean finalApproval; 
     @JsonProperty("randomSelection")
-    private Boolean randomSelection; // Filter by random selection
+    private Boolean randomSelection; 
     @JsonProperty("submitted")
-    private Boolean submitted; // Filter by submitted status
+    private Boolean submitted; 
     @JsonProperty("applicationNumber")
-    private String applicationNumber; // Filter by application number
+    private String applicationNumber; 
     @JsonProperty("userId")
-    private Long userId; // Filter by user ID
+    private Long userId; 
     @JsonProperty("startDate")
-    private Long startDate; // Filter by application start date
+    private Long startDate; 
 
     @JsonProperty("endDate")
-    private Long endDate; // Filter by application end date
-    // Add more fields as required for the search criteria
+    private Long endDate; 
+    
 }

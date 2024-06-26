@@ -1,5 +1,7 @@
 package digit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +23,14 @@ public class MachineService {
 
      return  machinesRepository.save(machines);
     }
+
+
+     public List<Machines> getAllMachines(SchemeApplicationRequest schemeApplicationRequest) {
+        return machinesRepository.getALLList();
+    }
+
+    public Machines getMachineByAmount(SchemeApplicationRequest schemeApplicationRequest) {
+        return machinesRepository.getByAmount(schemeApplicationRequest.getName());
+    }
+
 }

@@ -1,5 +1,8 @@
 package digit.service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +25,20 @@ public class EventService {
     return  eventRepository.save(event);
 
      }
+
+
+     public List<Event> getActiveEvenetByDate(Date startdt, Date enddt) {
+        return eventRepository.getActiveEvenetByDate(startdt, enddt);
+    }
+
+   
+    public Event getEvenetDuration(String name) {
+        return eventRepository.getDuration(name);
+    }
+
+    public List<Event> getAllEvents() {
+        return eventRepository.getALlList();
+    }
+     
 
 }

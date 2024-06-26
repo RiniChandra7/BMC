@@ -1,196 +1,184 @@
 package digit.web.models;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
-import org.egov.common.contract.models.Address;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Data;
-@Data
-@Entity
-@Builder
 public class BmcResponse {
 
-  @Id
-  private Long  id;
+//   @Id
+//   private Long  id;
 
-  private String aadharRef;
+//   private String aadharRef;
 
-  private String uuid ;
+//   private String uuid ;
 
-  private String aadhar_fatherName;
+//   private String aadhar_fatherName;
 
-  private String aadhar_name;
+//   private String aadhar_name;
 
-   private Date aadhar_dob;
+//    private Date aadhar_dob;
 
-  private String aadhar_mobile;
+//   private String aadhar_mobile;
 
-  private Date createdOn;
+//   private Date createdOn;
 
- private Date modifiedOn;
+//  private Date modifiedOn;
 
-  private Integer createdBy;
+//   private Integer createdBy;
 
 
-private String address1;
+// private String address1;
 
-private String address2;
+// private String address2;
 
-private String location;
+// private String location;
 
-private String ward;
+// private String ward;
 
-private String city;
+// private String city;
 
-private String district;
+// private String district;
 
-private String pincode;
-
-  
-  private Integer optedId;
-
-  private String applicationStatus ;
-
-  private String verificationStatus;
-
-  private String firstApprovalStatus ;
-
-  private Boolean randomSelection ;
-
-  private Boolean finalApproval;
-
-  private Boolean submitted;
-
-    private String code;
-
-    private String name;
-
-    private String narration;
-
-    private Boolean isActive;
-
-    private String type;
-
-    private Timestamp createdDate;
-
-    private Timestamp lastModifiedDate;	
-    private Integer modifiedby;
-
-       private Long branchId;
-
-    private String accountNumber;
-
-    private String accountType;
-
-    private String payTo;
-
-      private String branchcode;
+// private String pincode;
 
   
-      private String branchaddress1;
+//   private Integer optedId;
+
+//   private String applicationStatus ;
+
+//   private String verificationStatus;
+
+//   private String firstApprovalStatus ;
+
+//   private Boolean randomSelection ;
+
+//   private Boolean finalApproval;
+
+//   private Boolean submitted;
+
+//     private String code;
+
+//     private String name;
+
+//     private String narration;
+
+//     private Boolean isActive;
+
+//     private String type;
+
+//     private Timestamp createdDate;
+
+//     private Timestamp lastModifiedDate;	
+//     private Integer modifiedby;
+
+//        private Long branchId;
+
+//     private String accountNumber;
+
+//     private String accountType;
+
+//     private String payTo;
+
+//       private String branchcode;
+
   
-      private String branchaddress2;
+//       private String branchaddress1;
   
-      private String branchcity;
+//       private String branchaddress2;
   
-      private String branchstate;
+//       private String branchcity;
   
-      private String branchpin;
+//       private String branchstate;
   
-      private String branchphone;
+//       private String branchpin;
   
-      private String branchfax;
-      private Long bankid;
+//       private String branchphone;
   
-      private String contactperson;
+//       private String branchfax;
+//       private Long bankid;
   
-      private String micr;
+//       private String contactperson;
+  
+//       private String micr;
 
      
-private String tenantId ;
+// private String tenantId ;
 
 
-private String applicationNumber ;
+// private String applicationNumber ;
 
 
-private String applicantName;
+// private String applicantName;
 
 
-private String fatherName ;
+// private String fatherName ;
 
 
-private String mobileNumber ;
+// private String mobileNumber ;
 
 
-private String emailId ;
+// private String emailId ;
 
 
-private String aadharNumber ;
+// private String aadharNumber ;
 
 
-private Address address ;
+// private Address address ;
 
-  private String courseName;
+//   private String courseName;
 
-  private String description;
+//   private String description;
 
-  private String duration;
+//   private String duration;
 
-  private Long startDt;
+//   private Long startDt;
 
-  private Long endDt;
+//   private Long endDt;
 
-  private Integer typeId;
+//   private Integer typeId;
 
  
-  private String url;
+//   private String url;
 
   
-  private String institute;
+//   private String institute;
 
  
-  private String imgUrl;
+//   private String imgUrl;
 
  
-  private String instituteAddress;
+//   private String instituteAddress;
   
-  private Double amount;
+//   private Double amount;
 
-  private Integer schemeId;
+//   private Integer schemeId;
 
-  private Integer courseId;
+//   private Integer courseId;
 
-  private Double grantAmount;
+//   private Double grantAmount;
 
-  private String sector;
-private Long userId;
-
-
-  private Integer religionId;
+//   private String sector;
+// private Long userId;
 
 
-  private String divyangCardId;
+//   private Integer religionId;
 
-  private Double divyangPercent;
 
-  private String transgenderId;
+//   private String divyangCardId;
 
-  private String rationCardCategory;
+//   private Double divyangPercent;
 
-  private String educationLevel;
+//   private String transgenderId;
 
-  private String udid;
-  private String branchName;
+//   private String rationCardCategory;
 
-    private Long lastModifiedBy;
+//   private String educationLevel;
 
-    private Long version;
+//   private String udid;
+//   private String branchName;
 
-    private Long chequeFormatId;
+//     private Long lastModifiedBy;
+
+//     private Long version;
+
+//     private Long chequeFormatId;
 
 
 
