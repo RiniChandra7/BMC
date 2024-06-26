@@ -175,27 +175,27 @@ public class SchemeApplicationValidator {
         }
 
         
-    }
+    }  
 
-    // Common methods
+    
 
-    private boolean isGenderEligible(SchemeApplication application, List<String> validGenders) {
-        return validGenders.contains(application.getUser().getGender());
+    private boolean isGenderEligible(User user, List<String> validGenders) {
+        return validGenders.contains(user.getGender());
     }
 
     
-    private boolean hasValidRationCard(SchemeApplication application, List<String> validCategories) {
-        return validCategories.contains(application.getRationCardCategory());
+    private boolean hasValidRationCard(UserOtherDetails uod, List<String> validCategories) {
+        return validCategories.contains(uod.getRationCardCategory());
     }
 
-    private boolean hasValidUDID(SchemeApplication application, int requiredDisabilityPercentage) {
-        return application.getUdidNumber() != null && application.getDisabilityPercentage() > requiredDisabilityPercentage;
+    private boolean hasValidUDID(UserOtherDetails uod, int requiredDisabilityPercentage) {
+        return uod.getUdidNumber() != null && uod.getDivyangPercent() > requiredDisabilityPercentage;
     }
 
-    private boolean hasMinimumEducation(SchemeApplication application) {
-        String education = application.getEducation();
+    private boolean hasMinimumEducation(UserOtherDetails uod) {
+        String education = uod.getEducationLevel();
         return "SSC".equalsIgnoreCase(education) || "CBSC".equalsIgnoreCase(education) || "ICSC".equalsIgnoreCase(education);
-    }  */
+    } */
     
 
     public EligibilityResponse getBeneficiaryInfo(User user) {
