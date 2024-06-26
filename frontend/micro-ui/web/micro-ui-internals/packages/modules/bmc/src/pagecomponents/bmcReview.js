@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useLocation, Link, useHistory } from "react-router-dom";
-import Timeline from "../components/bmcTimeline";
-import { CardLabel, LabelFieldPair, TextInput, Card, Modal } from "@egovernments/digit-ui-react-components";
+import { CardLabel, LabelFieldPair, Modal, TextInput } from "@egovernments/digit-ui-react-components";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import Timeline from "../components/bmcTimeline";
 import Title from "../components/title";
 
 import {
-  StandaloneSearchBar,
-  Loader,
-  CardBasedOptions,
-  ComplaintIcon,
-  PTIcon,
-  CaseIcon,
-  DropIcon,
-  HomeIcon,
-  Calender,
-  DocumentIcon,
-  PersonIcon,
-  HelpIcon,
-  WhatsNewCard,
-  OBPSIcon,
-  WSICon,
-  EditIcon,
+  EditIcon
 } from "@egovernments/digit-ui-react-components";
 
 const defaultImage =
@@ -1252,7 +1237,7 @@ const ReviewDetailForm = (_props) => {
                 <span style={{ fontWeight: "bold" }}> 1234567890</span>. Please Note this Apllication Number for future Reference.
               </p>
               <div style={{ textAlign: "center" }}>
-                <Link to="/bmc/dashboard" style={{ textDecoration: "none" }}>
+                <Link to="/citizen" style={{ textDecoration: "none" }}>
                   <button
                     className="bmc-card-button"
                     style={{

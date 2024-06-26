@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.egov.common.contract.models.Address;
 import org.egov.common.contract.models.AuditDetails;
 import org.egov.common.contract.request.User;
 import org.springframework.dao.DataAccessException;
@@ -14,7 +15,6 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import digit.web.models.Address;
 import digit.web.models.SchemeApplication;
 
 @Component
@@ -93,19 +93,21 @@ public class SchemeApplicationRowMapper implements ResultSetExtractor<List<Schem
 
     // Method to add address details to the SchemeApplication object
     private void addAddressToApplication(ResultSet rs, SchemeApplication schemeApplication) throws SQLException {
+        // Sundeep : Need to populate or set all required fields from Scheme Application request into address object
+        // This will be done by Basu.
         Address address = Address.builder()
                 .id(rs.getLong("addr_id"))
                 .userId(rs.getLong("addr_userid"))
                 .tenantId(rs.getString("addr_tenantid"))
-                .address1(rs.getString("addr_Address1"))
-                .address2(rs.getString("addr_Address2"))
-                .location(rs.getString("addr_Location"))
-                .ward(rs.getString("addr_Ward"))
+                //.address1(rs.getString("addr_Address1"))
+                //.address2(rs.getString("addr_Address2"))
+                //.location(rs.getString("addr_Location"))
+                //.ward(rs.getString("addr_Ward"))
                 .city(rs.getString("addr_City"))
-                .district(rs.getString("addr_District"))
-                .state(rs.getString("addr_State"))
-                .country(rs.getString("addr_Country"))
-                .pincode(rs.getString("addr_Pincode"))
+                //.district(rs.getString("addr_District"))
+                //.state(rs.getString("addr_State"))
+                //.country(rs.getString("addr_Country"))
+                //.pincode(rs.getString("addr_Pincode"))
                 .build();
 
         schemeApplication.setAddress(address);

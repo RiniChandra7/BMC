@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.egov.common.contract.models.Address;
 import org.egov.common.contract.request.RequestInfo;
 import org.springframework.validation.annotation.Validated;
 
@@ -27,213 +28,191 @@ import lombok.Setter;
 @Builder
 public class SchemeApplicationRequest {
 
-    @JsonProperty("RequestInfo")
-    private RequestInfo requestInfo;
+  @JsonProperty("RequestInfo")
+  private RequestInfo requestInfo;
 
-    @JsonProperty("SchemeApplications")
-    @Builder.Default
-    @Valid
-    private List<SchemeApplication> schemeApplications = null;
+  @JsonProperty("SchemeApplications")
+  @Builder.Default
+  @Valid
+  private List<SchemeApplication> schemeApplications = null;
 
-    public SchemeApplicationRequest addSchemeApplicationItem(SchemeApplication schemeApplicationItem) {
-    	if(this.schemeApplications == null) {
-    		this.schemeApplications = new ArrayList<>();
-    	}
-        this.schemeApplications.add(schemeApplicationItem);
-        return this;
+  public SchemeApplicationRequest addSchemeApplicationItem(SchemeApplication schemeApplicationItem) {
+    if (this.schemeApplications == null) {
+      this.schemeApplications = new ArrayList<>();
     }
-    
-   
-    
-    
- private String aadharRef;
+    this.schemeApplications.add(schemeApplicationItem);
+    return this;
+  }
 
- private Long Id;
-	
-     private String uuid ;
-	
-     private String aadhar_fatherName;
-	
-     private String aadhar_name;
-	
-      private Date aadhar_dob;
-	
-     private String aadhar_mobile;
-      
-	
-     private Date createdOn;
-	
-    private Date modifiedOn;
-	
-     private Integer createdBy;
-     private String remark;
+  private String aadharRef;
 
-     private String qualification;
+  private Long Id;
 
-     private String wardName;
+  private String uuid;
 
- 
-     private String cityName;
+  private String aadhar_fatherName;
 
-   private String address1;
+  private String aadhar_name;
 
-   private String address2;
-  
-   private String location;
-  
-   private String ward;
- 
-   private String city;
- 
-   private String district;
- 
-   private String pincode;
-  
-  	
-     private Integer optedId;
-	
-     private String applicationStatus ;
+  private Date aadhar_dob;
 
-     private String verificationStatus;
+  private String aadhar_mobile;
 
-     private String firstApprovalStatus ;
+  private Date createdOn;
 
-     private Boolean randomSelection ;
+  private Date modifiedOn;
 
-     private Boolean finalApproval;
+  private Integer createdBy;
+  private String remark;
 
-     private Boolean submitted;
+  private String qualification;
 
-       private String code;
+  private String wardName;
 
- 	    private String name;
+  private String cityName;
 
- 	    private String narration;
+  private String address1;
 
- 	    private Boolean isActive;
+  private String address2;
 
- 	    private String type;
- 
- 	    private Timestamp createdDate;
+  private String location;
 
- 	    private Timestamp lastModifiedDate;	
-       private Integer modifiedby;
+  private String ward;
 
-          private Long branchId;
+  private String city;
 
- 	    private String accountNumber;
+  private String district;
 
- 	    private String accountType;
+  private String pincode;
 
- 	    private String payTo;
+  private Integer optedId;
 
-         private String branchcode;
+  private String applicationStatus;
 
-         private String branchname;
-    
-         private String branchaddress1;
-    
-         private String branchaddress2;
-    
-         private String branchcity;
-    
-         private String branchstate;
-    
-         private String branchpin;
-    
-         private String branchphone;
-    
-         private String branchfax;
-         private Long bankid;
-    
-         private String contactperson;
-    
-         private String micr;
+  private String verificationStatus;
 
-       
- 	private String tenantId ;
+  private String firstApprovalStatus;
 
-	
- 	private String applicationNumber ;
+  private Boolean randomSelection;
 
-	
- 	private String applicantName;
+  private Boolean finalApproval;
 
-	
- 	private String fatherName ;
+  private Boolean submitted;
 
-	
- 	private String mobileNumber ;
+  private String code;
 
-	
- 	private String emailId ;
+  private String name;
 
-	
- 	private String aadharNumber ;
+  private String narration;
 
-	
-    private Address address ;
+  private Boolean isActive;
 
-     private String courseName;
+  private String type;
 
-     private String description;
+  private Timestamp createdDate;
 
-     private String duration;
+  private Timestamp lastModifiedDate;
+  private Integer modifiedby;
 
-     private Long startDt;
+  private Long branchId;
 
-     private Long endDt;
+  private String accountNumber;
 
-     private Integer typeId;
+  private String accountType;
 
-        private String url;
+  private String payTo;
 
-     private String institute;
+  private String branchcode;
 
-   
-     private String imgUrl;
+  private String branchname;
 
-   
-     private String instituteAddress;
-    
-     private Double amount;
+  private String branchaddress1;
 
-     private Integer schemeId;
+  private String branchaddress2;
 
-     private Integer courseId;
+  private String branchcity;
 
-     private Double grantAmount;
+  private String branchstate;
 
-     private String sector;
- private Long userId;
+  private String branchpin;
 
-     private Integer religionId;
+  private String branchphone;
 
+  private String branchfax;
+  private Long bankid;
 
-     private String divyangCardId;
+  private String contactperson;
 
-     private Double divyangPercent;
+  private String micr;
 
-     private String transgenderId;
+  private String tenantId;
 
-     private String modifiedBy;
+  private String applicationNumber;
 
-     private String rationCardCategory;
+  private String applicantName;
 
-     private String educationLevel;
+  private String fatherName;
 
-     private String udid;
-     private String branchName;
+  private String mobileNumber;
 
- 	    private Long lastModifiedBy;
+  private String emailId;
 
- 	    private Long version;
+  private String aadharNumber;
 
- 	    private Long chequeFormatId;
+  private Address address;
 
-  
+  private String courseName;
 
+  private String description;
 
+  private String duration;
 
+  private Long startDt;
+
+  private Long endDt;
+
+  private Integer typeId;
+
+  private String url;
+
+  private String institute;
+
+  private String imgUrl;
+
+  private String instituteAddress;
+
+  private Double amount;
+
+  private Integer schemeId;
+
+  private Integer courseId;
+
+  private Double grantAmount;
+
+  private String sector;
+  private Long userId;
+
+  private Integer religionId;
+
+  private String divyangCardId;
+
+  private Double divyangPercent;
+
+  private String transgenderId;
+
+  private String modifiedBy;
+
+  private String rationCardCategory;
+
+  private String educationLevel;
+
+  private String udid;
+  private String branchName;
+
+  private Long lastModifiedBy;
+
+  private Long version;
+
+  private Long chequeFormatId;
 
 }

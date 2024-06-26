@@ -3,6 +3,8 @@ package digit.web.models;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.egov.common.contract.models.Address;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Builder;
