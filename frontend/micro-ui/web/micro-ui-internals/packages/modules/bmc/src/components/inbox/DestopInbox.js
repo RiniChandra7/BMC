@@ -8,7 +8,7 @@ import SearchApplication from "./search";
 
 const DesktopInbox = ({ tableConfig, filterComponent, ...props }) => {
   const { t } = useTranslation();
-  const tenantIds = Digit.SessionStorage.get("HRMS_TENANTS");
+  const tenantIds = Digit.SessionStorage.get("BMC_TENANTS");
   const GetCell = (value) => <span className="cell-text">{t(value)}</span>;
   const GetSlaCell = (value) => {
     return value == "INACTIVE" ? <span className="sla-cell-error">{t(value) || ""}</span> : <span className="sla-cell-success">{t(value) || ""}</span>;
@@ -25,7 +25,7 @@ const DesktopInbox = ({ tableConfig, filterComponent, ...props }) => {
         Cell: ({ row }) => {
           return (
             <span className="link">
-              <Link to={`/${window?.contextPath}/employee/hrms/details/${row.original.tenantId}/${row.original.code}`}>{row.original.code}</Link>
+              <Link to={`/${window?.contextPath}/employee/bmc/details/${row.original.tenantId}/${row.original.code}`}>{row.original.code}</Link>
             </span>
           );
         },
@@ -144,12 +144,12 @@ const DesktopInbox = ({ tableConfig, filterComponent, ...props }) => {
             allLinks={[
               {
                 text: "HR_COMMON_CREATE_EMPLOYEE_HEADER",
-                link: `/${window?.contextPath}/employee/hrms/create`,
-                businessService: "hrms",
-                roles: ["HRMS_ADMIN"],
+                link: `/${window?.contextPath}/employee/bmc/create`,
+                businessService: "bmc",
+                roles: ["BMC_ADMIN"],
               },
             ]}
-            headerText={"HRMS"}
+            headerText={"BMC"}
             businessService={props.businessService}
           />
           <div>

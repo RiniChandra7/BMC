@@ -15,14 +15,15 @@ import BMCCitizenHome from "./pages/citizen";
 
 //Employee Pages
 import BMCCard from "./components/BMCCard";
+import InboxFilter from "./components/InboxFilter";
 import BMCEmployeeHome from "./pages/employee";
 import ApprovePage from "./pages/employee/Approve";
+import BMCInbox from './pages/employee/Inbox';
 import AadhaarEmployeePage from "./pages/employee/aadhaarEmployee";
 import AadhaarSatutsVerificationPage from "./pages/employee/aadhaarSatutsVerification";
 import AadhaarVerifyPage from "./pages/employee/aadhaarVerify";
 import CrossVerifyPage from "./pages/employee/crossVerify";
 import RandmizationPage from "./pages/employee/randmization";
-
 //Master Pages
 import {
   bankMasterPage,
@@ -116,7 +117,9 @@ const componentsToRegister = {
   AadhaarVerifyPage,
   CrossVerifyPage,
   ApprovePage,
-  BMCCard
+  BMCCard,
+  BMCInbox,
+  BMC_INBOX_FILTER: (props) => <InboxFilter {...props} />,
 };
 
 export const initBMCComponents = () => {

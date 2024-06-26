@@ -12,8 +12,6 @@ import {
 } from "@egovernments/digit-ui-react-components";
 
 const BMCCitizenHome = ({ parentRoute }) => {
-  debugger
-  console.log(parentRoute);
   const queryClient = useQueryClient();
   const match = useRouteMatch();
   const { t } = useTranslation();

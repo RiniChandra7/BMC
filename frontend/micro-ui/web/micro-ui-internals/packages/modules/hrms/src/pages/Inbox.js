@@ -1,12 +1,12 @@
-import { Header, Loader } from "@egovernments/digit-ui-react-components";
+import { Header } from "@egovernments/digit-ui-react-components";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import DesktopInbox from "../components/inbox/DesktopInbox";
 import MobileInbox from "../components/inbox/MobileInbox";
-
+debugger
 const Inbox = ({ parentRoute, businessService = "HRMS", initialStates = {}, filterComponent, isInbox }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  const { isLoading: isLoading, Errors, data: res } = Digit.Hooks.hrms.useHRMSCount(tenantId);
+  //const { isLoading: isLoading, Errors, data: res } = Digit.Hooks.hrms.useHRMSCount(tenantId);
 
   const { t } = useTranslation();
   const [pageOffset, setPageOffset] = useState(initialStates.pageOffset || 0);
@@ -29,9 +29,9 @@ const Inbox = ({ parentRoute, businessService = "HRMS", initialStates = {}, filt
     isupdate
   );
 
-  useEffect(() => {
-    // setTotalReacords(res?.EmployeCount?.totalEmployee);
-  }, [res]);
+  // useEffect(() => {
+  //   // setTotalReacords(res?.EmployeCount?.totalEmployee);
+  // }, [res]);
 
   useEffect(() => {}, [hookLoading, rest]);
 
@@ -86,9 +86,10 @@ const Inbox = ({ parentRoute, businessService = "HRMS", initialStates = {}, filt
     ];
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  //it is commented as HRMS count function is not available
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   if (data?.length !== null) {
     if (isMobile) {

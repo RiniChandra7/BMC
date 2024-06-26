@@ -1,16 +1,21 @@
+import { Header } from "@egovernments/digit-ui-react-components";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import DesktopInbox from "../../components/inbox/DestopInbox";
+import MobileInbox from "../../components/inbox/MobileInbox";
 
 const Inbox = ({ parentRoute, businessService = "BMC", initialStates = {}, filterComponent, isInbox }) => {
-//   const tenantId = Digit.ULBService.getCurrentTenantId();
-//   const { isLoading: isLoading, Errors, data: res } = Digit.Hooks.hrms.useHRMSCount(tenantId);
+  const tenantId = Digit.ULBService.getCurrentTenantId();
+  //const { isLoading: isLoading, Errors, data: res } = Digit.Hooks.hrms.useHRMSCount(tenantId);
 
-//   const { t } = useTranslation();
-//   const [pageOffset, setPageOffset] = useState(initialStates.pageOffset || 0);
-//   const [pageSize, setPageSize] = useState(initialStates.pageSize || 10);
-//   const [sortParams, setSortParams] = useState(initialStates.sortParams || [{ id: "createdTime", desc: false }]);
-//   const [totalRecords, setTotalReacords] = useState(undefined);
-//   const [searchParams, setSearchParams] = useState(() => {
-//     return initialStates.searchParams || {};
-//   });
+  const { t } = useTranslation();
+  const [pageOffset, setPageOffset] = useState(initialStates.pageOffset || 0);
+  const [pageSize, setPageSize] = useState(initialStates.pageSize || 10);
+  const [sortParams, setSortParams] = useState(initialStates.sortParams || [{ id: "createdTime", desc: false }]);
+  const [totalRecords, setTotalReacords] = useState(undefined);
+  const [searchParams, setSearchParams] = useState(() => {
+    return initialStates.searchParams || {};
+  });
 
   let isMobile = window.Digit.Utils.browser.isMobile();
   let paginationParams = isMobile
@@ -24,66 +29,66 @@ const Inbox = ({ parentRoute, businessService = "BMC", initialStates = {}, filte
     isupdate
   );
 
-//   useEffect(() => {
-//     // setTotalReacords(res?.EmployeCount?.totalEmployee);
-//   }, [res]);
+  // useEffect(() => {
+  //   // setTotalReacords(res?.EmployeCount?.totalEmployee);
+  // }, [res]);
 
-//   useEffect(() => {}, [hookLoading, rest]);
+  useEffect(() => {}, [hookLoading, rest]);
 
-//   useEffect(() => {
-//     setPageOffset(0);
-//   }, [searchParams]);
+  useEffect(() => {
+    setPageOffset(0);
+  }, [searchParams]);
 
-//   const fetchNextPage = () => {
-//     setPageOffset((prevState) => prevState + pageSize);
-//   };
+  const fetchNextPage = () => {
+    setPageOffset((prevState) => prevState + pageSize);
+  };
 
-//   const fetchPrevPage = () => {
-//     setPageOffset((prevState) => prevState - pageSize);
-//   };
+  const fetchPrevPage = () => {
+    setPageOffset((prevState) => prevState - pageSize);
+  };
 
-//   const handleFilterChange = (filterParam) => {
-//     let keys_to_delete = filterParam.delete;
-//     let _new = { ...searchParams, ...filterParam };
-//     if (keys_to_delete) keys_to_delete.forEach((key) => delete _new[key]);
-//     filterParam.delete;
-//     delete _new.delete;
-//     setSearchParams({ ..._new });
-//   };
+  const handleFilterChange = (filterParam) => {
+    let keys_to_delete = filterParam.delete;
+    let _new = { ...searchParams, ...filterParam };
+    if (keys_to_delete) keys_to_delete.forEach((key) => delete _new[key]);
+    filterParam.delete;
+    delete _new.delete;
+    setSearchParams({ ..._new });
+  };
 
-//   const handleSort = useCallback((args) => {
-//     if (args.length === 0) return;
-//     setSortParams(args);
-//   }, []);
+  const handleSort = useCallback((args) => {
+    if (args.length === 0) return;
+    setSortParams(args);
+  }, []);
 
-//   const handlePageSizeChange = (e) => {
-//     setPageSize(Number(e.target.value));
-//   };
+  const handlePageSizeChange = (e) => {
+    setPageSize(Number(e.target.value));
+  };
 
-//   const getSearchFields = () => {
-//     return [
-//       {
-//         label: t("HR_NAME_LABEL"),
-//         name: "names",
-//       },
-//       {
-//         label: t("HR_MOB_NO_LABEL"),
-//         name: "phone",
-//         maxlength: 10,
-//         pattern: "[6-9][0-9]{9}",
-//         title: t("ES_SEARCH_APPLICATION_MOBILE_INVALID"),
-//         componentInFront: "+91",
-//       },
-//       {
-//         label: t("HR_EMPLOYEE_ID_LABEL"),
-//         name: "codes",
-//       },
-//     ];
-//   };
-
-  if (isLoading) {
-    return <Loader />;
-  }
+  const getSearchFields = () => {
+    return [
+      {
+        label: t("HR_NAME_LABEL"),
+        name: "names",
+      },
+      {
+        label: t("HR_MOB_NO_LABEL"),
+        name: "phone",
+        maxlength: 10,
+        pattern: "[6-9][0-9]{9}",
+        title: t("ES_SEARCH_APPLICATION_MOBILE_INVALID"),
+        componentInFront: "+91",
+      },
+      {
+        label: t("HR_EMPLOYEE_ID_LABEL"),
+        name: "codes",
+      },
+    ];
+  };
+//it is commented as HRMS count function is not available
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   if (data?.length !== null) {
     if (isMobile) {
@@ -109,7 +114,7 @@ const Inbox = ({ parentRoute, businessService = "BMC", initialStates = {}, filte
           searchParams={searchParams}
           sortParams={sortParams}
           totalRecords={totalRecords}
-          linkPrefix={ `/${window?.contextPath}/employee/hrms/details/`}
+          linkPrefix={ `/${window?.contextPath}/employee/bmc/details/`}
           filterComponent={filterComponent}
         />
         // <div></div>
