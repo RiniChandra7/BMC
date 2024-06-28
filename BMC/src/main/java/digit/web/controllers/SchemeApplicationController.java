@@ -37,33 +37,46 @@ public class SchemeApplicationController {
     @Autowired
     private ResponseInfoFactory responseInfoFactory;
 
-    public SchemeApplicationController(ObjectMapper objectMapper, HttpServletRequest request, BmcApplicationService schemeApplicationService) {
+    public SchemeApplicationController(ObjectMapper objectMapper, HttpServletRequest request,
+            BmcApplicationService schemeApplicationService) {
         this.objectMapper = objectMapper;
         this.request = request;
         this.schemeApplicationService = schemeApplicationService;
     }
 
     @PostMapping(value = "/v1/_create")
-    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationCreatePost(@ApiParam(value = "Details for the new Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
-        List<SchemeApplication> applications = schemeApplicationService.registerSchemeApplication(schemeApplicationRequest);
-        ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(schemeApplicationRequest.getRequestInfo(), true);
-        SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(applications).responseInfo(responseInfo).build();
+    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationCreatePost(
+            @ApiParam(value = "Details for the new Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
+        List<SchemeApplication> applications = schemeApplicationService
+                .registerSchemeApplication(schemeApplicationRequest);
+        ResponseInfo responseInfo = responseInfoFactory
+                .createResponseInfoFromRequestInfo(schemeApplicationRequest.getRequestInfo(), true);
+        SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(applications)
+                .responseInfo(responseInfo).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping(value = "/v1/_search")
-    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationSearchPost(@ApiParam(value = "Details for searching Scheme Applications + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationSearchRequest schemeApplicationSearchRequest) {
-        List<SchemeApplication> applications = schemeApplicationService.searchSchemeApplications(schemeApplicationSearchRequest.getRequestInfo(), schemeApplicationSearchRequest.getSchemeApplicationSearchCriteria());
-        ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(schemeApplicationSearchRequest.getRequestInfo(), true);
-        SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(applications).responseInfo(responseInfo).build();
+    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationSearchPost(
+            @ApiParam(value = "Details for searching Scheme Applications + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationSearchRequest schemeApplicationSearchRequest) {
+        List<SchemeApplication> applications = schemeApplicationService.searchSchemeApplications(
+                schemeApplicationSearchRequest.getRequestInfo(),
+                schemeApplicationSearchRequest.getSchemeApplicationSearchCriteria());
+        ResponseInfo responseInfo = responseInfoFactory
+                .createResponseInfoFromRequestInfo(schemeApplicationSearchRequest.getRequestInfo(), true);
+        SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(applications)
+                .responseInfo(responseInfo).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping(value = "/v1/_update")
-    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationUpdatePost(@ApiParam(value = "Details for updating Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
+    public ResponseEntity<SchemeApplicationResponse> SchemeApplicationUpdatePost(
+            @ApiParam(value = "Details for updating Scheme Application(s) + RequestInfo meta data.", required = true) @Valid @RequestBody SchemeApplicationRequest schemeApplicationRequest) {
         SchemeApplication application = schemeApplicationService.updateSchemeApplication(schemeApplicationRequest);
-        ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(schemeApplicationRequest.getRequestInfo(), true);
-        SchemeApplicationResponse response = SchemeApplicationResponse.builder().schemeApplications(Collections.singletonList(application)).responseInfo(responseInfo).build();
+        ResponseInfo responseInfo = responseInfoFactory
+                .createResponseInfoFromRequestInfo(schemeApplicationRequest.getRequestInfo(), true);
+        SchemeApplicationResponse response = SchemeApplicationResponse.builder()
+                .schemeApplications(Collections.singletonList(application)).responseInfo(responseInfo).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

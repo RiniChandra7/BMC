@@ -1,15 +1,15 @@
+import * as parsingUtils from "../services/atoms/Utils/ParsingUtils";
 import BrowserUtil from "./browser";
 import * as date from "./date";
 import * as dss from "./dss";
+import getFileTypeFromFileStoreURL from "./fileType";
 import * as locale from "./locale";
 import * as obps from "./obps";
-import * as pt from "./pt";
-import * as privacy from "./privacy";
-import PDFUtil, { downloadReceipt ,downloadPDFFromLink,downloadBill ,getFileUrl} from "./pdf";
-import getFileTypeFromFileStoreURL from "./fileType";
+import PDFUtil, { downloadBill, downloadPDFFromLink, downloadReceipt, getFileUrl } from "./pdf";
 import preProcessMDMSConfig from "./preProcessMDMSConfig";
 import preProcessMDMSConfigInboxSearch from "./preProcessMDMSConfigInboxSearch";
-import * as parsingUtils from "../services/atoms/Utils/ParsingUtils"
+import * as privacy from "./privacy";
+import * as pt from "./pt";
 const GetParamFromUrl = (key, fallback, search) => {
   if (typeof window !== "undefined") {
     search = search || window.location.search;
@@ -134,7 +134,7 @@ const getLocaleRegion = () => {
  * @returns {string} 
  */
 const getLocaleDefault = () => {
-  return globalConfigs?.getConfig("LOCALE_DEFAULT")  || "en";
+  return globalConfigs?.getConfig("LOCALE_DEFAULT") || "en";
 };
 
 /**
@@ -148,7 +148,7 @@ const getLocaleDefault = () => {
  * @returns {string} 
  */
 const getDefaultLanguage = () => {
-  return  `${getLocaleDefault()}_${getLocaleRegion()}`;
+  return `${getLocaleDefault()}_${getLocaleRegion()}`;
 };
 
 const detectDsoRoute = (pathname) => {
@@ -303,6 +303,7 @@ const receiptsAccess = () => {
   const RECEIPTS_ACCESS = userRoles?.filter((role) => receiptsRoles?.includes(role));
   return RECEIPTS_ACCESS?.length > 0;
 };
+
 const hrmsRoles = ["HRMS_ADMIN"];
 const hrmsAccess = () => {
   const userInfo = Digit.UserService.getUser();
@@ -314,7 +315,7 @@ const hrmsAccess = () => {
 const wsAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
-  const waterRoles = ["WS_CEMP", "WS_APPROVER", "WS_FIELD_INSPECTOR", "WS_DOC_VERIFIER","WS_CLERK"];
+  const waterRoles = ["WS_CEMP", "WS_APPROVER", "WS_FIELD_INSPECTOR", "WS_DOC_VERIFIER", "WS_CLERK"];
 
   const WS_ACCESS = userRoles?.filter((role) => waterRoles?.includes(role));
 
@@ -324,7 +325,7 @@ const wsAccess = () => {
 const swAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
-  const sewerageRoles = ["SW_CEMP", "SW_APPROVER", "SW_FIELD_INSPECTOR", "SW_DOC_VERIFIER","SW_CLERK"];
+  const sewerageRoles = ["SW_CEMP", "SW_APPROVER", "SW_FIELD_INSPECTOR", "SW_DOC_VERIFIER", "SW_CLERK"];
 
   const SW_ACCESS = userRoles?.filter((role) => sewerageRoles?.includes(role));
 

@@ -1,9 +1,9 @@
-import { FormComposer, Toast ,Loader, Header} from "@egovernments/digit-ui-react-components";
+import { FormComposer, Header, Loader, Toast } from "@egovernments/digit-ui-react-components";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { newConfig } from "../components/config/config";
-import _ from "lodash";
 
 const CreateEmployee = () => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
