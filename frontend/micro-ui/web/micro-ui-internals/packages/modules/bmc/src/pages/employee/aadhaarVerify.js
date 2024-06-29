@@ -180,7 +180,7 @@ const AadhaarVerifyPage = (_props) => {
                         <td>{row.gender}</td>
                         <td>{row.pincode}</td>
                         <td style={{ textAlign: "center" }}>
-                          <Link to={"/digit-ui/citizen/bmc/aadhaarEmployee"} style={{ textDecoration: "none" }}>
+                          <Link to={"/digit-ui/employee/bmc/aadhaarEmployee"} style={{ textDecoration: "none" }}>
                             <button
                               className="bmc-card-view-button"
                               style={{
