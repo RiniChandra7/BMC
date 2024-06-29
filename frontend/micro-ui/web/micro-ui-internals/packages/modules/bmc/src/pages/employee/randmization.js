@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import Pagination from "../../components/pagination";
 import Title from "../../components/title";
+import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
 
 const data = [
   {
