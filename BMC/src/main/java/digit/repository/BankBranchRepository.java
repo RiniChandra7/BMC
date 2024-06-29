@@ -7,6 +7,6 @@ import digit.bmc.model.BankBranch;
 @Repository
 public interface BankBranchRepository extends JpaRepository<BankBranch,Long>{
 
-    BankBranch getBankBranchByBranchCode (String branchcode);
+   // BankBranch getBankBranchByBranchCode (String branchcode);
 
 }

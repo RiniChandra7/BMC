@@ -7,13 +7,11 @@ import java.util.List;
 import org.egov.common.contract.request.User;
 import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import digit.repository.SchemeApplicationRepository;
 import digit.repository.SchemeBeneficiarySearchCritaria;
-import digit.repository.SchemeBeneficiarySearchCritaria.SchemeBeneficiarySearchCritariaBuilder;
 import digit.web.models.EligibilityResponse;
 import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationRequest;
@@ -24,22 +22,23 @@ import digit.web.models.SchemeBeneficiaryDetails;
 public class SchemeApplicationValidator {
 
     private final SchemeApplicationRepository repository;
-    @Autowired
-    private SchemeBeneficiaryDetails schemeBeneficiaryDetails;
-    @Autowired
-    private SchemeBeneficiarySearchCritaria schemeBeneficiarySearchCritaria;
-
-    @Autowired
-    private EligibilityResponse eligibilityResponse;
+    
+    private  final SchemeBeneficiarySearchCritaria schemeBeneficiarySearchCritaria;
+    
+     EligibilityResponse eligibilityResponse = new EligibilityResponse();
 
     /**
      * Constructor for SchemeApplicationValidator with repository injection.machineTaken
      *
      * @param repository The repository to be injected.
      */
-    public SchemeApplicationValidator(SchemeApplicationRepository repository) {
+ 
+    @Autowired(required=true)
+    public SchemeApplicationValidator(SchemeApplicationRepository repository, SchemeBeneficiarySearchCritaria schemeBeneficiarySearchCritaria) {
         this.repository = repository;
+        this.schemeBeneficiarySearchCritaria = schemeBeneficiarySearchCritaria;
     }
+
 
     /**
      * Validates the SchemeApplicationRequest.
@@ -257,6 +256,10 @@ public class SchemeApplicationValidator {
         }
 
        return false;
+    }
+
+    public SchemeBeneficiarySearchCritaria getSchemeBeneficiarySearchCritaria() {
+        return schemeBeneficiarySearchCritaria;
     }
 
 }

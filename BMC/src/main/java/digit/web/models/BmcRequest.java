@@ -5,6 +5,13 @@ import java.util.Date;
 
 import org.egov.common.contract.models.Address;
 
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BmcRequest {
     @Id
     private Long id;

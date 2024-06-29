@@ -9,8 +9,13 @@ import digit.web.models.SchemeApplicationRequest;
 
 @Service
 public class BankBranchService {
-  @Autowired
-    private BankBranchRepository bankBranchRepository;
+  
+    private final  BankBranchRepository bankBranchRepository;
+
+    @Autowired
+    public BankBranchService(BankBranchRepository bankBranchRepository) {
+        this.bankBranchRepository = bankBranchRepository;
+    }
 
     public BankBranch getBankBranchByApplication(SchemeApplicationRequest schemeApplicationRequest) {
 
@@ -36,9 +41,9 @@ public class BankBranchService {
         return  bankBranchRepository.save(bankBranch);
     }
 
-    public BankBranch getBankBranchByBranchCode (SchemeApplicationRequest schemeApplicationRequest ){
+    // public BankBranch getBankBranchByBranchCode (SchemeApplicationRequest schemeApplicationRequest ){
 
-      return  bankBranchRepository.getBankBranchByBranchCode(schemeApplicationRequest.getBranchcode());
-    }
+    //   return  bankBranchRepository.getBankBranchByBranchCode(schemeApplicationRequest.getBranchcode());
+    // }
 
 }
