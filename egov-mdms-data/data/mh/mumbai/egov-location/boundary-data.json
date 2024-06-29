@@ -34,7 +34,7 @@
                 "localname": "WARD_3",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD3",
                 "children": [
                   {
@@ -44,7 +44,7 @@
                     "localname": "Shivalik Vihar Naya Gaon - WARD_3",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_03",
                     "area": "",
                     "children": []
@@ -58,7 +58,7 @@
                 "localname": "WARD_4",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD4",
                 "children": [
                   {
@@ -68,7 +68,7 @@
                     "localname": "Gobind Nagar Naya Gaon - WARD_4",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_04",
                     "area": "",
                     "children": []
@@ -82,7 +82,7 @@
                 "localname": "WARD_6",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD6",
                 "children": [
                   {
@@ -92,7 +92,7 @@
                     "localname": "Shivalik Vihar Naya Gaon - WARD_6",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_06",
                     "area": "",
                     "children": []
@@ -106,17 +106,17 @@
                 "localname": "WARD_7",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD7",
                 "children": [
                   {
                     "id": "62274966-1c2c-44c6-81e3-93886f236aca",
                     "boundaryNum": 1,
-                    "name": "Kansal Block A Naya Gaon - WARD_7",
-                    "localname": "Kansal Block A Naya Gaon - WARD_7",
+                    "name": "Kansal Ward A Naya Gaon - WARD_7",
+                    "localname": "Kansal Ward A Naya Gaon - WARD_7",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_07",
                     "area": "",
                     "children": []
@@ -130,7 +130,7 @@
                 "localname": "WARD_8",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD8",
                 "children": [
                   {
@@ -140,7 +140,7 @@
                     "localname": "Tribune Colony Sukhna Enclave Kansal - WARD_8",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_08",
                     "area": "",
                     "children": []
@@ -154,7 +154,7 @@
                 "localname": "WARD_9 Zone 1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD9",
                 "children": [
                   {
@@ -164,7 +164,7 @@
                     "localname": "Vill Kansal Zone 1 - WARD_9 Zone 1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_09",
                     "area": "",
                     "children": []
@@ -178,17 +178,17 @@
                 "localname": "WARD_10 Zone 1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD10A",
                 "children": [
                   {
                     "id": "3cf72a2c-4132-4571-adc9-993322a05518",
                     "boundaryNum": 1,
-                    "name": "Vill Kansal Block B Kansal Enclave Zone 1 - WARD_10 Zone 1",
-                    "localname": "Vill Kansal Block B Kansal Enclave Zone 1 - WARD_10 Zone 1",
+                    "name": "Vill Kansal Ward B Kansal Enclave Zone 1 - WARD_10 Zone 1",
+                    "localname": "Vill Kansal Ward B Kansal Enclave Zone 1 - WARD_10 Zone 1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_12",
                     "area": "",
                     "children": []
@@ -202,7 +202,7 @@
                 "localname": "WARD_11 Zone 1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD11",
                 "children": [
                   {
@@ -212,7 +212,7 @@
                     "localname": "Shivalik Vihar Vill Naya Gaon Zone 1 - WARD_11 Zone 1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_13",
                     "area": "",
                     "children": []
@@ -226,7 +226,7 @@
                 "localname": "WARD_12 Zone 1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD12A",
                 "children": [
                   {
@@ -236,7 +236,7 @@
                     "localname": "Vill. Naya Gaon Zone 1 - WARD_12 Zone 1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_16",
                     "area": "",
                     "children": []
@@ -250,7 +250,7 @@
                 "localname": "WARD_13 Zone 1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD13A",
                 "children": [
                   {
@@ -260,7 +260,7 @@
                     "localname": "Adarsh Nagar Zone 1 - WARD_13 Zone 1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_18",
                     "area": "",
                     "children": []
@@ -274,7 +274,7 @@
                 "localname": "WARD_19 Zone 1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD19",
                 "children": [
                   {
@@ -284,7 +284,7 @@
                     "localname": "Adarsh Nagar, Dashmesh Nagar Zone 1 - WARD_19 Zone 1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_24",
                     "area": "",
                     "children": []
@@ -298,7 +298,7 @@
                 "localname": "WARD_20 Zone 1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD20",
                 "children": [
                   {
@@ -308,7 +308,7 @@
                     "localname": "Dashmesh Nagar Naya Gaon Zone 1 - WARD_20 Zone 1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_26",
                     "area": "",
                     "children": []
@@ -334,7 +334,7 @@
                 "localname": "WARD_1",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD1",
                 "children": [
                   {
@@ -344,7 +344,7 @@
                     "localname": "Kamauo Colny Naya Gaon - WARD_1",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_01",
                     "area": "",
                     "children": []
@@ -358,7 +358,7 @@
                 "localname": "WARD_2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD2",
                 "children": [
                   {
@@ -368,7 +368,7 @@
                     "localname": "Nada  Naya Gaon - WARD_2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_02",
                     "area": "",
                     "children": []
@@ -382,7 +382,7 @@
                 "localname": "WARD_5",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD5",
                 "children": [
                   {
@@ -392,7 +392,7 @@
                     "localname": "Dashmesh Nagar Naya Gaon - WARD_5",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_05",
                     "area": "",
                     "children": []
@@ -406,7 +406,7 @@
                 "localname": "WARD_9 Zone 2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD9A",
                 "children": [
                   {
@@ -416,7 +416,7 @@
                     "localname": "Vill Kansal Zone 2 - WARD_9 Zone 2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_10",
                     "area": "",
                     "children": []
@@ -430,17 +430,17 @@
                 "localname": "WARD_10 Zone 2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD10",
                 "children": [
                   {
                     "id": "f140da96-3718-4447-bd40-c0ba402c8c50",
                     "boundaryNum": 1,
-                    "name": "Vill Kansal Block B Kansal Enclave Zone 2 - WARD_10 Zone 2",
-                    "localname": "Vill Kansal Block B Kansal Enclave Zone 2 - WARD_10 Zone 2",
+                    "name": "Vill Kansal Ward B Kansal Enclave Zone 2 - WARD_10 Zone 2",
+                    "localname": "Vill Kansal Ward B Kansal Enclave Zone 2 - WARD_10 Zone 2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_11",
                     "area": "",
                     "children": []
@@ -454,7 +454,7 @@
                 "localname": "WARD_11 Zone 2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD11A",
                 "children": [
                   {
@@ -464,7 +464,7 @@
                     "localname": "Shivalik Vihar Vill Naya Gaon Zone 2 - WARD_11 Zone 2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_14",
                     "area": "",
                     "children": []
@@ -478,7 +478,7 @@
                 "localname": "WARD_12 Zone 2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD12",
                 "children": [
                   {
@@ -488,7 +488,7 @@
                     "localname": "Vill. Naya Gaon Zone 2 - WARD_12 Zone 2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_15",
                     "area": "",
                     "children": []
@@ -502,7 +502,7 @@
                 "localname": "WARD_13 Zone 2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD13",
                 "children": [
                   {
@@ -512,7 +512,7 @@
                     "localname": "Adarsh Nagar Zone 2 - WARD_13 Zone 2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_17",
                     "area": "",
                     "children": []
@@ -526,7 +526,7 @@
                 "localname": "WARD_14",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD14",
                 "children": [
                   {
@@ -536,7 +536,7 @@
                     "localname": "Adarsh Nagar - WARD_14",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_19",
                     "area": "",
                     "children": []
@@ -550,7 +550,7 @@
                 "localname": "WARD_15",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD15",
                 "children": [
                   {
@@ -560,7 +560,7 @@
                     "localname": "Janta Colony - WARD_15",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_20",
                     "area": "",
                     "children": []
@@ -574,7 +574,7 @@
                 "localname": "WARD_16",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD16",
                 "children": [
                   {
@@ -584,7 +584,7 @@
                     "localname": "Janta Colony - WARD_16",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_21",
                     "area": "",
                     "children": []
@@ -598,7 +598,7 @@
                 "localname": "WARD_17",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD17",
                 "children": [
                   {
@@ -608,7 +608,7 @@
                     "localname": "Janta Colony - WARD_17",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_22",
                     "area": "",
                     "children": []
@@ -622,7 +622,7 @@
                 "localname": "WARD_18",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD18",
                 "children": [
                   {
@@ -632,7 +632,7 @@
                     "localname": "Janta Colony, Vikas Nagar - WARD_18",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_23",
                     "area": "",
                     "children": []
@@ -646,7 +646,7 @@
                 "localname": "WARD_19 Zone 2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD19A",
                 "children": [
                   {
@@ -656,7 +656,7 @@
                     "localname": "Adarsh Nagar, Dashmesh Nagar Zone 2 - WARD_19 Zone 2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_25",
                     "area": "",
                     "children": []
@@ -670,7 +670,7 @@
                 "localname": "WARD_20 Zone 2",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD20A",
                 "children": [
                   {
@@ -680,7 +680,7 @@
                     "localname": "Dashmesh Nagar Naya Gaon Zone 2 - WARD_20 Zone 2",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_27",
                     "area": "",
                     "children": []
@@ -694,7 +694,7 @@
                 "localname": "WARD_21",
                 "longitude": null,
                 "latitude": null,
-                "label": "Block",
+                "label": "Ward",
                 "code": "WARD21",
                 "children": [
                   {
@@ -704,7 +704,7 @@
                     "localname": "Dashmesh Nagar, Vikas Nagar, Adarsh Nagar - WARD_21",
                     "longitude": null,
                     "latitude": null,
-                    "label": "Locality",
+                    "label": "SubWard",
                     "code": "NG_28",
                     "area": "",
                     "children": []
