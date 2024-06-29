@@ -1,9 +1,5 @@
 package digit.service;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import digit.bmc.model.Event;
@@ -12,10 +8,14 @@ import digit.web.models.SchemeApplicationRequest;
 
 @Service
 public class EventService {
-    @Autowired
-    private EventRepository eventRepository;
+    
+    private  final  EventRepository eventRepository;
 
-     public Event getBDivyangByApplication(SchemeApplicationRequest  request) {
+     public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
+
+    public Event getBDivyangByApplication(SchemeApplicationRequest  request) {
     Event event = new Event();
 
     event.setId(request.getId());
@@ -27,18 +27,18 @@ public class EventService {
      }
 
 
-     public List<Event> getActiveEvenetByDate(Date startdt, Date enddt) {
-        return eventRepository.getActiveEvenetByDate(startdt, enddt);
-    }
+    //  public List<Event> getActiveEvenetByDate(Date startdt, Date enddt) {
+    //     return eventRepository.getActiveEvenetByDate(startdt, enddt);
+    // }
 
    
-    public Event getEvenetDuration(String name) {
-        return eventRepository.getDuration(name);
-    }
+    // public Event getEvenetDuration(String name) {
+    //     return eventRepository.getDuration(name);
+    // }
 
-    public List<Event> getAllEvents() {
-        return eventRepository.getALlList();
-    }
+    // public List<Event> getAllEvents() {
+    //     return eventRepository.getALlList();
+    // }
      
 
 }

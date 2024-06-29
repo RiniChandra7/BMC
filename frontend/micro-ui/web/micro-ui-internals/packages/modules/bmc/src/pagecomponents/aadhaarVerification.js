@@ -1,5 +1,5 @@
-import { CardLabel, LabelFieldPair, TextInput, CardLabelError, Card } from "@egovernments/digit-ui-react-components";
-import React, { useEffect, useState } from "react";
+import { CardLabel, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
 import aadhaarData from "./aadhaarData.json";
@@ -14,28 +14,40 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
   const [buttonText, setButtonText] = useState("Submit");
   const history = useHistory();
 
-  const handleAadhaarChange = (e) => {
+  const handleAadhaarChange = (e, index) => {
     const value = e.target.value;
-    if (new RegExp(/^\d{0,12}$/).test(value) || value === "") {
-      setAadhaar(value);
-      if (new RegExp(/^\d{12}$/).test(value)) {
+    if (/^\d{0,1}$/.test(value)) {
+      const newAadhaar = [...aadhaar];
+      newAadhaar[index] = value;
+      setAadhaar(newAadhaar);
+      if (newAadhaar.every((digit) => digit !== "")) {
         setError("");
       }
       setIsAadhaarValid(false);
       setIsOtpEnabled(false);
       setMessage("");
       setButtonText("Submit");
+
+      if (value && index < 11) {
+        document.getElementById(`aadhaar-${index + 1}`).focus();
+      }
     } else {
       setError("Aadhaar number should contain only 12 digits");
     }
   };
 
-  const handleOtpChange = (e) => {
+  const handleOtpChange = (e, index) => {
     const value = e.target.value;
-    if (new RegExp(/^\d{0,6}$/).test(value) || value === "") {
-      setOtp(value);
-      if (new RegExp(/^\d{6}$/).test(value)) {
+    if (/^\d{0,1}$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      if (newOtp.every((digit) => digit !== "")) {
         setError("");
+      }
+
+      if (value && index < 5) {
+        document.getElementById(`otp-${index + 1}`).focus();
       }
     } else {
       setError("OTP should contain only 6 digits");
@@ -43,11 +55,10 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
   };
 
   const validateAadhaar = () => {
-    if (new RegExp(/^\d{12}$/).test(aadhaar)) {
+    if (aadhaar.every((digit) => digit !== "")) {
       setError("");
       setIsAadhaarValid(true);
       setIsOtpEnabled(true);
-      // setMessage("Aadhaar is valid");
       setButtonText("Verify");
     } else {
       setError("Aadhaar number should contain only 12 digits");
@@ -59,10 +70,12 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
   };
 
   const handleSubmit = () => {
+    const aadhaarString = aadhaar.join("");
+    const otpString = otp.join("");
     if (buttonText === "Submit") {
       validateAadhaar();
-    } else if (buttonText === "Verify" && isAadhaarValid && new RegExp(/^\d{6}$/).test(otp)) {
-      if (aadhaar === aadhaarData.aadhaarNumber && otp === aadhaarData.otp) {
+    } else if (buttonText === "Verify" && isAadhaarValid && otpString.length === 6) {
+      if (aadhaarString === aadhaarData.aadhaarNumber && otpString === aadhaarData.otp) {
         history.push({
           pathname: "/digit-ui/citizen/bmc/aadhaarForm",
           state: { aadhaarInfo: aadhaarData.aadhaarInfo },
@@ -71,13 +84,6 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
         setError("Invalid Aadhaar number or OTP");
         setIsOtpEnabled(false);
       }
-    }
-    if (aadhaar === aadhaarData.aadhaarNumber) {
-      // setMessage("Aadhaar number matched with the record");
-      setIsOtpEnabled(true);
-    } else {
-      // setMessage("Aadhaar number does not match with the record");
-      setIsOtpEnabled(false);
     }
   };
 
@@ -94,43 +100,59 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
                 </div>
                 <LabelFieldPair>
                   <CardLabel className="aadhaar-label">{"BMC_AADHAAR_LABEL"}</CardLabel>
-                  <TextInput
-                    t={t}
-                    type="number"
-                    isMandatory={false}
-                    optionKey="i18nKey"
-                    name="aadhaar"
-                    onBlur={onBlur}
-                    value={aadhaar}
-                    onChange={handleAadhaarChange}
-                    placeholder="Enter a valid 12-digit Aadhaar number"
-                    validation={{
-                      required: true,
-                      minLength: 12,
-                      maxLength: 12,
-                    }}
-                  />
+                  <div style={{ display: "flex" }}>
+                    {aadhaar.map((digit, index) => (
+                      <TextInput
+                        key={index}
+                        id={`aadhaar-${index}`}
+                        t={t}
+                        type="number"
+                        isMandatory={false}
+                        optionKey="i18nKey"
+                        name={`aadhaar-${index}`}
+                        onBlur={onBlur}
+                        value={digit}
+                        onChange={(e) => handleAadhaarChange(e, index)}
+                        style={{ width: "2em", marginRight: "0.2em" }}
+                        maxLength={1}
+                        validation={{
+                          required: true,
+                          minLength: 12,
+                          maxLength: 12,
+                        }}
+                      />
+                    ))}
+                  </div>
                 </LabelFieldPair>
                 <LabelFieldPair>
                   <CardLabel className="aadhaar-label">{"BMC_OTP_LABEL"}</CardLabel>
-                  <TextInput
-                    t={t}
-                    type="number"
-                    isMandatory={false}
-                    optionKey="i18nKey"
-                    name="otp"
-                    value={otp}
-                    onChange={handleOtpChange}
-                    placeholder="Enter a valid 6-digit OTP number"
-                    validation={{
-                      required: true,
-                      minLength: 6,
-                      maxLength: 6,
-                    }}
-                    disabled={!isOtpEnabled}
-                  />
+                  <div className="bmc-otp" style={{ display: "flex" }}>
+                    {otp.map((digit, index) => (
+                      <TextInput
+                        key={index}
+                        id={`otp-${index}`}
+                        t={t}
+                        type="number"
+                        isMandatory={false}
+                        optionKey="i18nKey"
+                        name={`otp-${index}`}
+                        value={digit}
+                        onChange={(e) => handleOtpChange(e, index)}
+                        style={{ marginRight: "0.2em" }}
+                        maxLength={1}
+                        disabled={!isOtpEnabled}
+                        validation={{
+                          required: true,
+                          minLength: 6,
+                          maxLength: 6,
+                        }}
+                      />
+                    ))}
+                  </div>
                 </LabelFieldPair>
-                {message && <div style={{ textAlign: "center", color: aadhaar === aadhaarData.aadhaarNumber ? "green" : "red" }}>{message}</div>}
+                {message && (
+                  <div style={{ textAlign: "center", color: aadhaar.join("") === aadhaarData.aadhaarNumber ? "green" : "red" }}>{message}</div>
+                )}
                 {error && <div style={{ textAlign: "center", color: "red" }}>{error}</div>}
                 <div style={{ textAlign: "center" }}>
                   <button className="bmc-card-button" onClick={handleSubmit} style={{ borderBottom: "3px solid black", textAlign: "center" }}>

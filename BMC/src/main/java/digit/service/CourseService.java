@@ -1,8 +1,5 @@
 package digit.service;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +8,14 @@ import digit.repository.CoursesRepository;
 import digit.web.models.SchemeApplicationRequest;
 @Service
 public class CourseService {
+    
+    private  final  CoursesRepository coursesRepository;
+
     @Autowired
-    private CoursesRepository coursesRepository;
+    public CourseService(CoursesRepository coursesRepository) {
+        this.coursesRepository = coursesRepository;
+    }
+
     public Courses getCourseByApplication(SchemeApplicationRequest schemeApplicationRequest) {
        
         Courses course = new Courses();
@@ -32,21 +35,21 @@ public class CourseService {
         return coursesRepository.save(course);
     }
 
-    public List<Courses> getActiveCourseByDate(Date startdt, Date enddt) {
-        return coursesRepository.getActiveCourseByDate(startdt, enddt);
-    }
+    // public List<Courses> getActiveCourseByDate(Date startdt, Date enddt) {
+    //     return coursesRepository.getActiveCourseByDate(startdt, enddt);
+    // }
 
-    public Courses getCourseAmount(String courseName) {
-        return coursesRepository.getCourseAmount(courseName);
-    }
+    // public Courses getCourseAmount(String courseName) {
+    //     return coursesRepository.getCourseAmount(courseName);
+    // }
 
-    public Courses getCourseDuration(String courseName) {
-        return coursesRepository.getCourseDuration(courseName);
-    }
+    // public Courses getCourseDuration(String courseName) {
+    //     return coursesRepository.getCourseDuration(courseName);
+    // }
 
-    public List<Courses> getAllCourses() {
-        return coursesRepository.getALlList();
-    }
+    // public List<Courses> getAllCourses() {
+    //     return coursesRepository.getALlList();
+   // }
      
 
 

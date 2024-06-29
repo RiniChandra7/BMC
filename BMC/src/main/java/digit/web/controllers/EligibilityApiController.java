@@ -29,10 +29,8 @@ public class EligibilityApiController {
 
     private final SchemeApplicationValidator schemeValidator;
 
-    @Autowired
-    SchemeApplication application;
-    @Autowired
-    EligibilityResponse eligibilityResponse;
+    SchemeApplication application  = new SchemeApplication();
+    EligibilityResponse eligibilityResponse = new EligibilityResponse();
 
     public EligibilityApiController(ObjectMapper objectMapper, HttpServletRequest request,
             SchemeApplicationValidator schemeValidator) {

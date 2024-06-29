@@ -2,6 +2,8 @@ package digit.repository;
 
 
 
+import org.springframework.stereotype.Component;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,9 +17,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Component
 public class SchemeBeneficiarySearchCritaria {
 
-
+    
     private Long userId;
     private Boolean submitted;
     private String optedId;
