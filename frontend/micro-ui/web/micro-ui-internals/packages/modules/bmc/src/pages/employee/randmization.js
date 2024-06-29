@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import dropdownOptions from "../../pagecomponents/dropdownOptions.json";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import Pagination from "../../components/pagination";
 import Title from "../../components/title";
@@ -296,12 +296,14 @@ const RandmizationPage = () => {
                 />
               </LabelFieldPair>
             </div>
-            <div className="bmc-col3-card" style={{ paddingTop: "1.5rem", textAlign: "center" }}>
+            <div className="bmc-col3-card" style={{ paddingTop: "1.8rem", textAlign: "center" }}>
               <button
                 type="button"
                 className="bmc-card-button"
                 style={{
                   borderBottom: "3px solid black",
+                  width: "160px",
+                  height: "42px",
                 }}
               >
                 {t("BMC_Search")}
@@ -364,29 +366,30 @@ const RandmizationPage = () => {
                   </LabelFieldPair>
                 </div>
               </div>
-              <table className="bmc-hover-table">
-                <thead>
-                  <tr>
-                    <th>
-                      <input type="checkbox" checked={isAllChecked} onChange={handleAllCheckboxChange} />
-                    </th>
-                    {headers.slice(1).map((header, index) => (
-                      <th key={index}>{header}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentRows.map((row) => (
-                    <tr key={row.id}>
-                      <td>
-                        <input type="checkbox" checked={isChecked[row.id] || false} onChange={(e) => handleCheckboxChange(e, row.id)} />
-                      </td>
-                      <td style={{ color: "#F47738" }}>{row.name}</td>
-                      <td>{row.applicationNumber}</td>
-                      <td>{row.wardName}</td>
-                      <td>{row.gender}</td>
-                      <td>{row.pincode}</td>
-                      {/* <td style={{ textAlign: "center" }}>
+              <div className="bmc-table-scroll" style={{ padding: "2rem" }}>
+                <table className="bmc-hover-table">
+                  <thead>
+                    <tr>
+                      <th>
+                        <input type="checkbox" checked={isAllChecked} onChange={handleAllCheckboxChange} />
+                      </th>
+                      {headers.slice(1).map((header, index) => (
+                        <th key={index}>{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentRows.map((row) => (
+                      <tr key={row.id}>
+                        <td>
+                          <input type="checkbox" checked={isChecked[row.id] || false} onChange={(e) => handleCheckboxChange(e, row.id)} />
+                        </td>
+                        <td style={{ color: "#F47738" }}>{row.name}</td>
+                        <td>{row.applicationNumber}</td>
+                        <td>{row.wardName}</td>
+                        <td>{row.gender}</td>
+                        <td>{row.pincode}</td>
+                        {/* <td style={{ textAlign: "center" }}>
                         <button
                           className="bmc-card-button"
                           style={{
@@ -399,20 +402,21 @@ const RandmizationPage = () => {
                           {t("BMC_Verified")}
                         </button>
                       </td> */}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <Pagination
-                totalRecords={data.length}
-                rowsPerPage={rowsPerPage}
-                currentPage={currentPage}
-                onPageChange={setCurrentPage}
-                onRowsPerPageChange={setRowsPerPage}
-              />
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <Pagination
+                  totalRecords={data.length}
+                  rowsPerPage={rowsPerPage}
+                  currentPage={currentPage}
+                  onPageChange={setCurrentPage}
+                  onRowsPerPageChange={setRowsPerPage}
+                />
+              </div>
             </div>
             <div style={{ textAlign: "end", padding: "1rem" }}>
-              <button className="bmc-card-button" style={{ borderBottom: "3px solid black", margin: "1rem" }} onClick={verifySelectedItems}>
+              <button className="bmc-card-button" style={{ borderBottom: "3px solid black" }} onClick={verifySelectedItems}>
                 {t("BMC_Randomize")}
               </button>
               <button className="bmc-card-button-cancel" style={{ borderBottom: "3px solid black", outline: "none" }}>
