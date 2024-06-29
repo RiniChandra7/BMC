@@ -239,26 +239,6 @@
       "label": "No"
     }
   ],
-  "ward": [
-    {
-      "value": "Ward 1",
-      "label": "Ward 1"
-    },
-    {
-      "value": "Ward 2",
-      "label": "Ward 2"
-    }
-  ],
-  "subWard": [
-    {
-      "value": "SubWard 1",
-      "label": "SubWard 1"
-    },
-    {
-      "value": "SubWard 2",
-      "label": "SubWard 2"
-    }
-  ],
   "religion": [
     {
       "value": "Hindu",

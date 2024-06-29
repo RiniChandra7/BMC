@@ -10,6 +10,22 @@ export const LocationService = {
       useCache: true,
     });
   },
+  getZones: (tenantId) => {
+    return ServiceRequest({
+      serviceName: "getZones",
+      url: Urls.location.zones,
+      params: { tenantId: tenantId },
+      useCache: true,
+    });
+  },
+  getBlocks: (tenantId) => {
+    return ServiceRequest({
+      serviceName: "getBlocks",
+      url: Urls.location.blocks,
+      params: { tenantId: tenantId },
+      useCache: true,
+    });
+  },
   getRevenueLocalities: async (tenantId) => {
     const response = await ServiceRequest({
       serviceName: "getRevenueLocalities",

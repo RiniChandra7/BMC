@@ -1,5 +1,5 @@
 import { CardLabel, CheckBox, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
@@ -50,8 +50,86 @@ const ApplicationDetailFull = (_props) => {
     trigger,
     reset,
   } = useForm();
+
   const { t } = useTranslation();
   const location = useLocation();
+  const tenantId = Digit.ULBService.getCurrentTenantId();
+  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+  const [zones, setZones] = useState([]);
+  const [blocks, setBlocks] = useState([]);
+  const [wards, setWards] = useState([]);
+
+  const { isLoading, data: wardsAndLocalities } = Digit.Hooks.useLocation(
+    tenantId, 'Zone',
+    {
+      select: (data) => {
+        const zonesData = [];
+        const blocksData = [];
+        const wardsData = [];
+
+        data?.TenantBoundary[0]?.boundary.forEach((zone) => {
+          zonesData.push({
+            code: zone.code,
+            name: zone.name,
+            i18nKey: `${headerLocale}_ADMIN_${zone.code}`
+          });
+
+          zone.children.forEach((block) => {
+            blocksData.push({
+              code: block.code,
+              name: block.name,
+              zoneCode: zone.code,
+              i18nKey: `${headerLocale}_ADMIN_${block.code}`
+            });
+
+            block.children.forEach((ward) => {
+              wardsData.push({
+                code: ward.code,
+                name: ward.name,
+                zoneCode: zone.code,
+                blockCode: block.code,
+                i18nKey: `${headerLocale}_ADMIN_${ward.code}`
+              });
+            });
+          });
+        });
+        setZones(zonesData);
+        setBlocks(blocksData);
+        setWards(wardsData);
+        return {
+          zonesData, blocksData, wardsData
+        }
+      }
+    });
+    
+  const selectedZone = watch('zoneName');
+  const selectedBlock = watch('blockName');
+  const [filteredBlocks, setFilteredBlocks] = useState([]);
+  const [filteredWards, setFilteredWards] = useState([]);
+
+  useEffect(() => {
+    if (selectedZone && selectedZone.code) {
+      const filtered = blocks.filter(block => block.zoneCode === selectedZone.code);
+      setFilteredBlocks(filtered);
+      setValue('blockName', null); // Reset block dropdown
+      setFilteredWards([]); // Clear wards when zone changes
+      setValue('wardName', null); // Reset ward dropdown
+    } else {
+      setFilteredBlocks([]);
+    }
+  }, [blocks, selectedZone, setValue]);
+
+  useEffect(() => {
+    if (selectedBlock && selectedBlock.code) {
+      const filtered = wards.filter(ward => ward.blockCode === selectedBlock.code && ward.zoneCode === selectedZone.code);
+      setFilteredWards(filtered);
+      setValue('wardName', null); // Reset ward dropdown
+    } else {
+      setFilteredWards([]);
+    }
+  }, [wards, selectedBlock,selectedZone, setValue]);
+
+
   const { selectedScheme, selectedRadio } = location.state || {};
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
   const [owner, setOwner] = useState(formData?.owner || [ApplicationDetail()]);
@@ -90,8 +168,6 @@ const ApplicationDetailFull = (_props) => {
     history.push("/digit-ui/citizen/bmc/review");
     const formDataValues = { ...data, bankPassbook, domicileofMumbai, incomeCer, voterId, panCard, business };
     setOwner(formDataValues);
-
-    console.log(formDataValues);
   };
 
   return (
@@ -786,23 +862,21 @@ const ApplicationDetailFull = (_props) => {
             <div className="bmc-title">Personal Details</div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_Ward_Name*"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_Zone_Name*"}</CardLabel>
                 <Controller
                   control={control}
-                  name={"wardName"}
+                  name={"zoneName"}
                   rules={{
                     required: t("CORE_COMMON_REQUIRED_ERRMSG"),
                   }}
                   render={(props) => (
                     <Dropdown
-                      placeholder={t("Select Ward")}
+                      placeholder={t("Select Zone")}
                       selected={props.value}
-                      select={(value) => {
-                        props.onChange(value);
-                      }}
+                      select={(zone) => props.onChange(zone)}
                       onBlur={props.onBlur}
-                      option={dropdownOptions.ward}
-                      optionKey="value"
+                      option={zones}
+                      optionKey="i18nKey"
                       t={t}
                       isMandatory={true}
                     />
@@ -812,10 +886,34 @@ const ApplicationDetailFull = (_props) => {
             </div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_SubWard_Name*"}</CardLabel>
+                <CardLabel className="bmc-label">{"BMC_Block_Name*"}</CardLabel>
                 <Controller
                   control={control}
-                  name={"subWardName"}
+                  name={"blockName"}
+                  rules={{
+                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
+                  }}
+                  render={(props) => (
+                    <Dropdown
+                      placeholder={t("Select Ward")}
+                      selected={props.value}
+                      select={(block) => props.onChange(block)}
+                      onBlur={props.onBlur}
+                      option={filteredBlocks}
+                      optionKey="i18nKey"
+                      t={t}
+                      isMandatory={true}
+                    />
+                  )}
+                />
+              </LabelFieldPair>
+            </div>
+            <div className="bmc-col3-card">
+              <LabelFieldPair>
+                <CardLabel className="bmc-label">{"BMC_Ward_Name*"}</CardLabel>
+                <Controller
+                  control={control}
+                  name={"wardName"}
                   rules={{
                     required: t("CORE_COMMON_REQUIRED_ERRMSG"),
                   }}
@@ -823,12 +921,10 @@ const ApplicationDetailFull = (_props) => {
                     <Dropdown
                       placeholder={t("Select SubWard")}
                       selected={props.value}
-                      select={(value) => {
-                        props.onChange(value);
-                      }}
+                      select={(ward) => props.onChange(ward)}
                       onBlur={props.onBlur}
-                      option={dropdownOptions.subWard}
-                      optionKey="value"
+                      option={filteredWards}
+                      optionKey="i18nKey"
                       t={t}
                       isMandatory={true}
                     />
