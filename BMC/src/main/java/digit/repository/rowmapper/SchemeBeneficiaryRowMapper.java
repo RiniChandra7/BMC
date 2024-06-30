@@ -26,8 +26,6 @@ public class SchemeBeneficiaryRowMapper implements ResultSetExtractor<List<Schem
         while (rs.next()) {
             Long optedId = rs.getLong("optedid");
             SchemeBeneficiaryDetails schemeDetails = schemeDetailsMap.get(optedId);
-
-            
             if (schemeDetails == null) {
                
                 schemeDetails = SchemeBeneficiaryDetails.builder()
@@ -38,8 +36,6 @@ public class SchemeBeneficiaryRowMapper implements ResultSetExtractor<List<Schem
                         .startDate(rs.getTimestamp("startdt").toInstant())
                         .endDate(rs.getTimestamp("enddt").toInstant())
                         .build();
-
-              
                 schemeDetailsMap.put(optedId, schemeDetails);
             }
         }
