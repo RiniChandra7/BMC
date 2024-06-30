@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.egov.common.contract.models.Document;
 import org.egov.common.contract.request.User;
+import org.egov.common.contract.workflow.State;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

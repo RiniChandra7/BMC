@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.egov.common.contract.models.RequestInfoWrapper;
+import org.egov.common.contract.models.Workflow;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.common.contract.request.User;
+import org.egov.common.contract.workflow.State;
 import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,6 @@ import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import digit.bmc.model.Workflow;
 import digit.config.BmcConfiguration;
 import digit.repository.ServiceRequestRepository;
 import digit.web.models.BusinessService;
@@ -24,7 +25,6 @@ import digit.web.models.ProcessInstanceRequest;
 import digit.web.models.ProcessInstanceResponse;
 import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationRequest;
-import digit.web.models.State;
 import lombok.extern.slf4j.Slf4j;
 
 @Service

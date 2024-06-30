@@ -2,6 +2,7 @@ package digit.web.models;
 
 import org.egov.common.contract.models.Address;
 import org.egov.common.contract.models.AuditDetails;
+import org.egov.common.contract.models.Workflow;
 import org.egov.common.contract.request.User;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,7 +20,6 @@ import digit.bmc.model.Schemes;
 import digit.bmc.model.Sector;
 import digit.bmc.model.UserOtherDetails;
 import digit.bmc.model.UserSchemeApplication;
-import digit.bmc.model.Workflow;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -74,7 +74,7 @@ public class SchemeApplication {
 
     @JsonProperty("createdBy")
     private String createdBy;
- 
+
     @JsonProperty("modifiedBy")
     private String modifiedBy;
 
@@ -87,9 +87,9 @@ public class SchemeApplication {
     @JsonProperty("bank")
     private Bank bank;
     @JsonProperty("bank_Account")
-    private BankAccount bank_Account;
+    private BankAccount bankAccount;
     @JsonProperty("bank_Branch")
-    private BankBranch bank_Branch;
+    private BankBranch bankBranch;
     @JsonProperty("aadharUser")
     private AadharUser aadharUser;
     @JsonProperty("sector")
@@ -105,9 +105,9 @@ public class SchemeApplication {
     @JsonProperty("auditDetails")
     private AuditDetails auditDetails;
     @JsonProperty("UserSchemeApplication")
-     private UserSchemeApplication UserSchemeApplication;
-     @JsonProperty("bmcRegistrationApplication")
-     private BmcRegistrationApplication bmcRegistrationApplication;
+    private UserSchemeApplication userSchemeApplication;
+    @JsonProperty("bmcRegistrationApplication")
+    private BmcRegistrationApplication bmcRegistrationApplication;
     @JsonProperty("user")
     private User user;
 

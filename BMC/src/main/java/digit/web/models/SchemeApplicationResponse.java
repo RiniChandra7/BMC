@@ -13,194 +13,179 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class SchemeApplicationResponse {
 
-    @JsonProperty("ResponseInfo")
-    private ResponseInfo responseInfo;
+   @JsonProperty("ResponseInfo")
+   private ResponseInfo responseInfo;
 
-    @JsonProperty("SchemeApplications")
-    private List<SchemeApplication> schemeApplications;
+   @JsonProperty("SchemeApplications")
+   private List<SchemeApplication> schemeApplications;
 
-      
- private String aadharRef;
-	
- private String uuid ;
+   private String aadharRef;
 
- private String aadhar_fatherName;
+   private String uuid;
 
- private String aadhar_name;
+   private String aadhar_fatherName;
 
-  private Date aadhar_dob;
+   private String aadhar_name;
 
- private String aadhar_mobile;
+   private Date aadhar_dob;
 
- private Date createdOn;
+   private String aadhar_mobile;
 
-private Date modifiedOn;
+   private Date createdOn;
 
- private Integer createdBy;
+   private Date modifiedOn;
 
+   private Integer createdBy;
 
-private String address1;
+   private String address1;
 
-private String address2;
+   private String address2;
 
-private String location;
+   private String location;
 
-private String ward;
+   private String ward;
 
-private String city;
+   private String city;
 
-private String district;
+   private String district;
 
-private String pincode;
+   private String pincode;
 
-  
- private Integer optedId;
+   private Integer optedId;
 
- private String applicationStatus ;
+   private String applicationStatus;
 
- private String verificationStatus;
+   private String verificationStatus;
 
- private String firstApprovalStatus ;
+   private String firstApprovalStatus;
 
- private Boolean randomSelection ;
+   private Boolean randomSelection;
 
- private Boolean finalApproval;
+   private Boolean finalApproval;
 
- private Boolean submitted;
+   private Boolean submitted;
 
    private String code;
 
-     private String name;
+   private String name;
 
-     private String narration;
+   private String narration;
 
-     private Boolean isActive;
+   private Boolean isActive;
 
-     private String type;
+   private String type;
 
-     private Timestamp createdDate;
+   private Timestamp createdDate;
 
-     private Timestamp lastModifiedDate;	
+   private Timestamp lastModifiedDate;
    private Integer modifiedby;
 
-      private Long branchId;
+   private Long branchId;
 
-     private String accountNumber;
+   private String accountNumber;
 
-     private String accountType;
+   private String accountType;
 
-     private String payTo;
+   private String payTo;
 
-     private String branchcode;
+   private String branchcode;
 
-     private String branchname;
+   private String branchname;
 
-     private String branchaddress1;
+   private String branchaddress1;
 
-     private String branchaddress2;
+   private String branchaddress2;
 
-     private String branchcity;
+   private String branchcity;
 
-     private String branchstate;
+   private String branchstate;
 
-     private String branchpin;
+   private String branchpin;
 
-     private String branchphone;
+   private String branchphone;
 
-     private String branchfax;
-     private Long bankid;
+   private String branchfax;
+   private Long bankid;
 
-     private String contactperson;
+   private String contactperson;
 
-     private String micr;
+   private String micr;
 
-   
- private String tenantId ;
+   private String tenantId;
 
+   private String applicationNumber;
 
- private String applicationNumber ;
+   private String applicantName;
 
+   private String fatherName;
 
- private String applicantName;
+   private String mobileNumber;
 
+   private String emailId;
 
- private String fatherName ;
+   private String aadharNumber;
 
+   private Address address;
 
- private String mobileNumber ;
+   private String courseName;
 
+   private String description;
 
- private String emailId ;
+   private String duration;
 
+   private Long startDt;
 
- private String aadharNumber ;
+   private Long endDt;
 
+   private Integer typeId;
 
-private Address address ;
+   private String url;
 
- private String courseName;
+   private String institute;
 
- private String description;
+   private String imgUrl;
 
- private String duration;
+   private String instituteAddress;
 
- private Long startDt;
+   private Double amount;
 
- private Long endDt;
+   private Integer schemeId;
 
- private Integer typeId;
+   private Integer courseId;
 
-    private String url;
+   private Double grantAmount;
 
- private String institute;
+   private String sector;
+   private Long userId;
 
+   private Integer religionId;
 
- private String imgUrl;
+   private String divyangCardId;
 
+   private Double divyangPercent;
 
- private String instituteAddress;
+   private String transgenderId;
 
- private Double amount;
+   private String modifiedBy;
 
- private Integer schemeId;
+   private String rationCardCategory;
 
- private Integer courseId;
+   private String educationLevel;
 
- private Double grantAmount;
+   private String udid;
+   private String branchName;
 
- private String sector;
-private Long userId;
+   private Long lastModifiedBy;
 
- private Integer religionId;
+   private Long version;
 
-
- private String divyangCardId;
-
- private Double divyangPercent;
-
- private String transgenderId;
-
- private String modifiedBy;
-
- private String rationCardCategory;
-
- private String educationLevel;
-
- private String udid;
- private String branchName;
-
-     private Long lastModifiedBy;
-
-     private Long version;
-
-     private Long chequeFormatId;
-
-
+   private Long chequeFormatId;
 
 }
