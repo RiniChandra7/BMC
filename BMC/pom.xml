@@ -19,7 +19,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.3.0</version>
+    <version>3.3.1</version>
   </parent>
   <dependencyManagement>
     <dependencies>
@@ -73,8 +73,7 @@
     </dependency>
     <dependency>
       <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-      <version>9.0.0</version> <!-- Ensure this is a compatible version -->
+      <artifactId>flyway-core</artifactId> <!-- Ensure this is a compatible version -->
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -90,8 +89,7 @@
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>42.2.23</version> <!-- Ensure this is a compatible version for PostgreSQL 12 -->
+      <artifactId>postgresql</artifactId> <!-- Ensure this is a compatible version for PostgreSQL 12 -->
     </dependency>
     <dependency>
       <groupId>jakarta.inject</groupId>

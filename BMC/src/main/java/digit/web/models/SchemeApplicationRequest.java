@@ -46,17 +46,17 @@ public class SchemeApplicationRequest {
 
   private String aadharRef;
 
-  private Long Id;
+  private Long id;
 
   private String uuid;
 
-  private String aadhar_fatherName;
+  private String aadharfatherName;
 
-  private String aadhar_name;
+  private String aadharname;
 
-  private Date aadhar_dob;
+  private Date aadhardob;
 
-  private String aadhar_mobile;
+  private String aadharmobile;
 
   private Date createdOn;
 
@@ -200,14 +200,14 @@ public class SchemeApplicationRequest {
 
   private String transgenderId;
 
-  private String modifiedBy;
+
 
   private String rationCardCategory;
 
   private String educationLevel;
 
   private String udid;
-  private String branchName;
+
 
   private Long lastModifiedBy;
 
