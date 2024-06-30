@@ -22,10 +22,10 @@ public class AadharService {
         AadharUser aadharUser = new AadharUser();
          aadharUser.setAadharRef(schemeApplicationRequest.getAadharRef()); 
          aadharUser.setUuid(schemeApplicationRequest.getUdid()); 
-         aadharUser.setAadhar_fatherName(schemeApplicationRequest.getAadhar_fatherName()); 
-         aadharUser.setAadhar_name(schemeApplicationRequest.getAadhar_name()); 
-         aadharUser.setAadhar_dob(schemeApplicationRequest.getAadhar_dob()); 
-         aadharUser.setAadhar_mobile(schemeApplicationRequest.getAadhar_mobile()); 
+         aadharUser.setAadhar_fatherName(schemeApplicationRequest.getAadharfatherName()); 
+         aadharUser.setAadhar_name(schemeApplicationRequest.getAadharname()); 
+         aadharUser.setAadhar_dob(schemeApplicationRequest.getAadhardob()); 
+         aadharUser.setAadhar_mobile(schemeApplicationRequest.getAadharmobile()); 
          aadharUser.setCreatedOn(schemeApplicationRequest.getCreatedOn());; 
          aadharUser.setModifiedOn(schemeApplicationRequest.getModifiedOn()); 
          aadharUser.setCreatedBy(schemeApplicationRequest.getCreatedBy()); 
