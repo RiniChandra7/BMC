@@ -34,20 +34,19 @@ public class SchemeDetailQueryBuilder {
 
         // Add where clause for Status if it is not empty
         if (!ObjectUtils.isEmpty(criteria.getStatus())) {
-            addClauseIfRequired(query, preparedStmtList);
             switch (criteria.getStatus()) {
                 case PAST:
-                    query.append(" to_timestamp(ev.enddt)::date < current_date ");
                     addClauseIfRequired(query, preparedStmtList);
+                    query.append(" to_timestamp(ev.enddt)::date < current_date ");                   
                     break;
                 case FUTURE:
-                    query.append(" to_timestamp(ev.startdt)::date > current_date ");
                     addClauseIfRequired(query, preparedStmtList);
+                    query.append(" to_timestamp(ev.startdt)::date > current_date ");
                     break;
                 case PRESENT:
+                    addClauseIfRequired(query, preparedStmtList);
                     query.append(
                             " to_timestamp(ev.startdt)::date <= current_date and to_timestamp(coalesce(ev.enddt,4102444799))::date >= current_date ");
-                    addClauseIfRequired(query, preparedStmtList);
                     break;
                 default:
                     if (!ObjectUtils.isEmpty(criteria.getStartDate())) {
@@ -70,7 +69,7 @@ public class SchemeDetailQueryBuilder {
             preparedStmtList.add(criteria.getId());
         }
 
-        query.append(ORDERBY_MODIFIEDTIME);
+        //query.append(ORDERBY_MODIFIEDTIME);
         return query.toString();
     }
 

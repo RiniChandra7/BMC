@@ -14,7 +14,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class SchemeDetails {
-    private Long id;
+    private Long schemeID;
     private String eventName;
     private String schemeName;
     private Date startDate;

@@ -19,18 +19,18 @@ public class SchemeRowMapper implements ResultSetExtractor<List<SchemeDetails>> 
     public List<SchemeDetails> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<Long, SchemeDetails> schemeDetailsMap = new LinkedHashMap<>();
         while (rs.next()) {
-            Long id = rs.getLong("id");
-            SchemeDetails schemeDetails = schemeDetailsMap.get(id);
+            Long schemeID = rs.getLong("SchemeID");
+            SchemeDetails schemeDetails = schemeDetailsMap.get(schemeID);
             if (schemeDetails == null) {
                 schemeDetails = SchemeDetails.builder()
-                        .id(rs.getLong("id"))
+                        .schemeID(rs.getLong("SchemeID"))
                         .schemeDesc(rs.getString("SchemeDescription"))
                         .schemeName(rs.getString("SchemeName"))
                         .eventName(rs.getString("EventName"))
                         .startDate(rs.getDate("startDate"))
                         .endDate(rs.getDate("enddate"))
                         .build();
-                schemeDetailsMap.put(id, schemeDetails);
+                schemeDetailsMap.put(schemeID, schemeDetails);
             }
         }
 
