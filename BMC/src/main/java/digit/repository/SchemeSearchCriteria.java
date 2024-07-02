@@ -25,4 +25,10 @@ public class SchemeSearchCriteria {
 
     @JsonProperty("ID")
     private Integer id;
+
+    @JsonProperty("SchemeHead")
+    private String schemehead;
+
+    @JsonProperty("SchemeHeadDesc")
+    private String schemeheaddesc;
 }

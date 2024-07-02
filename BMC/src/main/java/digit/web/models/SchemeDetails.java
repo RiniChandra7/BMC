@@ -23,4 +23,6 @@ public class SchemeDetails {
     private String criteriaType;
     private String criteriaCondition;
     private String criteriaValue;
+    private String schemeHead;
+    private String schemeHeadDesc;
 }

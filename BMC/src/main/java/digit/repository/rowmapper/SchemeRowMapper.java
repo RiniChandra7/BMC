@@ -32,6 +32,8 @@ public class SchemeRowMapper implements ResultSetExtractor<List<SchemeDetails>> 
                         .criteriaCondition(rs.getString("criteriacondition"))
                         .criteriaType(rs.getString("criteriatype"))
                         .criteriaValue(rs.getString("criteriavalue"))
+                        .schemeHead(rs.getString("schemeHead"))
+                        .schemeHeadDesc(rs.getString("schemeheadDesc"))
                         .build();
                 schemeDetailsMap.put(schemeID, schemeDetails);
             }
