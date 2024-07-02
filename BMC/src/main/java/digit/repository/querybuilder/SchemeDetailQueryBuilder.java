@@ -12,19 +12,19 @@ public class SchemeDetailQueryBuilder {
     // Conditions
 
     private static final String BASE_QUERY = """
-               Select \
-               ev.name as eventName , \
-               to_timestamp(ev.startdt)::date as startDate, \
-               to_timestamp(coalesce(ev.enddt,4102444799))::date as endDate, \
-               sch.id as SchemeID, \
-               sch.name as SchemeName, \
-               sch.description as SchemeDescription, \
-               cri.criteriatype, \
-               cri.criteriavalue, \
-               cri.criteriacondition, \
-               schgrp.name as schemeHead, \
+            Select \
+            ev.name as eventName , \
+            to_timestamp(ev.startdt)::date as startDate, \
+            to_timestamp(coalesce(ev.enddt,4102444799))::date as endDate, \
+            sch.id as SchemeID, \
+            sch.name as SchemeName, \
+            sch.description as SchemeDescription, \
+            cri.criteriatype, \
+            cri.criteriavalue, \
+            cri.criteriacondition, \
+            schgrp.name as schemeHead, \
             schgrp.description as schemeheadDesc \
-               """;
+            """;
     // From clause with join between Event, EventScheme, and Scheme tables
     private static final String FROM_TABLES = """
             from eg_bmc_event ev \
@@ -69,6 +69,12 @@ public class SchemeDetailQueryBuilder {
                     }
                     break;
             }
+        }
+        
+        if (!ObjectUtils.isEmpty(criteria.getId())) {
+            addClauseIfRequired(query, preparedStmtList);
+            query.append(" sch.id = ? ");
+            preparedStmtList.add(criteria.getId());
         }
 
         if (!ObjectUtils.isEmpty(criteria.getId())) {
