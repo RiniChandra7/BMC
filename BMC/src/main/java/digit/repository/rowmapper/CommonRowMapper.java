@@ -11,7 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
-import digit.web.models.CommonDetails;
+import digit.web.models.common.CommonDetails;
 @Component
 public class CommonRowMapper implements ResultSetExtractor<List<CommonDetails>>{
     @Override

@@ -11,10 +11,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
-import digit.web.models.Scheme.CriteriaDetails;
-import digit.web.models.Scheme.EventDetails;
-import digit.web.models.Scheme.SchemeDetails;
-import digit.web.models.Scheme.SchemeHeadDetails;
+import digit.web.models.scheme.CriteriaDetails;
+import digit.web.models.scheme.EventDetails;
+import digit.web.models.scheme.SchemeDetails;
+import digit.web.models.scheme.SchemeHeadDetails;
 
 @Component
 public class SchemeRowMapper implements ResultSetExtractor<List<EventDetails>> {

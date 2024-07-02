@@ -1,4 +1,4 @@
-package digit.web.models.Scheme;
+package digit.web.models.scheme;
 
 import java.util.List;
 

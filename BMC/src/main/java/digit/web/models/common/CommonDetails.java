@@ -1,4 +1,4 @@
-package digit.web.models;
+package digit.web.models.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

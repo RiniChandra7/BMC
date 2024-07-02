@@ -1,4 +1,4 @@
-package digit.web.models.scheme;
+package digit.web.models.common;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class SchemeSearchResponse {
+public class CommonResponse {
     @JsonProperty("ResponseInfo")
    private ResponseInfo responseInfo;
 
    @JsonProperty("SchemeDetails")
-   private List<EventDetails> schemeDetails;
+   private List<CommonDetails> commonDetails;
 }

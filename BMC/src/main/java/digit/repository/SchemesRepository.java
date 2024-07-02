@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import digit.repository.querybuilder.SchemeDetailQueryBuilder;
 import digit.repository.rowmapper.SchemeRowMapper;
-import digit.web.models.Scheme.EventDetails;
+import digit.web.models.scheme.EventDetails;
 import lombok.extern.slf4j.Slf4j;
 
 

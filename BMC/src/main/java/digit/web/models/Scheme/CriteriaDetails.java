@@ -1,4 +1,4 @@
-package digit.web.models.Scheme;
+package digit.web.models.scheme;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

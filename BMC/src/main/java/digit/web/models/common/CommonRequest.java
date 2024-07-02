@@ -1,11 +1,11 @@
-package digit.web.models.scheme;
+package digit.web.models.common;
 
 import org.egov.common.contract.request.RequestInfo;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import digit.repository.SchemeSearchCriteria;
+import digit.repository.CommonSearchCriteria;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,16 +23,16 @@ import lombok.Setter;
 @Builder
 @Setter
 @Getter
-public class SchemeSearchRequest {
+public class CommonRequest {
 
     @JsonProperty("RequestInfo")
     @Valid
     @Builder.Default
     private RequestInfo requestInfo = null;
 
-    @JsonProperty("SchemeSearchCriteria")
+    @JsonProperty("CommonSearchCriteria")
     @Valid
     @Builder.Default
-    private SchemeSearchCriteria schemeSearchCriteria = null;
+    private CommonSearchCriteria commonSearchCriteria = null;
 
 }
