@@ -296,18 +296,18 @@ const RandmizationPage = () => {
                 />
               </LabelFieldPair>
             </div>
-            <div className="bmc-col3-card" style={{ paddingTop: "1.8rem", textAlign: "center" }}>
-              <button
-                type="button"
-                className="bmc-card-button"
-                style={{
-                  borderBottom: "3px solid black",
-                  width: "160px",
-                  height: "42px",
-                }}
-              >
-                {t("BMC_Search")}
-              </button>
+            <div className="bmc-col3-card">
+              <div className="bmc-search-button" style={{ textAlign: "end" }}>
+                <button
+                  type="button"
+                  className="bmc-card-button"
+                  style={{
+                    borderBottom: "3px solid black",
+                  }}
+                >
+                  {t("BMC_Search")}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -366,57 +366,54 @@ const RandmizationPage = () => {
                   </LabelFieldPair>
                 </div>
               </div>
-              <div className="bmc-table-scroll" style={{ padding: "2rem" }}>
-                <table className="bmc-hover-table">
-                  <thead>
-                    <tr>
-                      <th>
-                        <input type="checkbox" checked={isAllChecked} onChange={handleAllCheckboxChange} />
+              <table className="bmc-hover-table">
+                <thead>
+                  <tr>
+                    <th>
+                      <input type="checkbox" checked={isAllChecked} onChange={handleAllCheckboxChange} />
+                    </th>
+                    {headers.slice(1).map((header, index) => (
+                      <th key={index} scope="col">
+                        {header}
                       </th>
-                      {headers.slice(1).map((header, index) => (
-                        <th key={index}>{header}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentRows.map((row) => (
-                      <tr key={row.id}>
-                        <td>
-                          <input type="checkbox" checked={isChecked[row.id] || false} onChange={(e) => handleCheckboxChange(e, row.id)} />
-                        </td>
-                        <td style={{ color: "#F47738" }}>{row.name}</td>
-                        <td>{row.applicationNumber}</td>
-                        <td>{row.wardName}</td>
-                        <td>{row.gender}</td>
-                        <td>{row.pincode}</td>
-                        {/* <td style={{ textAlign: "center" }}>
-                        <button
-                          className="bmc-card-button"
-                          style={{
-                            borderBottom: "3px solid black",
-                            width: "8rem",
-                            height: "2rem",
-                            backgroundColor: "#B9521E",
-                          }}
-                        >
-                          {t("BMC_Verified")}
-                        </button>
-                      </td> */}
-                      </tr>
                     ))}
-                  </tbody>
-                </table>
-                <Pagination
-                  totalRecords={data.length}
-                  rowsPerPage={rowsPerPage}
-                  currentPage={currentPage}
-                  onPageChange={setCurrentPage}
-                  onRowsPerPageChange={setRowsPerPage}
-                />
-              </div>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentRows.map((row) => (
+                    <tr key={row.id}>
+                      <td>
+                        <input type="checkbox" checked={isChecked[row.id] || false} onChange={(e) => handleCheckboxChange(e, row.id)} />
+                      </td>
+                      <td style={{ color: "#F47738" }} data-label="Name" scope="row">
+                        {row.name}
+                      </td>
+                      <td data-label="Application Number" scope="row">
+                        {row.applicationNumber}
+                      </td>
+                      <td data-label="Ward Name" scope="row">
+                        {row.wardName}
+                      </td>
+                      <td data-label="Gender" scope="row">
+                        {row.gender}
+                      </td>
+                      <td data-label="Pincode" scope="row">
+                        {row.pincode}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Pagination
+                totalRecords={data.length}
+                rowsPerPage={rowsPerPage}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+                onRowsPerPageChange={setRowsPerPage}
+              />
             </div>
             <div style={{ textAlign: "end", padding: "1rem" }}>
-              <button className="bmc-card-button" style={{ borderBottom: "3px solid black" }} onClick={verifySelectedItems}>
+              <button className="bmc-card-button" style={{ borderBottom: "3px solid black", marginRight: "1rem" }} onClick={verifySelectedItems}>
                 {t("BMC_Randomize")}
               </button>
               <button className="bmc-card-button-cancel" style={{ borderBottom: "3px solid black", outline: "none" }}>

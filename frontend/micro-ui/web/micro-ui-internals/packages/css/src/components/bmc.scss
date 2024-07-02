@@ -65,7 +65,7 @@
 
 @media screen and (max-width: 768px) {
   .timeline-box .line {
-    top: 4px;
+    top: 10px;
     border-top-width: 10px;
   }
 
@@ -84,13 +84,16 @@
 
 @media screen and (max-width: 480px) {
   .timeline-box {
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
   }
 
+  .timeline-box .timeline-contents .secondary-colors {
+    display: none;
+  }
+
   .timeline-box .line {
-    left: 4px;
-    right: 4px;
+    border-top-width: 10px;
   }
 
   .TLComments {
@@ -113,12 +116,29 @@
   padding-right: 4rem;
 }
 
+.aadhaar-container,
+.otp-container {
+  display: flex;
+}
+
+.aadhaar-input,
+.otp-input {
+  width: 2em;
+  margin-right: 0.2em;
+  font-size: 1em;
+}
+
+.bmc-aadhaarText {
+  order: 1;
+}
+
 .bmc-card-aadharimage {
   background-image: url("../img/aadhaarCard.png");
   height: 60vh;
   width: 100%;
   background-size: cover;
   background-repeat: round;
+  order: 2;
 }
 
 .bmc-row-card-header {
@@ -427,40 +447,68 @@
 
 .bmc-table-container {
   max-width: 100%;
-  overflow: auto;
-}
-
-.bmc-table-scroll {
-  overflow-x: auto;
-  overflow-y: auto;
-  max-width: 100%;
   padding: 2rem;
 }
 
 .bmc-hover-table {
-  width: 100%;
+  border: 1px solid #ccc;
   border-collapse: collapse;
+  margin: 0;
+  padding: 2rem;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.bmc-hover-table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 0.35em;
 }
 
 .bmc-hover-table th,
 .bmc-hover-table td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  padding: 0.625em;
+  text-align: center;
+}
+
+.bmc-hover-table th {
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .bmc-card-view-button {
   background-color: #f47738;
   color: white;
   border: none;
+  width: 147px;
+  height: 42px;
   padding: 8px 16px;
-  cursor: pointer;
+}
+
+.bmc-search-button {
+  padding-top: 2.8rem;
+  padding-right: 3rem;
 }
 
 @media only screen and (max-width: 768px) {
   .bmc-card-full {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .aadhaar-input,
+  .otp-input {
+    width: 1.5em;
+    font-size: 0.8em;
+  }
+
+  .bnc-aadhaarText {
+    order: 2;
+  }
+
+  .bmc-card-aadharimage {
+    order: 1;
   }
 
   .bmc-col1-card,
@@ -473,8 +521,10 @@
   }
 
   .bmc-card-button-cancel,
-  .bmc-card-button {
+  .bmc-card-button,
+  .bmc-search-button {
     width: 100%;
+    padding: 0;
   }
 
   .bmc-card-grid {
@@ -529,17 +579,42 @@
   }
 
   .bmc-hover-table {
-    display: block;
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: auto;
+    border: 0;
   }
 
-  .bmc-hover-table th,
+  .bmc-hover-table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .bmc-hover-table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
   .bmc-hover-table td {
-    display: inline-block;
-    border-bottom: 2px solid #ddd;
-    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
+
+  .bmc-hover-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .bmc-hover-table td:last-child {
+    border-bottom: 0;
   }
 }
 
@@ -547,6 +622,21 @@
   .bmc-card-full {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .aadhaar-input,
+  .otp-input {
+    width: 1.2em;
+    font-size: 0.6em;
+    margin-right: 0.1em;
+  }
+
+  .bnc-aadhaarText {
+    order: 2;
+  }
+
+  .bmc-card-aadharimage {
+    order: 1;
   }
 
   .bmc-col1-card,
@@ -559,8 +649,10 @@
   }
 
   .bmc-card-button-cancel,
-  .bmc-card-button {
+  .bmc-card-button,
+  .bmc-search-button {
     width: 100%;
+    padding: 0;
   }
 
   .bmc-card-grid {
