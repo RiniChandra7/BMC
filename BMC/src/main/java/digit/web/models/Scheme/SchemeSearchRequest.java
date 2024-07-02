@@ -1,4 +1,4 @@
-package digit.web.models;
+package digit.web.models.Scheme;
 
 import org.egov.common.contract.request.RequestInfo;
 import org.springframework.validation.annotation.Validated;
