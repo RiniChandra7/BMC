@@ -70,13 +70,17 @@ public class SchemeDetailQueryBuilder {
                     break;
             }
         }
-        
-        if (!ObjectUtils.isEmpty(criteria.getId())) {
-            addClauseIfRequired(query, preparedStmtList);
-            query.append(" sch.id = ? ");
-            preparedStmtList.add(criteria.getId());
-        }
 
+        if (!ObjectUtils.isEmpty(criteria.getSchemehead())) {
+            addClauseIfRequired(query, preparedStmtList);
+            query.append(" schgrp.name = ? ");
+            preparedStmtList.add(criteria.getSchemehead());
+        }
+        if (!ObjectUtils.isEmpty(criteria.getSchemeheaddesc())) {
+            addClauseIfRequired(query, preparedStmtList);
+            query.append(" schgrp.description = ? ");
+            preparedStmtList.add(criteria.getSchemeheaddesc());
+        }
         if (!ObjectUtils.isEmpty(criteria.getId())) {
             addClauseIfRequired(query, preparedStmtList);
             query.append(" sch.id = ? ");
