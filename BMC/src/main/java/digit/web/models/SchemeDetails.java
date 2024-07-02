@@ -20,4 +20,7 @@ public class SchemeDetails {
     private Date startDate;
     private Date endDate;
     private String schemeDesc;
+    private String criteriaType;
+    private String criteriaCondition;
+    private String criteriaValue;
 }

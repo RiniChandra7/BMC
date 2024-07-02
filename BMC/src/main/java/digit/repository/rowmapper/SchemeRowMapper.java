@@ -29,6 +29,9 @@ public class SchemeRowMapper implements ResultSetExtractor<List<SchemeDetails>> 
                         .eventName(rs.getString("EventName"))
                         .startDate(rs.getDate("startDate"))
                         .endDate(rs.getDate("enddate"))
+                        .criteriaCondition(rs.getString("criteriacondition"))
+                        .criteriaType(rs.getString("criteriatype"))
+                        .criteriaValue(rs.getString("criteriavalue"))
                         .build();
                 schemeDetailsMap.put(schemeID, schemeDetails);
             }
