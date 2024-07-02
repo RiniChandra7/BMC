@@ -15,6 +15,6 @@ public class CommonResponse {
     @JsonProperty("ResponseInfo")
    private ResponseInfo responseInfo;
 
-   @JsonProperty("SchemeDetails")
+   @JsonProperty("CommonDetails")
    private List<CommonDetails> commonDetails;
 }
