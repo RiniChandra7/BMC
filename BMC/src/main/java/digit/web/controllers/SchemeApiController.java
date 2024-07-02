@@ -15,9 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import digit.service.SchemeService;
 import digit.util.ResponseInfoFactory;
-import digit.web.models.EventDetails;
 import digit.web.models.SchemeSearchRequest;
 import digit.web.models.SchemeSearchResponse;
+import digit.web.models.Scheme.EventDetails;
 import io.swagger.annotations.ApiParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import digit.repository.SchemeSearchCriteria;
 import digit.repository.SchemesRepository;
-import digit.web.models.EventDetails;
+import digit.web.models.Scheme.EventDetails;
 
 @Service
 public class SchemeService {
