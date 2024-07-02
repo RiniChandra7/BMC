@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import digit.service.SchemeService;
 import digit.util.ResponseInfoFactory;
-import digit.web.models.SchemeDetails;
+import digit.web.models.EventDetails;
 import digit.web.models.SchemeSearchRequest;
 import digit.web.models.SchemeSearchResponse;
 import io.swagger.annotations.ApiParam;
@@ -53,7 +53,7 @@ public class SchemeApiController {
     public ResponseEntity<SchemeSearchResponse> v1RegistrationSearchPost(
             @ApiParam(value = "Details for Schemes", required = true) 
             @Valid @RequestBody SchemeSearchRequest schemeSearchRequest) {
-        List<SchemeDetails> schemes = schemesService.getSchemes(
+        List<EventDetails> schemes = schemesService.getSchemes(
             schemeSearchRequest.getRequestInfo(),
             schemeSearchRequest.getSchemeSearchCriteria());
         ResponseInfo responseInfo = responseInfoFactory

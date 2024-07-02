@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import digit.repository.SchemeSearchCriteria;
 import digit.repository.SchemesRepository;
-import digit.web.models.SchemeDetails;
+import digit.web.models.EventDetails;
 
 @Service
 public class SchemeService {
@@ -27,9 +27,9 @@ public class SchemeService {
     //     return  schemesRepository.save(schemes);
     // }
 
-    public List<SchemeDetails> getSchemes(RequestInfo requestInfo,SchemeSearchCriteria searchcriteria){
+    public List<EventDetails> getSchemes(RequestInfo requestInfo,SchemeSearchCriteria searchcriteria){
         // Fetch applications from database according to the given search criteria
-        List<SchemeDetails> schemes = schemesRepository.getSchemeDetails(searchcriteria);
+        List<EventDetails> schemes = schemesRepository.getSchemeDetails(searchcriteria);
         // If no applications are found matching the given criteria, return an empty list
         if (CollectionUtils.isEmpty(schemes))
             return new ArrayList<>();

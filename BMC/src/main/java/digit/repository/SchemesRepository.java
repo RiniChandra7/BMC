@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import digit.repository.querybuilder.SchemeDetailQueryBuilder;
 import digit.repository.rowmapper.SchemeRowMapper;
-import digit.web.models.SchemeDetails;
+import digit.web.models.EventDetails;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -26,7 +26,7 @@ public class SchemesRepository {
     @Autowired
     private SchemeRowMapper rowMapper;
 
-    public List<SchemeDetails>getSchemeDetails(SchemeSearchCriteria searchCriteria){
+    public List<EventDetails>getSchemeDetails(SchemeSearchCriteria searchCriteria){
         List<Object> preparedStmtList = new ArrayList<>();
         String query = queryBuilder.getSchemeSearchQuery(searchCriteria, preparedStmtList);
         log.info("Final query: " + query);

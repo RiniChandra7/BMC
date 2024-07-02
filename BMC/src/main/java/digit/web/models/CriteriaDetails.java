@@ -1,7 +1,5 @@
 package digit.web.models;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,9 +11,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class SchemeDetails {
-    private Long schemeID;
-    private String schemeName;
-    private String schemeDesc;
-    private List<CriteriaDetails> criteria;
+public class CriteriaDetails{
+    private String criteriaType;
+    private String criteriaCondition;
+    private String criteriaValue;
 }

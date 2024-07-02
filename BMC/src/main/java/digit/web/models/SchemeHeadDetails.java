@@ -13,9 +13,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class SchemeDetails {
-    private Long schemeID;
-    private String schemeName;
-    private String schemeDesc;
-    private List<CriteriaDetails> criteria;
+public class SchemeHeadDetails{
+    private String schemeHead;
+    private String schemeheadDesc;
+    private List<SchemeDetails> schemeDetails;
 }

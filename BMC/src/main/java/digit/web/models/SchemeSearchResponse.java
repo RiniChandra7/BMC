@@ -16,5 +16,5 @@ public class SchemeSearchResponse {
    private ResponseInfo responseInfo;
 
    @JsonProperty("SchemeDetails")
-   private List<SchemeDetails> schemeDetails;
+   private List<EventDetails> schemeDetails;
 }
