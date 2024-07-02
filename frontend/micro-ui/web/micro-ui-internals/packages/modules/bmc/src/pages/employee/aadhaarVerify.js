@@ -55,7 +55,6 @@ const headers = ["Name", "Application Number", "Ward Name", "Gender", "Pincode"]
 const AadhaarVerifyPage = (_props) => {
   const { t } = useTranslation();
   const { control } = useForm();
-  const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -144,67 +143,76 @@ const AadhaarVerifyPage = (_props) => {
                 />
               </LabelFieldPair>
             </div>
-            <div className="bmc-col3-card" style={{ paddingTop: "1.8rem", textAlign: "center", paddingLeft: "1rem" }}>
-              <button
-                type="button"
-                className="bmc-card-button"
-                style={{
-                  borderBottom: "3px solid black",
-                  width: "156px",
-                  height: "42px",
-                }}
-              >
-                {t("BMC_Search")}
-              </button>
+            <div className="bmc-col3-card">
+              <div className="bmc-search-button" style={{ textAlign: "end" }}>
+                <button
+                  type="button"
+                  className="bmc-card-button"
+                  style={{
+                    borderBottom: "3px solid black",
+                  }}
+                >
+                  {t("BMC_Search")}
+                </button>
+              </div>
             </div>
           </div>
         </div>
         <div className="bmc-row-card-header" style={{ padding: "0" }}>
           <div className="bmc-card-row">
             <div className="bmc-table-container">
-              <div className="bmc-table-scroll" style={{ padding: "2rem" }}>
-                <table className="bmc-hover-table">
-                  <thead>
-                    <tr>
-                      {headers.map((header, index) => (
-                        <th key={index}>{header}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentRows.map((row, index) => (
-                      <tr key={index}>
-                        <td style={{ color: "#F47738" }}>{row.name}</td>
-                        <td>{row.applicationNumber}</td>
-                        <td>{row.wardName}</td>
-                        <td>{row.gender}</td>
-                        <td>{row.pincode}</td>
-                        <td style={{ textAlign: "center" }}>
-                          <Link to={"/digit-ui/employee/bmc/aadhaarEmployee"} style={{ textDecoration: "none" }}>
-                            <button
-                              className="bmc-card-view-button"
-                              style={{
-                                borderBottom: "3px solid black",
-                                // width: "155px",
-                              }}
-                            >
-                              {t("BMC_Veiw Details")}
-                            </button>
-                            <span className="bmc-card-link">{t("BMC_View Details")}</span>
-                          </Link>
-                        </td>
-                      </tr>
+              <table className="bmc-hover-table">
+                <thead>
+                  <tr>
+                    {headers.map((header, index) => (
+                      <th key={index} scope="col">
+                        {header}
+                      </th>
                     ))}
-                  </tbody>
-                </table>
-                <Pagination
-                  totalRecords={data.length}
-                  rowsPerPage={rowsPerPage}
-                  currentPage={currentPage}
-                  onPageChange={setCurrentPage}
-                  onRowsPerPageChange={setRowsPerPage}
-                />
-              </div>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentRows.map((row, index) => (
+                    <tr key={index}>
+                      <td style={{ color: "#F47738" }} data-label="Name" scope="row">
+                        {row.name}
+                      </td>
+                      <td data-label="Application Number" scope="row">
+                        {row.applicationNumber}
+                      </td>
+                      <td data-label="Ward Name" scope="row">
+                        {row.wardName}
+                      </td>
+                      <td data-label="Gender" scope="row">
+                        {row.gender}
+                      </td>
+                      <td data-label="Pincode" scope="row">
+                        {row.pincode}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        <Link to={"/digit-ui/employee/bmc/aadhaarEmployee"} style={{ textDecoration: "none" }}>
+                          <button
+                            className="bmc-card-view-button"
+                            style={{
+                              borderBottom: "3px solid black",
+                            }}
+                          >
+                            {t("BMC_Veiw Details")}
+                          </button>
+                          <span className="bmc-card-link">{t("BMC_View Details")}</span>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Pagination
+                totalRecords={data.length}
+                rowsPerPage={rowsPerPage}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+                onRowsPerPageChange={setRowsPerPage}
+              />
             </div>
           </div>
         </div>

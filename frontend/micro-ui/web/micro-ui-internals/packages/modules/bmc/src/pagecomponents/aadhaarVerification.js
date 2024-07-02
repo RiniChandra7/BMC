@@ -28,7 +28,7 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
       setMessage("");
       setButtonText("Submit");
 
-      if (value && index < 11) {
+      if (e.target.value && value && index < aadhaar.length - 1) {
         document.getElementById(`aadhaar-${index + 1}`).focus();
       }
     } else {
@@ -46,11 +46,23 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
         setError("");
       }
 
-      if (value && index < 5) {
+      if (e.target.value && value && index < otp.length - 1) {
         document.getElementById(`otp-${index + 1}`).focus();
       }
     } else {
       setError("OTP should contain only 6 digits");
+    }
+  };
+
+  const handleKeyDownAadhaar = (e, index) => {
+    if (e.key === "Backspace" && !aadhaar[index] && index > 0) {
+      document.getElementById(`aadhaar-${index - 1}`).focus();
+    }
+  };
+
+  const handleKeyDownOtp = (e, index) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      document.getElementById(`otp-${index - 1}`).focus();
     }
   };
 
@@ -94,13 +106,14 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
         <div className="bmc-row-card-header" style={{ padding: "0" }}>
           <div className="bmc-card-row" style={{ height: "100%" }}>
             <div className="bmc-col2-card" style={{ height: "55vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <div className="aadhaarDiv" style={{ width: "60%" }}>
+              <div className="bmc-aadhaarText" style={{ width: "60%" }}>
                 <div className="bmc-title" style={{ textAlign: "center" }}>
                   Aadhaar Verification
                 </div>
+               
                 <LabelFieldPair>
                   <CardLabel className="aadhaar-label">{"BMC_AADHAAR_LABEL"}</CardLabel>
-                  <div style={{ display: "flex" }}>
+                  <div className="aadhaar-container">
                     {aadhaar.map((digit, index) => (
                       <TextInput
                         key={index}
@@ -113,7 +126,8 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
                         onBlur={onBlur}
                         value={digit}
                         onChange={(e) => handleAadhaarChange(e, index)}
-                        style={{ width: "2em", marginRight: "0.2em" }}
+                        onKeyDown={(e) => handleKeyDownAadhaar(e, index)}
+                        className="aadhaar-input"
                         maxLength={1}
                         validation={{
                           required: true,
@@ -126,7 +140,7 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
                 </LabelFieldPair>
                 <LabelFieldPair>
                   <CardLabel className="aadhaar-label">{"BMC_OTP_LABEL"}</CardLabel>
-                  <div className="bmc-otp" style={{ display: "flex" }}>
+                  <div className="otp-container" style={{ width: "60%" }}>
                     {otp.map((digit, index) => (
                       <TextInput
                         key={index}
@@ -138,7 +152,8 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
                         name={`otp-${index}`}
                         value={digit}
                         onChange={(e) => handleOtpChange(e, index)}
-                        style={{ marginRight: "0.2em" }}
+                        onKeyDown={(e) => handleKeyDownOtp(e, index)}
+                        className="otp-input"
                         maxLength={1}
                         disabled={!isOtpEnabled}
                         validation={{
