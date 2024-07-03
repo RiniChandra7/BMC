@@ -10,26 +10,28 @@ import digit.repository.CommonSearchCriteria;
 public class CommonQueryBuilder {
     // for Caste
     private static final String BASE_QUERY = """
-            SELECT id , name FROM /
+            SELECT  \
+            id , name \
+            FROM \
             """;
 
     private static final String ORDERBY_NAME = " ORDER BY name DESC ";
 
     public String getSchemeSearchQuery(CommonSearchCriteria criteria, List<Object> preparedStmtList) {
         StringBuilder query = new StringBuilder(BASE_QUERY);
+        
         switch (criteria.getOption().toLowerCase()) {
             case "caste":
-                query.append("eg_bmc_Caste");
+                query.append("eg_bmc_Caste as tbl ");
                 break;
             case "religion":
-                query.append("eg_bmc_Religion");
+                query.append("eg_bmc_Religion as tbl");
                 break;
             default:
-                query.append("Select 'No query found' as Reply");
+                query.append("(Select 0 as id, 'No Record found'  as name) as tbl ");
                 break;
         }
         query.append(ORDERBY_NAME);
-        preparedStmtList.add(criteria.getOption());
         return query.toString();
     }
 

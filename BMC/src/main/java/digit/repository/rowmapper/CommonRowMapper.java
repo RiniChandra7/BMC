@@ -18,7 +18,7 @@ public class CommonRowMapper implements ResultSetExtractor<List<CommonDetails>>{
     public List<CommonDetails> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<Long, CommonDetails> commonDetailsMap = new LinkedHashMap<>();
         while (rs.next()) {
-            Long commonID = rs.getLong("CommonID");
+            Long commonID = rs.getLong("id");
             CommonDetails commonDetails = commonDetailsMap.get(commonID);
             if (commonDetails == null) {
                 commonDetails = CommonDetails.builder()
