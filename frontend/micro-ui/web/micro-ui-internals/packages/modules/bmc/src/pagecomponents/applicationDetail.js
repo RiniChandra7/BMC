@@ -60,6 +60,7 @@ const ApplicationDetailFull = (_props) => {
   const [wards, setWards] = useState([]);
   const [castes, setCastes] = useState([]);
   const [religions, setReligions] = useState([]);
+  const [qualifications, setQualifications] = useState([]);
 
   const processCommonData = (data, headerLocale) => {
     return data?.CommonDetails?.map((item) => ({
@@ -81,11 +82,19 @@ const ApplicationDetailFull = (_props) => {
     return { religionsData };
   };
 
+  const qualificationFunction = (data) => {
+    const qualificationData = processCommonData(data, headerLocale);
+    setQualifications(qualificationData);
+    return { qualificationData };
+  };
+
   const getCaste = { CommonSearchCriteria: { 'Option': 'caste' } };
   const getReligion = { CommonSearchCriteria: { 'Option': 'religion' } };
+  const getQualification = { CommonSearchCriteria: { 'Option': 'qualification' } };
 
   const { data: caste } = Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
   const { data: religion } = Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
+  const { data: qualification } = Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
 
   const { isLoading, data: wardsAndLocalities } = Digit.Hooks.useLocation(
     tenantId, 'Zone',
@@ -442,12 +451,12 @@ const ApplicationDetailFull = (_props) => {
                           <Dropdown
                             placeholder="Select the Education Qualification"
                             selected={props.value}
-                            select={(value) => {
-                              props.onChange(value);
+                            select={(qualification) => {
+                              props.onChange(qualification);
                             }}
                             onBlur={props.onBlur}
-                            option={dropdownOptions.Education}
-                            optionKey="value"
+                            option={qualifications}
+                            optionKey="i18nKey"
                             t={t}
                             isMandatory={true}
                           />
@@ -660,12 +669,12 @@ const ApplicationDetailFull = (_props) => {
                           <Dropdown
                             placeholder="Select the Education Qualification"
                             selected={props.value}
-                            select={(value) => {
-                              props.onChange(value);
+                            select={(qualification) => {
+                              props.onChange(qualification);
                             }}
                             onBlur={props.onBlur}
-                            option={dropdownOptions.Education}
-                            optionKey="value"
+                            option={qualifications}
+                            optionKey="i18nKey"
                             t={t}
                             isMandatory={true}
                           />
@@ -793,12 +802,12 @@ const ApplicationDetailFull = (_props) => {
                           <Dropdown
                             placeholder="Select the Education Qualification"
                             selected={props.value}
-                            select={(value) => {
-                              props.onChange(value);
+                            select={(qualification) => {
+                              props.onChange(qualification);
                             }}
                             onBlur={props.onBlur}
-                            option={dropdownOptions.Education}
-                            optionKey="value"
+                            option={qualifications}
+                            optionKey="i18nKey"
                             t={t}
                             isMandatory={true}
                           />
