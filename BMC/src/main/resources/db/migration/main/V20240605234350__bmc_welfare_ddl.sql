@@ -104,8 +104,7 @@ CREATE TABLE IF NOT EXISTS eg_bmc_CourseMaster (
 -- Create table if not exists for eg_bmc_QualificationMaster
 CREATE TABLE IF NOT EXISTS eg_bmc_QualificationMaster (
     ID SERIAL PRIMARY KEY,
-    Qualification VARCHAR(255) NOT NULL,
-    Remark VARCHAR(1000),
+    Name VARCHAR(255) NOT NULL,
     CreatedOn BIGINT NOT NULL,
     ModifiedOn BIGINT,
     CreatedBy VARCHAR(255) NOT NULL,
