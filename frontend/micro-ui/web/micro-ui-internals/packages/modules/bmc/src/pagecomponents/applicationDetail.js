@@ -58,6 +58,34 @@ const ApplicationDetailFull = (_props) => {
   const [zones, setZones] = useState([]);
   const [blocks, setBlocks] = useState([]);
   const [wards, setWards] = useState([]);
+  const [castes, setCastes] = useState([]);
+  const [religions, setReligions] = useState([]);
+
+  const processCommonData = (data, headerLocale) => {
+    return data?.CommonDetails?.map((item) => ({
+      code: item.id,
+      name: item.name,
+      i18nKey: `${headerLocale}_ADMIN_${item.name}`
+    })) || [];
+  };
+
+  const casteFunction = (data) => {
+    const castesData = processCommonData(data, headerLocale);
+    setCastes(castesData);
+    return { castesData };
+  };
+
+  const religionFunction = (data) => {
+    const religionsData = processCommonData(data, headerLocale);
+    setReligions(religionsData);
+    return { religionsData };
+  };
+
+  const getCaste = { CommonSearchCriteria: { 'Option': 'caste' } };
+  const getReligion = { CommonSearchCriteria: { 'Option': 'religion' } };
+
+  const { data: caste } = Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
+  const { data: religion } = Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
 
   const { isLoading, data: wardsAndLocalities } = Digit.Hooks.useLocation(
     tenantId, 'Zone',
@@ -101,7 +129,7 @@ const ApplicationDetailFull = (_props) => {
         }
       }
     });
-    
+
   const selectedZone = watch('zoneName');
   const selectedBlock = watch('blockName');
   const [filteredBlocks, setFilteredBlocks] = useState([]);
@@ -127,7 +155,7 @@ const ApplicationDetailFull = (_props) => {
     } else {
       setFilteredWards([]);
     }
-  }, [wards, selectedBlock,selectedZone, setValue]);
+  }, [wards, selectedBlock, selectedZone, setValue]);
 
 
   const { selectedScheme, selectedRadio } = location.state || {};
@@ -945,12 +973,12 @@ const ApplicationDetailFull = (_props) => {
                     <Dropdown
                       placeholder={t("Select Religion")}
                       selected={props.value}
-                      select={(value) => {
-                        props.onChange(value);
+                      select={(religion) => {
+                        props.onChange(religion);
                       }}
                       onBlur={props.onBlur}
-                      option={dropdownOptions.religion}
-                      optionKey="value"
+                      option={religions}
+                      optionKey="i18nKey"
                       t={t}
                       isMandatory={true}
                     />
@@ -971,12 +999,12 @@ const ApplicationDetailFull = (_props) => {
                     <Dropdown
                       placeholder={t("Select Caste Category")}
                       selected={props.value}
-                      select={(value) => {
-                        props.onChange(value);
+                      select={(caste) => {
+                        props.onChange(caste);
                       }}
                       onBlur={props.onBlur}
-                      option={dropdownOptions.caste}
-                      optionKey="value"
+                      option={castes}
+                      optionKey="i18nKey"
                       t={t}
                       isMandatory={true}
                     />

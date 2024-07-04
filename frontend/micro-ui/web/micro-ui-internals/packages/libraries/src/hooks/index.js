@@ -13,11 +13,12 @@ import useDocumentSearch from "./useDocumentSearch";
 import useDynamicData from "./useDynamicData";
 import useLocation from "./useLocation";
 
+import useCustomAPIHook from "./useCustomAPIHook";
+import useCustomAPIMutationHook from "./useCustomAPIMutationHook";
 import useInboxGeneral from "./useInboxGeneral/useInboxGeneral";
 import useNewInboxGeneral from "./useInboxGeneral/useNewInbox";
 import useBoundaryLocalities from "./useLocalities";
 import useCommonMDMS from "./useMDMS";
-import useWorkflowDetailsV2 from "./useWorkflowDetailsV2";
 import useModuleTenants from "./useModuleTenants";
 import useQueryParams from "./useQueryParams";
 import useRouteSubscription from "./useRouteSubscription";
@@ -26,10 +27,9 @@ import useSessionStorage from "./useSessionStorage";
 import useApplicationStatusGeneral from "./useStatusGeneral";
 import useStore from "./useStore";
 import { useTenants } from "./useTenants";
-import useWorkflowDetails from "./workflow";
-import useCustomAPIHook from "./useCustomAPIHook";
-import useCustomAPIMutationHook from "./useCustomAPIMutationHook";
 import useUpdateCustom from "./useUpdateCustom";
+import useWorkflowDetailsV2 from "./useWorkflowDetailsV2";
+import useWorkflowDetails from "./workflow";
 
 
 import useComplaintDetails from "./pgr/useComplaintDetails";
@@ -51,9 +51,9 @@ import useEmployeeSearch from "./useEmployeeSearch";
 import useDashboardConfig from "./dss/useDashboardConfig";
 import useDSSDashboard from "./dss/useDSSDashboard";
 import useGetChart from "./dss/useGetChart";
-import useDssMdms from "./dss/useMDMS";
-import useGetCustomFilterValues from "./dss/useGetCustomFilterValues";
 import useGetCustomFilterRequestValues from './dss/useGetCustomFilterRequestValues';
+import useGetCustomFilterValues from "./dss/useGetCustomFilterValues";
+import useDssMdms from "./dss/useMDMS";
 
 
 import useHRMSCount from "./hrms/useHRMSCount";
@@ -81,6 +81,7 @@ import useSurveySubmitResponse from "./surveys/useSubmitResponse";
 import useSurveyInbox from "./surveys/useSurveyInbox";
 import useSurveyUpdate from "./surveys/useUpdate";
 
+import useCommonGet from "./bmc/useCommon";
 
 
 import useGetDSSAboutJSON from "./useGetDSSAboutJSON";
@@ -118,6 +119,9 @@ const dss = {
   useGetCustomFilterRequestValues
 };
 
+const bmc={
+  useCommonGet
+}
 
 const hrms = {
   useHRMSSearch,
@@ -192,7 +196,7 @@ const Hooks = {
   dss,
   
   hrms,
- 
+  bmc,
   events,
   engagement,
   survey,

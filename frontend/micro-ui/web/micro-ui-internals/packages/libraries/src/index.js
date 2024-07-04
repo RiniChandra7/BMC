@@ -1,42 +1,42 @@
-import i18next from "i18next";
-import Enums from "./enums/index";
 import mergeConfig from "./config/mergeConfig";
+import Enums from "./enums/index";
 import { useStore } from "./services/index";
 import { initI18n } from "./translations/index";
 
-import { Storage, PersistantStorage } from "./services/atoms/Utils/Storage";
-import { UploadServices } from "./services/atoms/UploadServices";
 import JsDictionary from "./services/atoms/JsDictionary";
+import { UploadServices } from "./services/atoms/UploadServices";
+import { PersistantStorage, Storage } from "./services/atoms/Utils/Storage";
 
-import { LocationService } from "./services/elements/Location";
-import { LocalityService } from "./services/elements/Localities";
-import { CustomService } from "./services/elements/CustomService";
-import { LocalizationService } from "./services/elements/Localization/service";
-import { LoginService } from "./services/elements/Login";
-import { PGRService } from "./services/elements/PGR";
-import { PaymentService } from "./services/elements/Payment";
-import * as dateUtils from "./services/atoms/Utils/Date";
 import Download from "./services/atoms/Download";
-import { WorkflowService } from "./services/elements/WorkFlow";
-import { MdmsService } from "./services/elements/MDMS";
+import * as dateUtils from "./services/atoms/Utils/Date";
 import { Complaint } from "./services/elements/Complaint";
-import { UserService } from "./services/elements/User";
+import { CustomService } from "./services/elements/CustomService";
+import EventsServices from "./services/elements/Events";
 import HrmsService from "./services/elements/HRMS";
 import { InboxGeneral } from "./services/elements/InboxService";
-import EventsServices from "./services/elements/Events";
+import { LocalityService } from "./services/elements/Localities";
+import { LocalizationService } from "./services/elements/Localization/service";
+import { LocationService } from "./services/elements/Location";
+import { LoginService } from "./services/elements/Login";
+import { MdmsService } from "./services/elements/MDMS";
+import { PGRService } from "./services/elements/PGR";
+import { PaymentService } from "./services/elements/Payment";
+import { UserService } from "./services/elements/User";
+import { WorkflowService } from "./services/elements/WorkFlow";
 
 
-import ShareFiles from "./services/molecules/ShareFiles";
-import { GetServiceDefinitions } from "./services/molecules/ServiceDefinitions";
-import { ULBService } from "./services/molecules/Ulb";
 import { ComponentRegistryService } from "./services/elements/ComponentRegistry";
+import { GetServiceDefinitions } from "./services/molecules/ServiceDefinitions";
+import ShareFiles from "./services/molecules/ShareFiles";
 import StoreData from "./services/molecules/StoreData";
+import { ULBService } from "./services/molecules/Ulb";
 
 import Contexts from "./contexts";
 import Hooks from "./hooks";
-import Utils from "./utils";
-import { subFormRegistry } from "./subFormRegistry";
 import AccessControlService from "./services/elements/Access";
+import SchemeService from "./services/elements/Scheme";
+import { subFormRegistry } from "./subFormRegistry";
+import Utils from "./utils";
 
 const setupLibraries = (Library, props) => {
   window.Digit = window.Digit || {};
@@ -79,7 +79,7 @@ const initLibraries = () => {
   setupLibraries("Customizations", {});
   setupLibraries("Utils", Utils);
   setupLibraries("Download", Download);
-
+  setupLibraries("SchemeService",SchemeService);
   setupLibraries("AccessControlService", AccessControlService);
 
   return new Promise((resolve) => {
@@ -87,4 +87,5 @@ const initLibraries = () => {
   });
 };
 
-export { initLibraries, Enums, Hooks, subFormRegistry };
+export { Enums, Hooks, initLibraries, subFormRegistry };
+

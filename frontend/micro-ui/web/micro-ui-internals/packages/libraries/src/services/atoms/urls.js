@@ -210,6 +210,9 @@ const Urls = {
       search: "/muster-roll/v1/_search"
     }
   },
+  common:{
+    get: "http://localhost:8081/bmc/common/_get"
+  },
 
   noc: {
     nocSearch: "/noc-services/v1/noc/_search",
