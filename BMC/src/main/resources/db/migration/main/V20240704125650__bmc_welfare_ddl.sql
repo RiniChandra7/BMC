@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS public.eg_bmc_userqualification
         ON UPDATE CASCADE
         ON DELETE CASCADE
         NOT VALID
-)
+);
 
 -- Index: fki_fk_userdetail
 
@@ -21,4 +21,59 @@ DROP INDEX IF EXISTS public.fki_fk_userdetail;
 
 CREATE INDEX IF NOT EXISTS fki_fk_userdetail
     ON public.eg_bmc_userqualification USING btree
-    (id ASC NULLS LAST)
+    (id ASC NULLS LAST);
+
+
+Insert into eg_bmc_qualificationmaster(name, createdon,modifiedon,createdby,modifiedby) values
+(
+	'Postgraduation',    
+	extract(epoch from now()),
+	extract(epoch from now()),
+	'system',
+	'system'
+);
+
+Insert into eg_bmc_qualificationmaster(name, createdon,modifiedon,createdby,modifiedby) values
+(
+	'Graduation',    
+	extract(epoch from now()),
+	extract(epoch from now()),
+	'system',
+	'system'
+);
+
+Insert into eg_bmc_qualificationmaster(name, createdon,modifiedon,createdby,modifiedby) values
+(
+	'Postgraduate Diploma',    
+	extract(epoch from now()),
+	extract(epoch from now()),
+	'system',
+	'system'
+);
+
+Insert into eg_bmc_qualificationmaster(name, createdon,modifiedon,createdby,modifiedby) values
+(
+	'Diploma',    
+	extract(epoch from now()),
+	extract(epoch from now()),
+	'system',
+	'system'
+);
+
+Insert into eg_bmc_qualificationmaster(name, createdon,modifiedon,createdby,modifiedby) values
+(
+	'Senior Secondary',    
+	extract(epoch from now()),
+	extract(epoch from now()),
+	'system',
+	'system'
+);
+
+Insert into eg_bmc_qualificationmaster(name, createdon,modifiedon,createdby,modifiedby) values
+(
+	'High School',    
+	extract(epoch from now()),
+	extract(epoch from now()),
+	'system',
+	'system'
+);

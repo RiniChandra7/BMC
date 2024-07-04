@@ -27,6 +27,9 @@ public class CommonQueryBuilder {
             case "religion":
                 query.append("eg_bmc_Religion as tbl");
                 break;
+            case "qualification":
+                query.append("eg_bmc_qualificationmaster as tbl");
+                break;
             default:
                 query.append("(Select 0 as id, 'No Record found'  as name) as tbl ");
                 break;
