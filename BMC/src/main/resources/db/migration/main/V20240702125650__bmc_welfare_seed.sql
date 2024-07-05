@@ -1,7 +1,7 @@
 Insert into eg_bmc_Criteria(CriteriaType,CriteriaValue,CriteriaCondition, createdon,modifiedon,createdby,modifiedby) values
 (
 	'Gender',
-	'Women',
+	'FEMALE',
     '=',
 	extract(epoch from now()),
 	extract(epoch from now()),
@@ -12,7 +12,7 @@ Insert into eg_bmc_Criteria(CriteriaType,CriteriaValue,CriteriaCondition, create
 Insert into eg_bmc_Criteria(CriteriaType,CriteriaValue,CriteriaCondition, createdon,modifiedon,createdby,modifiedby) values
 (
 	'Gender',
-	'Men',
+	'MALE',
     '=',
 	extract(epoch from now()),
 	extract(epoch from now()),
@@ -23,7 +23,7 @@ Insert into eg_bmc_Criteria(CriteriaType,CriteriaValue,CriteriaCondition, create
 Insert into eg_bmc_Criteria(CriteriaType,CriteriaValue,CriteriaCondition, createdon,modifiedon,createdby,modifiedby) values
 (
 	'Gender',
-	'Transgender',
+	'TRANSGENDER',
     '=',
 	extract(epoch from now()),
 	extract(epoch from now()),
