@@ -330,32 +330,6 @@ const ApplicationDetailFull = (_props) => {
                   </div>
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
-                      <Controller
-                        control={control}
-                        name={"educationQualification"}
-                        rules={{
-                          required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                        }}
-                        render={(props) => (
-                          <Dropdown
-                            placeholder="Select the Education Qualification"
-                            selected={props.value}
-                            select={(qualification) => {
-                              props.onChange(qualification);
-                            }}
-                            onBlur={props.onBlur}
-                            option={qualifications}
-                            optionKey="i18nKey"
-                            t={t}
-                            isMandatory={true}
-                          />
-                        )}
-                      />
-                    </LabelFieldPair>
-                  </div>
-                  <div className="bmc-col3-card">
-                    <LabelFieldPair>
                       <CardLabel className="bmc-label">{t("BMC_Course*")}</CardLabel>
                       <Controller
                         control={control}
@@ -546,32 +520,7 @@ const ApplicationDetailFull = (_props) => {
                       />
                     </LabelFieldPair>
                   </div>
-                  <div className="bmc-col3-card">
-                    <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
-                      <Controller
-                        control={control}
-                        name={"educationQualification"}
-                        rules={{
-                          required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                        }}
-                        render={(props) => (
-                          <Dropdown
-                            placeholder="Select the Education Qualification"
-                            selected={props.value}
-                            select={(qualification) => {
-                              props.onChange(qualification);
-                            }}
-                            onBlur={props.onBlur}
-                            option={qualifications}
-                            optionKey="i18nKey"
-                            t={t}
-                            isMandatory={true}
-                          />
-                        )}
-                      />
-                    </LabelFieldPair>
-                  </div>
+                  
                   <div className="bmc-col3-card">
                     <LabelFieldPair>
                       <CardLabel className="bmc-label">{t("BMC_Machine*")}</CardLabel>
@@ -674,32 +623,6 @@ const ApplicationDetailFull = (_props) => {
                               setFocusIndex({ index: -1 });
                               props.onBlur(e);
                             }}
-                          />
-                        )}
-                      />
-                    </LabelFieldPair>
-                  </div>
-                  <div className="bmc-col3-card">
-                    <LabelFieldPair>
-                      <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
-                      <Controller
-                        control={control}
-                        name={"educationQualification"}
-                        rules={{
-                          required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                        }}
-                        render={(props) => (
-                          <Dropdown
-                            placeholder="Select the Education Qualification"
-                            selected={props.value}
-                            select={(qualification) => {
-                              props.onChange(qualification);
-                            }}
-                            onBlur={props.onBlur}
-                            option={qualifications}
-                            optionKey="i18nKey"
-                            t={t}
-                            isMandatory={true}
                           />
                         )}
                       />
