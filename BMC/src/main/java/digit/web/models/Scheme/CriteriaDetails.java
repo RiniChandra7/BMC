@@ -12,6 +12,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class CriteriaDetails{
+    private Long criteriaID;
     private String criteriaType;
     private String criteriaCondition;
     private String criteriaValue;
