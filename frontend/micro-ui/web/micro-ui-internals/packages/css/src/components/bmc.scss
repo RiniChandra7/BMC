@@ -17,7 +17,7 @@
 
 .timeline-box .timeline-contents span {
   text-align: center;
-  color: blue;
+  color: white;
 }
 
 .timeline-box .timeline-contents .secondary-colors {
@@ -128,17 +128,12 @@
   font-size: 1em;
 }
 
-.bmc-aadhaarText {
-  order: 1;
-}
-
 .bmc-card-aadharimage {
   background-image: url("../img/aadhaarCard.png");
   height: 60vh;
   width: 100%;
   background-size: cover;
   background-repeat: round;
-  order: 2;
 }
 
 .bmc-row-card-header {
@@ -245,7 +240,7 @@
   color: #0b0c0c;
   font-size: 16px;
   line-height: 20px;
-  margin-left: 16px;
+  padding-left: 10px;
 }
 
 .bmc-radio-wrap .bmc-radio-btn-checkmark:after {
@@ -272,7 +267,6 @@
   font-weight: bold;
   color: #0b0c0c;
   padding-bottom: 1rem;
-  padding-left: 0.4rem;
 }
 
 .bmc-card-button {
@@ -503,14 +497,6 @@
     font-size: 0.8em;
   }
 
-  .bnc-aadhaarText {
-    order: 2;
-  }
-
-  .bmc-card-aadharimage {
-    order: 1;
-  }
-
   .bmc-col1-card,
   .bmc-col2-card,
   .bmc-col3-card {
@@ -631,14 +617,6 @@
     margin-right: 0.1em;
   }
 
-  .bnc-aadhaarText {
-    order: 2;
-  }
-
-  .bmc-card-aadharimage {
-    order: 1;
-  }
-
   .bmc-col1-card,
   .bmc-col2-card,
   .bmc-col3-card {
@@ -738,4 +716,54 @@
   .otp-input {
     width: 1.8em;
   }
+}
+
+.bmc-checkbox .checkbox-wrap input {
+  top: 0;
+  left: 0;
+}
+
+.bmc-checkbox .checkbox-wrap .custom-checkbox {
+  width: 30px;
+  height: 30px;
+  top: -7px;
+}
+
+.bmc-checkbox .checkbox-wrap .label {
+  margin-left: 45px;
+}
+
+.bmc-checkbox .checkbox-wrap {
+  margin-bottom: 0;
+}
+
+.bmc-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  z-index: 100;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bmc-tooltip::before {
+  content: "";
+  position: absolute;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.bmc-add-icon{
+  width: 25px;
+  height: 25px;
+  background-color: #4caf50;
 }

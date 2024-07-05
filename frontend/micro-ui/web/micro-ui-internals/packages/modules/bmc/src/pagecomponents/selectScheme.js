@@ -33,7 +33,7 @@ const SelectSchemePage = () => {
   return (
     <React.Fragment>
       <div className="bmc-card-full">
-        {window.location.href.includes("/citizen") && <Timeline currentStep={2} />}
+        {window.location.href.includes("/citizen") && <Timeline currentStep={3} />}
         <Title text={"Select Scheme"} />
 
         <div className="bmc-card-grid">
@@ -104,7 +104,7 @@ const SelectSchemePage = () => {
                 options={dropdownOptions.pension}
                 onSelect={setSelectedRadio}
                 onClick={() => setSelectScheme("pension")}
-                style={{ margin: "1rem" }}
+                style={{ paddingLeft: ".5rem", margin: "0" }}
                 selectedOption={selectedRadio}
                 isMandatory={true}
                 disabled={selectedOption === "NO" ? true : false}
@@ -128,7 +128,7 @@ const SelectSchemePage = () => {
                   value={selectedRadio}
                   isMandatory={true}
                 />
-                <p style={{ paddingLeft: "4rem" }}>
+                <p style={{ paddingLeft: "3rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                   ever since the 1500s, when an unknown printer took a galley of type and scrambled Lorem Ipsum is simply dummy text of the printing
                   and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took
@@ -163,7 +163,7 @@ const SelectSchemePage = () => {
                   value={selectedRadio}
                   isMandatory={true}
                 />
-                <p style={{ paddingLeft: "4rem" }}>
+                <p style={{ paddingLeft: "3rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                   ever since the 1500s, when an unknown printer took a galley of type and scrambled Lorem Ipsum is simply dummy text of the printing
                   and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took
@@ -202,7 +202,7 @@ const SelectSchemePage = () => {
                   value={selectedRadio}
                   isMandatory={true}
                 />
-                <p style={{ paddingLeft: "4rem" }}>
+                <p style={{ paddingLeft: "3rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                   ever since the 1500s, when an unknown printer took a galley of type and scrambled Lorem Ipsum is simply dummy text of the printing
                   and typesetting industry
@@ -236,7 +236,7 @@ const SelectSchemePage = () => {
                   value={selectedRadio}
                   isMandatory={true}
                 />
-                <p style={{ paddingLeft: "4rem" }}>
+                <p style={{ paddingLeft: "3rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                   ever since the 1500s, when an unknown printer took a galley of type and scrambled Lorem Ipsum is simply dummy text of the printing
                   and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took
@@ -275,7 +275,7 @@ const SelectSchemePage = () => {
                   isMandatory={true}
                   value={selectedRadio}
                 />
-                <p style={{ paddingLeft: "4rem" }}>
+                <p style={{ paddingLeft: "3rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                   ever since the 1500s, when an unknown printer took a galley of type and scrambled Lorem Ipsum is simply dummy text of the printing
                   and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took
@@ -310,7 +310,7 @@ const SelectSchemePage = () => {
                   isMandatory={true}
                   value={selectedRadio}
                 />
-                <p style={{ paddingLeft: "4rem" }}>
+                <p style={{ paddingLeft: "3rem" }}>
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                   ever since the 1500s.
                 </p>
@@ -334,7 +334,7 @@ const SelectSchemePage = () => {
           </React.Fragment>
         )}
       </div>
-      <div style={{ textAlign:"end", padding:"1rem"}}>
+      <div style={{ textAlign: "end", padding: "1rem" }}>
         <Link
           to={{
             pathname: "/digit-ui/citizen/bmc/ApplicationDetails",
@@ -350,7 +350,11 @@ const SelectSchemePage = () => {
             {t("BMC_Next")}
           </button>
         </Link>
-        <button className="bmc-card-button-cancel" style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }} onClick={() => history.goBack()}>
+        <button
+          className="bmc-card-button-cancel"
+          style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}
+          onClick={() => history.goBack()}
+        >
           {t("BMC_Cancel")}
         </button>
       </div>
