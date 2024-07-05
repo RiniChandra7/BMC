@@ -18,4 +18,6 @@ public class SchemeDetails {
     private String schemeName;
     private String schemeDesc;
     private List<CriteriaDetails> criteria;
+    private List<CourseDetails> courses;
+    private List<MachineDetails> machines;
 }

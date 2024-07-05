@@ -11,8 +11,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
+import digit.web.models.scheme.CourseDetails;
 import digit.web.models.scheme.CriteriaDetails;
 import digit.web.models.scheme.EventDetails;
+import digit.web.models.scheme.MachineDetails;
 import digit.web.models.scheme.SchemeDetails;
 import digit.web.models.scheme.SchemeHeadDetails;
 
@@ -60,6 +62,8 @@ public class SchemeRowMapper implements ResultSetExtractor<List<EventDetails>> {
                         .schemeDesc(rs.getString("SchemeDescription"))
                         .schemeName(rs.getString("SchemeName"))
                         .criteria(new ArrayList<>())  // Initialize criteria list
+                        .courses(new ArrayList<>())
+                        .machines(new ArrayList<>())
                         .build();
                 schemeHeadDetails.getSchemeDetails().add(schemeDetails);
             }
@@ -72,6 +76,52 @@ public class SchemeRowMapper implements ResultSetExtractor<List<EventDetails>> {
                 .build();
 
             schemeDetails.getCriteria().add(criteriaDetails);
+
+            Long courseID = rs.getLong("courseid");
+            if (courseID != 0) {  // Check if course details are present
+                CourseDetails courseDetails = schemeDetails.getCourses().stream()
+                    .filter(c -> c.getCourseID().equals(courseID))
+                    .findFirst()
+                    .orElse(null);
+
+                if (courseDetails == null) {
+                    courseDetails = CourseDetails.builder()
+                        .courseID(courseID)
+                        .courseName(rs.getString("coursename"))
+                        .courseDesc(rs.getString("coursedesc"))
+                        .courseDuration(rs.getString("courseDuration"))
+                        .coursestartdate(rs.getDate("coursestartdate"))
+                        .courseenddate(rs.getDate("courseenddate"))
+                        .courseUrl(rs.getString("courseurl"))
+                        .courseInstitute(rs.getString("courseInstitute"))
+                        .courseImageUrl(rs.getString("courseimageurl"))
+                        .instituteAddress(rs.getString("instututeAddress"))
+                        .courseAmount(rs.getDouble("courseAmount"))
+                        .build();
+                    schemeDetails.getCourses().add(courseDetails);
+                    
+                }
+            }
+
+            Long machID = rs.getLong("machID");
+            if (machID != 0) {  // Check if course details are present
+                MachineDetails machDetails = schemeDetails.getMachines().stream()
+                    .filter(c -> c.getMachID().equals(machID))
+                    .findFirst()
+                    .orElse(null);
+
+                if (machDetails == null) {
+                    machDetails = MachineDetails.builder()
+                        .machID(machID)
+                        .machName(rs.getString("machname"))
+                        .machDesc(rs.getString("machdesc"))
+                        .machAmount(rs.getDouble("machAmount"))
+                        .build();
+                    schemeDetails.getMachines().add(machDetails);
+                    
+                }
+            }
         }
     return new ArrayList<>(eventDetailsMap.values());
-}}
+}
+}
