@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS eg_bmc_scheme_Group (
     ModifiedBy VARCHAR(255)
 );
 
+TRUNCATE TABLE eg_bmc_scheme_Group RESTART IDENTITY CASCADE;
+
 Insert into eg_bmc_scheme_Group(name,description, createdon,modifiedon,createdby,modifiedby) values
 (
 	'Skill Development',
@@ -40,6 +42,7 @@ Insert into eg_bmc_scheme_Group(name,description, createdon,modifiedon,createdby
 	'system',
 	'system'
 );
+
 ALTER TABLE IF EXISTS public.eg_bmc_schemes DROP COLUMN IF EXISTS "SchemeGroupID";
 
 ALTER TABLE IF EXISTS public.eg_bmc_schemes

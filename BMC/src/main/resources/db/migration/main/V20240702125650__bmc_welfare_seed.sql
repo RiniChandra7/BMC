@@ -1,3 +1,5 @@
+TRUNCATE TABLE eg_bmc_Criteria RESTART IDENTITY;
+
 Insert into eg_bmc_Criteria(CriteriaType,CriteriaValue,CriteriaCondition, createdon,modifiedon,createdby,modifiedby) values
 (
 	'Gender',
