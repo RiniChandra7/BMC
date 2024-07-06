@@ -25,6 +25,28 @@ public class SchemeDetailQueryBuilder {
             schgrp.name as schemeHead, \
             schgrp.description as schemeheadDesc \
             """;
+    private static final String COURSE_QUERY = """
+            , \
+            cr.id as courseID, \
+            cr.coursename as courseName, \
+            cr.description as courseDesc, \
+            cr.duration as courseDuration, \
+            to_timestamp(cr.startdt)::date as courseStartDate, \
+            to_timestamp(coalesce(cr.enddt,4102444799))::date as courseEndDate, \
+            cr.url as courseURL, \
+            cr.institute as courseInstitute, \
+            cr.imgurl as courseImageURL, \
+            cr.instituteaddress as instututeAddress, \
+            cr.amount as courseAmount \
+            """;
+    private static final String MAC_QUERY = """
+            , \
+            mac.id as machID, \
+            mac.name as machName, \
+            mac.description as machDesc, \
+            mac.amount as machAmount \
+            """;
+
     // From clause with join between Event, EventScheme, and Scheme tables
     private static final String FROM_TABLES = """
             from eg_bmc_event ev \
@@ -33,11 +55,17 @@ public class SchemeDetailQueryBuilder {
             left join eg_bmc_scheme_criteria schcri on schcri.schemeid = sch.id \
             left join eg_bmc_criteria cri on schcri.criteriaid = cri.id \
             left join eg_bmc_scheme_group schgrp on schgrp.id = sch."SchemeGroupID" \
+            left join eg_bmc_schemecourse schcr on schcr.schemeid = sch.id \
+            left join eg_bmc_courses cr on cr.id = schcr.courseid \
+            left join eg_bmc_schememachine schmac on schmac.schemeid = sch.id \
+            left join eg_bmc_machines mac on mac.id = schmac.machineid \
             """;
     private static final String ORDERBY_MODIFIEDTIME = " ORDER BY sch.id, cri.criteriatype DESC ";
 
     public String getSchemeSearchQuery(SchemeSearchCriteria criteria, List<Object> preparedStmtList) {
         StringBuilder query = new StringBuilder(BASE_QUERY);
+        query.append(COURSE_QUERY);
+        query.append(MAC_QUERY);
         query.append(FROM_TABLES);
 
         // Add where clause for Status if it is not empty

@@ -11,9 +11,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class CriteriaDetails{
-    private Long criteriaID;
-    private String criteriaType;
-    private String criteriaCondition;
-    private String criteriaValue;
+public class MachineDetails {
+    private Long machID;
+    private String machName;
+    private String machDesc;
+    private Double machAmount;
 }

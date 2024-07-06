@@ -23,6 +23,7 @@ CREATE INDEX IF NOT EXISTS fki_fk_userdetail
     ON public.eg_bmc_userqualification USING btree
     (id ASC NULLS LAST);
 
+TRUNCATE TABLE eg_bmc_qualificationmaster RESTART IDENTITY;
 
 Insert into eg_bmc_qualificationmaster(name, createdon,modifiedon,createdby,modifiedby) values
 (

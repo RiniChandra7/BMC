@@ -84,6 +84,7 @@ import useSurveyUpdate from "./surveys/useUpdate";
 import useCommonGet from "./bmc/useCommon";
 
 
+import useSchemesGet from "./bmc/getSchemes";
 import useGetDSSAboutJSON from "./useGetDSSAboutJSON";
 import useGetDSSFAQsJSON from "./useGetDSSFAQsJSON";
 import useGetFAQsJSON from "./useGetFAQsJSON";
@@ -120,7 +121,8 @@ const dss = {
 };
 
 const bmc={
-  useCommonGet
+  useCommonGet,
+  useSchemesGet
 }
 
 const hrms = {
