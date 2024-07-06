@@ -27,6 +27,7 @@ const AadhaarFullFormPage = (_props) => {
   const [castes, setCastes] = useState([]);
   const [religions, setReligions] = useState([]);
   const [qualifications, setQualifications] = useState([]);
+  const [selectedOptionCard, setSelectedOptionCard] = useState("No");
 
   const processCommonData = (data, headerLocale) => {
     return (
@@ -64,13 +65,11 @@ const AadhaarFullFormPage = (_props) => {
   Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
   Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
 
-  Digit.Hooks.useLocation(
-    tenantId, 'Zone',
-    {
-      select: (data) => {
-        const zonesData = [];
-        const blocksData = [];
-        const wardsData = [];
+  Digit.Hooks.useLocation(tenantId, "Zone", {
+    select: (data) => {
+      const zonesData = [];
+      const blocksData = [];
+      const wardsData = [];
 
       data?.TenantBoundary[0]?.boundary.forEach((zone) => {
         zonesData.push({
@@ -150,6 +149,7 @@ const AadhaarFullFormPage = (_props) => {
 
   function disableType(value) {
     setSelectedOption(value);
+    setSelectedOptionCard(value);
   }
 
   const [rows, setRows] = useState([]);
@@ -382,6 +382,60 @@ const AadhaarFullFormPage = (_props) => {
                   </LabelFieldPair>
                 </div>
               </div>
+              <div className="bmc-card-row">
+                <div className="bmc-col1-card">
+                  <LabelFieldPair>
+                    <CardLabel className="bmc-label">{"BMC_Religion*"}</CardLabel>
+                    <Controller
+                      control={control}
+                      name={"religion"}
+                      rules={{
+                        required: t("CORE_COMMON_REQUIRED_ERRMSG"),
+                      }}
+                      render={(props) => (
+                        <Dropdown
+                          placeholder={t("Select Religion")}
+                          selected={props.value}
+                          select={(religion) => {
+                            props.onChange(religion);
+                          }}
+                          onBlur={props.onBlur}
+                          option={religions}
+                          optionKey="i18nKey"
+                          t={t}
+                          isMandatory={true}
+                        />
+                      )}
+                    />
+                  </LabelFieldPair>
+                </div>
+                <div className="bmc-col1-card">
+                  <LabelFieldPair>
+                    <CardLabel className="bmc-label">{"BMC_CasteCategory*"}</CardLabel>
+                    <Controller
+                      control={control}
+                      name={"casteCategory"}
+                      rules={{
+                        required: t("CORE_COMMON_REQUIRED_ERRMSG"),
+                      }}
+                      render={(props) => (
+                        <Dropdown
+                          placeholder={t("Select Caste Category")}
+                          selected={props.value}
+                          select={(caste) => {
+                            props.onChange(caste);
+                          }}
+                          onBlur={props.onBlur}
+                          option={castes}
+                          optionKey="i18nKey"
+                          t={t}
+                          isMandatory={true}
+                        />
+                      )}
+                    />
+                  </LabelFieldPair>
+                </div>
+              </div>
             </div>
             <div className="bmc-col-small-header">
               <ProfileImage />
@@ -391,7 +445,6 @@ const AadhaarFullFormPage = (_props) => {
           </div>
         </div>
         <div className="bmc-row-card-header">
-          <div className="bmc-title">Details</div>
           <div className="bmc-card-row">
             <div className="bmc-title">Address Details</div>
             <div className="bmc-col3-card">
@@ -643,8 +696,7 @@ const AadhaarFullFormPage = (_props) => {
             </div>
           </div>
           <div className="bmc-card-row">
-            <div className="bmc-title">Zone Details</div>
-            <div className="bmc-col3-card">
+            <div className="bmc-col1-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Zone_Name*"}</CardLabel>
                 <Controller
@@ -668,7 +720,7 @@ const AadhaarFullFormPage = (_props) => {
                 />
               </LabelFieldPair>
             </div>
-            <div className="bmc-col3-card">
+            <div className="bmc-col1-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Block_Name*"}</CardLabel>
                 <Controller
@@ -692,7 +744,7 @@ const AadhaarFullFormPage = (_props) => {
                 />
               </LabelFieldPair>
             </div>
-            <div className="bmc-col3-card">
+            <div className="bmc-col1-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Ward_Name*"}</CardLabel>
                 <Controller
@@ -716,7 +768,7 @@ const AadhaarFullFormPage = (_props) => {
                 />
               </LabelFieldPair>
             </div>
-            <div className="bmc-col3-card">
+            {/* <div className="bmc-col3-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Religion*"}</CardLabel>
                 <Controller
@@ -767,8 +819,8 @@ const AadhaarFullFormPage = (_props) => {
                   )}
                 />
               </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
+            </div> */}
+            {/* <div className="bmc-col3-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
                 <Controller
@@ -793,7 +845,7 @@ const AadhaarFullFormPage = (_props) => {
                   )}
                 />
               </LabelFieldPair>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="bmc-row-card-header">
@@ -864,75 +916,7 @@ const AadhaarFullFormPage = (_props) => {
             </div>
           </div>
         </div>
-        <div className="bmc-row-card-header">
-          <div className="bmc-card-row">
-            <div className="bmc-title">Disability</div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"udidid"}
-                  defaultValue={owner?.udid}
-                  render={(props) => (
-                    <TextInput
-                      value={props.value}
-                      isMandatory={true}
-                      placeholder={"Enter the udid ID"}
-                      autoFocus={focusIndex.index === owner?.key && focusIndex.type === "udid"}
-                      onChange={(e) => {
-                        props.onChange(e.target.value);
-                        setFocusIndex({ index: owner.key, type: "udid" });
-                      }}
-                      onBlur={(e) => {
-                        setFocusIndex({ index: -1 });
-                        props.onBlur(e);
-                      }}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"disabilitytype"}
-                  rules={{
-                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                  }}
-                  render={(props) => (
-                    <Dropdown
-                      placeholder="Select the Disability Type"
-                      selected={props.value}
-                      select={(value) => {
-                        props.onChange(value);
-                      }}
-                      onBlur={props.onBlur}
-                      option={dropdownOptions.disablityType}
-                      optionKey="value"
-                      t={t}
-                      isMandatory={true}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col2-card">
-              <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
-              <div className="bmc-range-container">
-                <input type="range" min="1" max="100" className="bmc-range-slider" value={rangeValue} onChange={handleChange} list="tickmarks" />
-                <datalist id="tickmarks">
-                  {Array.from({ length: 100 }, (_, i) => (
-                    <option key={i} value={i + 1}></option>
-                  ))}
-                </datalist>
-                <span className="range-value">Selected value:{rangeValue}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <div className="bmc-card-row">
           <div className="bmc-col1-card" style={{ paddingLeft: "2.5rem" }}>
             <LabelFieldPair t={t} config={config} isMandatory={true} isMultipleAllow={true}>
@@ -954,23 +938,94 @@ const AadhaarFullFormPage = (_props) => {
               onSelect={disableType}
             />
           </div>
-          <div className="bmc-col1-card" style={{ textAlign: "center" }}>
-            <button
-              className="bmc-card-button"
-              onClick={goNext}
-              style={{ borderBottom: "3px solid black", backgroundColor: selectedOption ? "#F47738" : "gray", marginRight: "1rem" }}
-              disabled={!selectedOption}
-            >
-              {t("BMC_Confirm")}
-            </button>
-            <button
-              className="bmc-card-button-cancel"
-              onClick={() => history.push("/bmc/dashboard()")}
-              style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}
-            >
-              {t("BMC_Cancel")}
-            </button>
+        </div>
+        {selectedOptionCard.value === "Yes" && (
+          <div className="bmc-row-card-header">
+            <div className="bmc-card-row">
+              <div className="bmc-title">Disability</div>
+              <div className="bmc-col3-card">
+                <LabelFieldPair>
+                  <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
+                  <Controller
+                    control={control}
+                    name={"udidid"}
+                    defaultValue={owner?.udid}
+                    render={(props) => (
+                      <TextInput
+                        value={props.value}
+                        isMandatory={true}
+                        placeholder={"Enter the udid ID"}
+                        autoFocus={focusIndex.index === owner?.key && focusIndex.type === "udid"}
+                        onChange={(e) => {
+                          props.onChange(e.target.value);
+                          setFocusIndex({ index: owner.key, type: "udid" });
+                        }}
+                        onBlur={(e) => {
+                          setFocusIndex({ index: -1 });
+                          props.onBlur(e);
+                        }}
+                      />
+                    )}
+                  />
+                </LabelFieldPair>
+              </div>
+              <div className="bmc-col3-card">
+                <LabelFieldPair>
+                  <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
+                  <Controller
+                    control={control}
+                    name={"disabilitytype"}
+                    rules={{
+                      required: t("CORE_COMMON_REQUIRED_ERRMSG"),
+                    }}
+                    render={(props) => (
+                      <Dropdown
+                        placeholder="Select the Disability Type"
+                        selected={props.value}
+                        select={(value) => {
+                          props.onChange(value);
+                        }}
+                        onBlur={props.onBlur}
+                        option={dropdownOptions.disablityType}
+                        optionKey="value"
+                        t={t}
+                        isMandatory={true}
+                      />
+                    )}
+                  />
+                </LabelFieldPair>
+              </div>
+              <div className="bmc-col2-card">
+                <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
+                <div className="bmc-range-container">
+                  <input type="range" min="1" max="100" className="bmc-range-slider" value={rangeValue} onChange={handleChange} list="tickmarks" />
+                  <datalist id="tickmarks">
+                    {Array.from({ length: 100 }, (_, i) => (
+                      <option key={i} value={i + 1}></option>
+                    ))}
+                  </datalist>
+                  <span className="range-value">Selected value:{rangeValue}</span>
+                </div>
+              </div>
+            </div>
           </div>
+        )}
+        <div className="bmc-card-row" style={{ textAlign: "end" }}>
+          <button
+            className="bmc-card-button"
+            onClick={goNext}
+            style={{ borderBottom: "3px solid black", backgroundColor: selectedOption ? "#F47738" : "gray", marginRight: "1rem" }}
+            disabled={!selectedOption}
+          >
+            {t("BMC_Confirm")}
+          </button>
+          <button
+            className="bmc-card-button-cancel"
+            onClick={() => history.push("/bmc/dashboard()")}
+            style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}
+          >
+            {t("BMC_Cancel")}
+          </button>
         </div>
       </div>
     </React.Fragment>
