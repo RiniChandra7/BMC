@@ -56,11 +56,11 @@ const AadhaarFullFormPage = (_props) => {
   const getReligion = { CommonSearchCriteria: { 'Option': 'religion' } };
   const getQualification = { CommonSearchCriteria: { 'Option': 'qualification' } };
 
-  const { data: caste } = Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
-  const { data: religion } = Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
-  const { data: qualification } = Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
+  Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
+  Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
+  Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
 
-  const { isLoading, data: wardsAndLocalities } = Digit.Hooks.useLocation(
+  Digit.Hooks.useLocation(
     tenantId, 'Zone',
     {
       select: (data) => {

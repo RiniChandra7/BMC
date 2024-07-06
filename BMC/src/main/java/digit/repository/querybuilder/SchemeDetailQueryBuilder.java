@@ -19,6 +19,7 @@ public class SchemeDetailQueryBuilder {
             sch.id as SchemeID, \
             sch.name as SchemeName, \
             sch.description as SchemeDescription, \
+            cri.id as criteriaID, \
             cri.criteriatype, \
             cri.criteriavalue, \
             cri.criteriacondition, \
