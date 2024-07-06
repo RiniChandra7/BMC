@@ -9,6 +9,7 @@ import org.egov.common.contract.response.ResponseInfo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import digit.bmc.model.UserSchemeApplication;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +26,9 @@ public class SchemeApplicationResponse {
 
    @JsonProperty("SchemeApplications")
    private List<SchemeApplication> schemeApplications;
+
+   private List<UserSchemeApplication> randomizedCitizens;
+
 
    private String aadharRef;
 

@@ -1,5 +1,7 @@
 package digit.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,31 +11,30 @@ import digit.web.models.SchemeApplicationRequest;
 @Service
 public class CourseService {
     
-    private  final  CoursesRepository coursesRepository;
-
     @Autowired
-    public CourseService(CoursesRepository coursesRepository) {
-        this.coursesRepository = coursesRepository;
-    }
-
+    private CoursesRepository coursesRepository;
+    private static final Logger logger = LoggerFactory.getLogger(CourseService.class);
     public Courses getCourseByApplication(SchemeApplicationRequest schemeApplicationRequest) {
-       
+       Courses courses = schemeApplicationRequest.getSchemeApplications().get(0).getCourse();
         Courses course = new Courses();
-        course.setAmount(schemeApplicationRequest.getAmount());
-        course.setCourseName(schemeApplicationRequest.getCourseName());
-        course.setDescription(schemeApplicationRequest.getDescription());
-        course.setDuration(schemeApplicationRequest.getDuration());
-        course.setEndDt(schemeApplicationRequest.getEndDt());
-        course.setId(schemeApplicationRequest.getId());
-        course.setImgUrl(schemeApplicationRequest.getImgUrl());
-        course.setInstitute(schemeApplicationRequest.getInstitute());
-        course.setInstituteAddress(schemeApplicationRequest.getInstituteAddress());
-        course.setStartDt(schemeApplicationRequest.getStartDt());
-        course.setUrl(schemeApplicationRequest.getUrl());
-        course.setTypeId(schemeApplicationRequest.getTypeId());
+        course.setAmount(courses.getAmount());
+        course.setCourseName(courses.getCourseName());
+        course.setCreatedBy(courses.getCreatedBy());
+        course.setUrl(courses.getUrl());
+        course.setTypeId(courses.getTypeId());
+        course.setStartDt(courses.getStartDt());
+        course.setInstituteAddress(courses.getInstituteAddress());
+        course.setDescription(courses.getDescription());
+        course.setDuration(courses.getDuration());
+        course.setEndDt(courses.getEndDt());
+        course.setId(courses.getId());
+        course.setInstitute(courses.getInstitute());
+        course.setImgUrl(courses.getImgUrl());
         
+        logger.info("Saving UserSchemeApplication: {}", course);
         return coursesRepository.save(course);
     }
+
 
     // public List<Courses> getActiveCourseByDate(Date startdt, Date enddt) {
     //     return coursesRepository.getActiveCourseByDate(startdt, enddt);

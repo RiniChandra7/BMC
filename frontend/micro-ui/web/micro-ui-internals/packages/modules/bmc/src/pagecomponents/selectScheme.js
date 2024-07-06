@@ -287,7 +287,11 @@ const SelectSchemePage = () => {
             {t("BMC_Next")}
           </button>
         </Link>
-        <button className="bmc-card-button-cancel" style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }} onClick={() => history.goBack()}>
+        <button
+          className="bmc-card-button-cancel"
+          style={{ borderBottom: "3px solid black", outline: "none", marginRight: "5rem" }}
+          onClick={() => history.goBack()}
+        >
           {t("BMC_Cancel")}
         </button>
       </div>

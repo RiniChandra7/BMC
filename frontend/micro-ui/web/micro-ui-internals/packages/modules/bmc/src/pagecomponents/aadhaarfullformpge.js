@@ -1,11 +1,13 @@
-import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
+import { AddIcon, CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
+import Select from "react-select";
 import Timeline from "../components/bmcTimeline";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
+import dropdownOptions from "./dropdownOptions.json";
 import { ProfileImage } from "./profile";
 
 const AadhaarFullFormPage = (_props) => {
@@ -27,11 +29,13 @@ const AadhaarFullFormPage = (_props) => {
   const [qualifications, setQualifications] = useState([]);
 
   const processCommonData = (data, headerLocale) => {
-    return data?.CommonDetails?.map((item) => ({
-      code: item.id,
-      name: item.name,
-      i18nKey: `${headerLocale}_ADMIN_${item.name}`
-    })) || [];
+    return (
+      data?.CommonDetails?.map((item) => ({
+        code: item.id,
+        name: item.name,
+        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+      })) || []
+    );
   };
 
   const casteFunction = (data) => {
@@ -52,9 +56,9 @@ const AadhaarFullFormPage = (_props) => {
     return { qualificationData };
   };
 
-  const getCaste = { CommonSearchCriteria: { 'Option': 'caste' } };
-  const getReligion = { CommonSearchCriteria: { 'Option': 'religion' } };
-  const getQualification = { CommonSearchCriteria: { 'Option': 'qualification' } };
+  const getCaste = { CommonSearchCriteria: { Option: "caste" } };
+  const getReligion = { CommonSearchCriteria: { Option: "religion" } };
+  const getQualification = { CommonSearchCriteria: { Option: "qualification" } };
 
   Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
   Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
@@ -68,53 +72,55 @@ const AadhaarFullFormPage = (_props) => {
         const blocksData = [];
         const wardsData = [];
 
-        data?.TenantBoundary[0]?.boundary.forEach((zone) => {
-          zonesData.push({
-            code: zone.code,
-            name: zone.name,
-            i18nKey: `${headerLocale}_ADMIN_${zone.code}`
+      data?.TenantBoundary[0]?.boundary.forEach((zone) => {
+        zonesData.push({
+          code: zone.code,
+          name: zone.name,
+          i18nKey: `${headerLocale}_ADMIN_${zone.code}`,
+        });
+
+        zone.children.forEach((block) => {
+          blocksData.push({
+            code: block.code,
+            name: block.name,
+            zoneCode: zone.code,
+            i18nKey: `${headerLocale}_ADMIN_${block.code}`,
           });
 
-          zone.children.forEach((block) => {
-            blocksData.push({
-              code: block.code,
-              name: block.name,
+          block.children.forEach((ward) => {
+            wardsData.push({
+              code: ward.code,
+              name: ward.name,
               zoneCode: zone.code,
-              i18nKey: `${headerLocale}_ADMIN_${block.code}`
-            });
-
-            block.children.forEach((ward) => {
-              wardsData.push({
-                code: ward.code,
-                name: ward.name,
-                zoneCode: zone.code,
-                blockCode: block.code,
-                i18nKey: `${headerLocale}_ADMIN_${ward.code}`
-              });
+              blockCode: block.code,
+              i18nKey: `${headerLocale}_ADMIN_${ward.code}`,
             });
           });
         });
-        setZones(zonesData);
-        setBlocks(blocksData);
-        setWards(wardsData);
-        return {
-          zonesData, blocksData, wardsData
-        }
-      }
-    });
+      });
+      setZones(zonesData);
+      setBlocks(blocksData);
+      setWards(wardsData);
+      return {
+        zonesData,
+        blocksData,
+        wardsData,
+      };
+    },
+  });
 
-  const selectedZone = watch('zoneName');
-  const selectedBlock = watch('blockName');
+  const selectedZone = watch("zoneName");
+  const selectedBlock = watch("blockName");
   const [filteredBlocks, setFilteredBlocks] = useState([]);
   const [filteredWards, setFilteredWards] = useState([]);
 
   useEffect(() => {
     if (selectedZone && selectedZone.code) {
-      const filtered = blocks.filter(block => block.zoneCode === selectedZone.code);
+      const filtered = blocks.filter((block) => block.zoneCode === selectedZone.code);
       setFilteredBlocks(filtered);
-      setValue('blockName', null); // Reset block dropdown
+      setValue("blockName", null); // Reset block dropdown
       setFilteredWards([]); // Clear wards when zone changes
-      setValue('wardName', null); // Reset ward dropdown
+      setValue("wardName", null); // Reset ward dropdown
     } else {
       setFilteredBlocks([]);
     }
@@ -122,9 +128,9 @@ const AadhaarFullFormPage = (_props) => {
 
   useEffect(() => {
     if (selectedBlock && selectedBlock.code) {
-      const filtered = wards.filter(ward => ward.blockCode === selectedBlock.code && ward.zoneCode === selectedZone.code);
+      const filtered = wards.filter((ward) => ward.blockCode === selectedBlock.code && ward.zoneCode === selectedZone.code);
       setFilteredWards(filtered);
-      setValue('wardName', null); // Reset ward dropdown
+      setValue("wardName", null); // Reset ward dropdown
     } else {
       setFilteredWards([]);
     }
@@ -146,11 +152,66 @@ const AadhaarFullFormPage = (_props) => {
     setSelectedOption(value);
   }
 
+  const [rows, setRows] = useState([]);
+  const [newRow, setNewRow] = useState({
+    qualification: null,
+    yearOfPassing: null,
+    percentage: "",
+    board: null,
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "percentage") {
+      const intValue = parseInt(value, 10);
+      if (!isNaN(intValue) && intValue >= 0 && intValue <= 100) {
+        setNewRow((prevRow) => ({
+          ...prevRow,
+          [name]: intValue.toString(),
+        }));
+      }
+    } else {
+      setNewRow((prevRow) => ({
+        ...prevRow,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSelectChange = (name, selectedOption) => {
+    setNewRow((prevRow) => ({
+      ...prevRow,
+      [name]: selectedOption,
+    }));
+  };
+
+  const addRow = () => {
+    setRows((prevRows) => [...prevRows, { ...newRow }]);
+    setNewRow({
+      qualification: null,
+      yearOfPassing: null,
+      percentage: "",
+      board: null,
+    });
+  };
+
+  const years = [];
+  const currentYear = new Date().getFullYear();
+  for (let year = 1990; year <= currentYear; year++) {
+    years.push({ label: `${year}`, value: year });
+  }
+
+  const [rangeValue, setRangeValue] = useState(1);
+
+  const handleChange = (e) => {
+    setRangeValue(parseInt(e.target.value));
+  };
+
   return (
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
-        <Title text={"Aadhaar Form Details"} />
+        <Title text={"Applicant Details"} />
         <div className="bmc-row-card-header">
           <div className="bmc-title">Personal Details</div>
           <div className="bmc-card-row">
@@ -330,6 +391,7 @@ const AadhaarFullFormPage = (_props) => {
           </div>
         </div>
         <div className="bmc-row-card-header">
+          <div className="bmc-title">Details</div>
           <div className="bmc-card-row">
             <div className="bmc-title">Address Details</div>
             <div className="bmc-col3-card">
@@ -580,10 +642,8 @@ const AadhaarFullFormPage = (_props) => {
               </LabelFieldPair>
             </div>
           </div>
-        </div>
-        <div className="bmc-row-card-header">
           <div className="bmc-card-row">
-            <div className="bmc-title">Personal Details</div>
+            <div className="bmc-title">Zone Details</div>
             <div className="bmc-col3-card">
               <LabelFieldPair>
                 <CardLabel className="bmc-label">{"BMC_Zone_Name*"}</CardLabel>
@@ -733,6 +793,143 @@ const AadhaarFullFormPage = (_props) => {
                   )}
                 />
               </LabelFieldPair>
+            </div>
+          </div>
+        </div>
+        <div className="bmc-row-card-header">
+          <div className="bmc-card-row">
+            <div className="bmc-title">Qualification</div>
+            <div className="bmc-table-container" style={{ padding: "1rem" }}>
+              <table className="bmc-hover-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Qualification</th>
+                    <th scope="col">Year of Passing</th>
+                    <th scope="col">Percentage</th>
+                    <th scope="col">Board</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Qualification" style={{ textAlign: "left" }}>
+                      <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        value={newRow.qualification}
+                        onChange={(selectedOption) => handleSelectChange("qualification", selectedOption)}
+                        options={dropdownOptions.Education}
+                        placeholder="Select Qualification"
+                      />
+                    </td>
+                    <td data-label="Year of Passing" style={{ textAlign: "left" }}>
+                      <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        value={newRow.yearOfPassing}
+                        onChange={(selectedOption) => handleSelectChange("yearOfPassing", selectedOption)}
+                        options={years}
+                        placeholder="Select Year of Passing"
+                      />
+                    </td>
+                    <td data-label="Percentage" style={{ textAlign: "left" }}>
+                      <TextInput name="percentage" value={newRow.percentage} onChange={handleInputChange} placeholder="Percentage" />
+                    </td>
+                    <td data-label="Board" style={{ textAlign: "left" }}>
+                      <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        value={newRow.board}
+                        onChange={(selectedOption) => handleSelectChange("board", selectedOption)}
+                        options={dropdownOptions.board}
+                        placeholder="Select Board"
+                      />
+                    </td>
+                    <td data-label="Add Row">
+                      <button type="button" onClick={addRow}>
+                        <AddIcon className="bmc-add-icon" />
+                      </button>
+                    </td>
+                  </tr>
+                  {rows.map((row, index) => (
+                    <tr key={index}>
+                      <td>{row.qualification ? row.qualification.label : "-"}</td>
+                      <td>{row.yearOfPassing ? row.yearOfPassing.label : "-"}</td>
+                      <td>{row.percentage}</td>
+                      <td>{row.board ? row.board.label : "-"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div className="bmc-row-card-header">
+          <div className="bmc-card-row">
+            <div className="bmc-title">Disability</div>
+            <div className="bmc-col3-card">
+              <LabelFieldPair>
+                <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
+                <Controller
+                  control={control}
+                  name={"udidid"}
+                  defaultValue={owner?.udid}
+                  render={(props) => (
+                    <TextInput
+                      value={props.value}
+                      isMandatory={true}
+                      placeholder={"Enter the udid ID"}
+                      autoFocus={focusIndex.index === owner?.key && focusIndex.type === "udid"}
+                      onChange={(e) => {
+                        props.onChange(e.target.value);
+                        setFocusIndex({ index: owner.key, type: "udid" });
+                      }}
+                      onBlur={(e) => {
+                        setFocusIndex({ index: -1 });
+                        props.onBlur(e);
+                      }}
+                    />
+                  )}
+                />
+              </LabelFieldPair>
+            </div>
+            <div className="bmc-col3-card">
+              <LabelFieldPair>
+                <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
+                <Controller
+                  control={control}
+                  name={"disabilitytype"}
+                  rules={{
+                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
+                  }}
+                  render={(props) => (
+                    <Dropdown
+                      placeholder="Select the Disability Type"
+                      selected={props.value}
+                      select={(value) => {
+                        props.onChange(value);
+                      }}
+                      onBlur={props.onBlur}
+                      option={dropdownOptions.disablityType}
+                      optionKey="value"
+                      t={t}
+                      isMandatory={true}
+                    />
+                  )}
+                />
+              </LabelFieldPair>
+            </div>
+            <div className="bmc-col2-card">
+              <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
+              <div className="bmc-range-container">
+                <input type="range" min="1" max="100" className="bmc-range-slider" value={rangeValue} onChange={handleChange} list="tickmarks" />
+                <datalist id="tickmarks">
+                  {Array.from({ length: 100 }, (_, i) => (
+                    <option key={i} value={i + 1}></option>
+                  ))}
+                </datalist>
+                <span className="range-value">Selected value:{rangeValue}</span>
+              </div>
             </div>
           </div>
         </div>
