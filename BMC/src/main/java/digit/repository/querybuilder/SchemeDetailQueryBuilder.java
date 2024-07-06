@@ -1,5 +1,6 @@
 package digit.repository.querybuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -74,16 +75,20 @@ public class SchemeDetailQueryBuilder {
             switch (criteria.getStatus()) {
                 case PAST:
                     addClauseIfRequired(query, preparedStmtList);
-                    query.append(" to_timestamp(ev.enddt)::date < current_date ");
+                    query.append(" to_timestamp(ev.enddt)::date < Cast(? as date) ");
+                    preparedStmtList.add(LocalDate.now());
                     break;
                 case FUTURE:
                     addClauseIfRequired(query, preparedStmtList);
-                    query.append(" to_timestamp(ev.startdt)::date > current_date ");
+                    query.append(" to_timestamp(ev.startdt)::date > Cast(? as date) ");
+                    preparedStmtList.add(LocalDate.now());
                     break;
                 case PRESENT:
                     addClauseIfRequired(query, preparedStmtList);
                     query.append(
-                            " to_timestamp(ev.startdt)::date <= current_date and to_timestamp(coalesce(ev.enddt,4102444799))::date >= current_date ");
+                            " to_timestamp(ev.startdt)::date <= Cast(? as date) and to_timestamp(coalesce(ev.enddt,4102444799))::date >= Cast(? as date) ");
+                            preparedStmtList.add(LocalDate.now());
+                            preparedStmtList.add(LocalDate.now());
                     break;
                 default:
                     if (!ObjectUtils.isEmpty(criteria.getStartDate())) {

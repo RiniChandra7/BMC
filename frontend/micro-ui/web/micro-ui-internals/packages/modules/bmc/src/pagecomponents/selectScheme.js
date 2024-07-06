@@ -17,7 +17,7 @@ const SelectSchemePage = () => {
   const [schemeHeads, setSchemeHeads] = useState([]);
   const [schemeDetails, setSchemeDetails] = useState([]);
 
-  const getSchems = { SchemeSearchCriteria: { 'Status': 0 } };
+  const getSchems = { SchemeSearchCriteria: { 'Status': 1 } };
   // const processSchemeData = (data, headerLocale) => {
   //   const schemeHeadsData = [];
   //   const schemeDetailsData = [];
