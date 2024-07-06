@@ -42,6 +42,8 @@ public class SchemeApplication {
     @JsonProperty("applicationNumber")
     private String applicationNumber;
 
+    @JsonProperty("numberOfMachines")
+    private Long numberOfMachines;
     @JsonProperty("userId")
     private Long userId;
 
@@ -111,6 +113,14 @@ public class SchemeApplication {
     @JsonProperty("user")
     private User user;
 
+    @JsonProperty ("wards")
+    private Ward wards;
+    @JsonProperty("qualification")
+    private Qualification qualification;
+    @JsonProperty("egBmcUserQualification")
+    private EgBmcUserQualification egBmcUserQualification;
+    @JsonProperty("egBoundary")
+    private EgBoundary egBoundary;    
     @Valid
     @JsonProperty("workflow")
     private Workflow workflow = null;

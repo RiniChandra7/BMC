@@ -28,7 +28,7 @@ public class UserSchemeApplication {
     private String tenantId;
 
     @Column(name = "optedid")
-    private Integer optedId;
+    private Long optedId;
 
     @Column(name = "applicationstatus")
     private Boolean applicationStatus;
