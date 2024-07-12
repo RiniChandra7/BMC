@@ -30,6 +30,9 @@ public class CommonQueryBuilder {
             case "qualification":
                 query.append("eg_bmc_qualificationmaster as tbl");
                 break;
+            case "divyang":
+                query.append("eg_bmc_divyang as tbl");
+                break;
             default:
                 query.append("(Select 0 as id, 'No Record found'  as name) as tbl ");
                 break;

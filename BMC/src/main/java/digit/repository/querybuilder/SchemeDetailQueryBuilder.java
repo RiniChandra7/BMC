@@ -21,9 +21,9 @@ public class SchemeDetailQueryBuilder {
             sch.name as SchemeName, \
             sch.description as SchemeDescription, \
             cri.id as criteriaID, \
-            cri.criteriatype, \
+            crty.criteriatype, \
             cri.criteriavalue, \
-            cri.criteriacondition, \
+            crco.criteriacondition, \
             schgrp.name as schemeHead, \
             schgrp.description as schemeheadDesc \
             """;
@@ -61,6 +61,8 @@ public class SchemeDetailQueryBuilder {
             left join eg_bmc_courses cr on cr.id = schcr.courseid \
             left join eg_bmc_schememachine schmac on schmac.schemeid = sch.id \
             left join eg_bmc_machines mac on mac.id = schmac.machineid \
+            left join eg_bmc_criteriacondition crco on crco.id = cri.criteriacondition \
+	        left join eg_bmc_criteriatype crty on crty.id = cri.criteriatype \
             """;
     private static final String ORDERBY_MODIFIEDTIME = " ORDER BY sch.id, cri.criteriatype DESC ";
 
