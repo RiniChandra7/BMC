@@ -88,13 +88,13 @@ public class SchemeApplicationEnrichment {
         User user = userResponse.getUser().get(0);
         log.info(user.toString());
         User enrichedUser = User.builder()
-                .mobileNumber(user.getMobileNumber())
-                .id(user.getId())
-                .name(user.getName())
-                .userName((user.getUserName()))
-                .type(user.getType())
-                .roles(user.getRoles())
-                .uuid(user.getUuid()).build();
+            .mobileNumber(user.getMobileNumber())
+            .id(user.getId())
+            .name(user.getName())
+            .userName((user.getUserName()))
+            .type(user.getType())
+            .roles(user.getRoles())
+            .uuid(user.getUuid()).build();
         application.setUser(enrichedUser);
     }
 }

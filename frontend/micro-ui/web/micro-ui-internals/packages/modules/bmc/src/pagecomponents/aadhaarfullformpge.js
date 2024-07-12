@@ -12,22 +12,53 @@ import { ProfileImage } from "./profile";
 
 const AadhaarFullFormPage = (_props) => {
   const { owner, index, onSelect, allOwners, formData, formState, setOwners, setError, clearErrors, config } = _props;
-  const { control, formState: localFormState, watch, setError: setLocalError, clearErrors: clearLocalErrors, setValue, trigger } = useForm();
+  const tenantId = Digit.ULBService.getCurrentTenantId();
+  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+  const initialDefaultValues = {
+    zoneName: formData?.zoneName || `${headerLocale}_ADMIN_${"Z-1"}`,
+    blockName: formData?.blockName || `${headerLocale}_ADMIN_${"Ward-A"}`,
+    wardName: formData?.wardName || `${headerLocale}_ADMIN_${"NG_03"}`,
+    religion: formData?.religion || null,
+    casteCategory: formData?.casteCategory || null,
+    educationQualification: formData?.educationQualification || null,
+    disableType: formData?.disableType || null
+  };
+  
+  console.log(initialDefaultValues); // This should log the initial default values
+
+  const { control, watch, setValue, trigger } = useForm({
+    defaultValues: initialDefaultValues
+  });
+
+  // const { control, formState: localFormState, watch, setError: setLocalError, clearErrors: clearLocalErrors, setValue, trigger } = useForm(
+  //   {
+  //     defaultValues: initialDefaultValues
+  //   }
+  // );
+
   const { t } = useTranslation();
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
   const location = useLocation();
   const { aadhaarInfo } = location.state || {};
   const [selectedOption, setSelectedOption] = useState(formData?.disableType);
   const history = useHistory();
-  const tenantId = Digit.ULBService.getCurrentTenantId();
-  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+
   const [zones, setZones] = useState([]);
   const [blocks, setBlocks] = useState([]);
   const [wards, setWards] = useState([]);
   const [castes, setCastes] = useState([]);
   const [religions, setReligions] = useState([]);
+  const [divyangs, setDivyangs] = useState([]);
   const [qualifications, setQualifications] = useState([]);
   const [selectedOptionCard, setSelectedOptionCard] = useState("No");
+  const [rows, setRows] = useState([]);
+  const [rangeValue, setRangeValue] = useState(1);
+  const [newRow, setNewRow] = useState({
+    qualification: null,
+    yearOfPassing: null,
+    percentage: "",
+    board: null,
+  });
 
   const processCommonData = (data, headerLocale) => {
     return (
@@ -56,15 +87,21 @@ const AadhaarFullFormPage = (_props) => {
     setQualifications(qualificationData);
     return { qualificationData };
   };
+  const divyangFunction = (data) => {
+    const divyangData = processCommonData(data, headerLocale);
+    setDivyangs(divyangData);
+    return { divyangData };
+  };
 
   const getCaste = { CommonSearchCriteria: { Option: "caste" } };
   const getReligion = { CommonSearchCriteria: { Option: "religion" } };
   const getQualification = { CommonSearchCriteria: { Option: "qualification" } };
+  const getDivyang = { CommonSearchCriteria: { Option: "divyang" } };
 
   Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
   Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
   Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
-
+  Digit.Hooks.bmc.useCommonGet(getDivyang, { select: divyangFunction });
   Digit.Hooks.useLocation(tenantId, "Zone", {
     select: (data) => {
       const zonesData = [];
@@ -152,13 +189,7 @@ const AadhaarFullFormPage = (_props) => {
     setSelectedOptionCard(value);
   }
 
-  const [rows, setRows] = useState([]);
-  const [newRow, setNewRow] = useState({
-    qualification: null,
-    yearOfPassing: null,
-    percentage: "",
-    board: null,
-  });
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -201,7 +232,7 @@ const AadhaarFullFormPage = (_props) => {
     years.push({ label: `${year}`, value: year });
   }
 
-  const [rangeValue, setRangeValue] = useState(1);
+ 
 
   const handleChange = (e) => {
     setRangeValue(parseInt(e.target.value));
@@ -702,6 +733,7 @@ const AadhaarFullFormPage = (_props) => {
                 <Controller
                   control={control}
                   name={"zoneName"}
+                  defaultValues={initialDefaultValues.zoneName}
                   rules={{
                     required: t("CORE_COMMON_REQUIRED_ERRMSG"),
                   }}
@@ -768,84 +800,6 @@ const AadhaarFullFormPage = (_props) => {
                 />
               </LabelFieldPair>
             </div>
-            {/* <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_Religion*"}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"religion"}
-                  rules={{
-                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                  }}
-                  render={(props) => (
-                    <Dropdown
-                      placeholder={t("Select Religion")}
-                      selected={props.value}
-                      select={(religion) => {
-                        props.onChange(religion);
-                      }}
-                      onBlur={props.onBlur}
-                      option={religions}
-                      optionKey="i18nKey"
-                      t={t}
-                      isMandatory={true}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_CasteCategory*"}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"casteCategory"}
-                  rules={{
-                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                  }}
-                  render={(props) => (
-                    <Dropdown
-                      placeholder={t("Select Caste Category")}
-                      selected={props.value}
-                      select={(caste) => {
-                        props.onChange(caste);
-                      }}
-                      onBlur={props.onBlur}
-                      option={castes}
-                      optionKey="i18nKey"
-                      t={t}
-                      isMandatory={true}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div> */}
-            {/* <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{t("BMC_Educational_Qualification*")}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"educationQualification"}
-                  rules={{
-                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                  }}
-                  render={(props) => (
-                    <Dropdown
-                      placeholder="Select the Education Qualification"
-                      selected={props.value}
-                      select={(qualification) => {
-                        props.onChange(qualification);
-                      }}
-                      onBlur={props.onBlur}
-                      option={qualifications}
-                      optionKey="i18nKey"
-                      t={t}
-                      isMandatory={true}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div> */}
           </div>
         </div>
         <div className="bmc-row-card-header">
@@ -865,13 +819,26 @@ const AadhaarFullFormPage = (_props) => {
                 <tbody>
                   <tr>
                     <td data-label="Qualification" style={{ textAlign: "left" }}>
-                      <Select
-                        className="basic-single"
-                        classNamePrefix="select"
-                        value={newRow.qualification}
-                        onChange={(selectedOption) => handleSelectChange("qualification", selectedOption)}
-                        options={dropdownOptions.Education}
-                        placeholder="Select Qualification"
+                      <Controller
+                        control={control}
+                        name={"educationQualification"}
+                        rules={{
+                          required: t("CORE_COMMON_REQUIRED_ERRMSG"),
+                        }}
+                        render={(props) => (
+                          <Dropdown
+                            placeholder="Select the Education Qualification"
+                            selected={props.value}
+                            select={(qualification) => {
+                              props.onChange(qualification);
+                            }}
+                            onBlur={props.onBlur}
+                            option={qualifications}
+                            optionKey="i18nKey"
+                            t={t}
+                            isMandatory={true}
+                          />
+                        )}
                       />
                     </td>
                     <td data-label="Year of Passing" style={{ textAlign: "left" }}>
@@ -982,12 +949,12 @@ const AadhaarFullFormPage = (_props) => {
                       <Dropdown
                         placeholder="Select the Disability Type"
                         selected={props.value}
-                        select={(value) => {
-                          props.onChange(value);
+                        select={(divyang) => {
+                          props.onChange(divyang);
                         }}
                         onBlur={props.onBlur}
-                        option={dropdownOptions.disablityType}
-                        optionKey="value"
+                        option={divyangs}
+                        optionKey="i18nKey"
                         t={t}
                         isMandatory={true}
                       />
