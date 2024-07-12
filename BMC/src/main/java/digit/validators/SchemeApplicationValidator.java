@@ -7,11 +7,13 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import org.egov.tracer.model.CustomException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import digit.bmc.model.SchemeCriteria;
 import digit.bmc.model.UserCompleteDetails;
+import digit.bmc.model.VerificationDetails;
 import digit.common.CriteriaType;
 import digit.repository.SchemeApplicationRepository;
 import digit.repository.SchemeBeneficiarySearchCritaria;
@@ -21,6 +23,7 @@ import digit.web.models.SchemeApplicationRequest;
 import digit.web.models.SchemeApplicationSearchCriteria;
 import digit.web.models.SchemeBeneficiaryDetails;
 import digit.web.models.SchemeValidationResponse;
+
 
 @Service
 public class SchemeApplicationValidator {
@@ -85,10 +88,10 @@ public class SchemeApplicationValidator {
         Long schemeId = request.getSchemeApplications().get(0).getSchemes().getId();
         List<SchemeCriteria> criteriaList = repository.getCriteriaBySchemeIdAndType(schemeId);
 
-        // List<VerificationDetails> details=repository.getApplicationForVerification(new SchemeApplicationSearchCriteria());
-        // for (VerificationDetails detail : details){
-        //     System.out.println(detail.toString());
-        // }
+        List<VerificationDetails> details=repository.getApplicationForVerification(new SchemeApplicationSearchCriteria());
+        for (VerificationDetails detail : details){
+            System.out.println(detail.toString());
+        }
 
         for (SchemeCriteria criteria : criteriaList) {
             CriteriaType criteriaType = CriteriaType.fromDisplayName(criteria.getCriteriaType());

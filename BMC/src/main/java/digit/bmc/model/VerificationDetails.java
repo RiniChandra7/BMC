@@ -24,8 +24,6 @@ public class VerificationDetails {
   //  private String subward;
     private String caste;
     private String religion;
-    private List<String> fileIds;
-    private List<String> types;
    // private String bank;
   //  private String branchName;
    // private String ifsc;

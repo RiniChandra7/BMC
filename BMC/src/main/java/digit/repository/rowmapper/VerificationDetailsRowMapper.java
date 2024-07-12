@@ -1,30 +1,41 @@
 package digit.repository.rowmapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import digit.bmc.model.VerificationDetails;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-public class VerificationDetailsRowMapper implements RowMapper<VerificationDetails> {
+@Component
+public class VerificationDetailsRowMapper implements ResultSetExtractor<List<VerificationDetails>> {
 
     @Override
-    public VerificationDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-        VerificationDetails details = new VerificationDetails();
-        details.setApplicationNumber(rs.getString("applicationnumber"));
-        details.setAadharName(rs.getString("aadharname"));
-        details.setGender(rs.getString("gender"));
-        details.setCaste(rs.getString("caste"));
-        details.setReligion(rs.getString("religion"));
+    public List<VerificationDetails> extractData(ResultSet rs) throws SQLException, DataAccessException {
+        Map<String, VerificationDetails> verificationDetailsMap = new LinkedHashMap<>();
 
-        String[] fileIdsArray = (String[]) rs.getArray("fileids").getArray();
-        details.setFileIds(Arrays.asList(fileIdsArray));
+        while (rs.next()) {
+            String applicationNumber = rs.getString("applicationnumber");
+            VerificationDetails verificationDetails = verificationDetailsMap.get(applicationNumber);
 
-        String[] typesArray = (String[]) rs.getArray("types").getArray();
-        details.setTypes(Arrays.asList(typesArray));
+            if (verificationDetails == null) {
+                verificationDetails = new VerificationDetails();
+                verificationDetails.setApplicationNumber(applicationNumber);
+                verificationDetails.setAadharName(rs.getString("aadharname"));
+                verificationDetails.setGender(rs.getString("gender"));
+                verificationDetails.setCaste(rs.getString("caste"));
+                verificationDetails.setReligion(rs.getString("religion"));
+                verificationDetailsMap.put(applicationNumber, verificationDetails);
+            }
 
-        return details;
+        }
+
+        return new ArrayList<>(verificationDetailsMap.values());
     }
 }

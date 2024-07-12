@@ -14,19 +14,17 @@ public class VerifierQueryBuilder {
 
      private static final String BASE_QUERY = """
             SELECT ebu.applicationnumber, eba.aadharname, eba.gender,
-            ebc."name" as caste, ebr."name" as religion,
-            array_agg(ebf.fileid) as fileids,
-            array_agg(ebf."type") as types
+            ebc."name" as caste, ebr."name" as religion
             """;
 
     private static final String FROM_TABLES = """
             FROM public.eg_bmc_userschemeapplication ebu
             LEFT JOIN public.eg_bmc_aadharuser eba ON ebu.userid = eba.userid AND ebu.tenantid = eba.tenantid
             LEFT JOIN public.eg_bmc_schememachine ebs ON ebu.optedid = ebs.schemeid
+            LEFT JOIN public.eg_bmc_schemecourse ebs2 ON ebu.optedid = ebs2.schemeid
             LEFT JOIN public.eg_bmc_userotherdetails ebu2 ON ebu.userid = ebu2.userid AND ebu.tenantid = ebu2.tenantid
             LEFT JOIN public.eg_bmc_caste ebc ON ebu2.casteid = ebc.id
             LEFT JOIN public.eg_bmc_religion ebr ON ebu2.religionid = ebr.id
-            LEFT JOIN public.eg_bmc_fileuploaded ebf ON ebu.userid = ebf.userid AND ebu.tenantid = ebf.tenantid
             """;
     
 
@@ -36,15 +34,20 @@ public class VerifierQueryBuilder {
         query.append(FROM_TABLES);
     
 
-        if (!ObjectUtils.isEmpty(criteria.getSchemeId())) {
+        if(!ObjectUtils.isEmpty(criteria.getCourseId())) {
             addClauseIfRequired(query, preparedStmtList);
-            query.append(" ebs.schemeid = ? ");
-            preparedStmtList.add(criteria.getSchemeId());
+            query.append("ebs2.courseId = ?");
+            preparedStmtList.add(criteria.getCourseId());
         }
         if (!ObjectUtils.isEmpty(criteria.getMachineId())) {
             addClauseIfRequired(query, preparedStmtList);
             query.append(" ebs.machineid = ? ");
             preparedStmtList.add(criteria.getMachineId());
+        }
+        if (!ObjectUtils.isEmpty(criteria.getSchemeId())) {
+            addClauseIfRequired(query, preparedStmtList);
+            query.append(" ebs.schemeid = ? ");
+            preparedStmtList.add(criteria.getSchemeId());
         }
         addClauseIfRequired(query, preparedStmtList);
         query.append(" ebu.verificationstatus != true");

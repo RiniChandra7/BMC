@@ -22,6 +22,7 @@ import digit.repository.querybuilder.SchemeBenificiaryBuilder;
 import digit.repository.querybuilder.VerifierQueryBuilder;
 import digit.repository.rowmapper.SchemeApplicationRowMapper;
 import digit.repository.rowmapper.SchemeBeneficiaryRowMapper;
+import digit.repository.rowmapper.VerificationDetailsRowMapper;
 import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationSearchCriteria;
 import digit.web.models.SchemeBeneficiaryDetails;
@@ -45,6 +46,9 @@ public class SchemeApplicationRepository {
     
     @Autowired
     private VerifierQueryBuilder verifierQueryBuilder;
+    
+    @Autowired
+    private VerificationDetailsRowMapper verificationDetailsRowMapper;
    
 
     // // Constructor-based dependency injection
@@ -99,13 +103,11 @@ public class SchemeApplicationRepository {
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("name"));
     }
 
-    
-    public List<VerificationDetails> getApplicationForVerification(SchemeApplicationSearchCriteria searchCriteria){
-
+    public List<VerificationDetails> getApplicationForVerification(SchemeApplicationSearchCriteria searchCriteria) {
         List<Object> preparedStmtList = new ArrayList<>();
         String query = verifierQueryBuilder.getVerificationSearchQuery(searchCriteria, preparedStmtList);
-        log.info("Final Query"+query);
-        return jdbcTemplate.queryForList(query, VerificationDetails.class,preparedStmtList.toArray());
-    } 
+        log.info("Final Query: " + query);
+        return jdbcTemplate.query(query, verificationDetailsRowMapper,preparedStmtList.toArray());
+    }
 
 }
