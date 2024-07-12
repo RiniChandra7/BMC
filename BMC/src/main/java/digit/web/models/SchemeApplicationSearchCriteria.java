@@ -47,4 +47,11 @@ public class SchemeApplicationSearchCriteria {
     @JsonProperty("endDate")
     private Long endDate; 
     
+    @JsonProperty("schemeId")
+    private Long schemeId;
+    @JsonProperty("machineId")
+    private Long machineId;
+    @JsonProperty("courseId")
+    private Long courseId;
+    
 }
