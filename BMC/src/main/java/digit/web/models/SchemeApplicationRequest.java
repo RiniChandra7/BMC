@@ -9,6 +9,7 @@ import org.egov.common.contract.models.Address;
 import org.egov.common.contract.request.RequestInfo;
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.Valid;
@@ -54,7 +55,12 @@ public class SchemeApplicationRequest {
 
   private String aadharname;
 
+  @JsonProperty("aadhardob")
   private Date aadhardob;
+
+  private Double income;
+
+  private String gender;
 
   private String aadharmobile;
 

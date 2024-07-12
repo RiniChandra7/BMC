@@ -1,5 +1,6 @@
 package digit.web.models;
 
+import org.apache.kafka.common.protocol.types.Field.Str;
 import org.egov.common.contract.models.Address;
 import org.egov.common.contract.models.AuditDetails;
 import org.egov.common.contract.models.Workflow;
@@ -52,6 +53,8 @@ public class SchemeApplication {
 
     @JsonProperty("optedId")
     private Long optedId;
+
+
 
     @JsonProperty("applicationStatus")
     private Boolean applicationStatus;
