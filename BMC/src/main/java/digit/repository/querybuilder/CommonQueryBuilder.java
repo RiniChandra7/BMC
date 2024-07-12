@@ -33,6 +33,9 @@ public class CommonQueryBuilder {
             case "divyang":
                 query.append("eg_bmc_divyang as tbl");
                 break;
+            case "document":
+                query.append("eg_bmc_document as tbl");
+                break;
             default:
                 query.append("(Select 0 as id, 'No Record found'  as name) as tbl ");
                 break;
