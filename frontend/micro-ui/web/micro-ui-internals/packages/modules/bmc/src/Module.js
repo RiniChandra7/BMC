@@ -6,6 +6,10 @@ import { Switch, useRouteMatch } from "react-router-dom";
 
 
 //Citizen Pages
+import AddressDetailCard from "./components/AddressDetails";
+import DisabilityCard from "./components/DisabilityCard";
+import PersonalDetailCard from "./components/PersonalDetails";
+import QualificationCard from "./components/QualificationCard";
 import AadhaarVerification from "./pagecomponents/aadhaarVerification";
 import AadhaarFullForm from "./pagecomponents/aadhaarfullformpge";
 import ApplicationDetail from "./pagecomponents/applicationDetail";
@@ -15,9 +19,9 @@ import BMCCitizenHome from "./pages/citizen";
 
 //Employee Pages
 import BMCCard from "./components/BMCCard";
-import DisabilityCard from "./components/DisabilityCard";
+
 import InboxFilter from "./components/InboxFilter";
-import QualificationCard from "./components/QualificationCard";
+
 import BMCEmployeeHome from "./pages/employee";
 import ApprovePage from "./pages/employee/Approve";
 import BMCInbox from './pages/employee/Inbox';
@@ -123,6 +127,8 @@ const componentsToRegister = {
   BMCInbox,
   QualificationCard,
   DisabilityCard,
+  PersonalDetailCard,
+  AddressDetailCard,
   BMC_INBOX_FILTER: (props) => <InboxFilter {...props} />,
 };
 

@@ -9,15 +9,15 @@
       "logoId": "https://ukpfms-digit-repo.s3.ap-south-1.amazonaws.com/logo.png",
       "imageId": "https://ukpfms-digit-repo.s3.ap-south-1.amazonaws.com/logo1.jpg",
       "domainUrl": "www.mcjalandhar.in",
-      "type": "CITY",
+      "type": "STATE",
       "twitterUrl": "https://twitter.com/search?q=%23jalandhar",
       "facebookUrl": "https://www.facebook.com/city/jalandhar-Maharashtra",
       "emailId": "complaints.mcj@gmail.com",
       "OfficeTimings": {
         "Mon - Fri": "9.00 AM - 6.00 PM"
       },
-      "city": {
-        "name": "Mumbai",
+      "STATE": {
+        "name": "Maharashtra",
         "localName": null,
         "districtCode": null,
         "districtName": null,
@@ -39,7 +39,7 @@
     {
       "code": "mh.mumbai",
       "name": "Mumbai",
-      "description": "Jalandhar",
+      "description": "Mumbai",
       "logoId": "https://ukpfms-digit-repo.s3.ap-south-1.amazonaws.com/logo.png",
       "imageId": "",
       "domainUrl": "www.mcjalandhar.in",
