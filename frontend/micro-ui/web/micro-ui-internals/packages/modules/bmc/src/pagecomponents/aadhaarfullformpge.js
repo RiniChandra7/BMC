@@ -1,15 +1,15 @@
-import { AddIcon, CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
-import Select from "react-select";
 import Timeline from "../components/bmcTimeline";
+import DisabilityCard from "../components/DisabilityCard";
+import QualificationCard from "../components/QualificationCard";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import dropdownOptions from "./dropdownOptions.json";
 import { ProfileImage } from "./profile";
-
 const AadhaarFullFormPage = (_props) => {
   const { owner, index, onSelect, allOwners, formData, formState, setOwners, setError, clearErrors, config } = _props;
   const tenantId = Digit.ULBService.getCurrentTenantId();
@@ -20,7 +20,6 @@ const AadhaarFullFormPage = (_props) => {
     wardName: formData?.wardName || `${headerLocale}_ADMIN_${"NG_03"}`,
     religion: formData?.religion || null,
     casteCategory: formData?.casteCategory || null,
-    educationQualification: formData?.educationQualification || null,
     disableType: formData?.disableType || null
   };
   
@@ -51,14 +50,8 @@ const AadhaarFullFormPage = (_props) => {
   const [divyangs, setDivyangs] = useState([]);
   const [qualifications, setQualifications] = useState([]);
   const [selectedOptionCard, setSelectedOptionCard] = useState("No");
-  const [rows, setRows] = useState([]);
   const [rangeValue, setRangeValue] = useState(1);
-  const [newRow, setNewRow] = useState({
-    qualification: null,
-    yearOfPassing: null,
-    percentage: "",
-    board: null,
-  });
+
 
   const processCommonData = (data, headerLocale) => {
     return (
@@ -87,6 +80,7 @@ const AadhaarFullFormPage = (_props) => {
     setQualifications(qualificationData);
     return { qualificationData };
   };
+
   const divyangFunction = (data) => {
     const divyangData = processCommonData(data, headerLocale);
     setDivyangs(divyangData);
@@ -189,50 +183,19 @@ const AadhaarFullFormPage = (_props) => {
     setSelectedOptionCard(value);
   }
 
-
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "percentage") {
-      const intValue = parseInt(value, 10);
-      if (!isNaN(intValue) && intValue >= 0 && intValue <= 100) {
-        setNewRow((prevRow) => ({
-          ...prevRow,
-          [name]: intValue.toString(),
-        }));
-      }
-    } else {
-      setNewRow((prevRow) => ({
-        ...prevRow,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleSelectChange = (name, selectedOption) => {
-    setNewRow((prevRow) => ({
-      ...prevRow,
-      [name]: selectedOption,
-    }));
-  };
-
-  const addRow = () => {
-    setRows((prevRows) => [...prevRows, { ...newRow }]);
-    setNewRow({
-      qualification: null,
-      yearOfPassing: null,
-      percentage: "",
-      board: null,
-    });
-  };
-
   const years = [];
   const currentYear = new Date().getFullYear();
   for (let year = 1990; year <= currentYear; year++) {
     years.push({ label: `${year}`, value: year });
   }
-
- 
+  const handleQualificationsUpdate = (updatedQualifications) => {
+    //setQualifications(updatedQualifications);
+    console.log(updatedQualifications);
+};
+const handleDisabilityUpdate = (updatedDisability) => {
+  //setQualifications(updatedQualifications);
+  console.log(updatedDisability);
+};
 
   const handleChange = (e) => {
     setRangeValue(parseInt(e.target.value));
@@ -802,88 +765,7 @@ const AadhaarFullFormPage = (_props) => {
             </div>
           </div>
         </div>
-        <div className="bmc-row-card-header">
-          <div className="bmc-card-row">
-            <div className="bmc-title">Qualification</div>
-            <div className="bmc-table-container" style={{ padding: "1rem" }}>
-              <table className="bmc-hover-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Qualification</th>
-                    <th scope="col">Year of Passing</th>
-                    <th scope="col">Percentage</th>
-                    <th scope="col">Board</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td data-label="Qualification" style={{ textAlign: "left" }}>
-                      <Controller
-                        control={control}
-                        name={"educationQualification"}
-                        rules={{
-                          required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                        }}
-                        render={(props) => (
-                          <Dropdown
-                            placeholder="Select the Education Qualification"
-                            selected={props.value}
-                            select={(qualification) => {
-                              props.onChange(qualification);
-                            }}
-                            onBlur={props.onBlur}
-                            option={qualifications}
-                            optionKey="i18nKey"
-                            t={t}
-                            isMandatory={true}
-                          />
-                        )}
-                      />
-                    </td>
-                    <td data-label="Year of Passing" style={{ textAlign: "left" }}>
-                      <Select
-                        className="basic-single"
-                        classNamePrefix="select"
-                        value={newRow.yearOfPassing}
-                        onChange={(selectedOption) => handleSelectChange("yearOfPassing", selectedOption)}
-                        options={years}
-                        placeholder="Select Year of Passing"
-                      />
-                    </td>
-                    <td data-label="Percentage" style={{ textAlign: "left" }}>
-                      <TextInput name="percentage" value={newRow.percentage} onChange={handleInputChange} placeholder="Percentage" />
-                    </td>
-                    <td data-label="Board" style={{ textAlign: "left" }}>
-                      <Select
-                        className="basic-single"
-                        classNamePrefix="select"
-                        value={newRow.board}
-                        onChange={(selectedOption) => handleSelectChange("board", selectedOption)}
-                        options={dropdownOptions.board}
-                        placeholder="Select Board"
-                      />
-                    </td>
-                    <td data-label="Add Row">
-                      <button type="button" onClick={addRow}>
-                        <AddIcon className="bmc-add-icon" />
-                      </button>
-                    </td>
-                  </tr>
-                  {rows.map((row, index) => (
-                    <tr key={index}>
-                      <td>{row.qualification ? row.qualification.label : "-"}</td>
-                      <td>{row.yearOfPassing ? row.yearOfPassing.label : "-"}</td>
-                      <td>{row.percentage}</td>
-                      <td>{row.board ? row.board.label : "-"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
+        <QualificationCard qualifications={qualifications} onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} AddOption={true} AllowRemove={true}></QualificationCard>
         <div className="bmc-card-row">
           <div className="bmc-col1-card" style={{ paddingLeft: "2.5rem" }}>
             <LabelFieldPair t={t} config={config} isMandatory={true} isMultipleAllow={true}>
@@ -907,75 +789,7 @@ const AadhaarFullFormPage = (_props) => {
           </div>
         </div>
         {selectedOptionCard.value === "Yes" && (
-          <div className="bmc-row-card-header">
-            <div className="bmc-card-row">
-              <div className="bmc-title">Disability</div>
-              <div className="bmc-col3-card">
-                <LabelFieldPair>
-                  <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
-                  <Controller
-                    control={control}
-                    name={"udidid"}
-                    defaultValue={owner?.udid}
-                    render={(props) => (
-                      <TextInput
-                        value={props.value}
-                        isMandatory={true}
-                        placeholder={"Enter the udid ID"}
-                        autoFocus={focusIndex.index === owner?.key && focusIndex.type === "udid"}
-                        onChange={(e) => {
-                          props.onChange(e.target.value);
-                          setFocusIndex({ index: owner.key, type: "udid" });
-                        }}
-                        onBlur={(e) => {
-                          setFocusIndex({ index: -1 });
-                          props.onBlur(e);
-                        }}
-                      />
-                    )}
-                  />
-                </LabelFieldPair>
-              </div>
-              <div className="bmc-col3-card">
-                <LabelFieldPair>
-                  <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
-                  <Controller
-                    control={control}
-                    name={"disabilitytype"}
-                    rules={{
-                      required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                    }}
-                    render={(props) => (
-                      <Dropdown
-                        placeholder="Select the Disability Type"
-                        selected={props.value}
-                        select={(divyang) => {
-                          props.onChange(divyang);
-                        }}
-                        onBlur={props.onBlur}
-                        option={divyangs}
-                        optionKey="i18nKey"
-                        t={t}
-                        isMandatory={true}
-                      />
-                    )}
-                  />
-                </LabelFieldPair>
-              </div>
-              <div className="bmc-col2-card">
-                <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
-                <div className="bmc-range-container">
-                  <input type="range" min="1" max="100" className="bmc-range-slider" value={rangeValue} onChange={handleChange} list="tickmarks" />
-                  <datalist id="tickmarks">
-                    {Array.from({ length: 100 }, (_, i) => (
-                      <option key={i} value={i + 1}></option>
-                    ))}
-                  </datalist>
-                  <span className="range-value">Selected value:{rangeValue}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DisabilityCard divyangs={divyangs} onUpdate={handleDisabilityUpdate} initialRows={[]}></DisabilityCard>
         )}
         <div className="bmc-card-row" style={{ textAlign: "end" }}>
           <button

@@ -4,10 +4,10 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
+import QualificationCard from "../components/QualificationCard";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import dropdownOptions from "./dropdownOptions.json";
-
 const ApplicationDetail = () => ({
   rationCard: "",
   machineName: "",
@@ -70,6 +70,23 @@ const ApplicationDetailFull = (_props) => {
   const [isCheckedShow, setIsCheckedShow] = useState(false);
   const [rangeValue, setRangeValue] = useState(1);
 
+  const [qualifications, setQualifications] = useState([]);
+  const processCommonData = (data, headerLocale) => {
+    return (
+      data?.CommonDetails?.map((item) => ({
+        code: item.id,
+        name: item.name,
+        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+      })) || []
+    );
+  };
+  const qualificationFunction = (data) => {
+    const qualificationData = processCommonData(data, headerLocale);
+    setQualifications(qualificationData);
+    return { qualificationData };
+  };
+  const getQualification = { CommonSearchCriteria: { Option: "qualification" } };
+  Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
   const handleChange = (e) => {
     setRangeValue(parseInt(e.target.value));
   };
@@ -89,7 +106,10 @@ const ApplicationDetailFull = (_props) => {
   };
 
   const isConfirmButtonEnabled = checkbox1 && checkbox2;
-
+  const handleQualificationsUpdate = (updatedQualifications) => {
+    //setQualifications(updatedQualifications);
+    console.log(updatedQualifications);
+};
   const onSubmit = (data) => {
     history.push("/digit-ui/citizen/bmc/review");
     const formDataValues = { ...data, bankPassbook, domicileofMumbai, incomeCer, voterId, panCard, business };
@@ -744,6 +764,7 @@ const ApplicationDetailFull = (_props) => {
             </div>
           </div>
         </div>
+        <QualificationCard qualifications={qualifications} onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} AddOption={false} AllowRemove={false}></QualificationCard>
         <div className="bmc-card-row">
           <div className="bmc-col-large-header">
             <div className="bmc-checkbox">
