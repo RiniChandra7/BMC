@@ -2,7 +2,6 @@ import { AddIcon, Dropdown, RemoveIcon, TextInput } from "@egovernments/digit-ui
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import Select from "react-select";
 import dropdownOptions from "../pagecomponents/dropdownOptions.json";
 
 const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOption=true,AllowRemove=true,...props }) => {
@@ -97,13 +96,14 @@ const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOpti
                                                     rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
                                                     render={(props) => (
                                                         <div>
-                                                            <Select
-                                                                className="basic-single"
-                                                                classNamePrefix="select"
-                                                                value={props.value}
-                                                                onChange={(selectedOption) => props.onChange(selectedOption)}
-                                                                options={years}
+                                                            <Dropdown
                                                                 placeholder="Select Year of Passing"
+                                                                selected={props.value}
+                                                                select={(year) => props.onChange(year)}
+                                                                option={years}
+                                                                optionKey="value"
+                                                                t={t}
+                                                                isMandatory={true}
                                                             />
                                                             {errors.yearOfPassing && <span style={{ color: 'red' }}>{errors.yearOfPassing.message}</span>}
                                                         </div>
@@ -146,13 +146,14 @@ const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOpti
                                                     rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
                                                     render={(props) => (
                                                         <div>
-                                                            <Select
-                                                                className="basic-single"
-                                                                classNamePrefix="select"
-                                                                value={props.value}
-                                                                onChange={(selectedOption) => props.onChange(selectedOption)}
-                                                                options={dropdownOptions.board}
+                                                            <Dropdown
                                                                 placeholder="Select Board"
+                                                                selected={props.value}
+                                                                select={(board) => props.onChange(board)}
+                                                                option={dropdownOptions.board}
+                                                                optionKey="value"
+                                                                t={t}
+                                                                isMandatory={true}
                                                             />
                                                             {errors.board && <span style={{ color: 'red' }}>{errors.board.message}</span>}
                                                         </div>

@@ -16,7 +16,7 @@ const AadhaarFullFormPage = (_props) => {
   const { owner, index, onSelect, allOwners, formData, formState, setOwners, setError, clearErrors, config } = _props;
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
-  
+
   const initialDefaultValues = {};
 
   const { control, watch, setValue, trigger } = useForm({
@@ -96,19 +96,19 @@ const AadhaarFullFormPage = (_props) => {
   const handleQualificationsUpdate = (updatedQualifications) => {
     //setQualifications(updatedQualifications);
     console.log(updatedQualifications);
-};
-const handlePersonalDetailUpdate = (updatedPersonalDetails) => {
-  //setQualifications(updatedQualifications);
-  console.log(updatedPersonalDetails);
-};
-const handleDisabilityUpdate = (updatedDisability) => {
-  //setQualifications(updatedQualifications);
-  console.log(updatedDisability);
-};
-const handleAddressUpdate = (updatedAddress) => {
-  //setQualifications(updatedQualifications);
-  console.log(updatedAddress);
-};
+  };
+  const handlePersonalDetailUpdate = (updatedPersonalDetails) => {
+    //setQualifications(updatedQualifications);
+    console.log(updatedPersonalDetails);
+  };
+  const handleDisabilityUpdate = (updatedDisability) => {
+    //setQualifications(updatedQualifications);
+    console.log(updatedDisability);
+  };
+  const handleAddressUpdate = (updatedAddress) => {
+    //setQualifications(updatedQualifications);
+    console.log(updatedAddress);
+  };
   return (
     <React.Fragment>
       <div className="bmc-card-full">
@@ -117,7 +117,7 @@ const handleAddressUpdate = (updatedAddress) => {
         <PersonalDetailCard castes={castes} religions={religions} onUpdate={handlePersonalDetailUpdate} initialRows={[]} tenantId={tenantId} headerLocale={headerLocale} AllowEdit={true}></PersonalDetailCard>
         <AddressDetailCard onUpdate={handleAddressUpdate} initialRows={[]} tenantId={tenantId} headerLocale={headerLocale} AllowEdit={true}></AddressDetailCard>
         <QualificationCard qualifications={qualifications} onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} AddOption={true} AllowRemove={true}></QualificationCard>
-        
+
         <div className="bmc-card-row">
           <div className="bmc-col1-card" style={{ paddingLeft: "2.5rem" }}>
             <LabelFieldPair t={t} config={config} isMandatory={true} isMultipleAllow={true}>
@@ -142,9 +142,9 @@ const handleAddressUpdate = (updatedAddress) => {
         </div>
 
         {selectedOptionCard.value === "Yes" && (
-          <DisabilityCard divyangs={divyangs} onUpdate={handleDisabilityUpdate} initialRows={[]}></DisabilityCard>
+          <DisabilityCard divyangs={divyangs} onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={true}></DisabilityCard>
         )}
-        
+
         <div className="bmc-card-row" style={{ textAlign: "end" }}>
           <button
             className="bmc-card-button"
