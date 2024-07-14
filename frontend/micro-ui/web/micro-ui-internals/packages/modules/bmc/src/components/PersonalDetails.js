@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import dropdownOptions from '../pagecomponents/dropdownOptions.json';
-import { ProfileImage } from '../pagecomponents/profile';
 
 const PersonalDetailCard = ({ religions, castes, onUpdate, initialRows = {}, AllowEdit = false,tenantId,headerLocale }) => {
     const { t } = useTranslation();
@@ -245,9 +244,6 @@ const PersonalDetailCard = ({ religions, castes, onUpdate, initialRows = {}, All
                             />
                         </LabelFieldPair>
                     </div>
-                </div>
-                <div className="bmc-col-small-header">
-                    <ProfileImage />
                 </div>
             </form>
         </React.Fragment>

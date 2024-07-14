@@ -1,8 +1,7 @@
 import { CardLabel, LabelFieldPair } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AddressDetailCard from "../components/AddressDetails";
 import Timeline from "../components/bmcTimeline";
 import DisabilityCard from "../components/DisabilityCard";
@@ -13,22 +12,12 @@ import Title from "../components/title";
 
 import dropdownOptions from "./dropdownOptions.json";
 const AadhaarFullFormPage = (_props) => {
-  const { owner, index, onSelect, allOwners, formData, formState, setOwners, setError, clearErrors, config } = _props;
+  const {formData, config } = _props;
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
-
-  const initialDefaultValues = {};
-
-  const { control, watch, setValue, trigger } = useForm({
-    defaultValues: initialDefaultValues
-  });
   const { t } = useTranslation();
-  const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
-  const location = useLocation();
   const [selectedOption, setSelectedOption] = useState(formData?.disableType);
   const history = useHistory();
-
-
   const [castes, setCastes] = useState([]);
   const [religions, setReligions] = useState([]);
   const [divyangs, setDivyangs] = useState([]);
@@ -114,7 +103,7 @@ const AadhaarFullFormPage = (_props) => {
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
         <Title text={"Applicant Details"} />
-        <PersonalDetailCard castes={castes} religions={religions} onUpdate={handlePersonalDetailUpdate} initialRows={[]} tenantId={tenantId} headerLocale={headerLocale} AllowEdit={true}></PersonalDetailCard>
+        <PersonalDetailCard castes={castes} religions={religions} onUpdate={handlePersonalDetailUpdate} initialRows={[]} tenantId={tenantId} headerLocale={headerLocale} AllowEdit={false}></PersonalDetailCard>
         <AddressDetailCard onUpdate={handleAddressUpdate} initialRows={[]} tenantId={tenantId} headerLocale={headerLocale} AllowEdit={true}></AddressDetailCard>
         <QualificationCard qualifications={qualifications} onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} AddOption={true} AllowRemove={true}></QualificationCard>
 

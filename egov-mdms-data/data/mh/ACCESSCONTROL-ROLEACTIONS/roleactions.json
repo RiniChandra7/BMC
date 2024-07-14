@@ -27038,7 +27038,20 @@
       "rolecode": "CITIZEN",
       "actionid": 5004,
       "actioncode": "",
-      "tenantId": "mh.mumbai"
+      "tenantId": "mh"
+    },
+    {
+      "rolecode": "APP_VERIFIER",
+      "actionid": 1742,
+      "actioncode": "",
+      "tenantId": "mh"
+    },
+    {
+      "rolecode": "APP_VERIFIER",
+      "actionid": 1743,
+      "actioncode": "",
+      "tenantId": "mh"
     }
+
   ]
 }
