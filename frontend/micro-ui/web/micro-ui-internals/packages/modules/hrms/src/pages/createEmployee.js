@@ -172,6 +172,7 @@ const CreateEmployee = () => {
         user: {
           mobileNumber: data?.SelectEmployeePhoneNumber?.mobileNumber,
           name: data?.SelectEmployeeName?.employeeName,
+          fatherOrHusbandName:"test",
           correspondenceAddress: data?.SelectEmployeeCorrespondenceAddress?.correspondenceAddress,
           emailId: data?.SelectEmployeeEmailId?.emailId ? data?.SelectEmployeeEmailId?.emailId : undefined,
           gender: data?.SelectEmployeeGender?.gender.code,

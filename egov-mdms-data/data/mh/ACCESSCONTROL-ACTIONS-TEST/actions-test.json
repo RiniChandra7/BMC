@@ -13390,7 +13390,7 @@
       "parentModule": "",
       "displayName": "BusinessService Update",
       "orderNumber": 0,
-      "enabled": false,
+      "enabled": true,
       "serviceCode": "egov-workflow-v2",
       "code": "null",
       "path": ""
@@ -13402,7 +13402,7 @@
       "parentModule": "",
       "displayName": "BusinessService Search",
       "orderNumber": 0,
-      "enabled": false,
+      "enabled": true,
       "serviceCode": "egov-workflow-v2",
       "code": "null",
       "path": ""
