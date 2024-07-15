@@ -64,7 +64,7 @@ const DisabilityCard = ({ tenantId,onUpdate, initialRows = [], AllowEdit = false
         <React.Fragment>
             <div className="bmc-row-card-header">
                 <div className="bmc-card-row">
-                    <div className="bmc-title">Disability <ToggleSwitch isOn={isEditable} handleToggle={handleToggle} onLabel="Editable" offLabel="Readonly" disabled={!AllowEdit}/></div>
+                    <div className="bmc-title">Disability <ToggleSwitch id={"DisabilityToggle"} isOn={isEditable} handleToggle={handleToggle} onLabel="Editable" offLabel="Readonly" disabled={!AllowEdit}/></div>
                     
                     <div className="bmc-col3-card">
                         <LabelFieldPair>

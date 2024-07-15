@@ -116,7 +116,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
     return (
         <React.Fragment>
             <form className="bmc-row-card-header">
-                <div className="bmc-title">{t('Address Details')} <ToggleSwitch isOn={isEditable} handleToggle={handleToggle} onLabel="Editable" offLabel="Readonly" disabled={!AllowEdit}/></div>
+                <div className="bmc-title">{t('Address Details')} <ToggleSwitch id={"AddressToggle"} isOn={isEditable} handleToggle={handleToggle} onLabel="Editable" offLabel="Readonly" disabled={!AllowEdit}/></div>
                 <div className="bmc-card-row">
                     <div className="bmc-col3-card">
                         <LabelFieldPair>

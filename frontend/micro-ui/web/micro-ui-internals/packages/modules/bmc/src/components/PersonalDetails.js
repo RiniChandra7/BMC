@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import dropdownOptions from '../pagecomponents/dropdownOptions.json';
+import ToggleSwitch from "./Toggle";
 
 const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tenantId}) => {
     const { t } = useTranslation();
+    const [isEditable, setIsEditable] = useState();
     const { control, watch, formState: { errors, isValid }, trigger } = useForm({
         defaultValues: {
             firstName: initialRows.firstName || '',
@@ -58,11 +60,14 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
     useEffect(() => {
         trigger(); // Validate the form on mount to show errors if fields are empty
     }, [trigger]);
-
+    
+    const handleToggle = () => {
+        setIsEditable(!isEditable);
+    };
     return (
         <React.Fragment>
             <form className="bmc-row-card-header">
-                <div className="bmc-title">{t('Personal Details')}</div>
+                <div className="bmc-title">{t('Personal Details')}<ToggleSwitch id={"PersonalToggle"} isOn={isEditable} handleToggle={handleToggle} onLabel="Editable" offLabel="Readonly" disabled={!AllowEdit}/></div>
                 <div className="bmc-card-row">
                     <div className="bmc-col1-card">
                         <LabelFieldPair>
@@ -74,8 +79,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -96,8 +101,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -118,8 +123,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -142,7 +147,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 render={(props) => (
                                     <div>
                                         <DatePicker
-                                            disabled={!AllowEdit}
+                                            disabled={!isEditable}
                                             date={props.value}
                                             onChange={props.onChange}
                                             onBlur={props.onBlur}
@@ -162,7 +167,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 rules={{ required: t('CORE_COMMON_REQUIRED_ERRMSG') }}
                                 render={(props) => (
                                     <div>
-                                        {AllowEdit ? (
+                                        {isEditable ? (
                                             <Dropdown
                                                 placeholder={t('Select Gender')}
                                                 selected={props.value}
@@ -195,8 +200,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -218,7 +223,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 rules={{ required: t('CORE_COMMON_REQUIRED_ERRMSG') }}
                                 render={(props) => (
                                     <div>
-                                        {AllowEdit ? (
+                                        {isEditable ? (
                                             <Dropdown
                                                 placeholder={t('Select Religion')}
                                                 selected={props.value}
@@ -250,7 +255,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                                 rules={{ required: t('CORE_COMMON_REQUIRED_ERRMSG') }}
                                 render={(props) => (
                                     <div>
-                                        {AllowEdit ? (
+                                        {isEditable ? (
                                             <Dropdown
                                                 placeholder={t('Select Caste Category')}
                                                 selected={props.value}
