@@ -3,15 +3,34 @@ import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-const DisabilityCard = ({ divyangs, onUpdate, initialRows = [], AllowEdit = false, ...props }) => {
+const DisabilityCard = ({ onUpdate, initialRows = [], AllowEdit = false, ...props }) => {
     const { t } = useTranslation();
     const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
     const [rangeValue, setRangeValue] = useState(initialRows.length > 0 ? initialRows[0].disabilityPercentage : 1);
-
+    const [divyangs, setDivyangs] = useState([]);
+    const tenantId = Digit.ULBService.getCurrentTenantId();
+    const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+    const processCommonData = (data, headerLocale) => {
+        return (
+          data?.CommonDetails?.map((item) => ({
+            code: item.id,
+            name: item.name,
+            i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+          })) || []
+        );
+      };
     const handleChange = (e) => {
         setRangeValue(parseInt(e.target.value));
     };
 
+    const divyangFunction = (data) => {
+        const divyangData = processCommonData(data, headerLocale);
+        setDivyangs(divyangData);
+        return { divyangData };
+    };
+
+    const getDivyang = { CommonSearchCriteria: { Option: "divyang" } };
+    Digit.Hooks.bmc.useCommonGet(getDivyang, { select: divyangFunction });
     const initialDefaultValues = {
         udidid: initialRows.length > 0 ? initialRows[0].udidid : "",
         disabilitytype: initialRows.length > 0 ? initialRows[0].disabilitytype : "",

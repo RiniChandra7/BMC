@@ -36,14 +36,13 @@ const AadhaarEmployeePage = ({
         config={config}
       />
       <WorkflowTimeline tenantId={"mh"} businessService={"bmc-schemes"} applicationNo={"MH-0001"}></WorkflowTimeline>
-      <div>"hello"</div>
       <WorkflowActions 
-      ActionBarStyle={{}}
-      MenuStyle={{}}
-      businessService={"bmc-schemes"}
-      applicationNo={"MH-0001"}
-      tenantId={"mh"}
-      moduleCode={"BMC"}
+        ActionBarStyle={{}}
+        MenuStyle={{}}
+        businessService={"bmc-schemes"}
+        applicationNo={"MH-0001"}
+        tenantId={"mh"}
+        moduleCode={"BMC"}
       />
     </React.Fragment>
   );

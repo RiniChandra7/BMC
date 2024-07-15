@@ -5,8 +5,9 @@
         "firstName": "Bal",
         "middleName": "krishna",
         "lastName": "Yadav",
-        "dob": "25-05-1990",
-        "gender": "Male",
+        "dob": "1990-05-02",
+        "gender": {"value": "MALE",
+        "label": "Male"},
         "father": "Ram krishna Yadav",
         "home": "127/14",
         "street": "Sector 2",
@@ -16,6 +17,7 @@
         "subDistrict": "Lucknow",
         "district": "Lucknow",
         "state": "Uttar Pradesh",
-        "pincode": "226006"
+        "pincode": "226006",
+        "religion": {"code": 2, "name": "Islam", "i18nKey": "MH_ADMIN_Islam"}
     }
 }

@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
+import DisabilityCard from "../components/DisabilityCard";
 import QualificationCard from "../components/QualificationCard";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
@@ -91,6 +92,8 @@ const ApplicationDetailFull = (_props) => {
     setRangeValue(parseInt(e.target.value));
   };
 
+  
+
   const history = useHistory();
 
   const handleCheckbox = () => {
@@ -115,7 +118,10 @@ const ApplicationDetailFull = (_props) => {
     const formDataValues = { ...data, bankPassbook, domicileofMumbai, incomeCer, voterId, panCard, business };
     setOwner(formDataValues);
   };
-
+  const handleDisabilityUpdate = (updatedDisability) => {
+    //setQualifications(updatedQualifications);
+    console.log(updatedDisability);
+  };
   return (
     <React.Fragment>
       <div className="bmc-card-full">
@@ -765,6 +771,7 @@ const ApplicationDetailFull = (_props) => {
           </div>
         </div>
         <QualificationCard qualifications={qualifications} onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} AddOption={false} AllowRemove={false}></QualificationCard>
+        <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={false}></DisabilityCard>
         <div className="bmc-card-row">
           <div className="bmc-col-large-header">
             <div className="bmc-checkbox">
