@@ -82,6 +82,7 @@ import useSurveyInbox from "./surveys/useSurveyInbox";
 import useSurveyUpdate from "./surveys/useUpdate";
 
 import useCommonGet from "./bmc/useCommon";
+import useCommonGetBank from "./bmc/useCommonGetBank";
 
 
 import useSchemesGet from "./bmc/getSchemes";
@@ -122,7 +123,8 @@ const dss = {
 
 const bmc={
   useCommonGet,
-  useSchemesGet
+  useSchemesGet,
+  useCommonGetBank
 }
 
 const hrms = {
