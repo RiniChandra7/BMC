@@ -1,12 +1,12 @@
 import { CardLabel, DatePicker, Dropdown, LabelFieldPair, TextInput } from '@egovernments/digit-ui-react-components';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import dropdownOptions from '../pagecomponents/dropdownOptions.json';
 
-const PersonalDetailCard = ({ religions, castes, onUpdate, initialRows = {}, AllowEdit = false,tenantId,headerLocale }) => {
+const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tenantId}) => {
     const { t } = useTranslation();
-    const { control, watch, formState: { errors,isValid }, trigger} = useForm({
+    const { control, watch, formState: { errors, isValid }, trigger } = useForm({
         defaultValues: {
             firstName: initialRows.firstName || '',
             middleName: initialRows.middleName || '',
@@ -19,7 +19,36 @@ const PersonalDetailCard = ({ religions, castes, onUpdate, initialRows = {}, All
         },
         mode: 'all'
     });
+    const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+    const [castes, setCastes] = useState([]);
+    const [religions, setReligions] = useState([]);
+    const processCommonData = (data, headerLocale) => {
+        return (
+            data?.CommonDetails?.map((item) => ({
+                code: item.id,
+                name: item.name,
+                i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+            })) || []
+        );
+    };
 
+    const casteFunction = (data) => {
+        const castesData = processCommonData(data, headerLocale);
+        setCastes(castesData);
+        return { castesData };
+    };
+
+    const religionFunction = (data) => {
+        const religionsData = processCommonData(data, headerLocale);
+        setReligions(religionsData);
+        return { religionsData };
+    };
+
+    const getCaste = { CommonSearchCriteria: { Option: "caste" } };
+    const getReligion = { CommonSearchCriteria: { Option: "religion" } };
+
+    Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
+    Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
     const formValues = watch();
 
     useEffect(() => {

@@ -3,12 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-const DisabilityCard = ({ onUpdate, initialRows = [], AllowEdit = false, ...props }) => {
+const DisabilityCard = ({ tenantId,onUpdate, initialRows = [], AllowEdit = false, ...props }) => {
     const { t } = useTranslation();
     const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
     const [rangeValue, setRangeValue] = useState(initialRows.length > 0 ? initialRows[0].disabilityPercentage : 1);
     const [divyangs, setDivyangs] = useState([]);
-    const tenantId = Digit.ULBService.getCurrentTenantId();
     const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
     const processCommonData = (data, headerLocale) => {
         return (

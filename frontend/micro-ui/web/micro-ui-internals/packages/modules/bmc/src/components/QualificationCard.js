@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import dropdownOptions from "../pagecomponents/dropdownOptions.json";
 
-const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOption=true,AllowRemove=true,...props }) => {
+const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = true, AllowRemove = true, ...props }) => {
     const { t } = useTranslation();
     const initialDefaultValues = {
         qualification: null,
@@ -12,8 +12,26 @@ const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOpti
         percentage: 0,
         board: null,
     };
-    
+    const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+    const [qualifications, setQualifications] = useState([]);
+    const processCommonData = (data, headerLocale) => {
+        return (
+            data?.CommonDetails?.map((item) => ({
+                code: item.id,
+                name: item.name,
+                i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+            })) || []
+        );
+    };
 
+    const qualificationFunction = (data) => {
+        const qualificationData = processCommonData(data, headerLocale);
+        setQualifications(qualificationData);
+        return { qualificationData };
+    };
+
+    const getQualification = { CommonSearchCriteria: { Option: "qualification" } };
+    Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
     const { control, handleSubmit, reset, getValues, formState: { errors } } = useForm({
         defaultValues: initialDefaultValues
     });
@@ -28,7 +46,7 @@ const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOpti
         value: 1990 + k
     }));
 
-    
+
     const addRow = () => {
         const formData = getValues();
         const updatedRows = [...rows, {
@@ -60,14 +78,14 @@ const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOpti
                                         <th scope="col">Year of Passing</th>
                                         <th scope="col">Percentage</th>
                                         <th scope="col">Board</th>
-                                        {AllowRemove &&(
-                                        <th scope="col"></th>
+                                        {AllowRemove && (
+                                            <th scope="col"></th>
                                         )}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {AddOption && (
-                                            <tr>
+                                    {AddOption && (
+                                        <tr>
                                             <td data-label="Qualification" style={{ textAlign: "left" }}>
                                                 <Controller
                                                     control={control}
@@ -166,21 +184,21 @@ const QualificationCard = ({ qualifications, onUpdate, initialRows = [], AddOpti
                                                 </button>
                                             </td>
                                         </tr>
-                                        )
+                                    )
                                     }
-                                   
+
                                     {rows.map((row, index) => (
                                         <tr key={index}>
                                             <td>{row.qualification ? row.qualification.i18nKey : "-"}</td>
                                             <td>{row.yearOfPassing ? row.yearOfPassing.label : "-"}</td>
                                             <td>{row.percentage}</td>
                                             <td>{row.board ? row.board.label : "-"}</td>
-                                            {AllowRemove &&(
+                                            {AllowRemove && (
                                                 <td data-label="Remove Row">
-                                                <button type="button" onClick={() => removeRow(index)}>
-                                                    <RemoveIcon className="bmc-remove-icon" />
-                                                </button>
-                                            </td>
+                                                    <button type="button" onClick={() => removeRow(index)}>
+                                                        <RemoveIcon className="bmc-remove-icon" />
+                                                    </button>
+                                                </td>
                                             )}
                                         </tr>
                                     ))}

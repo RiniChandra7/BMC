@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenantId,headerLocale }) => {
+const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenantId}) => {
     const { t } = useTranslation();
+    const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
     const { control, watch, formState: { errors, isValid }, trigger, setValue } = useForm({
         defaultValues: {
             house: initialRows.house || '',
@@ -22,7 +23,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
         },
         mode: 'all'
     });
-
+    
     const [zones, setZones] = useState([]);
     const [blocks, setBlocks] = useState([]);
     const [wards, setWards] = useState([]);
