@@ -2,9 +2,11 @@ import { CardLabel, Dropdown, LabelFieldPair, TextInput } from '@egovernments/di
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import ToggleSwitch from "./Toggle";
 
 const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenantId}) => {
     const { t } = useTranslation();
+    const [isEditable, setIsEditable] = useState();
     const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
     const { control, watch, formState: { errors, isValid }, trigger, setValue } = useForm({
         defaultValues: {
@@ -107,11 +109,14 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
     useEffect(() => {
         trigger(); // Validate the form on mount to show errors if fields are empty
     }, [trigger]);
-
+    
+    const handleToggle = () => {
+        setIsEditable(!isEditable);
+    };
     return (
         <React.Fragment>
             <form className="bmc-row-card-header">
-                <div className="bmc-title">{t('Address Details')}</div>
+                <div className="bmc-title">{t('Address Details')} <ToggleSwitch isOn={isEditable} handleToggle={handleToggle} onLabel="Editable" offLabel="Readonly" disabled={!AllowEdit}/></div>
                 <div className="bmc-card-row">
                     <div className="bmc-col3-card">
                         <LabelFieldPair>
@@ -123,8 +128,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -145,8 +150,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -167,8 +172,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -189,8 +194,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -213,8 +218,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -235,8 +240,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -257,8 +262,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -279,8 +284,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -303,8 +308,8 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 render={(props) => (
                                     <div>
                                         <TextInput
-                                            disabled={!AllowEdit}
-                                            readOnly={!AllowEdit}
+                                            disabled={!isEditable}
+                                            readOnly={!isEditable}
                                             value={props.value}
                                             onChange={(e) => props.onChange(e.target.value)}
                                             onBlur={props.onBlur}
@@ -326,7 +331,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 rules={{ required: t('CORE_COMMON_REQUIRED_ERRMSG') }}
                                 render={(props) => (
                                     <div>
-                                        {AllowEdit ? (
+                                        {isEditable ? (
                                             <Dropdown
                                                 placeholder={t('Select Zone')}
                                                 selected={props.value}
@@ -358,7 +363,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 rules={{ required: t('CORE_COMMON_REQUIRED_ERRMSG') }}
                                 render={(props) => (
                                     <div>
-                                        {AllowEdit ? (
+                                        {isEditable ? (
                                             <Dropdown
                                                 placeholder={t('Select Caste Category')}
                                                 selected={props.value}
@@ -390,7 +395,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false,tenan
                                 rules={{ required: t('CORE_COMMON_REQUIRED_ERRMSG') }}
                                 render={(props) => (
                                     <div>
-                                        {AllowEdit ? (
+                                        {isEditable ? (
                                             <Dropdown
                                                 placeholder={t('Select SubWard')}
                                                 selected={props.value}

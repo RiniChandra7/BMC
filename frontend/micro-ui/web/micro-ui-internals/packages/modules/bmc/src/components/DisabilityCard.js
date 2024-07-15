@@ -2,9 +2,11 @@ import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/di
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import ToggleSwitch from "./Toggle";
 
 const DisabilityCard = ({ tenantId,onUpdate, initialRows = [], AllowEdit = false, ...props }) => {
     const { t } = useTranslation();
+    const [isEditable, setIsEditable] = useState();
     const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
     const [rangeValue, setRangeValue] = useState(initialRows.length > 0 ? initialRows[0].disabilityPercentage : 1);
     const [divyangs, setDivyangs] = useState([]);
@@ -53,12 +55,17 @@ const DisabilityCard = ({ tenantId,onUpdate, initialRows = [], AllowEdit = false
     useEffect(() => {
         control.setValue("disabilityPercentage", rangeValue);
     }, [rangeValue, control]);
-
+    
+    const handleToggle = () => {
+            setIsEditable(!isEditable);
+    };
+    
     return (
         <React.Fragment>
             <div className="bmc-row-card-header">
                 <div className="bmc-card-row">
-                    <div className="bmc-title">Disability</div>
+                    <div className="bmc-title">Disability <ToggleSwitch isOn={isEditable} handleToggle={handleToggle} onLabel="Editable" offLabel="Readonly" disabled={!AllowEdit}/></div>
+                    
                     <div className="bmc-col3-card">
                         <LabelFieldPair>
                             <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
@@ -70,7 +77,7 @@ const DisabilityCard = ({ tenantId,onUpdate, initialRows = [], AllowEdit = false
                                     <div>
                                         <TextInput
                                             {...props}
-                                            disabled={!AllowEdit}
+                                            disabled={!isEditable}
                                             isMandatory={true}
                                             placeholder={"Enter the udid ID"}
                                             autoFocus={focusIndex.index === props.name}
@@ -100,7 +107,7 @@ const DisabilityCard = ({ tenantId,onUpdate, initialRows = [], AllowEdit = false
                                 }}
                                 render={(props) => (
                                     <div>
-                                        {AllowEdit ? (
+                                        {isEditable ? (
                                             <Dropdown
                                                 placeholder="Select the Disability Type"
                                                 selected={props.value}
@@ -135,7 +142,7 @@ const DisabilityCard = ({ tenantId,onUpdate, initialRows = [], AllowEdit = false
                                 render={(props) => (
                                     <div>
                                         <input
-                                            disabled={!AllowEdit}
+                                            disabled={!isEditable}
                                             type="range"
                                             min="1"
                                             max="100"
