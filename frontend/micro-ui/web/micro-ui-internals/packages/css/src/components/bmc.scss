@@ -187,6 +187,13 @@
   float: left;
 }
 
+.bmc-col4-card {
+  width: 20%;
+  padding: 5px;
+  box-sizing: border-box;
+  float: left;
+}
+
 .bmc-card-button-cancel {
   background-color: #b1b4b6;
   width: 147px;
@@ -305,7 +312,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin: 0 auto;
-  padding: 1rem;
   width: 100%;
 }
 
@@ -463,6 +469,7 @@
 .bmc-hover-table td {
   padding: 0.625em;
   text-align: center;
+  border: 1px solid #ddd;
 }
 
 .bmc-hover-table th {
@@ -761,11 +768,43 @@
   transform: translateX(-50%);
 }
 
-
-.bmc-add-icon{
-  width: 25px;
-  height: 25px;
+.bmc-add-icon {
+  width: 30px;
+  height: 30px;
   background-color: #4caf50;
+  border-radius: 50%;
+}
+
+.bmc-employee-modal .header-content {
+  width: 100%;
+}
+
+.bmc-employee-modal .header-wrap {
+  margin: 0;
+  margin-bottom: 0;
+}
+
+.bmc-employee-modal .popup-module {
+  width: 650px;
+  padding-bottom: 1rem;
+  border-radius: 10px;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+}
+
+.bmc-employee-modal .popup-module-main {
+  padding: 0;
+}
+
+.aadhaar-dash {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-right: 0.2rem;
+}
+
+.employee-card-input .disabled {
+  color: #0b0c0c;
 }
 
 .toggle-switch {
@@ -836,7 +875,7 @@
 }
 
 .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
-  margin-left: 0
+  margin-left: 0;
 }
 
 .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {

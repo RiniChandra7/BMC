@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
@@ -17,7 +17,7 @@ const SelectSchemePage = () => {
   const [schemeHeads, setSchemeHeads] = useState([]);
   const [schemeDetails, setSchemeDetails] = useState([]);
 
-  const getSchems = { SchemeSearchCriteria: { 'Status': 1 } };
+  const getSchems = { SchemeSearchCriteria: { Status: 1 } };
   // const processSchemeData = (data, headerLocale) => {
   //   const schemeHeadsData = [];
   //   const schemeDetailsData = [];
@@ -72,7 +72,7 @@ const SelectSchemePage = () => {
           endDate: event.endDate,
           schemeHead: schemeHead.schemeHead,
           schemeHeadDesc: schemeHead.schemeheadDesc,
-          i18nKey: `${headerLocale}_ADMIN_${schemeHead.schemeHead}`
+          i18nKey: `${headerLocale}_ADMIN_${schemeHead.schemeHead}`,
         });
 
         schemeHead.schemeDetails.forEach((scheme) => {
@@ -86,17 +86,17 @@ const SelectSchemePage = () => {
               criteriaType: criterion.criteriaType,
               criteriaCondition: criterion.criteriaCondition,
               criteriaValue: criterion.criteriaValue,
-              i18nKey: `${headerLocale}_ADMIN_${criterion.criteriaType}_${criterion.criteriaCondition}_${criterion.criteriaValue}`
+              i18nKey: `${headerLocale}_ADMIN_${criterion.criteriaType}_${criterion.criteriaCondition}_${criterion.criteriaValue}`,
             })),
             courses: scheme.courses.map((course) => ({
               ...course,
-              i18nKey: `${headerLocale}_ADMIN_${course.courseName}`
+              i18nKey: `${headerLocale}_ADMIN_${course.courseName}`,
             })),
             machines: scheme.machines.map((machine) => ({
               ...machine,
-              i18nKey: `${headerLocale}_ADMIN_${machine.machName}`
+              i18nKey: `${headerLocale}_ADMIN_${machine.machName}`,
             })),
-            i18nKey: `${headerLocale}_ADMIN_${scheme.schemeName}`
+            i18nKey: `${headerLocale}_ADMIN_${scheme.schemeName}`,
           });
         });
       });
@@ -105,10 +105,11 @@ const SelectSchemePage = () => {
     setSchemeHeads(schemeHeadsData);
     setSchemeDetails(schemeDetailsData);
     return {
-      schemeHeadsData, schemeDetailsData
+      schemeHeadsData,
+      schemeDetailsData,
     };
   };
-  
+
   const qualificationFunction = (data) => {
     const SchemeData = processSchemeData(data, headerLocale);
     return { SchemeData };
@@ -116,13 +117,11 @@ const SelectSchemePage = () => {
 
   Digit.Hooks.bmc.useSchemesGet(getSchems, { select: qualificationFunction });
 
-
-
   useEffect(() => {
     const fetchSchemeData = async () => {
-      const response = await fetch('/path/to/your/scheme/api');
+      const response = await fetch("/path/to/your/scheme/api");
       const data = await response.json();
-      processSchemeData(data, 'headerLocale');
+      processSchemeData(data, "headerLocale");
     };
 
     fetchSchemeData();
@@ -136,7 +135,7 @@ const SelectSchemePage = () => {
 
   const renderSchemeSections = () => {
     const groupedSchemes = schemeHeads.reduce((acc, schemeHead) => {
-      acc[schemeHead.schemeHead] = schemeDetails.filter(detail => detail.schemeHead === schemeHead.schemeHead);
+      acc[schemeHead.schemeHead] = schemeDetails.filter((detail) => detail.schemeHead === schemeHead.schemeHead);
       return acc;
     }, {});
 
@@ -152,8 +151,9 @@ const SelectSchemePage = () => {
               t={t}
               optionsKey="label"
               options={[{ label: scheme.i18nKey, value: scheme.schemeID }]}
-              onSelect={() => handleSchemeSelect(scheme)}
-              selectedOption={radioValueCheck}
+              onSelect={setSelectedRadio}
+              onClick={() => handleSchemeSelect(scheme)}
+              selectedOption={selectedRadio}
               style={{ paddingLeft: "1rem", margin: "0" }}
               isMandatory={true}
             />
@@ -168,23 +168,21 @@ const SelectSchemePage = () => {
     return (
       <React.Fragment>
         <div className="bmc-row-card-header">
+          <p style={{ paddingLeft: "4rem" }}>{selectedScheme.schemeDesc}</p>
           <p style={{ paddingLeft: "4rem" }}>
-            {selectedScheme.schemeDesc}
-          </p>
-          <p style={{ paddingLeft: "4rem" }}>
-          {t("Following are the critierias to avail this scheme")}  
-          <ul style={{ paddingLeft: "4rem" }}>
-            {selectedScheme.criteria.map((criterion, index) => (
-              <li key={index}>{`${criterion.criteriaType} ${criterion.criteriaCondition} ${criterion.criteriaValue}`}</li>
-            ))}
-          </ul>
+            {t("Following are the critierias to avail this scheme")}
+            <ul style={{ paddingLeft: "4rem" }}>
+              {selectedScheme.criteria.map((criterion, index) => (
+                <li key={index}>{`${criterion.criteriaType} ${criterion.criteriaCondition} ${criterion.criteriaValue}`}</li>
+              ))}
+            </ul>
           </p>
         </div>
 
         {selectedScheme.courses.length > 0 && (
           <div className="bmc-row-card-header">
             {selectedScheme.courses.map((course, index) => (
-              <div key={index} style={{ backgroundColor: "#F7F5F5", padding: "1rem", borderRadius: "10px" , margin: "5px"}}>
+              <div key={index} style={{ backgroundColor: "#F7F5F5", padding: "1rem", borderRadius: "10px", margin: "5px" }}>
                 <RadioButton
                   t={t}
                   optionsKey="value"
@@ -222,7 +220,7 @@ const SelectSchemePage = () => {
 
         {selectedScheme.machines.length > 0 && (
           <div className="bmc-row-card-header">
-            {selectedScheme.machines.map((machine, index) =>  (
+            {selectedScheme.machines.map((machine, index) => (
               <div key={index} style={{ backgroundColor: "#F7F5F5", padding: "1rem", borderRadius: "10px", margin: "5px" }}>
                 <RadioButton
                   t={t}
@@ -235,7 +233,7 @@ const SelectSchemePage = () => {
                   isMandatory={true}
                 />
                 <p style={{ paddingLeft: "4rem" }}>
-                <label htmlFor={`machine-${machine.machID}`}>
+                  <label htmlFor={`machine-${machine.machID}`}>
                     <strong>{machine.i18nKey}</strong>: {machine.machDesc} (Amount: INR.{machine.machAmount})
                   </label>
                 </p>
@@ -264,12 +262,10 @@ const SelectSchemePage = () => {
   return (
     <React.Fragment>
       <div className="bmc-card-full">
-        {window.location.href.includes("/citizen") && <Timeline currentStep={2} />}
+        {window.location.href.includes("/citizen") && <Timeline currentStep={3} />}
         <Title text={"Select Scheme"} />
-        <div className="bmc-card-grid">
-          {renderSchemeSections()}
-        </div>
-          {renderSelectedSchemeDetails()}
+        <div className="bmc-card-grid">{renderSchemeSections()}</div>
+        {renderSelectedSchemeDetails()}
       </div>
       <div style={{ textAlign: "end", padding: "1rem" }}>
         <Link
