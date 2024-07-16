@@ -82,6 +82,10 @@
         {
           "label": "rainmaker-dss",
           "value": "rainmaker-dss"
+        },
+        {
+          "label": "bmc",
+          "value": "bmc"
         }
       ]
     }
