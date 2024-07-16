@@ -1,5 +1,6 @@
 package digit.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +14,22 @@ import org.egov.common.contract.user.CreateUserRequest;
 import org.egov.common.contract.user.UserDetailResponse;
 import org.egov.common.contract.user.UserSearchRequest;
 import org.egov.tracer.model.CustomException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import digit.config.BmcConfiguration;
+import digit.repository.CommonRepository;
+import digit.repository.CommonSearchCriteria;
+import digit.repository.UserRepository;
+import digit.repository.UserSearchCriteria;
 import digit.util.UserUtil;
+import digit.web.models.BankDetails;
 import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationRequest;
+import digit.web.models.common.CommonDetails;
+import digit.web.models.scheme.UserBankDetails;
+import digit.web.models.user.UserDetails;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +39,10 @@ public class UserService {
 
 	private UserUtil userUtils;
 	private BmcConfiguration config;
+
+
+	@Autowired
+    private UserRepository userRepository;
 
 	@Inject
 	public UserService(UserUtil userUtils, BmcConfiguration config) {
@@ -182,4 +196,15 @@ public class UserService {
 
 		return users.stream().collect(Collectors.toMap(User::getId, Function.identity()));
 	}
+
+    public List<UserDetails> getUserDetails(RequestInfo requestInfo,UserSearchCriteria searchcriteria){
+        // Fetch applications from database according to the given search criteria
+        List<UserDetails> common = userRepository.getUserDetails(searchcriteria);
+        // If no applications are found matching the given criteria, return an empty list
+        if (CollectionUtils.isEmpty(common))
+            return new ArrayList<>();
+        return common;
+    }
+   
+
 }
