@@ -86,6 +86,7 @@ import useCommonGetBank from "./bmc/useCommonGetBank";
 
 
 import useSchemesGet from "./bmc/getSchemes";
+import useUsersDetails from "./bmc/useUsers";
 import useGetDSSAboutJSON from "./useGetDSSAboutJSON";
 import useGetDSSFAQsJSON from "./useGetDSSFAQsJSON";
 import useGetFAQsJSON from "./useGetFAQsJSON";
@@ -124,7 +125,8 @@ const dss = {
 const bmc={
   useCommonGet,
   useSchemesGet,
-  useCommonGetBank
+  useCommonGetBank,
+  useUsersDetails
 }
 
 const hrms = {

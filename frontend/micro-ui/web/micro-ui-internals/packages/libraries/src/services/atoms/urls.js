@@ -219,6 +219,10 @@ const Urls = {
     getSchemes: "http://localhost:8081/bmc/scheme/_search"
   },
 
+  users:{
+    getUserDetails: "http://localhost:8081/bmc/user/_get"
+  },
+
   noc: {
     nocSearch: "/noc-services/v1/noc/_search",
   },

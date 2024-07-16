@@ -3,12 +3,12 @@ package digit.repository.rowmapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.egov.common.contract.models.Address;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 import digit.bmc.model.Caste;
 import digit.web.models.BankDetails;
 import digit.web.models.Religion;
-
 import digit.web.models.user.DivyangDetails;
 import digit.web.models.user.DocumentDetails;
 import digit.web.models.user.QualificationDetails;
@@ -190,6 +189,7 @@ public class UserDetailRowMapper implements ResultSetExtractor<List<UserDetails>
                     .aadharfathername(columns.contains("aadharfathername") ? rs.getString("aadharfathername") : null)
                     .aadharmobile(columns.contains("aadharmobile") ? rs.getString("aadharmobile") : null)
                     .aadharname(columns.contains("aadharname") ? rs.getString("aadharname") : null)
+                    .gender(columns.contains("gender") ? rs.getString("gender") : null)
                     .caste(caste)
                     .religion(religion)
                     .address(address)
@@ -245,10 +245,11 @@ public class UserDetailRowMapper implements ResultSetExtractor<List<UserDetails>
             }
 
             if (columns.contains("ifsc") && columns.contains("accountnumber")) {
-                String bank = rs.getString("ifsc").concat(rs.getString("accountnumber"));
+                String bank = Objects.requireNonNullElse(rs.getString("ifsc"), "").concat(Objects.requireNonNullElse(rs.getString("accountnumber"), ""));
                 if (bank != null) {
                     BankDetails bankDetails = userDetails.getBankDetail().stream()
-                        .filter(c -> c.getIfscCodes().concat(c.getAccountnumber()).equals(bank))
+                        .filter(c -> Objects.requireNonNullElse(c.getIfscCodes(), "")
+                        .concat(Objects.requireNonNullElse(c.getAccountnumber(), "")).equals(bank))
                         .findFirst()
                         .orElse(null);
 

@@ -316,11 +316,11 @@
     }
 ],
 "gender":[
-  {"value": "MALE",
-            "label": "Male"},
-  {"value": "FEMALE",
-            "label": "Female"},
-  {"value": "TRANSGENDER",
-            "label": "Transgender"}
+  {"id": 2,
+            "name": "Male"},
+  {"id": 1,
+            "name": "Female"},
+  {"id": 3,
+            "name": "Transgender"}
 ]
 }

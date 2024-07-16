@@ -1,6 +1,5 @@
 package digit.repository.querybuilder;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,12 +10,12 @@ import digit.repository.UserSearchCriteria;
 public class UserQueryBuilder {
     // for Caste
     private static final String BASE_QUERY = """
-       select eu.id as userid, \
-        eba.aadharfathername ,eba.aadhardob ,eba.aadharmobile ,eba.gender ,eba.aadharname, \
-        ebc."name" as caste ,ebc.id as casteid, \
-        ebr."name" as religion ,ebr.id as religionid , \
-        ebu4.transgenderid \
-    """;
+               select eu.id as userid, \
+                eba.aadharfathername ,eba.aadhardob ,eba.aadharmobile ,eba.gender ,eba.aadharname, \
+                ebc."name" as caste ,ebc.id as casteid, \
+                ebr."name" as religion ,ebr.id as religionid , \
+                ebu4.transgenderid \
+            """;
 
     private static final String QUALIFICATION_QUERY = """
              ,ebq."name" as qualification ,ebu3.percentage ,ebu3.board ,ebu3.year_of_passing \
@@ -27,7 +26,7 @@ public class UserQueryBuilder {
                """;
 
     private static final String DOCUMENT_QUERY = """
-            , ebd."name" as documentname,ebu2.available  \
+            , ebd."name" as documentname, ebu2.available  \
             """;
     private static final String ADDRESS_QUERY = """
             ,  ea.pincode ,ea.housenobldgapt ,ea.subdistrict ,ea.postoffice ,ea.landmark ,ea.country ,ea.streetroadline ,ea.citytownvillage ,ea.arealocalitysector ,ea.district ,ea.state   \
@@ -52,7 +51,35 @@ public class UserQueryBuilder {
             left join eg_bmc_religion ebr on ebr.id =ebu4.religionid \
             left join eg_bmc_divyang ebd2 on ebd2.id = ebu4.divyangid \
                         """;
-    private static final String ORDERBY_NAME = " ORDER BY name DESC ";
+
+    private void addClauseIfRequired(StringBuilder query, List<Object> preparedStmtList) {
+        if (preparedStmtList.isEmpty()) {
+            query.append(" WHERE ");
+        } else {
+            query.append(" AND ");
+        }
+    }
+
+    private String createQuery(List<String> ids) {
+        StringBuilder builder = new StringBuilder();
+        int length = ids.size();
+        for (int i = 0; i < length; i++) {
+            builder.append(" ?");
+            if (i != length - 1)
+                builder.append(",");
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Adds the given list of IDs to the prepared statement list.
+     *
+     * @param preparedStmtList The list of parameters for the prepared statement.
+     * @param ids              The list of IDs to be added.
+     */
+    private void addToPreparedStatement(List<Object> preparedStmtList, List<String> ids) {
+        ids.forEach(preparedStmtList::add);
+    }
 
     public String getUserSearchQuery(UserSearchCriteria criteria, List<Object> preparedStmtList) {
         StringBuilder query = new StringBuilder(BASE_QUERY);
@@ -85,43 +112,12 @@ public class UserQueryBuilder {
         }
         query.append(FROM_TABLES);
         addClauseIfRequired(query, preparedStmtList);
-        query.append(" ebu.userid = ? ");
+        query.append(" eu.id = ? ");
         preparedStmtList.add(criteria.getUserId());
         addClauseIfRequired(query, preparedStmtList);
-        query.append(" ebu.tenantid = ? ");
+        query.append(" eu.tenantid = ? ");
         preparedStmtList.add(criteria.getTenantId());
-
-       // query.append(ORDERBY_NAME);
         return query.toString();
-    }
-
-    private void addClauseIfRequired(StringBuilder query, List<Object> preparedStmtList) {
-        if (preparedStmtList.isEmpty()) {
-            query.append(" WHERE ");
-        } else {
-            query.append(" AND ");
-        }
-    }
-
-    private String createQuery(List<String> ids) {
-        StringBuilder builder = new StringBuilder();
-        int length = ids.size();
-        for (int i = 0; i < length; i++) {
-            builder.append(" ?");
-            if (i != length - 1)
-                builder.append(",");
-        }
-        return builder.toString();
-    }
-
-    /**
-     * Adds the given list of IDs to the prepared statement list.
-     *
-     * @param preparedStmtList The list of parameters for the prepared statement.
-     * @param ids              The list of IDs to be added.
-     */
-    private void addToPreparedStatement(List<Object> preparedStmtList, List<String> ids) {
-        ids.forEach(preparedStmtList::add);
     }
 
 }
