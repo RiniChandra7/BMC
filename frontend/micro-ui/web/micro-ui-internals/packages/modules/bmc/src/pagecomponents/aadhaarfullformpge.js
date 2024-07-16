@@ -11,8 +11,10 @@ import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import addhardata from "./aadhaarData.json";
 import dropdownOptions from "./dropdownOptions.json";
+import BankDetails from "../components/BankDetails";
+
 const AadhaarFullFormPage = (_props) => {
-  const {formData, config } = _props;
+  const { formData, config } = _props;
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState(formData?.disableType);
@@ -52,9 +54,26 @@ const AadhaarFullFormPage = (_props) => {
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
         <Title text={"Applicant Details"} />
-        <PersonalDetailCard onUpdate={handlePersonalDetailUpdate} initialRows={addhardata.aadhaarInfo} tenantId={tenantId} AllowEdit={true}></PersonalDetailCard>
-        <AddressDetailCard onUpdate={handleAddressUpdate} initialRows={addhardata.aadhaarInfo} tenantId={tenantId} AllowEdit={true}></AddressDetailCard>
-        <QualificationCard onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} tenantId={tenantId} AddOption={true} AllowRemove={true}></QualificationCard>
+        <PersonalDetailCard
+          onUpdate={handlePersonalDetailUpdate}
+          initialRows={addhardata.aadhaarInfo}
+          tenantId={tenantId}
+          AllowEdit={true}
+        ></PersonalDetailCard>
+        <AddressDetailCard
+          onUpdate={handleAddressUpdate}
+          initialRows={addhardata.aadhaarInfo}
+          tenantId={tenantId}
+          AllowEdit={true}
+        ></AddressDetailCard>
+        <QualificationCard
+          onUpdate={handleQualificationsUpdate}
+          initialRows={dropdownOptions.education}
+          tenantId={tenantId}
+          AddOption={true}
+          AllowRemove={true}
+        ></QualificationCard>
+        <BankDetails initialRows={dropdownOptions.education} tenantId={tenantId} AddOption={true} AllowRemove={true} />
 
         <div className="bmc-card-row">
           <div className="bmc-col1-card" style={{ paddingLeft: "2.5rem" }}>
@@ -100,7 +119,6 @@ const AadhaarFullFormPage = (_props) => {
             {t("BMC_Cancel")}
           </button>
         </div>
-
       </div>
     </React.Fragment>
   );

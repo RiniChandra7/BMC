@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
@@ -13,7 +13,6 @@ const SelectSchemePage = () => {
   const [selectedRadio, setSelectedRadio] = useState("");
   const [selectedScheme, setSelectedScheme] = useState(null);
   const history = useHistory();
-  const location = useLocation();
   const [schemeHeads, setSchemeHeads] = useState([]);
   const [schemeDetails, setSchemeDetails] = useState([]);
 
@@ -183,19 +182,27 @@ const SelectSchemePage = () => {
           <div className="bmc-row-card-header">
             {selectedScheme.courses.map((course, index) => (
               <div key={index} style={{ backgroundColor: "#F7F5F5", padding: "1rem", borderRadius: "10px", margin: "5px" }}>
-                <RadioButton
-                  t={t}
-                  optionsKey="value"
-                  options={[{ label: course.i18nKey, value: course.i18nKey }]}
-                  selectedOption={radioValueCheck}
-                  onSelect={setRadioValueCheck}
-                  style={{ marginTop: "0", marginBottom: "0" }}
-                  value={selectedRadio}
-                  isMandatory={true}
-                />
+                <div className="bmc-card-row">
+                  <div className="bmc-col-large-header">
+                    <RadioButton
+                      t={t}
+                      optionsKey="value"
+                      options={[{ label: course.i18nKey, value: course.i18nKey }]}
+                      selectedOption={radioValueCheck}
+                      onSelect={setRadioValueCheck}
+                      style={{ marginTop: "0", marginBottom: "0" }}
+                      value={selectedRadio}
+                      isMandatory={true}
+                    />
+                  </div>
+                  <div className="bmc-col-small-header" style={{ textAlign: "end" }}>
+                    <span>Amount: ₹ {course.courseAmount}</span>
+                  </div>
+                </div>
+
                 <p style={{ paddingLeft: "4rem" }}>
                   <label htmlFor={`course-${course.courseID}`}>
-                    <strong>{course.i18nKey}</strong>: {course.courseDesc} (Duration: {course.courseDuration}, Amount: INR.{course.courseAmount})
+                    <strong>{course.i18nKey}</strong>: {course.courseDesc} (Duration: {course.courseDuration})
                   </label>
                 </p>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -222,19 +229,26 @@ const SelectSchemePage = () => {
           <div className="bmc-row-card-header">
             {selectedScheme.machines.map((machine, index) => (
               <div key={index} style={{ backgroundColor: "#F7F5F5", padding: "1rem", borderRadius: "10px", margin: "5px" }}>
-                <RadioButton
-                  t={t}
-                  optionsKey="value"
-                  options={[{ label: machine.machName, value: machine.i18nKey }]}
-                  selectedOption={radioValueCheck}
-                  onSelect={setRadioValueCheck}
-                  style={{ marginTop: "0", marginBottom: "0" }}
-                  value={selectedRadio}
-                  isMandatory={true}
-                />
+                <div className="bmc-card-row">
+                  <div className="bmc-col-large-header">
+                    <RadioButton
+                      t={t}
+                      optionsKey="value"
+                      options={[{ label: machine.machName, value: machine.i18nKey }]}
+                      selectedOption={radioValueCheck}
+                      onSelect={setRadioValueCheck}
+                      style={{ marginTop: "0", marginBottom: "0" }}
+                      value={selectedRadio}
+                      isMandatory={true}
+                    />
+                  </div>
+                  <div className="bmc-col-small-header" style={{ textAlign: "end" }}>
+                    Amount: ₹ {machine.machAmount}
+                  </div>
+                </div>
                 <p style={{ paddingLeft: "4rem" }}>
                   <label htmlFor={`machine-${machine.machID}`}>
-                    <strong>{machine.i18nKey}</strong>: {machine.machDesc} (Amount: INR.{machine.machAmount})
+                    <strong>{machine.i18nKey}</strong>: {machine.machDesc}
                   </label>
                 </p>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
