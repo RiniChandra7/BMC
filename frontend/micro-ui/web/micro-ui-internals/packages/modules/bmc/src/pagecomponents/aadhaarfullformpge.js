@@ -9,66 +9,15 @@ import PersonalDetailCard from "../components/PersonalDetails";
 import QualificationCard from "../components/QualificationCard";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
-
+import addhardata from "./aadhaarData.json";
 import dropdownOptions from "./dropdownOptions.json";
 const AadhaarFullFormPage = (_props) => {
   const {formData, config } = _props;
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState(formData?.disableType);
   const history = useHistory();
-  const [castes, setCastes] = useState([]);
-  const [religions, setReligions] = useState([]);
-  const [divyangs, setDivyangs] = useState([]);
-  const [qualifications, setQualifications] = useState([]);
   const [selectedOptionCard, setSelectedOptionCard] = useState("No");
-
-  const processCommonData = (data, headerLocale) => {
-    return (
-      data?.CommonDetails?.map((item) => ({
-        code: item.id,
-        name: item.name,
-        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
-      })) || []
-    );
-  };
-
-  const casteFunction = (data) => {
-    const castesData = processCommonData(data, headerLocale);
-    setCastes(castesData);
-    return { castesData };
-  };
-
-  const religionFunction = (data) => {
-    const religionsData = processCommonData(data, headerLocale);
-    setReligions(religionsData);
-    return { religionsData };
-  };
-
-  const qualificationFunction = (data) => {
-    const qualificationData = processCommonData(data, headerLocale);
-    setQualifications(qualificationData);
-    return { qualificationData };
-  };
-
-  const divyangFunction = (data) => {
-    const divyangData = processCommonData(data, headerLocale);
-    setDivyangs(divyangData);
-    return { divyangData };
-  };
-
-  const getCaste = { CommonSearchCriteria: { Option: "caste" } };
-  const getReligion = { CommonSearchCriteria: { Option: "religion" } };
-  const getQualification = { CommonSearchCriteria: { Option: "qualification" } };
-  const getDivyang = { CommonSearchCriteria: { Option: "divyang" } };
-
-  Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
-  Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
-  Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
-  Digit.Hooks.bmc.useCommonGet(getDivyang, { select: divyangFunction });
-
-
   const goNext = () => {
     if (selectedOption.value === "Yes") {
       history.push("/digit-ui/citizen/bmc/selectScheme", { selectedOption: "Yes" });
@@ -103,9 +52,9 @@ const AadhaarFullFormPage = (_props) => {
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
         <Title text={"Applicant Details"} />
-        <PersonalDetailCard castes={castes} religions={religions} onUpdate={handlePersonalDetailUpdate} initialRows={[]} tenantId={tenantId} headerLocale={headerLocale} AllowEdit={false}></PersonalDetailCard>
-        <AddressDetailCard onUpdate={handleAddressUpdate} initialRows={[]} tenantId={tenantId} headerLocale={headerLocale} AllowEdit={true}></AddressDetailCard>
-        <QualificationCard qualifications={qualifications} onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} AddOption={true} AllowRemove={true}></QualificationCard>
+        <PersonalDetailCard onUpdate={handlePersonalDetailUpdate} initialRows={addhardata.aadhaarInfo} tenantId={tenantId} AllowEdit={true}></PersonalDetailCard>
+        <AddressDetailCard onUpdate={handleAddressUpdate} initialRows={addhardata.aadhaarInfo} tenantId={tenantId} AllowEdit={true}></AddressDetailCard>
+        <QualificationCard onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} tenantId={tenantId} AddOption={true} AllowRemove={true}></QualificationCard>
 
         <div className="bmc-card-row">
           <div className="bmc-col1-card" style={{ paddingLeft: "2.5rem" }}>
@@ -131,7 +80,7 @@ const AadhaarFullFormPage = (_props) => {
         </div>
 
         {selectedOptionCard.value === "Yes" && (
-          <DisabilityCard divyangs={divyangs} onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={true}></DisabilityCard>
+          <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} tenantId={tenantId} AllowEdit={true}></DisabilityCard>
         )}
 
         <div className="bmc-card-row" style={{ textAlign: "end" }}>

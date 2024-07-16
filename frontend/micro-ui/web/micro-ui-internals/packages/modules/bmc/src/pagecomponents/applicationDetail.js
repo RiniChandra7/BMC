@@ -4,10 +4,13 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
+import DisabilityCard from "../components/DisabilityCard";
 import QualificationCard from "../components/QualificationCard";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import dropdownOptions from "./dropdownOptions.json";
+import BankDetails from "../components/BankDetails";
+
 const ApplicationDetail = () => ({
   rationCard: "",
   machineName: "",
@@ -68,7 +71,7 @@ const ApplicationDetailFull = (_props) => {
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
   const [isCheckedShow, setIsCheckedShow] = useState(false);
-  const [rangeValue, setRangeValue] = useState(1);
+  const [documents, setDocuments] = useState([]);
 
   const [qualifications, setQualifications] = useState([]);
   const processCommonData = (data, headerLocale) => {
@@ -80,6 +83,7 @@ const ApplicationDetailFull = (_props) => {
       })) || []
     );
   };
+
   const qualificationFunction = (data) => {
     const qualificationData = processCommonData(data, headerLocale);
     setQualifications(qualificationData);
@@ -87,9 +91,14 @@ const ApplicationDetailFull = (_props) => {
   };
   const getQualification = { CommonSearchCriteria: { Option: "qualification" } };
   Digit.Hooks.bmc.useCommonGet(getQualification, { select: qualificationFunction });
-  const handleChange = (e) => {
-    setRangeValue(parseInt(e.target.value));
+
+  const documentFunction = (data) => {
+    const documentsData = processCommonData(data, headerLocale);
+    setDocuments(documentsData);
+    return { documentsData };
   };
+  const getDocuments = { CommonSearchCriteria: { Option: "document" } };
+  Digit.Hooks.bmc.useCommonGet(getDocuments, { select: documentFunction });
 
   const history = useHistory();
 
@@ -109,13 +118,16 @@ const ApplicationDetailFull = (_props) => {
   const handleQualificationsUpdate = (updatedQualifications) => {
     //setQualifications(updatedQualifications);
     console.log(updatedQualifications);
-};
+  };
   const onSubmit = (data) => {
     history.push("/digit-ui/citizen/bmc/review");
     const formDataValues = { ...data, bankPassbook, domicileofMumbai, incomeCer, voterId, panCard, business };
     setOwner(formDataValues);
   };
-
+  const handleDisabilityUpdate = (updatedDisability) => {
+    //setQualifications(updatedQualifications);
+    console.log(updatedDisability);
+  };
   return (
     <React.Fragment>
       <div className="bmc-card-full">
@@ -503,144 +515,8 @@ const ApplicationDetailFull = (_props) => {
             )}
           </div>
         </div>
+        <BankDetails AllowRemove={false} />
 
-        <div className="bmc-row-card-header">
-          <div className="bmc-card-row">
-            <div className="bmc-title">Bank Details</div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{t("BMC_Bank_Name*")}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"bankName"}
-                  rules={{
-                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                  }}
-                  render={(props) => (
-                    <Dropdown
-                      placeholder={"Select Bank"}
-                      selected={props.value}
-                      select={(value) => {
-                        props.onChange(value);
-                      }}
-                      onBlur={props.onBlur}
-                      option={dropdownOptions.bankName}
-                      optionKey="value"
-                      t={t}
-                      isMandatory={true}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{t("BMC_Branch_Name*")}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"branchName"}
-                  rules={{
-                    required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                  }}
-                  render={(props) => (
-                    <Dropdown
-                      placeholder={"Select Branch"}
-                      selected={props.value}
-                      select={(value) => {
-                        props.onChange(value);
-                      }}
-                      onBlur={props.onBlur}
-                      option={dropdownOptions.bankBranch}
-                      optionKey="value"
-                      t={t}
-                      isMandatory={true}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_Account_Number*"}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"accountNumber"}
-                  defaultValue={owner?.accountNumber}
-                  render={(props) => (
-                    <TextInput
-                      value={props.value}
-                      isMandatory={true}
-                      placeholder={"Enter the accountNumber"}
-                      autoFocus={focusIndex.index === owner?.key && focusIndex.type === "accountNumber"}
-                      onChange={(e) => {
-                        props.onChange(e.target.value);
-                        setFocusIndex({ index: owner.key, type: "wardNameMaster" });
-                      }}
-                      onBlur={(e) => {
-                        setFocusIndex({ index: -1 });
-                        props.onBlur(e);
-                      }}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_IFSC_Code*"}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"ifscCode"}
-                  defaultValue={owner?.ifscCode}
-                  render={(props) => (
-                    <TextInput
-                      value={props.value}
-                      isMandatory={true}
-                      placeholder={"Enter the ifscCode"}
-                      autoFocus={focusIndex.index === owner?.key && focusIndex.type === "ifscCode"}
-                      onChange={(e) => {
-                        props.onChange(e.target.value);
-                        setFocusIndex({ index: owner.key, type: "ifscCode" });
-                      }}
-                      onBlur={(e) => {
-                        setFocusIndex({ index: -1 });
-                        props.onBlur(e);
-                      }}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-          </div>
-          <div className="bmc-card-row">
-            <div className="bmc-col3-card">
-              <LabelFieldPair>
-                <CardLabel className="bmc-label">{"BMC_MICR_Code*"}</CardLabel>
-                <Controller
-                  control={control}
-                  name={"micrCode"}
-                  defaultValue={owner?.micrCode}
-                  render={(props) => (
-                    <TextInput
-                      value={props.value}
-                      isMandatory={true}
-                      placeholder={"Enter the micrCode"}
-                      autoFocus={focusIndex.index === owner?.key && focusIndex.type === "micrCode"}
-                      onChange={(e) => {
-                        props.onChange(e.target.value);
-                        setFocusIndex({ index: owner.key, type: "micrCode" });
-                      }}
-                      onBlur={(e) => {
-                        setFocusIndex({ index: -1 });
-                        props.onBlur(e);
-                      }}
-                    />
-                  )}
-                />
-              </LabelFieldPair>
-            </div>
-          </div>
-        </div>
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Occupation Details</div>
@@ -680,91 +556,37 @@ const ApplicationDetailFull = (_props) => {
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Document's Details</div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                <CardLabel className="bmc-label">{t("BMC_Domicile_Certificate_of_Mumbai")}</CardLabel>
-                <RadioButton
+            <Controller
+              control={control}
+              name={"pension"}
+              rules={{
+                required: t("CORE_COMMON_REQUIRED_ERRMSG"),
+              }}
+              render={(props) => (
+                <Dropdown
+                  placeholder="Select the documents"
+                  selected={props.value}
+                  select={(value) => {
+                    props.onChange(value);
+                  }}
+                  onBlur={props.onBlur}
+                  option={documents}
+                  optionKey="i18nKey"
                   t={t}
-                  optionsKey="value"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                  ]}
-                  style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
-                  selectedOption={domicileofMumbai}
-                  onSelect={(value) => setDomicileofMumbai(value)}
+                  isMandatory={true}
                 />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                <CardLabel className="bmc-label">{t("BMC_Income_Certificate")}</CardLabel>
-                <RadioButton
-                  t={t}
-                  optionsKey="value"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                  ]}
-                  style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
-                  selectedOption={incomeCer}
-                  onSelect={(value) => setIncomeCer(value)}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                <CardLabel className="bmc-label">{t("BMC_Voter_Id_Card")}</CardLabel>
-                <RadioButton
-                  t={t}
-                  optionsKey="value"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                  ]}
-                  style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
-                  selectedOption={voterId}
-                  onSelect={(value) => setVoterId(value)}
-                />
-              </LabelFieldPair>
-            </div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                <CardLabel className="bmc-label">{t("BMC_Pan_Card")}</CardLabel>
-                <RadioButton
-                  t={t}
-                  optionsKey="value"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                  ]}
-                  style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
-                  selectedOption={panCard}
-                  onSelect={(value) => setPanCard(value)}
-                />
-              </LabelFieldPair>
-            </div>
-          </div>
-          <div className="bmc-card-row">
-            <div className="bmc-col3-card">
-              <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                <CardLabel className="bmc-label">{t("BMC_Bank_Passbook")}</CardLabel>
-                <RadioButton
-                  t={t}
-                  optionsKey="value"
-                  options={[
-                    { label: "Yes", value: "Yes" },
-                    { label: "No", value: "No" },
-                  ]}
-                  style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
-                  selectedOption={bankPassbook}
-                  onSelect={(value) => setBankPassBook(value)}
-                />
-              </LabelFieldPair>
-            </div>
+              )}
+            />
           </div>
         </div>
-        <QualificationCard qualifications={qualifications} onUpdate={handleQualificationsUpdate} initialRows={dropdownOptions.education} AddOption={false} AllowRemove={false}></QualificationCard>
+        <QualificationCard
+          qualifications={qualifications}
+          onUpdate={handleQualificationsUpdate}
+          initialRows={dropdownOptions.education}
+          AddOption={false}
+          AllowRemove={false}
+        ></QualificationCard>
+        <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={false}></DisabilityCard>
         <div className="bmc-card-row">
           <div className="bmc-col-large-header">
             <div className="bmc-checkbox">

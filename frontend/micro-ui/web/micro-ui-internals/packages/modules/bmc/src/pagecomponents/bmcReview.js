@@ -1,14 +1,10 @@
-import { CardLabel, LabelFieldPair, Modal, TextInput } from "@egovernments/digit-ui-react-components";
+import { CardLabel, EditIcon, LabelFieldPair, Modal, TextInput, WorkflowActions, WorkflowTimeline } from "@egovernments/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
 import Title from "../components/title";
-
-import {
-  EditIcon
-} from "@egovernments/digit-ui-react-components";
 
 const defaultImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO4AAADUCAMAAACs0e/bAAAAM1BMVEXK0eL" +
@@ -1255,7 +1251,17 @@ const ReviewDetailForm = (_props) => {
             </Modal>
           </div>
         )}
+        
       </div>
+      <WorkflowTimeline tenantId={"mh"} businessService={"bmc-schemes"} applicationNo={"MH-0001"}></WorkflowTimeline>
+      <WorkflowActions 
+        ActionBarStyle={{}}
+        MenuStyle={{}}
+        businessService={"bmc-schemes"}
+        applicationNo={"MH-0001"}
+        tenantId={"mh"}
+        moduleCode={"BMC"}
+      />
     </React.Fragment>
   );
 };

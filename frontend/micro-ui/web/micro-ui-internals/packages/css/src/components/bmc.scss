@@ -187,6 +187,13 @@
   float: left;
 }
 
+.bmc-col4-card {
+  width: 20%;
+  padding: 5px;
+  box-sizing: border-box;
+  float: left;
+}
+
 .bmc-card-button-cancel {
   background-color: #b1b4b6;
   width: 147px;
@@ -305,7 +312,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin: 0 auto;
-  padding: 1rem;
   width: 100%;
 }
 
@@ -463,6 +469,7 @@
 .bmc-hover-table td {
   padding: 0.625em;
   text-align: center;
+  border: 1px solid #ddd;
 }
 
 .bmc-hover-table th {
@@ -761,9 +768,121 @@
   transform: translateX(-50%);
 }
 
-
-.bmc-add-icon{
-  width: 25px;
-  height: 25px;
+.bmc-add-icon {
+  width: 30px;
+  height: 30px;
   background-color: #4caf50;
+  border-radius: 50%;
+}
+
+.bmc-employee-modal .header-content {
+  width: 100%;
+}
+
+.bmc-employee-modal .header-wrap {
+  margin: 0;
+  margin-bottom: 0;
+}
+
+.bmc-employee-modal .popup-module {
+  width: 650px;
+  padding-bottom: 1rem;
+  border-radius: 10px;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+}
+
+.bmc-employee-modal .popup-module-main {
+  padding: 0;
+}
+
+.aadhaar-dash {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-right: 0.2rem;
+}
+
+.employee-card-input .disabled {
+  color: #0b0c0c;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 120px; /* Ensure this width is enough for the longest label */
+  display: inline-block;
+  top: 10px;
+}
+
+.toggle-switch-checkbox {
+  display: none;
+}
+
+.toggle-switch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  height: 34px; /* Ensure height is sufficient for text */
+}
+
+.toggle-switch-inner {
+  display: flex; /* Use flex to center content */
+  width: 200%; /* Ensure the inner width fits both labels */
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.toggle-switch-inner:before,
+.toggle-switch-inner:after {
+  flex: 1; /* Each half takes up equal space */
+  height: 100%;
+  padding: 0; /* Remove any padding */
+  line-height: 31px; /* Center text vertically */
+  font-size: 12px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+  text-align: center; /* Center text horizontally */
+}
+
+.toggle-switch-inner:before {
+  content: attr(data-yes);
+  background-color: #038403;
+  color: #fff;
+}
+
+.toggle-switch-inner:after {
+  content: attr(data-no);
+  background-color: #940202;
+  color: #fff;
+}
+
+.toggle-switch-switch {
+  display: block;
+  width: 31px; /* Match the height for a square switch */
+  margin: 0;
+  background: #f47738;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0px; /* Adjust left to start at the beginning of the switch */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: all 0.3s ease-in 0s;
+}
+
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
+  margin-left: 0;
+}
+
+.toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
+  left: calc(100% - 31px); /* Adjust to match the width */
+}
+
+.toggle-switch.disabled .toggle-switch-label {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

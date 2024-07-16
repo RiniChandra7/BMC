@@ -110,31 +110,34 @@ const AadhaarVerification = ({ t, setError: setFormError, clearErrors: clearForm
                 <div className="bmc-title" style={{ textAlign: "center" }}>
                   Aadhaar Verification
                 </div>
-               
+
                 <LabelFieldPair>
                   <CardLabel className="aadhaar-label">{"BMC_AADHAAR_LABEL"}</CardLabel>
                   <div className="aadhaar-container">
                     {aadhaar.map((digit, index) => (
-                      <TextInput
-                        key={index}
-                        id={`aadhaar-${index}`}
-                        t={t}
-                        type="number"
-                        isMandatory={false}
-                        optionKey="i18nKey"
-                        name={`aadhaar-${index}`}
-                        onBlur={onBlur}
-                        value={digit}
-                        onChange={(e) => handleAadhaarChange(e, index)}
-                        onKeyDown={(e) => handleKeyDownAadhaar(e, index)}
-                        className="aadhaar-input"
-                        maxLength={1}
-                        validation={{
-                          required: true,
-                          minLength: 12,
-                          maxLength: 12,
-                        }}
-                      />
+                      <React.Fragment>
+                        <TextInput
+                          key={index}
+                          id={`aadhaar-${index}`}
+                          t={t}
+                          type="number"
+                          isMandatory={false}
+                          optionKey="i18nKey"
+                          name={`aadhaar-${index}`}
+                          onBlur={onBlur}
+                          value={digit}
+                          onChange={(e) => handleAadhaarChange(e, index)}
+                          onKeyDown={(e) => handleKeyDownAadhaar(e, index)}
+                          className="aadhaar-input"
+                          maxLength={1}
+                          validation={{
+                            required: true,
+                            minLength: 12,
+                            maxLength: 12,
+                          }}
+                        />
+                        {(index === 3 || index === 7) && <span className="aadhaar-dash">-</span>}
+                      </React.Fragment>
                     ))}
                   </div>
                 </LabelFieldPair>
