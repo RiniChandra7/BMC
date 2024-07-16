@@ -1,4 +1,4 @@
-import { CardLabel, EditIcon, LabelFieldPair, Modal, TextInput, WorkflowActions, WorkflowTimeline } from "@egovernments/digit-ui-react-components";
+import { CardLabel, LabelFieldPair, Modal, TextInput, WorkflowActions, WorkflowTimeline } from "@egovernments/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -607,7 +607,6 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
-                    <EditIcon className="fill-path-primary-main" onChange={() => handleEdit("religion")} />
                   </LabelFieldPair>
                 </div>
               </div>
@@ -643,7 +642,6 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
-                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
                 <div className="bmc-col1-card">
@@ -677,7 +675,6 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
-                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
                 <div className="bmc-col1-card">
@@ -711,7 +708,6 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
-                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
               </div>
@@ -747,7 +743,6 @@ const ReviewDetailForm = (_props) => {
                         />
                       )}
                     />
-                    <EditIcon className="fill-path-primary-main" />
                   </LabelFieldPair>
                 </div>
               </div>
@@ -795,7 +790,6 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
-                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
             <div className="bmc-col3-card">
@@ -829,7 +823,6 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
-                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
             <div className="bmc-col3-card">
@@ -863,7 +856,6 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
-                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
             <div className="bmc-col3-card">
@@ -897,7 +889,6 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
-                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
           </div>
@@ -933,7 +924,6 @@ const ReviewDetailForm = (_props) => {
                     />
                   )}
                 />
-                <EditIcon className="fill-path-primary-main" />
               </LabelFieldPair>
             </div>
           </div>
@@ -1251,15 +1241,14 @@ const ReviewDetailForm = (_props) => {
             </Modal>
           </div>
         )}
-        
       </div>
-      <WorkflowTimeline tenantId={"mh"} businessService={"bmc-schemes"} applicationNo={"MH-0001"}></WorkflowTimeline>
-      <WorkflowActions 
+      <WorkflowTimeline tenantId={"mh.mumbai"} businessService={"bmc-schemes"} applicationNo={"MH-0001"}></WorkflowTimeline>
+      <WorkflowActions
         ActionBarStyle={{}}
         MenuStyle={{}}
         businessService={"bmc-schemes"}
         applicationNo={"MH-0001"}
-        tenantId={"mh"}
+        tenantId={"mh.mumbai"}
         moduleCode={"BMC"}
       />
     </React.Fragment>

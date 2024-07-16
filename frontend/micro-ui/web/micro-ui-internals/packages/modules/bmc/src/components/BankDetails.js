@@ -1,200 +1,166 @@
-import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import React, { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { CardLabel, Dropdown, LabelFieldPair, TextInput, AddIcon,RemoveIcon } from "@egovernments/digit-ui-react-components";
 
-const BankDetails = ({ initialRows = [], AllowEdit = false, tenantId }) => {
-  const { t } = useTranslation();
-  const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
-  const [bankData, setBankData] = useState([]);
-  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+const bankDetails = {
+  IFSC001: {
+    bankName: "Bank A",
+    branchName: "Branch A1",
+    micrCode: "MICR001",
+  },
+  IFSC002: {
+    bankName: "Bank B",
+    branchName: "Branch B1",
+    micrCode: "MICR002",
+  },
+  // Add more bank details here
+};
 
-  const processCommonData = (data, headerLocale) => {
-    return (
-      data?.BankDetails?.map((item) => ({
-        Bank: item.Bank,
-        Branch: item.Branch,
-        AccountNumber: item.AccountNumber,
-        IFSC: item.IFSC,
-        MICR: item.MICR,
-        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
-      })) || []
-    );
-  };
-
-  const bankFunction = (data) => {
-    const bankData = processCommonData(data, headerLocale);
-    setBankData(bankData);
-    return { bankData };
-  };
-
-  const getBank = { CommonSearchCriteria: { Option: "Banks" } };
-
-  Digit.Hooks.bmc.useCommonGetBank(getBank, { select: bankFunction });
-
-  const initialDefaultValues = {
-    Bank: initialRows.Bank || "",
-    Branch: initialRows.Branch || "",
-    AccountNumber: initialRows.AccountNumber || "",
-    IFSC: initialRows.IFSC || "",
-    MICR: initialRows.MICR || "",
-  };
-
+const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRemove = true }) => {
   const {
     control,
-    formState: { errors, isValid },
-    trigger,
-  } = useForm({
-    defaultValues: initialDefaultValues,
-  });
+    setValue,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const { t } = useTranslation();
+  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+  const [rows, setRows] = useState([]);
+  const ifscCode = watch("ifscCode");
 
   useEffect(() => {
-    trigger(); // Validate the form on mount to show errors if fields are empty
-  }, [trigger]);
+    if (ifscCode) {
+      const details = bankDetails[ifscCode] || {};
+      setValue("bankName", details.bankName || "");
+      setValue("branchName", details.branchName || "");
+      setValue("micrCode", details.micrCode || "");
+    } else {
+      setValue("bankName", "");
+      setValue("branchName", "");
+      setValue("micrCode", "");
+    }
+  }, [ifscCode, setValue]);
+
+  const addRow = (data) => {
+    setRows([...rows, data]);
+  };
+
+  const removeRow = (index) => {
+    const updatedRows = rows.filter((_, i) => i !== index);
+    setRows(updatedRows);
+  };
 
   return (
-    <React.Fragment>
-      <div className="bmc-row-card-header">
-        <div className="bmc-card-row">
-          <div className="bmc-title">Bank Details</div>
-          <div className="bmc-col3-card">
-            <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Bank_Name*")}</CardLabel>
-              <Controller
-                control={control}
-                name={"bankName"}
-                rules={{
-                  required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                }}
-                render={(props) => (
-                  <Dropdown
-                    placeholder={"Select Bank"}
-                    selected={props.value}
-                    select={(value) => {
-                      props.onChange(value);
-                    }}
-                    onBlur={props.onBlur}
-                    // option={dropdownOptions.bankName}
-                    option={bankData.map((bank) => ({ value: bank.Bank, label: bank.Bank }))}
-                    optionKey="i18nKey"
-                    t={t}
-                    isMandatory={true}
-                  />
-                )}
-              />
-            </LabelFieldPair>
-          </div>
-          <div className="bmc-col3-card">
-            <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Branch_Name*")}</CardLabel>
-              <Controller
-                control={control}
-                name={"branchName"}
-                rules={{
-                  required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-                }}
-                render={(props) => (
-                  <Dropdown
-                    placeholder={"Select Branch"}
-                    selected={props.value}
-                    select={(value) => {
-                      props.onChange(value);
-                    }}
-                    onBlur={props.onBlur}
-                    // option={dropdownOptions.bankBranch}
-                    option={bankData.Branch}
-                    optionKey="i18nKey"
-                    t={t}
-                    isMandatory={true}
-                  />
-                )}
-              />
-            </LabelFieldPair>
-          </div>
-          <div className="bmc-col3-card">
-            <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_Account_Number*"}</CardLabel>
-              <Controller
-                control={control}
-                name={"accountNumber"}
-                // defaultValue={owner?.accountNumber}
-                render={(props) => (
-                  <TextInput
-                    value={props.value}
-                    isMandatory={true}
-                    placeholder={"Enter the accountNumber"}
-                    // autoFocus={focusIndex.index === owner?.key && focusIndex.type === "accountNumber"}
-                    onChange={(e) => {
-                      props.onChange(e.target.value);
-                      //   setFocusIndex({ index: owner.key, type: "wardNameMaster" });
-                    }}
-                    onBlur={(e) => {
-                      setFocusIndex({ index: -1 });
-                      props.onBlur(e);
-                    }}
-                  />
-                )}
-              />
-            </LabelFieldPair>
-          </div>
-          <div className="bmc-col3-card">
-            <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_IFSC_Code*"}</CardLabel>
-              <Controller
-                control={control}
-                name={"ifscCode"}
-                // defaultValue={owner?.ifscCode}
-                render={(props) => (
-                  <TextInput
-                    value={props.value}
-                    isMandatory={true}
-                    placeholder={"Enter the ifscCode"}
-                    // autoFocus={focusIndex.index === owner?.key && focusIndex.type === "ifscCode"}
-                    onChange={(e) => {
-                      props.onChange(e.target.value);
-                      //   setFocusIndex({ index: owner.key, type: "ifscCode" });
-                    }}
-                    onBlur={(e) => {
-                      setFocusIndex({ index: -1 });
-                      props.onBlur(e);
-                    }}
-                  />
-                )}
-              />
-            </LabelFieldPair>
-          </div>
-        </div>
-        <div className="bmc-card-row">
-          <div className="bmc-col3-card">
-            <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_MICR_Code*"}</CardLabel>
-              <Controller
-                control={control}
-                name={"micrCode"}
-                // defaultValue={owner?.micrCode}
-                render={(props) => (
-                  <TextInput
-                    value={props.value}
-                    isMandatory={true}
-                    placeholder={"Enter the micrCode"}
-                    // autoFocus={focusIndex.index === owner?.key && focusIndex.type === "micrCode"}
-                    onChange={(e) => {
-                      props.onChange(e.target.value);
-                      //   setFocusIndex({ index: owner.key, type: "micrCode" });
-                    }}
-                    onBlur={(e) => {
-                      setFocusIndex({ index: -1 });
-                      props.onBlur(e);
-                    }}
-                  />
-                )}
-              />
-            </LabelFieldPair>
-          </div>
+    <div className="bmc-row-card-header">
+      <div className="bmc-card-row">
+        <div className="bmc-title">Bank Details</div>
+        <div className="bmc-table-container" style={{ padding: "1rem" }}>
+          <form onSubmit={handleSubmit(addRow)}>
+            <table className="bmc-hover-table">
+              <thead>
+                <tr>
+                  <th scope="col">IFSCCode</th>
+                  <th scope="col">MICRCode</th>
+                  <th scope="col">AccountNumber</th>
+                  <th scope="col">BankName</th>
+                  <th scope="col">BranchName</th>
+                  {AllowRemove && <th scope="col"></th>}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="IFSC Code" style={{ textAlign: "left" }}>
+                    <Controller
+                      control={control}
+                      name="ifscCode"
+                      render={(props) => (
+                        <div>
+                          <TextInput {...props} placeholder="IFSC Code" />
+                          {errors.ifscCode && <span style={{ color: "red" }}>{errors.ifscCode.message}</span>}
+                        </div>
+                      )}
+                    />
+                  </td>
+                  <td data-label="MICR Code" style={{ textAlign: "left" }}>
+                    <Controller
+                      control={control}
+                      name="micrCode"
+                      render={(props) => (
+                        <div>
+                          <TextInput {...props} placeholder="MICR Code" disabled />
+                          {errors.micrCode && <span style={{ color: "red" }}>{errors.micrCode.message}</span>}
+                        </div>
+                      )}
+                    />
+                  </td>
+                  <td data-label="Account Number" style={{ textAlign: "left" }}>
+                    <Controller
+                      control={control}
+                      name="AccountNumber"
+                      render={(props) => (
+                        <div>
+                          <TextInput {...props} placeholder="Account Number" type="number" />
+                          {errors.AccountNumber && <span style={{ color: "red" }}>{errors.AccountNumber.message}</span>}
+                        </div>
+                      )}
+                    />
+                  </td>
+                  <td data-label="Bank Name" style={{ textAlign: "left" }}>
+                    <Controller
+                      control={control}
+                      name="bankName"
+                      render={(props) => (
+                        <div>
+                          <TextInput {...props} placeholder="Bank Name" disabled />
+                          {/* {errors.bankName && <span style={{ color: 'red' }}>{errors.bankName.message}</span>} */}
+                        </div>
+                      )}
+                    />
+                  </td>
+                  <td data-label="Branch Name" style={{ textAlign: "left" }}>
+                    <Controller
+                      control={control}
+                      name="branchName"
+                      render={(props) => (
+                        <div>
+                          <TextInput {...props} placeholder="Branch Name" disabled />
+                          {/* {errors.branchName && <span style={{ color: 'red' }}>{errors.branchName.message}</span>} */}
+                        </div>
+                      )}
+                    />
+                  </td>
+                  <td data-label="Add Row">
+                    <button type="submit">
+                      <AddIcon className="bmc-add-icon" />
+                    </button>
+                  </td>
+                </tr>
+                {rows.map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.ifscCode || "-"}</td>
+                    <td>{row.micrCode || "-"}</td>
+                    <td>{row.AccountNumber || "-"}</td>
+                    <td>{row.bankName || "-"}</td>
+                    <td>{row.branchName || "-"}</td>
+
+                    {AllowRemove && (
+                      <td data-label="Remove Row">
+                        <button type="button" onClick={() => removeRow(index)}>
+                          <RemoveIcon className="bmc-remove-icon" />
+                        </button>
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </form>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 
-export default BankDetails;
+export default BankDetailsForm;

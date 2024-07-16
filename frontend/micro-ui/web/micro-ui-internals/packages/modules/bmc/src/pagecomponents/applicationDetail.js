@@ -1,4 +1,4 @@
-import { CardLabel, CheckBox, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
+import { CardLabel, CheckBox, Dropdown, LabelFieldPair, MultiSelectDropdown, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,7 @@ import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import dropdownOptions from "./dropdownOptions.json";
 import BankDetails from "../components/BankDetails";
+import MultiSelect from "../components/multidropdown";
 
 const ApplicationDetail = () => ({
   rationCard: "",
@@ -31,7 +32,6 @@ const ApplicationDetail = () => ({
   micrCode: "",
   employee: "",
   service: "",
-  business: "",
   domicileofMumbai: "",
   incomeCer: "",
   voterId: "",
@@ -59,7 +59,7 @@ const ApplicationDetailFull = (_props) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
 
-  const { selectedScheme, selectedRadio } = location.state || {};
+  const { schemeHead, selectedScheme, selectedRadio } = location.state || {};
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
   const [owner, setOwner] = useState(formData?.owner || [ApplicationDetail()]);
   const [bankPassbook, setBankPassBook] = useState("");
@@ -67,13 +67,16 @@ const ApplicationDetailFull = (_props) => {
   const [incomeCer, setIncomeCer] = useState("");
   const [voterId, setVoterId] = useState("");
   const [panCard, setPanCard] = useState("");
-  const [business, setBusiness] = useState("");
+  const [service, setService] = useState({ value: "Service", label: "Service" });
   const [checkbox1, setCheckbox1] = useState(false);
   const [checkbox2, setCheckbox2] = useState(false);
   const [isCheckedShow, setIsCheckedShow] = useState(false);
   const [documents, setDocuments] = useState([]);
-
+  const [selectedDocuments, setSelectedDocuments] = useState([]);
   const [qualifications, setQualifications] = useState([]);
+
+  const history = useHistory();
+
   const processCommonData = (data, headerLocale) => {
     return (
       data?.CommonDetails?.map((item) => ({
@@ -100,7 +103,18 @@ const ApplicationDetailFull = (_props) => {
   const getDocuments = { CommonSearchCriteria: { Option: "document" } };
   Digit.Hooks.bmc.useCommonGet(getDocuments, { select: documentFunction });
 
-  const history = useHistory();
+
+  const handleSelect = (e, option) => {
+    if (selectedDocuments.some((doc) => doc.code === option.code)) {
+      setSelectedDocuments(selectedDocuments.filter((doc) => doc.code !== option.code));
+    } else {
+      setSelectedDocuments([...selectedDocuments, option]);
+    }
+  };
+
+  const handleClearSelection = () => {
+    setSelectedDocuments([]);
+  };
 
   const handleCheckbox = () => {
     setIsCheckedShow(!isCheckedShow);
@@ -132,7 +146,7 @@ const ApplicationDetailFull = (_props) => {
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={4} /> : null}
-        <Title text={"BMC Scheme Application Details " + selectedRadio.value + ""} />
+        <Title text={`Application for ${schemeHead} and ${selectedRadio.value}`} />
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Scheme Details</div>
@@ -515,7 +529,7 @@ const ApplicationDetailFull = (_props) => {
             )}
           </div>
         </div>
-        <BankDetails AllowRemove={false} />
+       
 
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
@@ -545,8 +559,9 @@ const ApplicationDetailFull = (_props) => {
                       { label: "Business", value: "Business" },
                     ]}
                     style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
-                    selectedOption={business}
-                    onSelect={(value) => setBusiness(value)}
+                    selectedOption={service}
+                    onSelect={(value) => setService(value)}
+                    checked={"Service" === service.value}
                   />
                 </LabelFieldPair>
               </div>
@@ -556,28 +571,33 @@ const ApplicationDetailFull = (_props) => {
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Document's Details</div>
-            <Controller
-              control={control}
-              name={"pension"}
-              rules={{
-                required: t("CORE_COMMON_REQUIRED_ERRMSG"),
-              }}
-              render={(props) => (
-                <Dropdown
-                  placeholder="Select the documents"
-                  selected={props.value}
-                  select={(value) => {
-                    props.onChange(value);
-                  }}
-                  onBlur={props.onBlur}
-                  option={documents}
-                  optionKey="i18nKey"
-                  t={t}
-                  isMandatory={true}
-                />
-              )}
-            />
+            <div className="bmc-col3-card">
+              <MultiSelect
+                options={documents}
+                optionsKey="i18nKey"
+                selected={selectedDocuments}
+                onSelect={handleSelect}
+                defaultLabel={t("No documents selected")}
+                defaultUnit={t("documents selected")}
+                t={t}
+                isOBPSMultiple={true}
+                BlockNumber={true}
+              />
+            </div>
           </div>
+          <div>
+            <h3>{t("Selected Documents:")}</h3>
+            <ul>
+              {selectedDocuments.map((doc) => (
+                <li key={doc.value}>{t(doc.i18nKey)}</li>
+              ))}
+            </ul>
+          </div>
+          {selectedDocuments.length > 0 && (
+            <button className="bmc-card-button-cancel" onClick={handleClearSelection}>
+              {t("Clear Selection")}
+            </button>
+          )}
         </div>
         <QualificationCard
           qualifications={qualifications}
