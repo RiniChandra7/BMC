@@ -18,7 +18,7 @@ public class UserQueryBuilder {
             """;
 
     private static final String QUALIFICATION_QUERY = """
-             ,ebq."name" as qualification ,ebu3.percentage ,ebu3.board ,ebu3.year_of_passing \
+             ,ebq.id as qualificationid, ebq."name" as qualification ,ebu3.percentage ,ebu3.board ,ebu3.year_of_passing \
             """;
     private static final String BANK_QUERY = """
                 ,ebb2."name" as bankname, \

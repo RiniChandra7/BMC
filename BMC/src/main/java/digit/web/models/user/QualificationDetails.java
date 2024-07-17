@@ -13,10 +13,10 @@ import lombok.ToString;
 @Builder
 @ToString
 public class QualificationDetails {
-
+    private Long qualificationid;
     private String qualification;
     private Long percentage;
-    private Long year_of_passing;
+    private Long yearofpassing;
     private String board;
 
   

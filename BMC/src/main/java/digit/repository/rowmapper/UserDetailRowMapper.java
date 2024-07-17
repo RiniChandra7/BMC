@@ -29,105 +29,6 @@ import digit.web.models.user.UserDetails;
 @Component
 public class UserDetailRowMapper implements ResultSetExtractor<List<UserDetails>> {
     
-  /*  public List<UserDetails> extractData(ResultSet rs) throws SQLException, DataAccessException {
-        Map<String, UserDetails> userDetailsMap = new LinkedHashMap<>();
-        while (rs.next()) {
-            String userId = rs.getString("userid");
-            UserDetails userDetails = userDetailsMap.get(userId);
-            if (userDetails == null) {
-                Caste caste  = Caste.builder()
-                .id(rs.getLong("casteid"))
-                .name(rs.getString("caste"))
-                .build();
-                Religion religion = Religion.builder()
-                .id(rs.getLong("religionid"))
-                .name(rs.getString("religion"))
-                .build();
-
-                String addr = rs.getString("housenobldgapt")+"|"+rs.getString("subdistrict")+"|"+rs.getString("postoffice")+"|"+rs.getString("landmark")+"|"+rs.getString("country")+"|"+rs.getString("streetroadline")+"|"+rs.getString("citytownvillage")+"|"+rs.getString("arealocalitysector")+"|"+rs.getString("district")+"|"+rs.getString("state");
-                Address address = Address.builder()
-                .city(rs.getString("citytownvillage"))
-                .pinCode(rs.getString("pincode"))
-                .address(addr)
-                .build();
-                DivyangDetails divyangDetails =new DivyangDetails(rs.getLong("divyangpercent"),rs.getString("divyangtype"),rs.getString("divyangcardid"));
-                
-                userDetails = UserDetails.builder()
-                .aadhardob(rs.getDate("aadhardob"))
-                .aadharfathername(rs.getString("aadharfathername"))
-                .aadharmobile(rs.getString("aadharmobile"))
-                .aadharname(rs.getString("aadharname"))
-                .caste(caste)
-                .religion(religion)
-                .address(address)
-                .userID(rs.getLong("userid"))
-                .bankDetail(new ArrayList<>())
-                .documentDetails(new ArrayList<>())
-                .divyang(divyangDetails)
-                .qualificationDetails(new ArrayList<>())
-                .build();
-                userDetailsMap.put(userId, userDetails);
-            }
-
-           // Add criteria details to the scheme
-            String documentID = rs.getString("documentname");
-            if (documentID != null) { // Check if course details are present
-                DocumentDetails documnentDetails = userDetails.getDocumentDetails().stream()
-                        .filter(c -> c.getDocumentName().equals(documentID))
-                        .findFirst()
-                        .orElse(null);
-
-                if (documnentDetails == null) {
-                    documnentDetails = DocumentDetails.builder()
-                            .documentName(documentID)
-                            .available(rs.getBoolean("available"))
-                            .build();
-
-                    userDetails.getDocumentDetails().add(documnentDetails);
-                }
-            }
-            String qualification = rs.getString("qualification");
-            if (qualification != null) { // Check if course details are present
-                QualificationDetails qualificationDetails = userDetails.getQualificationDetails().stream()
-                        .filter(c -> c.getQualification().equals(qualification))
-                        .findFirst()
-                        .orElse(null);
-
-                if (qualificationDetails == null) {
-                    qualificationDetails = QualificationDetails.builder()
-                            .qualification(qualification)
-                            .board(rs.getString("board"))
-                            .percentage(rs.getLong("percentage"))
-                            .year_of_passing(rs.getLong("year_of_passing"))
-                            .build();
-                    userDetails.getQualificationDetails().add(qualificationDetails);
-
-                }
-            }
-
-             String bank = rs.getString("ifsc").concat(rs.getString("accountnumber"));
-            if (bank != null) { // Check if course details are present
-                BankDetails bankDetails = userDetails.getBankDetail().stream()
-                        .filter(c -> c.getIfscCodes().concat(c.getAccountnumber()).equals(bank))
-                        .findFirst()
-                        .orElse(null);
-
-                if (bankDetails == null) {
-                    bankDetails = BankDetails.builder()
-                    .accountnumber(rs.getString("accountnumber"))
-                    .branchNames(rs.getString("branchname"))
-                    .name(rs.getString("bankname"))
-                    .ifscCodes(rs.getString("ifsc"))
-                    .micrCodes(rs.getString("micr"))
-
-                    .build();
-                    userDetails.getBankDetail().add(bankDetails);
-
-                }
-            }
-        }  
-        return new ArrayList<>(userDetailsMap.values());
-    } */
      @Override
     public List<UserDetails> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<String, UserDetails> userDetailsMap = new LinkedHashMap<>();
@@ -224,20 +125,21 @@ public class UserDetailRowMapper implements ResultSetExtractor<List<UserDetails>
                 }
             }
 
-            if (columns.contains("qualification")) {
-                String qualification = rs.getString("qualification");
-                if (qualification != null) {
+            if (columns.contains("qualificationid")) {
+                Long qualificationid = rs.getLong("qualificationid");
+                if (qualificationid != null) {
                     QualificationDetails qualificationDetails = userDetails.getQualificationDetails().stream()
-                        .filter(c -> c.getQualification().equals(qualification))
+                        .filter(c -> c.getQualificationid().equals(qualificationid))
                         .findFirst()
                         .orElse(null);
 
                     if (qualificationDetails == null) {
                         qualificationDetails = QualificationDetails.builder()
-                            .qualification(qualification)
+                            .qualificationid(qualificationid)
+                            .qualification(rs.getString("qualification"))
                             .board(rs.getString("board"))
                             .percentage(rs.getLong("percentage"))
-                            .year_of_passing(rs.getLong("year_of_passing"))
+                            .yearofpassing(rs.getLong("year_of_passing"))
                             .build();
                         userDetails.getQualificationDetails().add(qualificationDetails);
                     }
