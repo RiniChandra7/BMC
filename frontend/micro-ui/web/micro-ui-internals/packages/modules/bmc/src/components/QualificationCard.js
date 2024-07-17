@@ -6,18 +6,40 @@ import dropdownOptions from "../pagecomponents/dropdownOptions.json";
 
 const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = true, AllowRemove = true, ...props }) => {
   const { t } = useTranslation();
+  
   const initialDefaultValues = {
     qualification: null,
     yearOfPassing: null,
     percentage: 0,
     board: null,
   };
+
+  const processQualificationData = (items, headerLocale) => {
+    if (!Array.isArray(items)) return null;
+
+    return items.map(item => {
+      if (typeof item === 'object' && item.qualificationid && item.qualification) {
+        return {
+          qualification: {
+            id: item.qualificationid,
+            qualification: item.qualification,
+            i18nKey: `${headerLocale}_ADMIN_${item.qualification}`,
+          },
+          percentage: item.percentage,
+          yearOfPassing: { label: item.yearofpassing, value: item.yearofpassing },
+          board: { label: item.board, value: item.board }
+        };
+      }
+      return null; // Handle cases where item is neither a string nor an object with id and name
+    }).filter(item => item !== null); // Filter out null values in case of invalid items
+  };
+
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
   const [qualifications, setQualifications] = useState([]);
   const processCommonData = (data, headerLocale) => {
     return (
       data?.CommonDetails?.map((item) => ({
-        code: item.id,
+        id: item.id,
         name: item.name,
         i18nKey: `${headerLocale}_ADMIN_${item.name}`,
       })) || []
@@ -44,8 +66,9 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    setRows(initialRows);
-  }, [initialRows]);
+    const processedRows = processQualificationData(initialRows, headerLocale);
+    setRows(processedRows);
+  }, [initialRows, headerLocale]);
 
   const years = Array.from({ length: new Date().getFullYear() - 1989 }, (v, k) => ({
     label: `${1990 + k}`,
@@ -67,11 +90,13 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
     reset(initialDefaultValues);
     onUpdate(updatedRows); // Call the callback function to update the parent component
   };
+
   const removeRow = (index) => {
     const updatedRows = rows.filter((row, i) => i !== index);
     setRows(updatedRows);
     onUpdate(updatedRows); // Call the callback function to update the parent component
   };
+
   return (
     <React.Fragment>
       <div className="bmc-row-card-header">

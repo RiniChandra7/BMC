@@ -5,34 +5,64 @@ import { useTranslation } from "react-i18next";
 import dropdownOptions from "../pagecomponents/dropdownOptions.json";
 import ToggleSwitch from "./Toggle";
 
-const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tenantId }) => {
+const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tenantId }) => {
   const { t } = useTranslation();
-  const [isEditable, setIsEditable] = useState();
+  const [isEditable, setIsEditable] = useState(AllowEdit);
   const {
     control,
     watch,
     formState: { errors, isValid },
-    trigger,
+    setValue,
+    trigger
   } = useForm({
     defaultValues: {
-      firstName: initialRows.firstName || "",
+      firstName: initialRows.aadharname || "",
       middleName: initialRows.middleName || "",
       lastName: initialRows.lastName || "",
-      dob: initialRows.dob || "",
+      dob: initialRows.aadhardob || "",
       gender: initialRows.gender || "",
-      father: initialRows.father || "",
+      father: initialRows.aadharfathername || "",
       religion: initialRows.religion || "",
-      casteCategory: initialRows.casteCategory || "",
+      casteCategory: initialRows.caste || "",
     },
     mode: "all",
   });
+  const processSingleData = (item, headerLocale) => {
+    if (!item) return null;
+  
+    const genderMapping = {
+      male: { id: 1, name: 'Male' },
+      female: { id: 2, name: 'Female' },
+      transgender: { id: 3, name: 'Transgender' },
+    };
+  
+    if (typeof item === 'string') {
+      const gender = genderMapping[item.toLowerCase()];
+      if (!gender) return null; // Handle cases where the item is not one of the expected values
+      return {
+        ...gender,
+        i18nKey: `${headerLocale}_ADMIN_${gender.name.toUpperCase()}`,
+      };
+    }
+  
+    if (typeof item === 'object' && item.id && item.name) {
+      return {
+        id: item.id,
+        name: item.name,
+        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+      };
+    }
+  
+    return null; // Handle cases where item is neither a string nor an object with id and name
+  };
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
   const [castes, setCastes] = useState([]);
   const [religions, setReligions] = useState([]);
+  
   const processCommonData = (data, headerLocale) => {
     return (
       data?.CommonDetails?.map((item) => ({
-        code: item.id,
+        id: item.id,
         name: item.name,
         i18nKey: `${headerLocale}_ADMIN_${item.name}`,
       })) || []
@@ -65,10 +95,26 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
   useEffect(() => {
     trigger(); // Validate the form on mount to show errors if fields are empty
   }, [trigger]);
-
+  useEffect(() => {
+    if (initialRows) {
+      const casteData = processSingleData(initialRows?.caste, headerLocale);
+      const religionData = processSingleData(initialRows?.religion, headerLocale);
+      const genderdata = processSingleData(initialRows?.gender, headerLocale);
+      setValue("firstName", initialRows.aadharname || "");
+      setValue("middleName", initialRows.middleName || "");
+      setValue("lastName", initialRows.lastName || "");
+      setValue("dob", initialRows.aadhardob || "");
+      setValue("gender", genderdata || "");
+      setValue("father", initialRows.aadharfathername || "");
+      setValue("religion", religionData|| "");
+      setValue("casteCategory", casteData || "");
+    }
+  }, [initialRows, setValue,headerLocale]);
+  
   const handleToggle = () => {
     setIsEditable(!isEditable);
   };
+
   return (
     <React.Fragment>
       <form className="bmc-row-card-header">
@@ -188,12 +234,12 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                         select={props.onChange}
                         onBlur={props.onBlur}
                         option={dropdownOptions.gender}
-                        optionKey="label"
+                        optionKey="name"
                         t={t}
                         isMandatory={true}
                       />
                     ) : (
-                      <TextInput readOnly value={props.value?.label || ""} />
+                      <TextInput readOnly value={props.value?.name || ""} />
                     )}
                     {errors.gender && <span style={{ color: "red" }}>{errors.gender.message}</span>}
                   </div>
@@ -225,7 +271,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Religion*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_RELIGION")}*</CardLabel>
               <Controller
                 control={control}
                 name="religion"
@@ -244,7 +290,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                         isMandatory={true}
                       />
                     ) : (
-                      <TextInput readOnly value={props.value?.label || ""} />
+                      <TextInput readOnly value={props.value?.i18nKey || ""} />
                     )}
                     {errors.religion && <span style={{ color: "red" }}>{errors.religion.message}</span>}
                   </div>
@@ -273,7 +319,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, ten
                         isMandatory={true}
                       />
                     ) : (
-                      <TextInput readOnly value={props.value?.label || ""} />
+                      <TextInput readOnly value={t(props.value?.i18nKey) || ""} />
                     )}
                     {errors.casteCategory && <span style={{ color: "red" }}>{errors.casteCategory.message}</span>}
                   </div>

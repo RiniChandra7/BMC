@@ -1,41 +1,41 @@
 .timeline-box {
   display: flex;
-  margin: 0px 8px 15px;
+  margin: 0 8px 15px;
 }
 
-.timeline-box .timeline-checkpoints {
+.timeline-checkpoints {
   position: relative;
   flex: 1;
   z-index: 1;
 }
 
-.timeline-box .timeline-contents {
+.timeline-contents {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.timeline-box .timeline-contents span {
+.timeline-contents span {
   text-align: center;
   color: white;
 }
 
-.timeline-box .timeline-contents .secondary-colors {
+.timeline-contents .secondary-colors {
   color: #0b0c0c;
   padding: 5px;
   font-size: small;
 }
 
-.timeline-box .line {
+.line {
   position: absolute;
   top: 7px;
   left: calc(50% + 14px);
   right: calc(-50% + 14px);
-  border-top: 16px solid #ffff;
+  border-top: 16px solid #fff;
   z-index: -1;
 }
 
-.timeline-box .circles {
+.circles {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -43,7 +43,7 @@
   border: 2px solid #f47738;
 }
 
-.timeline-box .circles.completed {
+.circles.completed {
   background-color: #f47738;
 }
 
@@ -64,7 +64,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .timeline-box .line {
+  .line {
     top: 10px;
     border-top-width: 10px;
   }
@@ -88,11 +88,11 @@
     align-items: stretch;
   }
 
-  .timeline-box .timeline-contents .secondary-colors {
+  .secondary-colors {
     display: none;
   }
 
-  .timeline-box .line {
+  .line {
     border-top-width: 10px;
   }
 
@@ -112,8 +112,7 @@
 .bmc-card-full {
   width: 100%;
   float: left;
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding: 0 4rem;
 }
 
 .aadhaar-container,
@@ -142,7 +141,6 @@
   border-radius: 20px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  max-width: 100%;
   width: 100%;
   float: left;
   transition: box-shadow 0.3s ease;
@@ -198,12 +196,12 @@
   background-color: #b1b4b6;
   width: 147px;
   height: 48px;
-  color: "black";
-  outline: "none";
+  color: black;
+  outline: none;
 }
 
 .bmc-card-button-cancel:focus {
-  outline: "none";
+  outline: none;
 }
 
 .bmc-radio-wrap {

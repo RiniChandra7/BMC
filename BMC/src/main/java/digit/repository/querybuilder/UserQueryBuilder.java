@@ -32,7 +32,7 @@ public class UserQueryBuilder {
             ,  ea.pincode ,ea.housenobldgapt ,ea.subdistrict ,ea.postoffice ,ea.landmark ,ea.country ,ea.streetroadline ,ea.citytownvillage ,ea.arealocalitysector ,ea.district ,ea.state   \
             """;
     private static final String DIVYANG_QUERY = """
-            , ebd2."name" as divyangtype,ebu4.divyangpercent ,ebu4.divyangcardid  \
+            , ebd2.id as divyangid, ebd2."name" as divyangtype,ebu4.divyangpercent ,ebu4.divyangcardid  \
             """;
 
     private static final String FROM_TABLES = """

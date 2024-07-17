@@ -82,7 +82,7 @@ public class UserDetailRowMapper implements ResultSetExtractor<List<UserDetails>
 
                 DivyangDetails divyangDetails = null;
                 if (columns.contains("divyangpercent") && columns.contains("divyangtype") && columns.contains("divyangcardid")) {
-                    divyangDetails = new DivyangDetails(rs.getLong("divyangpercent"), rs.getString("divyangtype"), rs.getString("divyangcardid"));
+                    divyangDetails = new DivyangDetails(rs.getLong("divyangid"),rs.getLong("divyangpercent"), rs.getString("divyangtype"), rs.getString("divyangcardid"));
                 }
 
                 userDetails = UserDetails.builder()

@@ -1,54 +1,54 @@
-import { CardLabel, LabelFieldPair } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import AddressDetailCard from "../components/AddressDetails";
+import BankDetails from "../components/BankDetails";
 import Timeline from "../components/bmcTimeline";
 import DisabilityCard from "../components/DisabilityCard";
 import PersonalDetailCard from "../components/PersonalDetails";
 import QualificationCard from "../components/QualificationCard";
-import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
-import addhardata from "./aadhaarData.json";
-import dropdownOptions from "./dropdownOptions.json";
-import BankDetails from "../components/BankDetails";
 
 const AadhaarFullFormPage = (_props) => {
   const { formData, config } = _props;
   const tenantId = Digit.ULBService.getCurrentTenantId();
+  const userDetails = Digit.UserService.getUser();
   const { t } = useTranslation();
-  const [selectedOption, setSelectedOption] = useState(formData?.disableType);
   const history = useHistory();
-  const [selectedOptionCard, setSelectedOptionCard] = useState("No");
-  const goNext = () => {
-    if (selectedOption.value === "Yes") {
-      history.push("/digit-ui/citizen/bmc/selectScheme", { selectedOption: "Yes" });
-    } else if (selectedOption.value === "No") {
-      history.push("/digit-ui/citizen/bmc/selectScheme", { selectedOption: "NO" });
+
+  const [userDetail, setUserDetail] = useState({});
+
+
+  const userFunction = (data) => {
+    if (data && data.UserDetails && data.UserDetails.length > 0) {
+      setUserDetail(data.UserDetails[0]);
     }
   };
 
-  function disableType(value) {
-    setSelectedOption(value);
-    setSelectedOptionCard(value);
-  }
+  const getUserDetails = { UserSearchCriteria: { Option: "full", TenantID: tenantId, UserID: userDetails?.info?.id } };
+  Digit.Hooks.bmc.useUsersDetails(getUserDetails, { select: userFunction });
+
 
   const handleQualificationsUpdate = (updatedQualifications) => {
-    //setQualifications(updatedQualifications);
     console.log(updatedQualifications);
   };
+
   const handlePersonalDetailUpdate = (updatedPersonalDetails) => {
-    //setQualifications(updatedQualifications);
     console.log(updatedPersonalDetails);
   };
+
   const handleDisabilityUpdate = (updatedDisability) => {
-    //setQualifications(updatedQualifications);
     console.log(updatedDisability);
   };
+
   const handleAddressUpdate = (updatedAddress) => {
-    //setQualifications(updatedQualifications);
     console.log(updatedAddress);
   };
+
+  const goNext = () => {
+    history.push("/digit-ui/citizen/bmc/selectScheme");
+  };
+
   return (
     <React.Fragment>
       <div className="bmc-card-full">
@@ -56,58 +56,40 @@ const AadhaarFullFormPage = (_props) => {
         <Title text={"Applicant Details"} />
         <PersonalDetailCard
           onUpdate={handlePersonalDetailUpdate}
-          initialRows={addhardata.aadhaarInfo}
+          initialRows={userDetail}
           tenantId={tenantId}
           AllowEdit={true}
-        ></PersonalDetailCard>
+        />
         <AddressDetailCard
           onUpdate={handleAddressUpdate}
-          initialRows={addhardata.aadhaarInfo}
+          initialRows={userDetail.address}
           tenantId={tenantId}
           AllowEdit={true}
-        ></AddressDetailCard>
+        />
         <QualificationCard
           onUpdate={handleQualificationsUpdate}
-          initialRows={dropdownOptions.education}
+          initialRows={userDetail.qualificationDetails}
           tenantId={tenantId}
           AddOption={true}
           AllowRemove={true}
-        ></QualificationCard>
-        <BankDetails initialRows={dropdownOptions.education} tenantId={tenantId} AddOption={true} AllowRemove={true} />
-
-        <div className="bmc-card-row">
-          <div className="bmc-col1-card" style={{ paddingLeft: "2.5rem" }}>
-            <LabelFieldPair t={t} config={config} isMandatory={true} isMultipleAllow={true}>
-              <CardLabel className="bmc-label">{t("BMC_Any_Disability")}</CardLabel>
-            </LabelFieldPair>
-          </div>
-          <div className="bmc-col1-card">
-            <RadioButton
-              isMandatory={true}
-              t={t}
-              defaultValue={selectedOption}
-              optionsKey={"value"}
-              options={[
-                { label: "Yes", value: "Yes" },
-                { label: "No", value: "No" },
-              ]}
-              selectedOption={selectedOption}
-              style={{ display: "flex", flexDirection: "row", gap: "1rem" }}
-              onSelect={disableType}
-            />
-          </div>
-        </div>
-
-        {selectedOptionCard.value === "Yes" && (
-          <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} tenantId={tenantId} AllowEdit={true}></DisabilityCard>
-        )}
-
+        />
+        <BankDetails
+          initialRows={userDetail.bankDetail}
+          tenantId={tenantId}
+          AddOption={true}
+          AllowRemove={true}
+        />
+        <DisabilityCard
+          onUpdate={handleDisabilityUpdate}
+          initialRows={userDetail.divyang}
+          tenantId={tenantId}
+          AllowEdit={true}
+        />
         <div className="bmc-card-row" style={{ textAlign: "end" }}>
           <button
             className="bmc-card-button"
             onClick={goNext}
-            style={{ borderBottom: "3px solid black", backgroundColor: selectedOption ? "#F47738" : "gray", marginRight: "1rem" }}
-            disabled={!selectedOption}
+            style={{ borderBottom: "3px solid black", marginRight: "1rem" }}
           >
             {t("BMC_Confirm")}
           </button>

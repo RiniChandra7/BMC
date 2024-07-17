@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
@@ -116,15 +116,15 @@ const SelectSchemePage = () => {
 
   Digit.Hooks.bmc.useSchemesGet(getSchems, { select: qualificationFunction });
 
-  useEffect(() => {
-    const fetchSchemeData = async () => {
-      const response = await fetch("/path/to/your/scheme/api");
-      const data = await response.json();
-      processSchemeData(data, "headerLocale");
-    };
+  // useEffect(() => {
+  //   const fetchSchemeData = async () => {
+  //     const response = await fetch("/path/to/your/scheme/api");
+  //     const data = await response.json();
+  //     processSchemeData(data, "headerLocale");
+  //   };
 
-    fetchSchemeData();
-  }, []);
+  //   fetchSchemeData();
+  // }, []);
 
   const handleSchemeSelect = (scheme) => {
     setSelectedScheme(scheme);

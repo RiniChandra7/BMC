@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { AddIcon, RemoveIcon, TextInput } from "@egovernments/digit-ui-react-components";
+import React, { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { CardLabel, Dropdown, LabelFieldPair, TextInput, AddIcon,RemoveIcon } from "@egovernments/digit-ui-react-components";
 
 const bankDetails = {
   IFSC001: {
@@ -28,18 +28,18 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
   const { t } = useTranslation();
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
   const [rows, setRows] = useState([]);
-  const ifscCode = watch("ifscCode");
+  const ifscCode = watch("ifscCodes");
 
   useEffect(() => {
     if (ifscCode) {
       const details = bankDetails[ifscCode] || {};
-      setValue("bankName", details.bankName || "");
-      setValue("branchName", details.branchName || "");
-      setValue("micrCode", details.micrCode || "");
+      setValue("name", details.bankName || "");
+      setValue("branchNames", details.branchName || "");
+      setValue("micrCodes", details.micrCode || "");
     } else {
-      setValue("bankName", "");
-      setValue("branchName", "");
-      setValue("micrCode", "");
+      setValue("name", "");
+      setValue("branchNames", "");
+      setValue("micrCodes", "");
     }
   }, [ifscCode, setValue]);
 
@@ -51,6 +51,10 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
     const updatedRows = rows.filter((_, i) => i !== index);
     setRows(updatedRows);
   };
+
+  useEffect(() => {
+    setRows(initialRows);
+  }, [initialRows]);
 
   return (
     <div className="bmc-row-card-header">
@@ -74,11 +78,11 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
                   <td data-label="IFSC Code" style={{ textAlign: "left" }}>
                     <Controller
                       control={control}
-                      name="ifscCode"
+                      name="ifscCodes"
                       render={(props) => (
                         <div>
                           <TextInput {...props} placeholder="IFSC Code" />
-                          {errors.ifscCode && <span style={{ color: "red" }}>{errors.ifscCode.message}</span>}
+                          {errors.ifscCodes && <span style={{ color: "red" }}>{errors.ifscCodes.message}</span>}
                         </div>
                       )}
                     />
@@ -86,11 +90,11 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
                   <td data-label="MICR Code" style={{ textAlign: "left" }}>
                     <Controller
                       control={control}
-                      name="micrCode"
+                      name="micrCodes"
                       render={(props) => (
                         <div>
                           <TextInput {...props} placeholder="MICR Code" disabled />
-                          {errors.micrCode && <span style={{ color: "red" }}>{errors.micrCode.message}</span>}
+                          {errors.micrCodes && <span style={{ color: "red" }}>{errors.micrCodes.message}</span>}
                         </div>
                       )}
                     />
@@ -98,11 +102,11 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
                   <td data-label="Account Number" style={{ textAlign: "left" }}>
                     <Controller
                       control={control}
-                      name="AccountNumber"
+                      name="accountnumber"
                       render={(props) => (
                         <div>
                           <TextInput {...props} placeholder="Account Number" type="number" />
-                          {errors.AccountNumber && <span style={{ color: "red" }}>{errors.AccountNumber.message}</span>}
+                          {errors.accountnumber && <span style={{ color: "red" }}>{errors.accountnumber.message}</span>}
                         </div>
                       )}
                     />
@@ -110,7 +114,7 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
                   <td data-label="Bank Name" style={{ textAlign: "left" }}>
                     <Controller
                       control={control}
-                      name="bankName"
+                      name="name"
                       render={(props) => (
                         <div>
                           <TextInput {...props} placeholder="Bank Name" disabled />
@@ -122,7 +126,7 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
                   <td data-label="Branch Name" style={{ textAlign: "left" }}>
                     <Controller
                       control={control}
-                      name="branchName"
+                      name="branchNames"
                       render={(props) => (
                         <div>
                           <TextInput {...props} placeholder="Branch Name" disabled />
@@ -139,11 +143,11 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
                 </tr>
                 {rows.map((row, index) => (
                   <tr key={index}>
-                    <td>{row.ifscCode || "-"}</td>
-                    <td>{row.micrCode || "-"}</td>
-                    <td>{row.AccountNumber || "-"}</td>
-                    <td>{row.bankName || "-"}</td>
-                    <td>{row.branchName || "-"}</td>
+                    <td>{row.ifscCodes || "-"}</td>
+                    <td>{row.micrCodes || "-"}</td>
+                    <td>{row.accountnumber || "-"}</td>
+                    <td>{row.name || "-"}</td>
+                    <td>{row.branchNames || "-"}</td>
 
                     {AllowRemove && (
                       <td data-label="Remove Row">

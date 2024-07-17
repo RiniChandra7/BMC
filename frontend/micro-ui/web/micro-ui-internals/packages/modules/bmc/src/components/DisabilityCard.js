@@ -4,22 +4,56 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import ToggleSwitch from "./Toggle";
 
-const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = false, ...props }) => {
+const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = false, ...props }) => {
   const { t } = useTranslation();
-  const [isEditable, setIsEditable] = useState();
+  const [isEditable, setIsEditable] = useState(AllowEdit);
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
-  const [rangeValue, setRangeValue] = useState(initialRows.length > 0 ? initialRows[0].disabilityPercentage : 1);
+  const [rangeValue, setRangeValue] = useState(1);
   const [divyangs, setDivyangs] = useState([]);
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+
+  const initialDefaultValues = {
+    divyangcardid: "",
+    disabilitytype: "",
+    divyangpercent: 1,
+  };
+
+  const {
+    control,
+    watch,
+    formState: { errors, isValid },
+    trigger,
+    setValue,
+  } = useForm({
+    defaultValues: initialDefaultValues,
+  });
+
   const processCommonData = (data, headerLocale) => {
     return (
       data?.CommonDetails?.map((item) => ({
-        code: item.id,
+        id: item.id,
         name: item.name,
         i18nKey: `${headerLocale}_ADMIN_${item.name}`,
       })) || []
     );
   };
+
+  const processSingleData = (item, headerLocale) => {
+    if (!item) return null;
+    if (typeof item === "object" && item.divyangid && item.divyangtype) {
+      return {
+        divyangtype: {
+          id: item.divyangid,
+          name: item.divyangtype,
+          i18nKey: `${headerLocale}_ADMIN_${item.divyangtype}`,
+        },
+        divyangcardid: item.divyangcardid,
+        divyangpercent: item.divyangpercent,
+      };
+    }
+    return null; // Handle cases where item is neither a string nor an object with id and name
+  };
+
   const handleChange = (e) => {
     setRangeValue(parseInt(e.target.value));
   };
@@ -32,22 +66,19 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
 
   const getDivyang = { CommonSearchCriteria: { Option: "divyang" } };
   Digit.Hooks.bmc.useCommonGet(getDivyang, { select: divyangFunction });
-  const initialDefaultValues = {
-    udidid: initialRows.length > 0 ? initialRows[0].udidid : "",
-    disabilitytype: initialRows.length > 0 ? initialRows[0].disabilitytype : "",
-    disabilityPercentage: initialRows.length > 0 ? initialRows[0].disabilityPercentage : 1,
-  };
-
-  const {
-    control,
-    watch,
-    formState: { errors, isValid },
-    trigger,
-  } = useForm({
-    defaultValues: initialDefaultValues,
-  });
 
   const formValues = watch();
+
+  useEffect(() => {
+    if (initialRows) {
+      const processeddata = processSingleData(initialRows, headerLocale);
+      if (processeddata) {
+        setValue("divyangcardid", processeddata.divyangcardid || "");
+        setValue("disabilitytype", processeddata.divyangtype || "");
+        setRangeValue(processeddata.divyangpercent || 1);
+      }
+    }
+  }, [initialRows, setValue, headerLocale]);
 
   useEffect(() => {
     onUpdate(formValues, isValid);
@@ -58,7 +89,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
   }, [trigger]);
 
   useEffect(() => {
-    control.setValue("disabilityPercentage", rangeValue);
+    control.setValue("divyangpercent", rangeValue);
   }, [rangeValue, control]);
 
   const handleToggle = () => {
@@ -78,8 +109,8 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
                 id={"DisabilityToggle"}
                 isOn={isEditable}
                 handleToggle={handleToggle}
-                onLabel="Editable"
-                offLabel="Readonly"
+                onLabel="Yes"
+                offLabel="No"
                 disabled={!AllowEdit}
               />
             </div>
@@ -89,7 +120,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
               <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
               <Controller
                 control={control}
-                name={"udidid"}
+                name={"divyangcardid"}
                 rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
                 render={(props) => (
                   <div>
@@ -108,7 +139,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
                         props.onBlur(e);
                       }}
                     />
-                    {errors.udidid && <span style={{ color: "red" }}>{errors.udidid.message}</span>}
+                    {errors.divyangcardid && <span style={{ color: "red" }}>{errors.divyangcardid.message}</span>}
                   </div>
                 )}
               />
@@ -137,7 +168,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
                         isMandatory={true}
                       />
                     ) : (
-                      <TextInput readOnly value={props.value?.label || ""} />
+                      <TextInput readOnly value={props.value?.name || ""} />
                     )}
                     {errors.disabilitytype && <span style={{ color: "red" }}>{errors.disabilitytype.message}</span>}
                   </div>
@@ -150,7 +181,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
               <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
               <Controller
                 control={control}
-                name={"disabilityPercentage"}
+                name={"divyangpercent"}
                 rules={{
                   required: t("CORE_COMMON_REQUIRED_ERRMSG"),
                 }}
@@ -175,7 +206,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = [], AllowEdit = fals
                       ))}
                     </datalist>
                     <span className="range-value">Disability: {rangeValue}%</span>
-                    {errors.disabilityPercentage && <span style={{ color: "red" }}>{errors.disabilityPercentage.message}</span>}
+                    {errors.divyangpercent && <span style={{ color: "red" }}>{errors.divyangpercent.message}</span>}
                   </div>
                 )}
               />

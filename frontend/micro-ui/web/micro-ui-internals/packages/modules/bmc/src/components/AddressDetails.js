@@ -6,7 +6,7 @@ import ToggleSwitch from "./Toggle";
 
 const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tenantId }) => {
   const { t } = useTranslation();
-  const [isEditable, setIsEditable] = useState();
+  const [isEditable, setIsEditable] = useState(AllowEdit);
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
   const {
     control,
@@ -24,14 +24,42 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
       subDistrict: initialRows.subDistrict || "",
       district: initialRows.district || "",
       state: initialRows.state || "",
-      zoneName: initialRows.zoneName || `${headerLocale}_ADMIN_${"Z-1"}`,
-      pincode: initialRows.pincode || "",
-      blockName: initialRows.blockName || `${headerLocale}_ADMIN_${"Ward-A"}`,
-      wardName: initialRows.wardName || `${headerLocale}_ADMIN_${"NG_03"}`,
+      zoneName: initialRows.zoneName || "",
+      pincode: initialRows.pinCode || "",
+      blockName: initialRows.blockName || "",
+      wardName: initialRows.wardName || "",
     },
     mode: "all",
   });
 
+  const processSingleData = (item, headerLocale) => {
+    if (!item) return null;
+  
+    const genderMapping = {
+      male: { id: 1, name: 'Male' },
+      female: { id: 2, name: 'Female' },
+      transgender: { id: 3, name: 'Transgender' },
+    };
+  
+    if (typeof item === 'string') {
+      const gender = genderMapping[item.toLowerCase()];
+      if (!gender) return null; // Handle cases where the item is not one of the expected values
+      return {
+        ...gender,
+        i18nKey: `${headerLocale}_ADMIN_${gender.name.toUpperCase()}`,
+      };
+    }
+  
+    if (typeof item === 'object' && item.id && item.name) {
+      return {
+        code: item.id,
+        name: item.name,
+        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+      };
+    }
+  
+    return null; // Handle cases where item is neither a string nor an object with id and name
+  };
   const [zones, setZones] = useState([]);
   const [blocks, setBlocks] = useState([]);
   const [wards, setWards] = useState([]);
@@ -115,7 +143,47 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
   useEffect(() => {
     trigger(); // Validate the form on mount to show errors if fields are empty
   }, [trigger]);
+  
+  function splitStringToArray(inputString, delimiter) {
+    // Check if the inputString is null or an empty string
+    if (!inputString) {
+      return [];
+    }
+    const dataArray = inputString.split(delimiter);
+    // Remove the last empty string caused by the trailing delimiter
+    const filteredArray = dataArray.filter(element => element !== "");
+    return filteredArray;
+  }
 
+  useEffect(() => {
+  if (initialRows) {
+    //const addressArray = splitStringToArray(initialRows?.address,'|')
+    const addressArray = splitStringToArray(initialRows?.address, '|');
+    // Validate and set form values
+    if (addressArray.length >= 8) {
+      setValue("house", addressArray[0] || "");
+      setValue("street", addressArray[5] || "");
+      setValue("landMark", addressArray[3] || "");
+      setValue("locality", addressArray[7] || "");
+      setValue("subDistrict", addressArray[4] || "");
+      setValue("district", addressArray[8] || "");
+      setValue("state", addressArray[9] || "");
+    } else {
+      console.error("Address array does not have enough elements:", addressArray);
+    }
+
+    const zonedata = processSingleData(initialRows?.zone, headerLocale);
+    const blockdata = processSingleData(initialRows?.ward, headerLocale);
+    const warddata = processSingleData(initialRows?.subward, headerLocale);
+
+    
+    setValue("city", initialRows.city || "");
+    setValue("zoneName", zonedata || "");
+    setValue("pincode", initialRows.pinCode || "");
+    setValue("blockName", blockdata || "");
+    setValue("wardName", warddata || "");
+  }
+}, [initialRows, setValue, headerLocale]);
   const handleToggle = () => {
     setIsEditable(!isEditable);
   };
