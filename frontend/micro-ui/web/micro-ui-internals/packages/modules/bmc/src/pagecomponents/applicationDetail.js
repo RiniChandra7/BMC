@@ -1,16 +1,15 @@
-import { CardLabel, CheckBox, Dropdown, LabelFieldPair, MultiSelectDropdown, TextInput } from "@egovernments/digit-ui-react-components";
+import { CardLabel, CheckBox, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
 import DisabilityCard from "../components/DisabilityCard";
+import MultiSelect from "../components/multidropdown";
 import QualificationCard from "../components/QualificationCard";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import dropdownOptions from "./dropdownOptions.json";
-import BankDetails from "../components/BankDetails";
-import MultiSelect from "../components/multidropdown";
 
 const ApplicationDetail = () => ({
   rationCard: "",
@@ -606,7 +605,7 @@ const ApplicationDetailFull = (_props) => {
           AddOption={false}
           AllowRemove={false}
         ></QualificationCard>
-        <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={false}></DisabilityCard>
+        <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={false}/>
         <div className="bmc-card-row">
           <div className="bmc-col-large-header">
             <div className="bmc-checkbox">

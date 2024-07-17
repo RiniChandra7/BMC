@@ -14,6 +14,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
     formState: { errors, isValid },
     trigger,
     setValue,
+    clearErrors
   } = useForm({
     defaultValues: {
       house: initialRows.house || "",
@@ -182,8 +183,22 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
     setValue("pincode", initialRows.pinCode || "");
     setValue("blockName", blockdata || "");
     setValue("wardName", warddata || "");
+
+    // Clear errors for fields that received initial values
+    if (addressArray[0]) clearErrors("house");
+    if (addressArray[5]) clearErrors("street");
+    if (addressArray[3]) clearErrors("landMark");
+    if (addressArray[7]) clearErrors("locality");
+    if (addressArray[4]) clearErrors("subDistrict");
+    if (addressArray[8]) clearErrors("district");
+    if (addressArray[9]) clearErrors("state");
+    if (initialRows.city) clearErrors("city");
+    if (initialRows.pinCode) clearErrors("pincode");
+    if (zonedata) clearErrors("zoneName");
+    if (blockdata) clearErrors("blockName");
+    if (warddata) clearErrors("wardName");
   }
-}, [initialRows, setValue, headerLocale]);
+}, [initialRows, setValue, headerLocale, clearErrors]);
   const handleToggle = () => {
     setIsEditable(!isEditable);
   };

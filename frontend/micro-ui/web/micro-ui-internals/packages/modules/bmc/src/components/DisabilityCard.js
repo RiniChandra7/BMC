@@ -24,6 +24,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
     formState: { errors, isValid },
     trigger,
     setValue,
+    clearErrors
   } = useForm({
     defaultValues: initialDefaultValues,
   });
@@ -76,9 +77,14 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
         setValue("divyangcardid", processeddata.divyangcardid || "");
         setValue("disabilitytype", processeddata.divyangtype || "");
         setRangeValue(processeddata.divyangpercent || 1);
+
+        // Clear errors for fields that received initial values
+        if (processeddata.divyangcardid) clearErrors("divyangcardid");
+        if (processeddata.divyangtype) clearErrors("disabilitytype");
+        if (processeddata.divyangpercent) clearErrors("divyangpercent");
       }
     }
-  }, [initialRows, setValue, headerLocale]);
+  }, [initialRows, setValue, headerLocale, clearErrors]);
 
   useEffect(() => {
     onUpdate(formValues, isValid);

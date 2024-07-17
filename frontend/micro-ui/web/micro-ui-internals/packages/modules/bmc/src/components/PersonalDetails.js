@@ -13,7 +13,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
     watch,
     formState: { errors, isValid },
     setValue,
-    trigger
+    trigger,
+    clearErrors
   } = useForm({
     defaultValues: {
       firstName: initialRows.aadharname || "",
@@ -91,7 +92,11 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
   useEffect(() => {
     onUpdate(formValues, isValid);
   }, [formValues, isValid, onUpdate]);
-
+  const clearFieldErrorsIfHasValue = (fields) => {
+    fields.forEach(field => {
+      if (field.value) clearErrors(field.name);
+    });
+  };
   useEffect(() => {
     trigger(); // Validate the form on mount to show errors if fields are empty
   }, [trigger]);
@@ -108,8 +113,18 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
       setValue("father", initialRows.aadharfathername || "");
       setValue("religion", religionData|| "");
       setValue("casteCategory", casteData || "");
+      clearFieldErrorsIfHasValue([
+        { name: "firstName", value: initialRows.aadharname },
+        { name: "middleName", value: initialRows.middleName },
+        { name: "lastName", value: initialRows.lastName },
+        { name: "dob", value: initialRows.aadhardob },
+        { name: "gender", value: genderdata },
+        { name: "father", value: initialRows.aadharfathername },
+        { name: "religion", value: religionData },
+        { name: "casteCategory", value: casteData },
+      ]);
     }
-  }, [initialRows, setValue,headerLocale]);
+  }, [initialRows, setValue,headerLocale,clearFieldErrorsIfHasValue]);
   
   const handleToggle = () => {
     setIsEditable(!isEditable);
