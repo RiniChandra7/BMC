@@ -59,17 +59,17 @@ const BankDetailsForm = ({ tenantId, initialRows = [], AddOption = true, AllowRe
   return (
     <div className="bmc-row-card-header">
       <div className="bmc-card-row">
-        <div className="bmc-title">Bank Details</div>
+        <div className="bmc-title">BANK DETAILS</div>
         <div className="bmc-table-container" style={{ padding: "1rem" }}>
           <form onSubmit={handleSubmit(addRow)}>
             <table className="bmc-hover-table">
               <thead>
                 <tr>
-                  <th scope="col">IFSCCode</th>
-                  <th scope="col">MICRCode</th>
-                  <th scope="col">AccountNumber</th>
-                  <th scope="col">BankName</th>
-                  <th scope="col">BranchName</th>
+                  <th scope="col">IFSC Code</th>
+                  <th scope="col">MICR Code</th>
+                  <th scope="col">Account Number</th>
+                  <th scope="col">Bank Name</th>
+                  <th scope="col">Branch Name</th>
                   {AllowRemove && <th scope="col"></th>}
                 </tr>
               </thead>

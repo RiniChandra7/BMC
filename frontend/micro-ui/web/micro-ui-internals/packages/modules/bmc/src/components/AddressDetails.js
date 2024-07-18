@@ -207,7 +207,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
       <form className="bmc-row-card-header">
         <div className="bmc-card-row">
           <div className="bmc-col-large-header">
-            <div className="bmc-title">{t("Address Details")}</div>
+            <div className="bmc-title">{t("ADDRESS DETAILS")}</div>
           </div>
           <div className="bmc-col-small-header" style={{ textAlign: "end" }}>
             <ToggleSwitch
@@ -223,7 +223,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
         <div className="bmc-card-row">
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_House"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_HOUSE"}</CardLabel>
               <Controller
                 control={control}
                 name={"house"}
@@ -245,7 +245,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_Street"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_STREET"}</CardLabel>
               <Controller
                 control={control}
                 name={"street"}
@@ -267,7 +267,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_Landmark"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_LANDMARK"}</CardLabel>
               <Controller
                 control={control}
                 name={"landMark"}
@@ -289,7 +289,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_Locality"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_LOCALITY"}</CardLabel>
               <Controller
                 control={control}
                 name={"locality"}
@@ -313,7 +313,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
         <div className="bmc-card-row">
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_City"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_CITY"}</CardLabel>
               <Controller
                 control={control}
                 name={"city"}
@@ -335,7 +335,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_SubDistrict"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_SUBDISTRICT"}</CardLabel>
               <Controller
                 control={control}
                 name={"subDistrict"}
@@ -357,7 +357,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_District"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_DISTRICT"}</CardLabel>
               <Controller
                 control={control}
                 name={"district"}
@@ -379,7 +379,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{"BMC_State"}</CardLabel>
+              <CardLabel className="bmc-label">{"BMC_STATE"}</CardLabel>
               <Controller
                 control={control}
                 name={"state"}
@@ -403,7 +403,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
         <div className="bmc-card-row">
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Pincode")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_PINCODE")}</CardLabel>
               <Controller
                 control={control}
                 name="pincode"
@@ -425,7 +425,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_ZoneName*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_ZONENAME")}</CardLabel>
               <Controller
                 control={control}
                 name="zoneName"
@@ -434,7 +434,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
                   <div>
                     {isEditable ? (
                       <Dropdown
-                        placeholder={t("Select Zone")}
+                        placeholder={t("SELECT ZONE")}
                         selected={props.value}
                         select={(zone) => props.onChange(zone)}
                         onBlur={props.onBlur}
@@ -454,7 +454,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_BlockName*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_BLOCKNAME")}</CardLabel>
               <Controller
                 control={control}
                 name="blockName"
@@ -463,7 +463,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
                   <div>
                     {isEditable ? (
                       <Dropdown
-                        placeholder={t("Select Caste Category")}
+                        placeholder={t("SELECT CASTE CATEGORY")}
                         selected={props.value}
                         select={(block) => props.onChange(block)}
                         onBlur={props.onBlur}
@@ -483,7 +483,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Ward_Name*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_WARD_NAME")}</CardLabel>
               <Controller
                 control={control}
                 name="wardName"
@@ -492,7 +492,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
                   <div>
                     {isEditable ? (
                       <Dropdown
-                        placeholder={t("Select SubWard")}
+                        placeholder={t("SELECT SUBWARD")}
                         selected={props.value}
                         select={(ward) => props.onChange(ward)}
                         onBlur={props.onBlur}

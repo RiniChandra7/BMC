@@ -13,6 +13,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class DivyangDetails {
+    private Long divyangid;
     private Long divyangpercent;
     private String divyangtype;
     private String divyangcardid;

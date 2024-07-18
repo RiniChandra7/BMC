@@ -135,7 +135,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
       <form className="bmc-row-card-header">
         <div className="bmc-card-row">
           <div className="bmc-col-large-header">
-            <div className="bmc-title">{t("Personal Details")}</div>
+            <div className="bmc-title">{t("PERSONAL DETAILS")}</div>
           </div>
           <div className="bmc-col-small-header" style={{ textAlign: "end" }}>
             <ToggleSwitch

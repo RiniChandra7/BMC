@@ -101,7 +101,7 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
     <React.Fragment>
       <div className="bmc-row-card-header">
         <div className="bmc-card-row">
-          <div className="bmc-title">Qualification</div>
+          <div className="bmc-title">{t("QUALIFICATION")}</div>
           <div className="bmc-table-container" style={{ padding: "1rem" }}>
             <form onSubmit={handleSubmit(addRow)}>
               <table className="bmc-hover-table">
@@ -125,7 +125,7 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
                           render={(props) => (
                             <div>
                               <Dropdown
-                                placeholder="Select the Education Qualification"
+                                placeholder="SELECT THE EDUCATION QUALIFICATION"
                                 selected={props.value}
                                 select={(qualification) => props.onChange(qualification)}
                                 option={qualifications}
@@ -146,7 +146,7 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
                           render={(props) => (
                             <div>
                               <Dropdown
-                                placeholder="Select Year of Passing"
+                                placeholder="SELECT YEAR OF PASSING"
                                 selected={props.value}
                                 select={(year) => props.onChange(year)}
                                 option={years}
@@ -167,11 +167,11 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
                             required: t("CORE_COMMON_REQUIRED_ERRMSG"),
                             min: {
                               value: 0,
-                              message: t("Percentage must be at least 0"),
+                              message: t("PERCENTAGE MUST BE AT LEAST 0"),
                             },
                             max: {
                               value: 100,
-                              message: t("Percentage must be at most 100"),
+                              message: t("PERCENTAGE MUST BE AT MOST 100"),
                             },
                           }}
                           render={(props) => (
@@ -190,7 +190,7 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
                           render={(props) => (
                             <div>
                               <Dropdown
-                                placeholder="Select Board"
+                                placeholder="SELECT BOARD"
                                 selected={props.value}
                                 select={(board) => props.onChange(board)}
                                 option={dropdownOptions.board}

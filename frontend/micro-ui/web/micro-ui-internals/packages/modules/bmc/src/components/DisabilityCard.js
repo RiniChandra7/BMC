@@ -108,7 +108,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
         <div className="bmc-card-row">
           <div className="bmc-card-row">
             <div className="bmc-col-large-header">
-              <div className="bmc-title">{t("Disability Details")}</div>
+              <div className="bmc-title">{t("DISABILITY DETAILS")}</div>
             </div>
             <div className="bmc-col-small-header" style={{ textAlign: "end" }}>
               <ToggleSwitch
@@ -123,7 +123,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_UDID_Id*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_UDID_ID")}</CardLabel>
               <Controller
                 control={control}
                 name={"divyangcardid"}
@@ -153,7 +153,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Disability_Type*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_DISABILITY_TYPE")}</CardLabel>
               <Controller
                 control={control}
                 name={"disabilitytype"}
@@ -164,7 +164,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
                   <div>
                     {isEditable ? (
                       <Dropdown
-                        placeholder="Select the Disability Type"
+                        placeholder="SELECT THE DISABILITY TYPE"
                         selected={props.value}
                         select={(divyang) => props.onChange(divyang)}
                         onBlur={props.onBlur}
@@ -184,7 +184,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
           </div>
           <div className="bmc-col2-card">
             <div className="bmc-range-container">
-              <CardLabel className="bmc-label">{t("BMC_Disability_Percentage*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_DISABILITY_PERCENTAGE")}</CardLabel>
               <Controller
                 control={control}
                 name={"divyangpercent"}
