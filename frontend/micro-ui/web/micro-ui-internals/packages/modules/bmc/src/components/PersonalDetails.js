@@ -1,10 +1,10 @@
 import { CardLabel, DatePicker, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import React, { useCallback, useEffect, useMemo, useState,useRef } from "react";
+import isEqual from 'lodash.isequal';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import dropdownOptions from "../pagecomponents/dropdownOptions.json";
 import ToggleSwitch from "./Toggle";
-import isEqual from 'lodash.isequal';
 
 const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tenantId }) => {
   const { t } = useTranslation();
@@ -79,8 +79,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
     return { religionsData };
   }, [headerLocale, processCommonData]);
 
-  const getCaste = useMemo(() => ({ CommonSearchCriteria: { Option: "caste" } }), []);
-  const getReligion = useMemo(() => ({ CommonSearchCriteria: { Option: "religion" } }), []);
+  const getCaste = { CommonSearchCriteria: { Option: "caste" } };
+  const getReligion = { CommonSearchCriteria: { Option: "religion" } };
 
   Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
   Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
@@ -151,7 +151,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
         <div className="bmc-card-row">
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_First_Name")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_FIRST_NAME")}</CardLabel>
               <Controller
                 control={control}
                 name="firstName"
@@ -164,6 +164,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                       value={props.value}
                       onChange={(e) => props.onChange(e.target.value)}
                       onBlur={props.onBlur}
+                      optionKey="i18nKey"
+                      t={t}
                     />
                     {errors.firstName && <span style={{ color: "red" }}>{errors.firstName.message}</span>}
                   </div>
@@ -173,7 +175,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Middle_Name")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_MIDDLE_NAME")}</CardLabel>
               <Controller
                 control={control}
                 name="middleName"
@@ -186,6 +188,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                       value={props.value}
                       onChange={(e) => props.onChange(e.target.value)}
                       onBlur={props.onBlur}
+                      optionKey="i18nKey"
+                      t={t}
                     />
                     {errors.middleName && <span style={{ color: "red" }}>{errors.middleName.message}</span>}
                   </div>
@@ -195,7 +199,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Last_Name")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_LAST_NAME")}</CardLabel>
               <Controller
                 control={control}
                 name="lastName"
@@ -208,6 +212,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                       value={props.value}
                       onChange={(e) => props.onChange(e.target.value)}
                       onBlur={props.onBlur}
+                      optionKey="i18nKey"
+                      t={t}
                     />
                     {errors.lastName && <span style={{ color: "red" }}>{errors.lastName.message}</span>}
                   </div>
@@ -217,7 +223,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Date_Of_Birth")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_DATE_OF_BIRTH")}</CardLabel>
               <Controller
                 control={control}
                 name="dob"
@@ -235,7 +241,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
         <div className="bmc-card-row">
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Gender")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_GENDER")}</CardLabel>
               <Controller
                 control={control}
                 name="gender"
@@ -244,7 +250,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                   <div>
                     {isEditable ? (
                       <Dropdown
-                        placeholder={t("Select Gender")}
+                        placeholder={t("SELECT GENDER")}
                         selected={props.value}
                         select={props.onChange}
                         onBlur={props.onBlur}
@@ -264,7 +270,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_Father")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_FATHER")}</CardLabel>
               <Controller
                 control={control}
                 name="father"
@@ -277,6 +283,8 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                       value={props.value}
                       onChange={(e) => props.onChange(e.target.value)}
                       onBlur={props.onBlur}
+                      optionKey="i18nKey"
+                      t={t}
                     />
                     {errors.father && <span style={{ color: "red" }}>{errors.father.message}</span>}
                   </div>
@@ -295,7 +303,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                   <div>
                     {isEditable ? (
                       <Dropdown
-                        placeholder={t("Select Religion")}
+                        placeholder={t("SELECT RELIGION")}
                         selected={props.value}
                         select={props.onChange}
                         onBlur={props.onBlur}
@@ -315,7 +323,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_CasteCategory*")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_CASTECATEGORY")}*</CardLabel>
               <Controller
                 control={control}
                 name="casteCategory"
@@ -324,7 +332,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                   <div>
                     {isEditable ? (
                       <Dropdown
-                        placeholder={t("Select Caste Category")}
+                        placeholder={t("SELECT CASTE CATEGORY")}
                         selected={props.value}
                         select={props.onChange}
                         onBlur={props.onBlur}
