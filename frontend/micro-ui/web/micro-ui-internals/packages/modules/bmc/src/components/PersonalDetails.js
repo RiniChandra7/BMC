@@ -1,21 +1,19 @@
 import { CardLabel, DatePicker, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState,useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import dropdownOptions from "../pagecomponents/dropdownOptions.json";
 import ToggleSwitch from "./Toggle";
+import isEqual from 'lodash.isequal';
 
 const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tenantId }) => {
   const { t } = useTranslation();
   const [isEditable, setIsEditable] = useState(AllowEdit);
-  const {
-    control,
-    watch,
-    formState: { errors, isValid },
-    setValue,
-    trigger,
-    clearErrors
-  } = useForm({
+  const [castes, setCastes] = useState([]);
+  const [religions, setReligions] = useState([]);
+  const headerLocale = useMemo(() => Digit.Utils.locale.getTransformedLocale(tenantId), [tenantId]);
+
+  const { control, formState: { errors, isValid }, setValue, trigger, clearErrors, watch ,getValues} = useForm({
     defaultValues: {
       firstName: initialRows.aadharname || "",
       middleName: initialRows.middleName || "",
@@ -26,26 +24,30 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
       religion: initialRows.religion || "",
       casteCategory: initialRows.caste || "",
     },
-    mode: "all",
+    mode: "onChange",
   });
-  const processSingleData = (item, headerLocale) => {
+
+  const formValuesRef = useRef(getValues());
+  const formValues = watch();
+
+  const processSingleData = useCallback((item, headerLocale) => {
     if (!item) return null;
-  
+
     const genderMapping = {
       male: { id: 1, name: 'Male' },
       female: { id: 2, name: 'Female' },
       transgender: { id: 3, name: 'Transgender' },
     };
-  
+
     if (typeof item === 'string') {
       const gender = genderMapping[item.toLowerCase()];
-      if (!gender) return null; // Handle cases where the item is not one of the expected values
+      if (!gender) return null;
       return {
         ...gender,
         i18nKey: `${headerLocale}_ADMIN_${gender.name.toUpperCase()}`,
       };
     }
-  
+
     if (typeof item === 'object' && item.id && item.name) {
       return {
         id: item.id,
@@ -53,79 +55,77 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
         i18nKey: `${headerLocale}_ADMIN_${item.name}`,
       };
     }
-  
-    return null; // Handle cases where item is neither a string nor an object with id and name
-  };
-  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
-  const [castes, setCastes] = useState([]);
-  const [religions, setReligions] = useState([]);
-  
-  const processCommonData = (data, headerLocale) => {
-    return (
-      data?.CommonDetails?.map((item) => ({
-        id: item.id,
-        name: item.name,
-        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
-      })) || []
-    );
-  };
 
-  const casteFunction = (data) => {
+    return null;
+  }, []);
+
+  const processCommonData = useCallback((data, headerLocale) => (
+    data?.CommonDetails?.map((item) => ({
+      id: item.id,
+      name: item.name,
+      i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+    })) || []
+  ), []);
+
+  const casteFunction = useCallback((data) => {
     const castesData = processCommonData(data, headerLocale);
     setCastes(castesData);
     return { castesData };
-  };
+  }, [headerLocale, processCommonData]);
 
-  const religionFunction = (data) => {
+  const religionFunction = useCallback((data) => {
     const religionsData = processCommonData(data, headerLocale);
     setReligions(religionsData);
     return { religionsData };
-  };
+  }, [headerLocale, processCommonData]);
 
-  const getCaste = { CommonSearchCriteria: { Option: "caste" } };
-  const getReligion = { CommonSearchCriteria: { Option: "religion" } };
+  const getCaste = useMemo(() => ({ CommonSearchCriteria: { Option: "caste" } }), []);
+  const getReligion = useMemo(() => ({ CommonSearchCriteria: { Option: "religion" } }), []);
 
   Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
   Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
-  const formValues = watch();
+
+  const stableOnUpdate = useCallback((values, valid) => {
+    onUpdate(values, valid);
+  }, [onUpdate]);
 
   useEffect(() => {
-    onUpdate(formValues, isValid);
-  }, [formValues, isValid, onUpdate]);
-  const clearFieldErrorsIfHasValue = (fields) => {
-    fields.forEach(field => {
-      if (field.value) clearErrors(field.name);
-    });
-  };
+    if (!isEqual(formValuesRef.current, formValues)) {
+      formValuesRef.current = formValues;
+      stableOnUpdate(formValues, isValid);
+    }
+  }, [formValues, isValid, stableOnUpdate]);
+
   useEffect(() => {
-    trigger(); // Validate the form on mount to show errors if fields are empty
+    trigger();
   }, [trigger]);
+
   useEffect(() => {
     if (initialRows) {
       const casteData = processSingleData(initialRows?.caste, headerLocale);
       const religionData = processSingleData(initialRows?.religion, headerLocale);
-      const genderdata = processSingleData(initialRows?.gender, headerLocale);
+      const genderData = processSingleData(initialRows?.gender, headerLocale);
       setValue("firstName", initialRows.aadharname || "");
       setValue("middleName", initialRows.middleName || "");
       setValue("lastName", initialRows.lastName || "");
       setValue("dob", initialRows.aadhardob || "");
-      setValue("gender", genderdata || "");
+      setValue("gender", genderData || "");
       setValue("father", initialRows.aadharfathername || "");
-      setValue("religion", religionData|| "");
+      setValue("religion", religionData || "");
       setValue("casteCategory", casteData || "");
-      clearFieldErrorsIfHasValue([
-        { name: "firstName", value: initialRows.aadharname },
-        { name: "middleName", value: initialRows.middleName },
-        { name: "lastName", value: initialRows.lastName },
-        { name: "dob", value: initialRows.aadhardob },
-        { name: "gender", value: genderdata },
-        { name: "father", value: initialRows.aadharfathername },
-        { name: "religion", value: religionData },
-        { name: "casteCategory", value: casteData },
-      ]);
+
+      // Clear errors for fields that received initial values
+      if (initialRows.aadharname) clearErrors("firstName");
+      if (initialRows.middleName) clearErrors("middleName");
+      if (initialRows.lastName) clearErrors("lastName");
+      if (initialRows.aadhardob) clearErrors("dob");
+      if (genderData) clearErrors("gender");
+      if (initialRows.aadharfathername) clearErrors("father");
+      if (religionData) clearErrors("religion");
+      if (casteData) clearErrors("casteCategory");
     }
-  }, [initialRows, setValue,headerLocale,clearFieldErrorsIfHasValue]);
-  
+  }, [initialRows, setValue, headerLocale, clearErrors, processSingleData]);
+
   const handleToggle = () => {
     setIsEditable(!isEditable);
   };

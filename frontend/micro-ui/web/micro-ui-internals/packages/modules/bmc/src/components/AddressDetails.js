@@ -30,7 +30,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
       blockName: initialRows.blockName || "",
       wardName: initialRows.wardName || "",
     },
-    mode: "all",
+    mode: "onChange"
   });
 
   const processSingleData = (item, headerLocale) => {
