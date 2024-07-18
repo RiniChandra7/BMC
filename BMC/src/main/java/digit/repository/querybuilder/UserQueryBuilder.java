@@ -11,14 +11,14 @@ public class UserQueryBuilder {
     // for Caste
     private static final String BASE_QUERY = """
                select eu.id as userid, \
-                eba.aadharfathername ,eba.aadhardob ,eba.aadharmobile ,eba.gender ,eba.aadharname, \
-                ebc."name" as caste ,ebc.id as casteid, \
-                ebr."name" as religion ,ebr.id as religionid , \
+                eba.aadharfathername ,eba.aadhardob ,eba.aadharmobile ,UPPER(eba.gender) as gender ,eba.aadharname, \
+                UPPER(ebc."name") as caste ,ebc.id as casteid, \
+                UPPER(ebr."name") as religion ,ebr.id as religionid , \
                 ebu4.transgenderid \
             """;
 
     private static final String QUALIFICATION_QUERY = """
-             ,ebq.id as qualificationid, ebq."name" as qualification ,ebu3.percentage ,ebu3.board ,ebu3.year_of_passing \
+             ,ebq.id as qualificationid, UPPER(ebq."name") as qualification ,ebu3.percentage ,ebu3.board ,ebu3.year_of_passing \
             """;
     private static final String BANK_QUERY = """
                 ,ebb2."name" as bankname, \
@@ -26,13 +26,13 @@ public class UserQueryBuilder {
                """;
 
     private static final String DOCUMENT_QUERY = """
-            , ebd."name" as documentname, ebu2.available  \
+            , UPPER(ebd."name") as documentname, ebu2.available  \
             """;
     private static final String ADDRESS_QUERY = """
             ,  ea.pincode ,ea.housenobldgapt ,ea.subdistrict ,ea.postoffice ,ea.landmark ,ea.country ,ea.streetroadline ,ea.citytownvillage ,ea.arealocalitysector ,ea.district ,ea.state   \
             """;
     private static final String DIVYANG_QUERY = """
-            , ebd2.id as divyangid, ebd2."name" as divyangtype,ebu4.divyangpercent ,ebu4.divyangcardid  \
+            , ebd2.id as divyangid, UPPER(ebd2."name") as divyangtype,ebu4.divyangpercent ,ebu4.divyangcardid  \
             """;
 
     private static final String FROM_TABLES = """

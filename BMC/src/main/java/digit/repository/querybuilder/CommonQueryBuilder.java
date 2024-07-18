@@ -11,7 +11,7 @@ public class CommonQueryBuilder {
     // for Caste
     private static final String BASE_QUERY = """
             SELECT  \
-            id , name \
+            id , UPPER(name) as name \
             FROM \
             """;
 
