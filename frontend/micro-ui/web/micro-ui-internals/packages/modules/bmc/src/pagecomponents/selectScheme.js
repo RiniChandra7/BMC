@@ -17,47 +17,6 @@ const SelectSchemePage = () => {
   const [schemeDetails, setSchemeDetails] = useState([]);
 
   const getSchems = { SchemeSearchCriteria: { Status: 1 } };
-  // const processSchemeData = (data, headerLocale) => {
-  //   const schemeHeadsData = [];
-  //   const schemeDetailsData = [];
-
-  //   data?.SchemeDetails?.forEach((event) => {
-  //     event.schemeshead.forEach((schemeHead) => {
-  //       schemeHeadsData.push({
-  //         eventName: event.eventName,
-  //         startDate: event.startDate,
-  //         endDate: event.endDate,
-  //         schemeHead: schemeHead.schemeHead,
-  //         schemeHeadDesc: schemeHead.schemeheadDesc,
-  //         i18nKey: `${headerLocale}_ADMIN_${schemeHead.schemeHead}`
-  //       });
-
-  //       schemeHead.schemeDetails.forEach((scheme) => {
-  //         schemeDetailsData.push({
-  //           schemeID: scheme.schemeID,
-  //           schemeName: scheme.schemeName,
-  //           schemeDesc: scheme.schemeDesc,
-  //           schemeHead: schemeHead.schemeHead,
-  //           eventName: event.eventName,
-  //           criteria: scheme.criteria.map((criterion) => ({
-  //             criteriaType: criterion.criteriaType,
-  //             criteriaCondition: criterion.criteriaCondition,
-  //             criteriaValue: criterion.criteriaValue
-  //           })),
-  //           courses: scheme.courses,
-  //           machines: scheme.machines,
-  //           i18nKey: `${headerLocale}_ADMIN_${scheme.schemeName}`
-  //         });
-  //       });
-  //     });
-  //   });
-
-  //   setSchemeHeads(schemeHeadsData);
-  //   setSchemeDetails(schemeDetailsData);
-  //   return {
-  //     schemeHeadsData, schemeDetailsData
-  //   };
-  // };
 
   const processSchemeData = (data, headerLocale) => {
     const schemeHeadsData = [];
@@ -115,16 +74,6 @@ const SelectSchemePage = () => {
   };
 
   Digit.Hooks.bmc.useSchemesGet(getSchems, { select: qualificationFunction });
-
-  // useEffect(() => {
-  //   const fetchSchemeData = async () => {
-  //     const response = await fetch("/path/to/your/scheme/api");
-  //     const data = await response.json();
-  //     processSchemeData(data, "headerLocale");
-  //   };
-
-  //   fetchSchemeData();
-  // }, []);
 
   const handleSchemeSelect = (scheme) => {
     setSelectedScheme(scheme);
