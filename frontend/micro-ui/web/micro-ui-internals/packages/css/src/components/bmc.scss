@@ -504,7 +504,8 @@
 
   .bmc-col1-card,
   .bmc-col2-card,
-  .bmc-col3-card {
+  .bmc-col3-card,
+  .bmc-col4-card {
     width: 100%;
     padding: 5px;
     box-sizing: border-box;
@@ -624,7 +625,8 @@
 
   .bmc-col1-card,
   .bmc-col2-card,
-  .bmc-col3-card {
+  .bmc-col3-card,
+  .bmc-col4-card {
     width: 100%;
     padding: 5px;
     box-sizing: border-box;
@@ -883,4 +885,28 @@
 .toggle-switch.disabled .toggle-switch-label {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.bmc-selected-options {
+  display: flex;
+  flex-direction: row;
+  gap: 8px; /* Adjust gap as needed */
+  margin-top: 10px;
+}
+
+.bmc-selected-option {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 16px;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.bmc-clear-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  cursor: pointer;
 }
