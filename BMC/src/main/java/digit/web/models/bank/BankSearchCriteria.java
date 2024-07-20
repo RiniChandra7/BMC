@@ -1,5 +1,6 @@
-package digit.web.models;
+package digit.web.models.bank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,18 +10,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class BankDetails {
-    private Long branchId;
-    private String name;
-    private String branchName;
+public class BankSearchCriteria {
+   
+    @JsonProperty("IFSC")
     private String ifsc;
-    private String micr;
-    private String accountnumber;
-
 
 }
+
