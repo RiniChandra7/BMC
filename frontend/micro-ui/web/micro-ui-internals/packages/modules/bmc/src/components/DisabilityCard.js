@@ -8,14 +8,14 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
   const { t } = useTranslation();
   const [isEditable, setIsEditable] = useState(AllowEdit);
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
-  const [rangeValue, setRangeValue] = useState(1);
+  const [rangeValue, setRangeValue] = useState(0);
   const [divyangs, setDivyangs] = useState([]);
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
 
   const initialDefaultValues = {
     divyangcardid: "",
     disabilitytype: "",
-    divyangpercent: 1,
+    divyangpercent: 0,
   };
 
   const {
@@ -76,7 +76,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
       if (processeddata) {
         setValue("divyangcardid", processeddata.divyangcardid || "");
         setValue("disabilitytype", processeddata.divyangtype || "");
-        setRangeValue(processeddata.divyangpercent || 1);
+        setRangeValue(processeddata.divyangpercent || 0);
 
         // Clear errors for fields that received initial values
         if (processeddata.divyangcardid) clearErrors("divyangcardid");

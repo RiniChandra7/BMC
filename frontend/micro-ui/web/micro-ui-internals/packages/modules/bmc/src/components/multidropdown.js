@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { ArrowDown, CheckSvg } from "@egovernments/digit-ui-react-components";
+import { ArrowDown, CheckSvg, CloseSvg } from "@egovernments/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
 const MultiSelect = ({
@@ -13,13 +13,14 @@ const MultiSelect = ({
   isOBPSMultiple = false,
 }) => {
   const [active, setActive] = useState(false);
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
   const [optionIndex, setOptionIndex] = useState(-1);
   const dropdownRef = useRef();
   const { t } = useTranslation();
   Digit.Hooks.useClickOutside(dropdownRef, () => setActive(false), active);
+
   const filtOptns =
-    searchQuery?.length > 0
+    searchQuery.length > 0
       ? options.filter(
           (option) =>
             t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey].toUpperCase())
@@ -32,17 +33,16 @@ const MultiSelect = ({
     setSearchQuery(e.target.value);
   }
 
-  /* Custom function to scroll and select in the dropdowns while using key up and down */
   const keyChange = (e) => {
-    if (e.key == "ArrowDown") {
-      setOptionIndex((state) => (state + 1 == filtOptns.length ? 0 : state + 1));
-      if (optionIndex + 1 == filtOptns.length) {
+    if (e.key === "ArrowDown") {
+      setOptionIndex((state) => (state + 1 === filtOptns.length ? 0 : state + 1));
+      if (optionIndex + 1 === filtOptns.length) {
         e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(0, 0);
       } else {
         optionIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, 45);
       }
       e.preventDefault();
-    } else if (e.key == "ArrowUp") {
+    } else if (e.key === "ArrowUp") {
       setOptionIndex((state) => (state !== 0 ? state - 1 : filtOptns.length - 1));
       if (optionIndex === 0) {
         e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(100000, 100000);
@@ -50,18 +50,23 @@ const MultiSelect = ({
         optionIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, -45);
       }
       e.preventDefault();
-    } else if (e.key == "Enter") {
+    } else if (e.key === "Enter") {
       onSelect(e, filtOptns[optionIndex]);
     }
   };
 
+  const handleSelect = (e, option) => {
+    isOBPSMultiple ? onSelect(e, option, BlockNumber) : onSelect(e, option);
+    e.stopPropagation(); // Prevent the dropdown from closing
+  };
+
   const MenuItem = ({ option, index }) => (
-    <div key={index}>
+    <div key={index} className="menu-item">
       <input
         type="checkbox"
         value={option[optionsKey]}
         checked={selected.find((selectedOption) => selectedOption[optionsKey] === option[optionsKey]) ? true : false}
-        onChange={(e) => (isOBPSMultiple ? onSelect(e, option, BlockNumber) : onSelect(e, option))}
+        onChange={(e) => handleSelect(e, option)}
       />
       <div className="custom-checkbox">
         <CheckSvg />
@@ -84,7 +89,7 @@ const MultiSelect = ({
 
   const Menu = () => {
     const filteredOptions =
-      searchQuery?.length > 0
+      searchQuery.length > 0
         ? options.filter(
             (option) =>
               t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey].toUpperCase())
@@ -93,6 +98,10 @@ const MultiSelect = ({
           )
         : options;
     return filteredOptions.map((option, index) => <MenuItem option={option} key={index} index={index} />);
+  };
+
+  const clearOption = (option) => {
+    onSelect({ target: { checked: false } }, option);
   };
 
   return (
@@ -109,6 +118,17 @@ const MultiSelect = ({
           <Menu />
         </div>
       ) : null}
+      <div className="bmc-selected-options">
+        {selected.length > 0 &&
+          selected.map((option) => (
+            <span className="bmc-selected-option" key={option[optionsKey]}>
+              <span>{t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey])}</span>
+              <span className="bmc-clear-chip" onClick={() => clearOption(option)}>
+                <CloseSvg />
+              </span>
+            </span>
+          ))}
+      </div>
     </div>
   );
 };
