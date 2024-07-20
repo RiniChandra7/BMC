@@ -1,5 +1,5 @@
-import { WorkflowActions } from "@egovernments/digit-ui-react-components";
 import React from "react";
+import WorkflowActions from "../../components/Workflow";
 import BMCReviewPage from "../../pagecomponents/bmcReview";
 const AadhaarEmployeePage = ({
   focusIndex,
@@ -34,7 +34,7 @@ const AadhaarEmployeePage = ({
         userType={userType}
         config={config}
       />
-      <WorkflowActions ActionBarStyle={{}} MenuStyle={{}} businessService={{}} applicationNo={{}} tenantId={"mh"} moduleCode={"BMC"} />
+      <WorkflowActions ActionBarStyle={{}} MenuStyle={{}} businessService={"bmc-schemes"} applicationNo={"MH-0001"} tenantId={"mh"} moduleCode={"BMC"} />
     </React.Fragment>
   );
 };
