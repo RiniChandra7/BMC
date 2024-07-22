@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import digit.bmc.model.Caste;
 import digit.repository.CasteRepository;
-import digit.web.models.SchemeApplicationRequest;
 
 @Service
 public class CastService {
