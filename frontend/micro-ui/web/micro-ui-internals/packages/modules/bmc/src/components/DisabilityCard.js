@@ -1,5 +1,6 @@
 import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import React, { useEffect, useState } from "react";
+import isEqual from 'lodash.isequal';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import ToggleSwitch from "./Toggle";
@@ -10,7 +11,7 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
   const [rangeValue, setRangeValue] = useState(0);
   const [divyangs, setDivyangs] = useState([]);
-  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+  const headerLocale = useMemo(() => Digit.Utils.locale.getTransformedLocale(tenantId), [tenantId]);
 
   const initialDefaultValues = {
     divyangcardid: "",
@@ -24,9 +25,11 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
     formState: { errors, isValid },
     trigger,
     setValue,
-    clearErrors
+    clearErrors,
+    getValues
   } = useForm({
     defaultValues: initialDefaultValues,
+    mode: "onChange"
   });
 
   const processCommonData = (data, headerLocale) => {
@@ -55,20 +58,40 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
     return null; // Handle cases where item is neither a string nor an object with id and name
   };
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     setRangeValue(parseInt(e.target.value));
-  };
+  }, []);
 
-  const divyangFunction = (data) => {
+  const divyangFunction = useCallback((data) => {
     const divyangData = processCommonData(data, headerLocale);
     setDivyangs(divyangData);
     return { divyangData };
-  };
+  }, [headerLocale]);
 
   const getDivyang = { CommonSearchCriteria: { Option: "divyang" } };
   Digit.Hooks.bmc.useCommonGet(getDivyang, { select: divyangFunction });
 
+  const formValuesRef = useRef(getValues());
   const formValues = watch();
+
+  const stableOnUpdate = useCallback((values, valid) => {
+    onUpdate(values, valid);
+  }, [onUpdate]);
+
+  useEffect(() => {
+    if (!isEqual(formValuesRef.current, formValues)) {
+      formValuesRef.current = formValues;
+      stableOnUpdate(formValues, isValid);
+    }
+  }, [formValues, isValid, stableOnUpdate]);
+
+  useEffect(() => {
+    trigger(); // Validate the form on mount to show errors if fields are empty
+  }, [trigger]);
+
+  useEffect(() => {
+    control.setValue("divyangpercent", rangeValue);
+  }, [rangeValue, control]);
 
   useEffect(() => {
     if (initialRows) {
@@ -85,18 +108,6 @@ const DisabilityCard = ({ tenantId, onUpdate, initialRows = {}, AllowEdit = fals
       }
     }
   }, [initialRows, setValue, headerLocale, clearErrors]);
-
-  useEffect(() => {
-    onUpdate(formValues, isValid);
-  }, [formValues, isValid, onUpdate]);
-
-  useEffect(() => {
-    trigger(); // Validate the form on mount to show errors if fields are empty
-  }, [trigger]);
-
-  useEffect(() => {
-    control.setValue("divyangpercent", rangeValue);
-  }, [rangeValue, control]);
 
   const handleToggle = () => {
     setIsEditable(!isEditable);

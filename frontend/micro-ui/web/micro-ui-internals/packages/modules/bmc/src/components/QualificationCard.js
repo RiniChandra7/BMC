@@ -87,7 +87,7 @@ const QualificationCard = ({ tenantId, onUpdate, initialRows = [], AddOption = t
       },
     ];
     setRows(updatedRows);
-    reset(initialDefaultValues);
+    //reset(initialDefaultValues);
     onUpdate(updatedRows); // Call the callback function to update the parent component
   };
 

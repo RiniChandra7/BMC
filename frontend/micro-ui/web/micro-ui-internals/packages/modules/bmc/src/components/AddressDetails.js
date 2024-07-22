@@ -1,5 +1,6 @@
 import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import React, { useEffect, useState } from "react";
+import isEqual from 'lodash.isequal';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import ToggleSwitch from "./Toggle";
@@ -7,14 +8,16 @@ import ToggleSwitch from "./Toggle";
 const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tenantId }) => {
   const { t } = useTranslation();
   const [isEditable, setIsEditable] = useState(AllowEdit);
-  const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+  const headerLocale = useMemo(() => Digit.Utils.locale.getTransformedLocale(tenantId), [tenantId]);
+
   const {
     control,
     watch,
     formState: { errors, isValid },
     trigger,
     setValue,
-    clearErrors
+    clearErrors,
+    getValues
   } = useForm({
     defaultValues: {
       house: initialRows.house || "",
@@ -35,13 +38,13 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
 
   const processSingleData = (item, headerLocale) => {
     if (!item) return null;
-  
+
     const genderMapping = {
       male: { id: 1, name: 'Male' },
       female: { id: 2, name: 'Female' },
       transgender: { id: 3, name: 'Transgender' },
     };
-  
+
     if (typeof item === 'string') {
       const gender = genderMapping[item.toLowerCase()];
       if (!gender) return null; // Handle cases where the item is not one of the expected values
@@ -50,7 +53,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
         i18nKey: `${headerLocale}_ADMIN_${gender.name.toUpperCase()}`,
       };
     }
-  
+
     if (typeof item === 'object' && item.id && item.name) {
       return {
         code: item.id,
@@ -58,9 +61,10 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
         i18nKey: `${headerLocale}_ADMIN_${item.name}`,
       };
     }
-  
+
     return null; // Handle cases where item is neither a string nor an object with id and name
   };
+
   const [zones, setZones] = useState([]);
   const [blocks, setBlocks] = useState([]);
   const [wards, setWards] = useState([]);
@@ -97,9 +101,11 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           });
         });
       });
+
       setZones(zonesData);
       setBlocks(blocksData);
       setWards(wardsData);
+
       return {
         zonesData,
         blocksData,
@@ -135,70 +141,72 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
     }
   }, [wards, selectedBlock, selectedZone, setValue]);
 
+  const formValuesRef = useRef(getValues());
   const formValues = watch();
 
+  const stableOnUpdate = useCallback((values, valid) => {
+    onUpdate(values, valid);
+  }, [onUpdate]);
+
   useEffect(() => {
-    onUpdate(formValues, isValid);
-  }, [formValues, isValid, onUpdate]);
+    if (!isEqual(formValuesRef.current, formValues)) {
+      formValuesRef.current = formValues;
+      stableOnUpdate(formValues, isValid);
+    }
+  }, [formValues, isValid, stableOnUpdate]);
 
   useEffect(() => {
     trigger(); // Validate the form on mount to show errors if fields are empty
   }, [trigger]);
-  
+
   function splitStringToArray(inputString, delimiter) {
-    // Check if the inputString is null or an empty string
     if (!inputString) {
       return [];
     }
-    const dataArray = inputString.split(delimiter);
-    // Remove the last empty string caused by the trailing delimiter
-    const filteredArray = dataArray.filter(element => element !== "");
-    return filteredArray;
+    const dataArray = inputString.split(delimiter).filter(element => element !== "");
+    return dataArray;
   }
 
   useEffect(() => {
-  if (initialRows) {
-    //const addressArray = splitStringToArray(initialRows?.address,'|')
-    const addressArray = splitStringToArray(initialRows?.address, '|');
-    // Validate and set form values
-    if (addressArray.length >= 8) {
-      setValue("house", addressArray[0] || "");
-      setValue("street", addressArray[5] || "");
-      setValue("landMark", addressArray[3] || "");
-      setValue("locality", addressArray[7] || "");
-      setValue("subDistrict", addressArray[4] || "");
-      setValue("district", addressArray[8] || "");
-      setValue("state", addressArray[9] || "");
-    } else {
-      console.error("Address array does not have enough elements:", addressArray);
+    if (initialRows) {
+      const addressArray = splitStringToArray(initialRows?.address, '|');
+      if (addressArray.length >= 8) {
+        setValue("house", addressArray[0] || "");
+        setValue("street", addressArray[5] || "");
+        setValue("landMark", addressArray[3] || "");
+        setValue("locality", addressArray[7] || "");
+        setValue("subDistrict", addressArray[4] || "");
+        setValue("district", addressArray[8] || "");
+        setValue("state", addressArray[9] || "");
+      } else {
+        console.error("Address array does not have enough elements:", addressArray);
+      }
+
+      const zonedata = processSingleData(initialRows?.zone, headerLocale);
+      const blockdata = processSingleData(initialRows?.ward, headerLocale);
+      const warddata = processSingleData(initialRows?.subward, headerLocale);
+
+      setValue("city", initialRows.city || "");
+      setValue("zoneName", zonedata || "");
+      setValue("pincode", initialRows.pinCode || "");
+      setValue("blockName", blockdata || "");
+      setValue("wardName", warddata || "");
+
+      if (addressArray[0]) clearErrors("house");
+      if (addressArray[5]) clearErrors("street");
+      if (addressArray[3]) clearErrors("landMark");
+      if (addressArray[7]) clearErrors("locality");
+      if (addressArray[4]) clearErrors("subDistrict");
+      if (addressArray[8]) clearErrors("district");
+      if (addressArray[9]) clearErrors("state");
+      if (initialRows.city) clearErrors("city");
+      if (initialRows.pinCode) clearErrors("pincode");
+      if (zonedata) clearErrors("zoneName");
+      if (blockdata) clearErrors("blockName");
+      if (warddata) clearErrors("wardName");
     }
+  }, [initialRows, setValue, headerLocale, clearErrors]);
 
-    const zonedata = processSingleData(initialRows?.zone, headerLocale);
-    const blockdata = processSingleData(initialRows?.ward, headerLocale);
-    const warddata = processSingleData(initialRows?.subward, headerLocale);
-
-    
-    setValue("city", initialRows.city || "");
-    setValue("zoneName", zonedata || "");
-    setValue("pincode", initialRows.pinCode || "");
-    setValue("blockName", blockdata || "");
-    setValue("wardName", warddata || "");
-
-    // Clear errors for fields that received initial values
-    if (addressArray[0]) clearErrors("house");
-    if (addressArray[5]) clearErrors("street");
-    if (addressArray[3]) clearErrors("landMark");
-    if (addressArray[7]) clearErrors("locality");
-    if (addressArray[4]) clearErrors("subDistrict");
-    if (addressArray[8]) clearErrors("district");
-    if (addressArray[9]) clearErrors("state");
-    if (initialRows.city) clearErrors("city");
-    if (initialRows.pinCode) clearErrors("pincode");
-    if (zonedata) clearErrors("zoneName");
-    if (blockdata) clearErrors("blockName");
-    if (warddata) clearErrors("wardName");
-  }
-}, [initialRows, setValue, headerLocale, clearErrors]);
   const handleToggle = () => {
     setIsEditable(!isEditable);
   };

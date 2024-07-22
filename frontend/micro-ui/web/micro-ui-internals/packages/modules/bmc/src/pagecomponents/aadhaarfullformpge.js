@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import AddressDetailCard from "../components/AddressDetails";
@@ -10,7 +10,7 @@ import QualificationCard from "../components/QualificationCard";
 import Title from "../components/title";
 
 const AadhaarFullFormPage = (_props) => {
-  const { formData, config } = _props;
+  const { formData, config } = _props; 
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const userDetails = Digit.UserService.getUser();
   const { t } = useTranslation();
@@ -36,25 +36,25 @@ const AadhaarFullFormPage = (_props) => {
   const handleQualificationsUpdate = (updatedQualifications) => {
     setupdatedQualifications(updatedQualifications);
   };
-
-  const handlePersonalDetailUpdate = (updatedPersonalDetails) => {
+  
+  const handlePersonalDetailUpdate = useCallback((updatedPersonalDetails) => {
     setupdatedPersonalDetails(updatedPersonalDetails);
-  };
-
-  const handleDisabilityUpdate = (updatedDisability) => {
+  }, []);
+  
+  const handleDisabilityUpdate = useCallback((updatedDisability) => {
     setupdatedDisability(updatedDisability);
-  };
-
-  const handleAddressUpdate = (updatedAddress) => {
+  }, []);
+  
+  const handleAddressUpdate = useCallback((updatedAddress) => {
     setupdatedAddress(updatedAddress);
-  };
+  }, []);
 
-  const goNext = () => {
-    const data={UserSearchCriteria: {updatedAddress,updatedDisability,updatedQualifications,updatedPersonalDetails }};
-    //data.push(handleAddressUpdate);
-    Digit.Hooks.bmc.useSaveUserDetail(data,{});
-    //history.push("/digit-ui/citizen/bmc/selectScheme");
-  };
+  const goNext = useCallback(() => {
+    const data = { UserData: { updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails }};
+    console.log(data);
+    Digit.Hooks.bmc.useSaveUserDetail(data, {});
+    // history.push("/digit-ui/citizen/bmc/selectScheme");
+  }, [updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails]);
 
   return (
     <React.Fragment>
