@@ -140,7 +140,7 @@ const ApplicationDetailFull = (_props) => {
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={4} /> : null}
-        <Title text={`Application for ${schemeshead.schemeHead} and ${selectedRadio.value}`} />
+        <Title text={`Application for ${schemeHead} and ${selectedRadio.value}`} />
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Scheme Details</div>
