@@ -31,6 +31,16 @@ const SchemeService = {
         auth: true,
         userService: true,
       })
+    },
+    saveUserDetails:(data)=>{
+      return Request({
+        data: data,
+        url: Urls.users.saveUserDetails,
+        useCache: false,
+        method: "POST",
+        auth: true,
+        userService: true,
+      })
     }
 };
 

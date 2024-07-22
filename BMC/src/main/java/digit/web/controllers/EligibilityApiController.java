@@ -2,7 +2,6 @@ package digit.web.controllers;
 
 import java.util.List;
 
-import org.egov.common.contract.request.User;
 import org.egov.common.contract.response.ResponseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import digit.bmc.model.UserCompleteDetails;
 import digit.util.ResponseInfoFactory;
@@ -22,7 +19,6 @@ import digit.validators.SchemeApplicationValidator;
 import digit.web.models.EligibilityResponse;
 import digit.web.models.SchemeApplication;
 import digit.web.models.SchemeApplicationRequest;
-import digit.web.models.SchemeApplicationResponse;
 import digit.web.models.SchemeValidationResponse;
 import io.swagger.annotations.ApiParam;
 import jakarta.servlet.http.HttpServletRequest;

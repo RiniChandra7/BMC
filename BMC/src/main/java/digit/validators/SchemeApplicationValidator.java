@@ -6,11 +6,12 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import org.egov.tracer.model.CustomException;
 
+import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+
 import digit.bmc.model.SchemeCriteria;
 import digit.bmc.model.UserCompleteDetails;
 import digit.bmc.model.VerificationDetails;
@@ -84,14 +85,14 @@ public class SchemeApplicationValidator {
 
     public SchemeValidationResponse criteriaCheck(SchemeApplicationRequest request) {
         SchemeValidationResponse response = new SchemeValidationResponse();
-        boolean age = true, disability = true, gender = false, income = true, education = true ,document = false;
+        boolean age = true, disability = true, gender = false, income = true, education = true ,document = true;
         Long schemeId = request.getSchemeApplications().get(0).getSchemes().getId();
         List<SchemeCriteria> criteriaList = repository.getCriteriaBySchemeIdAndType(schemeId);
 
         List<VerificationDetails> details=repository.getApplicationForVerification(new SchemeApplicationSearchCriteria());
-        for (VerificationDetails detail : details){
-            System.out.println(detail.toString());
-        }
+        // for (VerificationDetails detail : details){
+        //     System.out.println(detail.toString());
+        // }
 
         for (SchemeCriteria criteria : criteriaList) {
             CriteriaType criteriaType = CriteriaType.fromDisplayName(criteria.getCriteriaType());
@@ -137,7 +138,7 @@ public class SchemeApplicationValidator {
                     response.setEducationEligibility(education);
                     break;
                 case DOCUMENT :
-                    if(!document) {
+                    if(document) {
                         document = evaluateCondition(request.getRationCardCategory(),condition,value);
                     }
                     response.setRationCardEligibility(document);
@@ -240,7 +241,7 @@ public class SchemeApplicationValidator {
         long diffInYears = diffInMillis / (1000L * 60 * 60 * 24 * 365);
         return diffInYears <= 1;
     }
-
+    // sundeep: need to check later
     public EligibilityResponse isAddressFromBMCArea(UserCompleteDetails user) {
         eligibilityResponse.setAddressValidated("Mumbai".equalsIgnoreCase(user.getAddress().getCity()));
         return eligibilityResponse;

@@ -220,7 +220,8 @@ const Urls = {
   },
 
   users:{
-    getUserDetails: "http://localhost:8081/bmc/user/_get"
+    getUserDetails: "http://localhost:8081/bmc/user/_get",
+    saveUserDetails:"http://localhost:8081/bmc/user/_save"
   },
 
   noc: {

@@ -18,6 +18,11 @@ const AadhaarFullFormPage = (_props) => {
 
   const [userDetail, setUserDetail] = useState({});
 
+  const [updatedPersonalDetails, setupdatedPersonalDetails] = useState({});
+  const [updatedQualifications, setupdatedQualifications] = useState({});
+  //const [saveDetail, saveUserDetail] = useState({});
+  const [updatedDisability, setupdatedDisability] = useState({});
+  const [updatedAddress, setupdatedAddress] = useState({});
 
   const userFunction = (data) => {
     if (data && data.UserDetails && data.UserDetails.length > 0) {
@@ -28,25 +33,27 @@ const AadhaarFullFormPage = (_props) => {
   const getUserDetails = { UserSearchCriteria: { Option: "full", TenantID: tenantId, UserID: userDetails?.info?.id } };
   Digit.Hooks.bmc.useUsersDetails(getUserDetails, { select: userFunction });
 
-
   const handleQualificationsUpdate = (updatedQualifications) => {
-    console.log(updatedQualifications);
+    setupdatedQualifications(updatedQualifications);
   };
 
   const handlePersonalDetailUpdate = (updatedPersonalDetails) => {
-    console.log(updatedPersonalDetails);
+    setupdatedPersonalDetails(updatedPersonalDetails);
   };
 
   const handleDisabilityUpdate = (updatedDisability) => {
-    console.log(updatedDisability);
+    setupdatedDisability(updatedDisability);
   };
 
   const handleAddressUpdate = (updatedAddress) => {
-    console.log(updatedAddress);
+    setupdatedAddress(updatedAddress);
   };
 
   const goNext = () => {
-    history.push("/digit-ui/citizen/bmc/selectScheme");
+    const data={UserSearchCriteria: {updatedAddress,updatedDisability,updatedQualifications,updatedPersonalDetails }};
+    //data.push(handleAddressUpdate);
+    Digit.Hooks.bmc.useSaveUserDetail(data,{});
+    //history.push("/digit-ui/citizen/bmc/selectScheme");
   };
 
   return (
@@ -54,18 +61,8 @@ const AadhaarFullFormPage = (_props) => {
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
         <Title text={"Applicant Details"} />
-        <PersonalDetailCard
-          onUpdate={handlePersonalDetailUpdate}
-          initialRows={userDetail}
-          tenantId={tenantId}
-          AllowEdit={true}
-        />
-        <AddressDetailCard
-          onUpdate={handleAddressUpdate}
-          initialRows={userDetail.address}
-          tenantId={tenantId}
-          AllowEdit={true}
-        />
+        <PersonalDetailCard onUpdate={handlePersonalDetailUpdate} initialRows={userDetail} tenantId={tenantId} AllowEdit={true} />
+        <AddressDetailCard onUpdate={handleAddressUpdate} initialRows={userDetail.address} tenantId={tenantId} AllowEdit={true} />
         <QualificationCard
           onUpdate={handleQualificationsUpdate}
           initialRows={userDetail.qualificationDetails}
@@ -73,24 +70,10 @@ const AadhaarFullFormPage = (_props) => {
           AddOption={true}
           AllowRemove={true}
         />
-        <BankDetails
-          initialRows={userDetail.bankDetail}
-          tenantId={tenantId}
-          AddOption={true}
-          AllowRemove={true}
-        />
-        <DisabilityCard
-          onUpdate={handleDisabilityUpdate}
-          initialRows={userDetail.divyang}
-          tenantId={tenantId}
-          AllowEdit={true}
-        />
+        <BankDetails initialRows={userDetail.bankDetail} tenantId={tenantId} AddOption={true} AllowRemove={true} />
+        <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={userDetail.divyang} tenantId={tenantId} AllowEdit={true} />
         <div className="bmc-card-row" style={{ textAlign: "end" }}>
-          <button
-            className="bmc-card-button"
-            onClick={goNext}
-            style={{ borderBottom: "3px solid black", marginRight: "1rem" }}
-          >
+          <button className="bmc-card-button" onClick={goNext} style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
             {t("BMC_Confirm")}
           </button>
           <button
