@@ -116,15 +116,15 @@ const SelectSchemePage = () => {
     return (
       <React.Fragment>
         <div className="bmc-row-card-header">
-          <p style={{ paddingLeft: "4rem" }}>{selectedScheme.schemeDesc}</p>
-          <p style={{ paddingLeft: "4rem" }}>
+          <div className="bmc-title">{selectedScheme.schemeDesc}</div>
+          <div className="bmc-card-row">
             {t("Following are the critierias to avail this scheme")}
-            <ul style={{ paddingLeft: "4rem" }}>
+            <div className="bmc-criteria">
               {selectedScheme.criteria.map((criterion, index) => (
-                <li key={index}>{`${criterion.criteriaType} ${criterion.criteriaCondition} ${criterion.criteriaValue}`}</li>
+                <span key={index}>{`${criterion.criteriaType} ${criterion.criteriaCondition} ${criterion.criteriaValue}`}</span>
               ))}
-            </ul>
-          </p>
+            </div>
+          </div>
         </div>
 
         {selectedScheme.courses.length > 0 && (

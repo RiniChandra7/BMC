@@ -1,5 +1,5 @@
 import { CardLabel, DatePicker, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import isEqual from 'lodash.isequal';
+import isEqual from "lodash.isequal";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -13,14 +13,22 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
   const [religions, setReligions] = useState([]);
   const headerLocale = useMemo(() => Digit.Utils.locale.getTransformedLocale(tenantId), [tenantId]);
 
-  const { control, formState: { errors, isValid }, setValue, trigger, clearErrors, watch ,getValues} = useForm({
+  const {
+    control,
+    formState: { errors, isValid },
+    setValue,
+    trigger,
+    clearErrors,
+    watch,
+    getValues,
+  } = useForm({
     defaultValues: {
-      firstName: initialRows.aadharname || "",
-      middleName: initialRows.middleName || "",
-      lastName: initialRows.lastName || "",
+      title: initialRows.title || "",
+      aadharName: initialRows.aadharname || "",
+      father: initialRows.aadharfathername || "",
       dob: initialRows.aadhardob || "",
       gender: initialRows.gender || "",
-      father: initialRows.aadharfathername || "",
+      transgenderId: initialRows.transgenderId || "",
       religion: initialRows.religion || "",
       casteCategory: initialRows.caste || "",
     },
@@ -34,12 +42,27 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
     if (!item) return null;
 
     const genderMapping = {
-      male: { id: 1, name: 'Male' },
-      female: { id: 2, name: 'Female' },
-      transgender: { id: 3, name: 'Transgender' },
+      male: { id: 1, name: "Male" },
+      female: { id: 2, name: "Female" },
+      transgender: { id: 3, name: "Transgender" },
     };
 
-    if (typeof item === 'string') {
+    const titleMapping = {
+      mr: { id: 1, name: "Mr" },
+      mrs: { id: 2, name: "Mrs" },
+      miss: { id: 3, name: "Miss" },
+    };
+
+    if (typeof item === "string") {
+      const title = titleMapping[item.toLowerCase()];
+      if (!title) return null;
+      return {
+        ...title,
+        i18nKey: `${headerLocale}_ADMIN_${title.name.toUpperCase()}`,
+      };
+    }
+
+    if (typeof item === "string") {
       const gender = genderMapping[item.toLowerCase()];
       if (!gender) return null;
       return {
@@ -48,7 +71,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
       };
     }
 
-    if (typeof item === 'object' && item.id && item.name) {
+    if (typeof item === "object" && item.id && item.name) {
       return {
         id: item.id,
         name: item.name,
@@ -59,25 +82,33 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
     return null;
   }, []);
 
-  const processCommonData = useCallback((data, headerLocale) => (
-    data?.CommonDetails?.map((item) => ({
-      id: item.id,
-      name: item.name,
-      i18nKey: `${headerLocale}_ADMIN_${item.name}`,
-    })) || []
-  ), []);
+  const processCommonData = useCallback(
+    (data, headerLocale) =>
+      data?.CommonDetails?.map((item) => ({
+        id: item.id,
+        name: item.name,
+        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
+      })) || [],
+    []
+  );
 
-  const casteFunction = useCallback((data) => {
-    const castesData = processCommonData(data, headerLocale);
-    setCastes(castesData);
-    return { castesData };
-  }, [headerLocale, processCommonData]);
+  const casteFunction = useCallback(
+    (data) => {
+      const castesData = processCommonData(data, headerLocale);
+      setCastes(castesData);
+      return { castesData };
+    },
+    [headerLocale, processCommonData]
+  );
 
-  const religionFunction = useCallback((data) => {
-    const religionsData = processCommonData(data, headerLocale);
-    setReligions(religionsData);
-    return { religionsData };
-  }, [headerLocale, processCommonData]);
+  const religionFunction = useCallback(
+    (data) => {
+      const religionsData = processCommonData(data, headerLocale);
+      setReligions(religionsData);
+      return { religionsData };
+    },
+    [headerLocale, processCommonData]
+  );
 
   const getCaste = { CommonSearchCriteria: { Option: "caste" } };
   const getReligion = { CommonSearchCriteria: { Option: "religion" } };
@@ -85,9 +116,12 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
   Digit.Hooks.bmc.useCommonGet(getCaste, { select: casteFunction });
   Digit.Hooks.bmc.useCommonGet(getReligion, { select: religionFunction });
 
-  const stableOnUpdate = useCallback((values, valid) => {
-    onUpdate(values, valid);
-  }, [onUpdate]);
+  const stableOnUpdate = useCallback(
+    (values, valid) => {
+      onUpdate(values, valid);
+    },
+    [onUpdate]
+  );
 
   useEffect(() => {
     if (!isEqual(formValuesRef.current, formValues)) {
@@ -105,22 +139,22 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
       const casteData = processSingleData(initialRows?.caste, headerLocale);
       const religionData = processSingleData(initialRows?.religion, headerLocale);
       const genderData = processSingleData(initialRows?.gender, headerLocale);
-      setValue("firstName", initialRows.aadharname || "");
-      setValue("middleName", initialRows.middleName || "");
-      setValue("lastName", initialRows.lastName || "");
+      setValue("title", initialRows.title || "");
+      setValue("aadharName", initialRows.aadharname || "");
+      setValue("father", initialRows.aadharfathername || "");
       setValue("dob", initialRows.aadhardob || "");
       setValue("gender", genderData || "");
-      setValue("father", initialRows.aadharfathername || "");
+      setValue("transgenderId", initialRows.transgenderId || "");
       setValue("religion", religionData || "");
       setValue("casteCategory", casteData || "");
 
       // Clear errors for fields that received initial values
-      if (initialRows.aadharname) clearErrors("firstName");
-      if (initialRows.middleName) clearErrors("middleName");
-      if (initialRows.lastName) clearErrors("lastName");
+      if (initialRows.title) clearErrors("title");
+      if (initialRows.aadharname) clearErrors("aadharName");
+      if (initialRows.aadharfathername) clearErrors("father");
       if (initialRows.aadhardob) clearErrors("dob");
       if (genderData) clearErrors("gender");
-      if (initialRows.aadharfathername) clearErrors("father");
+      if (initialRows.transgenderId) clearErrors("transgenderId");
       if (religionData) clearErrors("religion");
       if (casteData) clearErrors("casteCategory");
     }
@@ -151,23 +185,28 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
         <div className="bmc-card-row">
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_FIRST_NAME")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_TITLE")}</CardLabel>
               <Controller
                 control={control}
-                name="firstName"
+                name="title"
                 rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
                 render={(props) => (
                   <div>
-                    <TextInput
-                      disabled={!isEditable}
-                      readOnly={!isEditable}
-                      value={props.value}
-                      onChange={(e) => props.onChange(e.target.value)}
-                      onBlur={props.onBlur}
-                      optionKey="i18nKey"
-                      t={t}
-                    />
-                    {errors.firstName && <span style={{ color: "red" }}>{errors.firstName.message}</span>}
+                    {isEditable ? (
+                      <Dropdown
+                        placeholder={t("SELECT TITLE")}
+                        selected={props.value}
+                        select={props.onChange}
+                        onBlur={props.onBlur}
+                        option={dropdownOptions.title}
+                        optionKey="name"
+                        t={t}
+                        isMandatory={true}
+                      />
+                    ) : (
+                      <TextInput readOnly value={props.value?.name || ""} />
+                    )}
+                    {errors.title && <span style={{ color: "red" }}>{errors.title.message}</span>}
                   </div>
                 )}
               />
@@ -175,10 +214,10 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_MIDDLE_NAME")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_AADHAR_NAME")}</CardLabel>
               <Controller
                 control={control}
-                name="middleName"
+                name="aadharName"
                 rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
                 render={(props) => (
                   <div>
@@ -191,7 +230,7 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                       optionKey="i18nKey"
                       t={t}
                     />
-                    {errors.middleName && <span style={{ color: "red" }}>{errors.middleName.message}</span>}
+                    {errors.aadharName && <span style={{ color: "red" }}>{errors.aadharName.message}</span>}
                   </div>
                 )}
               />
@@ -199,10 +238,10 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_LAST_NAME")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_FATHER")}</CardLabel>
               <Controller
                 control={control}
-                name="lastName"
+                name="father"
                 rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
                 render={(props) => (
                   <div>
@@ -215,12 +254,13 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                       optionKey="i18nKey"
                       t={t}
                     />
-                    {errors.lastName && <span style={{ color: "red" }}>{errors.lastName.message}</span>}
+                    {errors.father && <span style={{ color: "red" }}>{errors.father.message}</span>}
                   </div>
                 )}
               />
             </LabelFieldPair>
           </div>
+
           <div className="bmc-col3-card">
             <LabelFieldPair>
               <CardLabel className="bmc-label">{t("BMC_DATE_OF_BIRTH")}</CardLabel>
@@ -268,12 +308,13 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
               />
             </LabelFieldPair>
           </div>
+
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_FATHER")}</CardLabel>
+              <CardLabel className="bmc-label">{t("BMC_TRANSGENDER_ID")}</CardLabel>
               <Controller
                 control={control}
-                name="father"
+                name="transgenderId"
                 rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
                 render={(props) => (
                   <div>
@@ -286,12 +327,13 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
                       optionKey="i18nKey"
                       t={t}
                     />
-                    {errors.father && <span style={{ color: "red" }}>{errors.father.message}</span>}
+                    {errors.transgenderId && <span style={{ color: "red" }}>{errors.transgenderId.message}</span>}
                   </div>
                 )}
               />
             </LabelFieldPair>
           </div>
+
           <div className="bmc-col3-card">
             <LabelFieldPair>
               <CardLabel className="bmc-label">{t("BMC_RELIGION")}*</CardLabel>

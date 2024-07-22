@@ -4,12 +4,13 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
 import Timeline from "../components/bmcTimeline";
-import DisabilityCard from "../components/DisabilityCard";
+// import DisabilityCard from "../components/DisabilityCard";
 import MultiSelect from "../components/multidropdown";
-import QualificationCard from "../components/QualificationCard";
+// import QualificationCard from "../components/QualificationCard";
 import RadioButton from "../components/radiobutton";
 import Title from "../components/title";
 import dropdownOptions from "./dropdownOptions.json";
+// import BankDetailsForm from "../components/BankDetails";
 
 const ApplicationDetail = () => ({
   rationCard: "",
@@ -58,7 +59,7 @@ const ApplicationDetailFull = (_props) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
 
-  const { schemeHead, selectedScheme, selectedRadio } = location.state || {};
+  const { schemeHead, selectedScheme, selectedRadio , schemeshead} = location.state || {};
   const [focusIndex, setFocusIndex] = useState({ index: -1, type: "" });
   const [owner, setOwner] = useState(formData?.owner || [ApplicationDetail()]);
   const [bankPassbook, setBankPassBook] = useState("");
@@ -102,7 +103,6 @@ const ApplicationDetailFull = (_props) => {
   const getDocuments = { CommonSearchCriteria: { Option: "document" } };
   Digit.Hooks.bmc.useCommonGet(getDocuments, { select: documentFunction });
 
-
   const handleSelect = (e, option) => {
     if (selectedDocuments.some((doc) => doc.code === option.code)) {
       setSelectedDocuments(selectedDocuments.filter((doc) => doc.code !== option.code));
@@ -111,9 +111,9 @@ const ApplicationDetailFull = (_props) => {
     }
   };
 
-  const handleClearSelection = () => {
-    setSelectedDocuments([]);
-  };
+  // const handleClearSelection = () => {
+  //   setSelectedDocuments([]);
+  // };
 
   const handleCheckbox = () => {
     setIsCheckedShow(!isCheckedShow);
@@ -128,24 +128,19 @@ const ApplicationDetailFull = (_props) => {
   };
 
   const isConfirmButtonEnabled = checkbox1 && checkbox2;
-  const handleQualificationsUpdate = (updatedQualifications) => {
-    //setQualifications(updatedQualifications);
-    console.log(updatedQualifications);
-  };
+
   const onSubmit = (data) => {
     history.push("/digit-ui/citizen/bmc/review");
     const formDataValues = { ...data, bankPassbook, domicileofMumbai, incomeCer, voterId, panCard, business };
     setOwner(formDataValues);
   };
-  const handleDisabilityUpdate = (updatedDisability) => {
-    //setQualifications(updatedQualifications);
-    console.log(updatedDisability);
-  };
+
+
   return (
     <React.Fragment>
       <div className="bmc-card-full">
         {window.location.href.includes("/citizen") ? <Timeline currentStep={4} /> : null}
-        <Title text={`Application for ${schemeHead} and ${selectedRadio.value}`} />
+        <Title text={`Application for ${schemeshead.schemeHead} and ${selectedRadio.value}`} />
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
             <div className="bmc-title">Scheme Details</div>
@@ -528,84 +523,75 @@ const ApplicationDetailFull = (_props) => {
             )}
           </div>
         </div>
-       
 
         <div className="bmc-row-card-header">
           <div className="bmc-card-row">
-            <div className="bmc-title">Occupation Details</div>
-            <div className="bmc-col3-card">
-              <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                <CardLabel className="bmc-label">{t("BMC_Occupation*")}</CardLabel>
-                <div className="bmc-checkbox" style={{ display: "flex", flexDirection: "row" }}>
-                  <CheckBox
-                    label={"Employed"}
-                    styles={{ height: "auto", color: "#f47738", fontSize: "18px", position: "none" }}
-                    checked={isCheckedShow}
-                    onChange={handleCheckbox}
+            <div className="bmc-col2-card">
+              <div className="bmc-card-row">
+                <div className="bmc-title">Occupation Details</div>
+                <div className="bmc-col2-card">
+                  <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
+                    <CardLabel className="bmc-label">{t("BMC_Occupation*")}</CardLabel>
+                    <div className="bmc-checkbox" style={{ display: "flex", flexDirection: "row" }}>
+                      <CheckBox
+                        label={"Employed"}
+                        styles={{ height: "auto", color: "#f47738", fontSize: "18px", position: "none" }}
+                        checked={isCheckedShow}
+                        onChange={handleCheckbox}
+                      />
+                    </div>
+                  </LabelFieldPair>
+                </div>
+                {isCheckedShow && (
+                  <div className="bmc-col1-card">
+                    <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
+                      <CardLabel className="bmc-label">{t("BMC_Employment Detail*")}</CardLabel>
+                      <RadioButton
+                        t={t}
+                        optionsKey="value"
+                        options={[
+                          { label: "Service", value: "Service" },
+                          { label: "Business", value: "Business" },
+                        ]}
+                        style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
+                        selectedOption={service}
+                        onSelect={(value) => setService(value)}
+                        checked={"Service" === service.value}
+                      />
+                    </LabelFieldPair>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="bmc-col2-card">
+              <div className="bmc-card-row">
+                <div className="bmc-title">Document's Details</div>
+                <div className="bmc-col2-card">
+                  <MultiSelect
+                    options={documents}
+                    optionsKey="i18nKey"
+                    selected={selectedDocuments}
+                    onSelect={handleSelect}
+                    defaultLabel={t("No documents selected")}
+                    defaultUnit={t("documents selected")}
+                    t={t}
+                    isOBPSMultiple={true}
+                    BlockNumber={true}
                   />
                 </div>
-              </LabelFieldPair>
-            </div>
-            {isCheckedShow && (
-              <div className="bmc-col1-card">
-                <LabelFieldPair t={t} config={config} isMultipleAllow={true}>
-                  <CardLabel className="bmc-label">{t("BMC_Employment Detail*")}</CardLabel>
-                  <RadioButton
-                    t={t}
-                    optionsKey="value"
-                    options={[
-                      { label: "Service", value: "Service" },
-                      { label: "Business", value: "Business" },
-                    ]}
-                    style={{ display: "flex", flexDirection: "row", gap: "12px", marginTop: "1rem" }}
-                    selectedOption={service}
-                    onSelect={(value) => setService(value)}
-                    checked={"Service" === service.value}
-                  />
-                </LabelFieldPair>
               </div>
-            )}
-          </div>
-        </div>
-        <div className="bmc-row-card-header">
-          <div className="bmc-card-row">
-            <div className="bmc-title">Document's Details</div>
-            <div className="bmc-col3-card">
-              <MultiSelect
-                options={documents}
-                optionsKey="i18nKey"
-                selected={selectedDocuments}
-                onSelect={handleSelect}
-                defaultLabel={t("No documents selected")}
-                defaultUnit={t("documents selected")}
-                t={t}
-                isOBPSMultiple={true}
-                BlockNumber={true}
-              />
             </div>
           </div>
-          <div>
-            <h3>{t("Selected Documents:")}</h3>
-            <ul>
-              {selectedDocuments.map((doc) => (
-                <li key={doc.value}>{t(doc.i18nKey)}</li>
-              ))}
-            </ul>
-          </div>
-          {selectedDocuments.length > 0 && (
-            <button className="bmc-card-button-cancel" onClick={handleClearSelection}>
-              {t("Clear Selection")}
-            </button>
-          )}
         </div>
-        <QualificationCard
+        {/* <BankDetailsForm t={t} AddOption={false} AllowRemove={false} initialRows={[]} /> */}
+        {/* <QualificationCard
           qualifications={qualifications}
           onUpdate={handleQualificationsUpdate}
           initialRows={dropdownOptions.education}
           AddOption={false}
           AllowRemove={false}
         ></QualificationCard>
-        <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={false}/>
+        <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={[]} AllowEdit={false} /> */}
         <div className="bmc-card-row">
           <div className="bmc-col-large-header">
             <div className="bmc-checkbox">

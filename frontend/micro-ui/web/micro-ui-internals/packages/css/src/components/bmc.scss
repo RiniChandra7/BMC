@@ -910,3 +910,14 @@
   margin-left: 8px;
   cursor: pointer;
 }
+
+.bmc-criteria{
+  display: flex;
+  gap: 12px;
+  background: #f1f1f1;
+  width: fit-content;
+  height: 10vh;
+  padding: 12px;
+  align-items: center;
+  text-align: center;
+}
