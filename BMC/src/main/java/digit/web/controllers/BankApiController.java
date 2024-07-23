@@ -1,11 +1,18 @@
 package digit.web.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.egov.common.contract.response.ResponseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import digit.service.BankService;
 import digit.util.ResponseInfoFactory;
@@ -14,9 +21,6 @@ import digit.web.models.bank.BankSearchRequest;
 import digit.web.models.bank.BankSearchResponse;
 import digit.web.models.bank.RazorPayBankDetails;
 import io.swagger.annotations.ApiParam;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/bank")
@@ -29,7 +33,7 @@ public class BankApiController {
     private ResponseInfoFactory responseInfoFactory;
     
 
-    @PostMapping("/_getDetails")
+    @PostMapping("/_get")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<BankSearchResponse> getBankDetails(@ApiParam(value = "Bank Details", required = true) @RequestBody BankSearchRequest searchRequest) {
 
