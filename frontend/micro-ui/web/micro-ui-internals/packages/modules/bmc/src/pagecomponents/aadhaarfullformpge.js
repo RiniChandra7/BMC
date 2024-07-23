@@ -85,7 +85,7 @@ const AadhaarFullFormPage = (_props) => {
         <BankDetails initialRows={userDetail.bankDetail} tenantId={tenantId} AddOption={true} AllowRemove={true} onUpdate={handleBankUpdate} />
         <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={userDetail.divyang} tenantId={tenantId} AllowEdit={true} />
         <div className="bmc-card-row" style={{ textAlign: "end" }}>
-          <button className="bmc-card-button" onClick={() => goNext()} style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
+          <button className="bmc-card-button" onClick={goNext} style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
             {t("BMC_Confirm")}
           </button>
           <button

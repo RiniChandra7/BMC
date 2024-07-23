@@ -212,7 +212,8 @@ const Urls = {
   },
   
   common:{
-    get: "http://localhost:8081/bmc/common/_get"
+    get: "http://localhost:8081/bmc/common/_get",
+    getBanks: "http://localhost:8081/bmc/bank/_get"
   },
 
   schemes:{

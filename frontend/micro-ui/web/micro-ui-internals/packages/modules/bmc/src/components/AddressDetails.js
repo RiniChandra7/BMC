@@ -1,5 +1,5 @@
 import { CardLabel, Dropdown, LabelFieldPair, TextInput } from "@egovernments/digit-ui-react-components";
-import isEqual from 'lodash.isequal';
+import isEqual from "lodash.isequal";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -40,12 +40,12 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
     if (!item) return null;
 
     const genderMapping = {
-      male: { id: 1, name: 'Male' },
-      female: { id: 2, name: 'Female' },
-      transgender: { id: 3, name: 'Transgender' },
+      male: { id: 1, name: "Male" },
+      female: { id: 2, name: "Female" },
+      transgender: { id: 3, name: "Transgender" },
     };
 
-    if (typeof item === 'string') {
+    if (typeof item === "string") {
       const gender = genderMapping[item.toLowerCase()];
       if (!gender) return null; // Handle cases where the item is not one of the expected values
       return {
@@ -54,7 +54,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
       };
     }
 
-    if (typeof item === 'object' && item.id && item.name) {
+    if (typeof item === "object" && item.id && item.name) {
       return {
         code: item.id,
         name: item.name,
@@ -170,17 +170,20 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
   useEffect(() => {
     if (initialRows) {
       const addressArray = splitStringToArray(initialRows?.address, '|');
-      if (addressArray.length >= 8) {
-        setValue("house", addressArray[0] || "");
-        setValue("street", addressArray[5] || "");
-        setValue("landMark", addressArray[3] || "");
-        setValue("locality", addressArray[7] || "");
-        setValue("subDistrict", addressArray[4] || "");
-        setValue("district", addressArray[8] || "");
-        setValue("state", addressArray[9] || "");
-      } else {
-        console.error("Address array does not have enough elements:", addressArray);
+      const expectedLength = 10; // Number of expected elements in the address array
+
+      // Ensure the address array has the required number of elements, filling missing elements with empty strings
+      while (addressArray.length < expectedLength) {
+        addressArray.push("");
       }
+
+      setValue("house", addressArray[0] || "");
+      setValue("street", addressArray[5] || "");
+      setValue("landMark", addressArray[3] || "");
+      setValue("locality", addressArray[7] || "");
+      setValue("subDistrict", addressArray[4] || "");
+      setValue("district", addressArray[8] || "");
+      setValue("state", addressArray[9] || "");
 
       const zonedata = processSingleData(initialRows?.zone, headerLocale);
       const blockdata = processSingleData(initialRows?.ward, headerLocale);
@@ -210,6 +213,7 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
   const handleToggle = () => {
     setIsEditable(!isEditable);
   };
+  
   return (
     <React.Fragment>
       <form className="bmc-row-card-header">

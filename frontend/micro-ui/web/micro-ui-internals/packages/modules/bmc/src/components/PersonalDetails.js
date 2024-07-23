@@ -42,15 +42,15 @@ const PersonalDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = true, tena
     if (!item) return null;
 
     const genderMapping = {
-      male: { id: 1, name: "Male" },
-      female: { id: 2, name: "Female" },
-      transgender: { id: 3, name: "Transgender" },
+      male: { id: 1, name: "MALE" },
+      female: { id: 2, name: "FEMALE" },
+      transgender: { id: 3, name: "TRANSGENDER" },
     };
 
     const titleMapping = {
-      mr: { id: 1, name: "Mr" },
-      mrs: { id: 2, name: "Mrs" },
-      miss: { id: 3, name: "Miss" },
+      mr: { id: 1, name: "MR" },
+      mrs: { id: 2, name: "MRS" },
+      miss: { id: 3, name: "MISS" },
     };
 
     if (typeof item === "string") {

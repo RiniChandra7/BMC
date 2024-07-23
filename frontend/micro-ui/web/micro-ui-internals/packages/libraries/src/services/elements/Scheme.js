@@ -41,7 +41,17 @@ const SchemeService = {
         auth: true,
         userService: true,
       })
-    }
+    },
+    getBanks: (data) =>{
+      return Request({
+        data: data,
+        url: Urls.common.getBanks,
+        useCache: false,
+        method: "POST",
+        auth: true,
+        userService: true,
+      })
+    },
 };
 
 export default SchemeService;
