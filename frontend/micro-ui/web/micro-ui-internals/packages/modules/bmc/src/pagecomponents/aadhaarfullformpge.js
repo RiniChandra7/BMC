@@ -10,7 +10,7 @@ import QualificationCard from "../components/QualificationCard";
 import Title from "../components/title";
 
 const AadhaarFullFormPage = (_props) => {
-  const { formData, config } = _props; 
+  const { formData, config } = _props;
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const userDetails = Digit.UserService.getUser();
   const { t } = useTranslation();
@@ -20,7 +20,6 @@ const AadhaarFullFormPage = (_props) => {
 
   const [updatedPersonalDetails, setupdatedPersonalDetails] = useState({});
   const [updatedQualifications, setupdatedQualifications] = useState({});
-  //const [saveDetail, saveUserDetail] = useState({});
   const [updatedDisability, setupdatedDisability] = useState({});
   const [updatedAddress, setupdatedAddress] = useState({});
 
@@ -36,25 +35,33 @@ const AadhaarFullFormPage = (_props) => {
   const handleQualificationsUpdate = (updatedQualifications) => {
     setupdatedQualifications(updatedQualifications);
   };
-  
+
   const handlePersonalDetailUpdate = useCallback((updatedPersonalDetails) => {
     setupdatedPersonalDetails(updatedPersonalDetails);
   }, []);
-  
+
   const handleDisabilityUpdate = useCallback((updatedDisability) => {
     setupdatedDisability(updatedDisability);
   }, []);
-  
+
   const handleAddressUpdate = useCallback((updatedAddress) => {
     setupdatedAddress(updatedAddress);
   }, []);
 
+  const saveUserDetail = Digit.Hooks.bmc.useSaveUserDetail();
+
   const goNext = useCallback(() => {
     const data = { UserData: { updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails }};
     console.log(data);
-    Digit.Hooks.bmc.useSaveUserDetail(data, {});
-    // history.push("/digit-ui/citizen/bmc/selectScheme");
-  }, [updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails]);
+    saveUserDetail.mutate(data, {
+      onSuccess: () => {
+        history.push("/digit-ui/citizen/bmc/selectScheme");
+      },
+      onError: (error) => {
+        console.error("Failed to save user details:", error);
+      },
+    });
+  }, [updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails, saveUserDetail, history]);
 
   return (
     <React.Fragment>
