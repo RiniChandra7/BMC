@@ -22,6 +22,7 @@ const AadhaarFullFormPage = (_props) => {
   const [updatedQualifications, setupdatedQualifications] = useState({});
   const [updatedDisability, setupdatedDisability] = useState({});
   const [updatedAddress, setupdatedAddress] = useState({});
+  const [updatedBank, setupdatedBank] = useState({});
 
   const userFunction = (data) => {
     if (data && data.UserDetails && data.UserDetails.length > 0) {
@@ -44,6 +45,10 @@ const AadhaarFullFormPage = (_props) => {
     setupdatedDisability(updatedDisability);
   }, []);
 
+  const handleBankUpdate = useCallback((updatedBank) => {
+    setupdatedBank(updatedBank);
+  }, []);
+
   const handleAddressUpdate = useCallback((updatedAddress) => {
     setupdatedAddress(updatedAddress);
   }, []);
@@ -51,7 +56,7 @@ const AadhaarFullFormPage = (_props) => {
   const saveUserDetail = Digit.Hooks.bmc.useSaveUserDetail();
 
   const goNext = useCallback(() => {
-    const data = { UserData: { updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails }};
+    const data = { ApplicantDetails: { updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails, updatedBank } };
     console.log(data);
     saveUserDetail.mutate(data, {
       onSuccess: () => {
@@ -61,7 +66,7 @@ const AadhaarFullFormPage = (_props) => {
         console.error("Failed to save user details:", error);
       },
     });
-  }, [updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails, saveUserDetail, history]);
+  }, [updatedAddress, updatedDisability, updatedQualifications, updatedPersonalDetails, updatedBank, saveUserDetail, history]);
 
   return (
     <React.Fragment>
@@ -77,10 +82,10 @@ const AadhaarFullFormPage = (_props) => {
           AddOption={true}
           AllowRemove={true}
         />
-        <BankDetails initialRows={userDetail.bankDetail} tenantId={tenantId} AddOption={true} AllowRemove={true} />
+        <BankDetails initialRows={userDetail.bankDetail} tenantId={tenantId} AddOption={true} AllowRemove={true} onUpdate={handleBankUpdate} />
         <DisabilityCard onUpdate={handleDisabilityUpdate} initialRows={userDetail.divyang} tenantId={tenantId} AllowEdit={true} />
         <div className="bmc-card-row" style={{ textAlign: "end" }}>
-          <button className="bmc-card-button" onClick={goNext} style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
+          <button className="bmc-card-button" onClick={() => goNext()} style={{ borderBottom: "3px solid black", marginRight: "1rem" }}>
             {t("BMC_Confirm")}
           </button>
           <button
