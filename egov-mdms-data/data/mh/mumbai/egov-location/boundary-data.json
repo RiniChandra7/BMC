@@ -45,6 +45,30 @@
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
+                    "code": "NG_01",
+                    "area": "",
+                    "children": []
+                  },
+                  {
+                    "id": "faa264b6-4d4a-4285-8552-f7114ccbf661",
+                    "boundaryNum": 1,
+                    "name": "Shivalik Vihar Naya Gaon - WARD A",
+                    "localname": "Shivalik Vihar Naya Gaon - WARD A",
+                    "longitude": null,
+                    "latitude": null,
+                    "label": "Ward",
+                    "code": "NG_02",
+                    "area": "",
+                    "children": []
+                  },
+                  {
+                    "id": "faa264b6-4d4a-4285-8552-f7114ccbf661",
+                    "boundaryNum": 1,
+                    "name": "Shivalik Vihar Naya Gaon - WARD A",
+                    "localname": "Shivalik Vihar Naya Gaon - WARD A",
+                    "longitude": null,
+                    "latitude": null,
+                    "label": "Ward",
                     "code": "NG_03",
                     "area": "",
                     "children": []
@@ -93,7 +117,7 @@
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_06",
+                    "code": "NG_05",
                     "area": "",
                     "children": []
                   }
@@ -117,7 +141,7 @@
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_07",
+                    "code": "NG_06",
                     "area": "",
                     "children": []
                   }
@@ -141,7 +165,7 @@
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_08",
+                    "code": "NG_07",
                     "area": "",
                     "children": []
                   }
@@ -162,22 +186,22 @@
               {
                 "id": "1611e8cc-c631-43f4-8972-3574aee2ed06",
                 "boundaryNum": 1,
-                "name": "WARD A",
-                "localname": "WARD A",
+                "name": "WARD F",
+                "localname": "WARD F",
                 "longitude": null,
                 "latitude": null,
                 "label": "Block",
-                "code": "WARD-A",
+                "code": "WARD-F",
                 "children": [
                   {
                     "id": "faa264b6-4d4a-4285-8552-f7114ccbf661",
                     "boundaryNum": 1,
-                    "name": "Shivalik Vihar Naya Gaon - WARD A",
-                    "localname": "Shivalik Vihar Naya Gaon - WARD A",
+                    "name": "Shivalik Vihar Naya Gaon - WARD F",
+                    "localname": "Shivalik Vihar Naya Gaon - WARD F",
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_03",
+                    "code": "NG_08",
                     "area": "",
                     "children": []
                   }
@@ -186,22 +210,22 @@
               {
                 "id": "f18bce59-b249-4149-b992-d69f92ad4598",
                 "boundaryNum": 1,
-                "name": "WARD B",
-                "localname": "WARD B",
+                "name": "WARD G",
+                "localname": "WARD G",
                 "longitude": null,
                 "latitude": null,
                 "label": "Block",
-                "code": "WARD-B",
+                "code": "WARD-G",
                 "children": [
                   {
                     "id": "224bd5b2-50d1-4741-a7b9-8dabc09ed192",
                     "boundaryNum": 1,
-                    "name": "Gobind Nagar Naya Gaon - WARD B",
-                    "localname": "Gobind Nagar Naya Gaon - WARD B",
+                    "name": "Gobind Nagar Naya Gaon - WARD G",
+                    "localname": "Gobind Nagar Naya Gaon - WARD G",
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_04",
+                    "code": "NG_09",
                     "area": "",
                     "children": []
                   }
@@ -210,22 +234,22 @@
               {
                 "id": "65568a0b-05ec-4309-80df-a5a8e7d5ee75",
                 "boundaryNum": 1,
-                "name": "WARD C",
-                "localname": "WARD C",
+                "name": "WARD H",
+                "localname": "WARD H",
                 "longitude": null,
                 "latitude": null,
                 "label": "Block",
-                "code": "WARD-C",
+                "code": "WARD-H",
                 "children": [
                   {
                     "id": "bac277b6-b1f2-417d-ad55-cbc519c764ed",
                     "boundaryNum": 1,
-                    "name": "Shivalik Vihar Naya Gaon - WARD C",
-                    "localname": "Shivalik Vihar Naya Gaon - WARD C",
+                    "name": "Shivalik Vihar Naya Gaon - WARD H",
+                    "localname": "Shivalik Vihar Naya Gaon - WARD H",
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_06",
+                    "code": "NG_10",
                     "area": "",
                     "children": []
                   }
@@ -234,22 +258,22 @@
               {
                 "id": "cdae84a9-0bf9-4600-b7d9-049a90b7d72c",
                 "boundaryNum": 1,
-                "name": "WARD D",
-                "localname": "WARD D",
+                "name": "WARD I",
+                "localname": "WARD I",
                 "longitude": null,
                 "latitude": null,
                 "label": "Block",
-                "code": "WARD-D",
+                "code": "WARD-I",
                 "children": [
                   {
                     "id": "62274966-1c2c-44c6-81e3-93886f236aca",
                     "boundaryNum": 1,
-                    "name": "Kansal Ward A Naya Gaon - WARD D",
-                    "localname": "Kansal Ward A Naya Gaon - WARD D",
+                    "name": "Kansal Ward A Naya Gaon - WARD I",
+                    "localname": "Kansal Ward A Naya Gaon - WARD I",
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_07",
+                    "code": "NG_11",
                     "area": "",
                     "children": []
                   }
@@ -258,22 +282,22 @@
               {
                 "id": "31f4bc38-fd80-4a0b-9469-8eb6af4a51c5",
                 "boundaryNum": 1,
-                "name": "WARD E",
-                "localname": "WARD E",
+                "name": "WARD J",
+                "localname": "WARD J",
                 "longitude": null,
                 "latitude": null,
                 "label": "Block",
-                "code": "WARD-E",
+                "code": "WARD-J",
                 "children": [
                   {
                     "id": "5d6f3ba0-2ca7-43a3-a218-da2638af4ea7",
                     "boundaryNum": 1,
-                    "name": "Tribune Colony Sukhna Enclave Kansal - WARD E",
-                    "localname": "Tribune Colony Sukhna Enclave Kansal - WARD E",
+                    "name": "Tribune Colony Sukhna Enclave Kansal - WARD J",
+                    "localname": "Tribune Colony Sukhna Enclave Kansal - WARD J",
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_08",
+                    "code": "NG_12",
                     "area": "",
                     "children": []
                   }
@@ -294,22 +318,22 @@
               {
                 "id": "1611e8cc-c631-43f4-8972-3574aee2ed06",
                 "boundaryNum": 1,
-                "name": "WARD A",
-                "localname": "WARD A",
+                "name": "WARD K",
+                "localname": "WARD K",
                 "longitude": null,
                 "latitude": null,
                 "label": "Block",
-                "code": "WARD-A",
+                "code": "WARD-K",
                 "children": [
                   {
                     "id": "faa264b6-4d4a-4285-8552-f7114ccbf661",
                     "boundaryNum": 1,
-                    "name": "Shivalik Vihar Naya Gaon - WARD A",
-                    "localname": "Shivalik Vihar Naya Gaon - WARD A",
+                    "name": "Shivalik Vihar Naya Gaon - WARD K",
+                    "localname": "Shivalik Vihar Naya Gaon - WARD K",
                     "longitude": null,
                     "latitude": null,
                     "label": "Ward",
-                    "code": "NG_03",
+                    "code": "NG_13",
                     "area": "",
                     "children": []
                   }
