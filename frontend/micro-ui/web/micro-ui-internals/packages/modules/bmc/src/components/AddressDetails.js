@@ -36,35 +36,6 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
     mode: "onChange"
   });
 
-  const processSingleData = (item, headerLocale) => {
-    if (!item) return null;
-
-    const genderMapping = {
-      male: { id: 1, name: "Male" },
-      female: { id: 2, name: "Female" },
-      transgender: { id: 3, name: "Transgender" },
-    };
-
-    if (typeof item === "string") {
-      const gender = genderMapping[item.toLowerCase()];
-      if (!gender) return null; // Handle cases where the item is not one of the expected values
-      return {
-        ...gender,
-        i18nKey: `${headerLocale}_ADMIN_${gender.name.toUpperCase()}`,
-      };
-    }
-
-    if (typeof item === "object" && item.id && item.name) {
-      return {
-        code: item.id,
-        name: item.name,
-        i18nKey: `${headerLocale}_ADMIN_${item.name}`,
-      };
-    }
-
-    return null; // Handle cases where item is neither a string nor an object with id and name
-  };
-
   const [zones, setZones] = useState([]);
   const [blocks, setBlocks] = useState([]);
   const [wards, setWards] = useState([]);
@@ -114,32 +85,46 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
     },
   });
 
-  const selectedZone = watch("zoneName");
-  const selectedBlock = watch("blockName");
+  const selectedWard = watch("wardName");
   const [filteredBlocks, setFilteredBlocks] = useState([]);
-  const [filteredWards, setFilteredWards] = useState([]);
+  const [filteredZones, setFilteredZones] = useState([]);
 
   useEffect(() => {
-    if (selectedZone && selectedZone.code) {
-      const filtered = blocks.filter((block) => block.zoneCode === selectedZone.code);
-      setFilteredBlocks(filtered);
-      setValue("blockName", null); // Reset block dropdown
-      setFilteredWards([]); // Clear wards when zone changes
-      setValue("wardName", null); // Reset ward dropdown
+    if (selectedWard && selectedWard.code) {
+      const selectedBlockCode = wards.find(ward => ward.code === selectedWard.code)?.blockCode;
+      const selectedZoneCode = wards.find(ward => ward.code === selectedWard.code)?.zoneCode;
+
+      if (selectedBlockCode) {
+        const filteredBlocks = blocks.filter(block => block.code === selectedBlockCode);
+        setFilteredBlocks(filteredBlocks);
+        setValue("blockName", filteredBlocks[0]?.i18nKey || ""); // Automatically set the block name text field
+      } else {
+        setFilteredBlocks([]);
+        setValue("blockName", ""); // Reset block text field
+      }
+
+      if (selectedZoneCode) {
+        const filteredZones = zones.filter(zone => zone.code === selectedZoneCode);
+        setFilteredZones(filteredZones);
+        setValue("zoneName", filteredZones[0]?.i18nKey || ""); // Automatically set the zone name text field
+      } else {
+        setFilteredZones([]);
+        setValue("zoneName", ""); // Reset zone text field
+      }
     } else {
       setFilteredBlocks([]);
+      setFilteredZones([]);
     }
-  }, [blocks, selectedZone, setValue]);
+  }, [wards, blocks, zones, selectedWard, setValue]);
 
   useEffect(() => {
-    if (selectedBlock && selectedBlock.code) {
-      const filtered = wards.filter((ward) => ward.blockCode === selectedBlock.code && ward.zoneCode === selectedZone.code);
-      setFilteredWards(filtered);
-      setValue("wardName", null); // Reset ward dropdown
-    } else {
-      setFilteredWards([]);
+    if (!selectedWard) {
+      setFilteredBlocks([]);
+      setFilteredZones([]);
+      setValue("blockName", ""); // Reset block text field
+      setValue("zoneName", ""); // Reset zone text field
     }
-  }, [wards, selectedBlock, selectedZone, setValue]);
+  }, [selectedWard, setValue]);
 
   const formValuesRef = useRef(getValues());
   const formValues = watch();
@@ -185,14 +170,15 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
       setValue("district", addressArray[8] || "");
       setValue("state", addressArray[9] || "");
 
-      const zonedata = processSingleData(initialRows?.zone, headerLocale);
-      const blockdata = processSingleData(initialRows?.ward, headerLocale);
-      const warddata = processSingleData(initialRows?.subward, headerLocale);
-
       setValue("city", initialRows.city || "");
-      setValue("zoneName", zonedata || "");
       setValue("pincode", initialRows.pinCode || "");
-      setValue("blockName", blockdata || "");
+
+      const zonedata = zones.find(zone => zone.code === initialRows.zoneName) || "";
+      const blockdata = blocks.find(block => block.code === initialRows.blockName) || "";
+      const warddata = wards.find(ward => ward.code === initialRows.wardName) || "";
+
+      setValue("zoneName", zonedata?.name || "");
+      setValue("blockName", blockdata?.name || "");
       setValue("wardName", warddata || "");
 
       if (addressArray[0]) clearErrors("house");
@@ -208,12 +194,12 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
       if (blockdata) clearErrors("blockName");
       if (warddata) clearErrors("wardName");
     }
-  }, [initialRows, setValue, headerLocale, clearErrors]);
+  }, [initialRows, setValue, headerLocale, clearErrors, zones, blocks, wards]);
 
   const handleToggle = () => {
     setIsEditable(!isEditable);
   };
-  
+
   return (
     <React.Fragment>
       <form className="bmc-row-card-header">
@@ -437,64 +423,6 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
           </div>
           <div className="bmc-col3-card">
             <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_ZONENAME")}</CardLabel>
-              <Controller
-                control={control}
-                name="zoneName"
-                rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
-                render={(props) => (
-                  <div>
-                    {isEditable ? (
-                      <Dropdown
-                        placeholder={t("SELECT ZONE")}
-                        selected={props.value}
-                        select={(zone) => props.onChange(zone)}
-                        onBlur={props.onBlur}
-                        option={zones}
-                        optionKey="i18nKey"
-                        t={t}
-                        isMandatory={true}
-                      />
-                    ) : (
-                      <TextInput readOnly value={props.value?.label || ""} />
-                    )}
-                    {errors.zoneName && <span style={{ color: "red" }}>{errors.zoneName.message}</span>}
-                  </div>
-                )}
-              />
-            </LabelFieldPair>
-          </div>
-          <div className="bmc-col3-card">
-            <LabelFieldPair>
-              <CardLabel className="bmc-label">{t("BMC_BLOCKNAME")}</CardLabel>
-              <Controller
-                control={control}
-                name="blockName"
-                rules={{ required: t("CORE_COMMON_REQUIRED_ERRMSG") }}
-                render={(props) => (
-                  <div>
-                    {isEditable ? (
-                      <Dropdown
-                        placeholder={t("SELECT CASTE CATEGORY")}
-                        selected={props.value}
-                        select={(block) => props.onChange(block)}
-                        onBlur={props.onBlur}
-                        option={filteredBlocks}
-                        optionKey="i18nKey"
-                        t={t}
-                        isMandatory={true}
-                      />
-                    ) : (
-                      <TextInput readOnly value={props.value?.label || ""} />
-                    )}
-                    {errors.blockName && <span style={{ color: "red" }}>{errors.blockName.message}</span>}
-                  </div>
-                )}
-              />
-            </LabelFieldPair>
-          </div>
-          <div className="bmc-col3-card">
-            <LabelFieldPair>
               <CardLabel className="bmc-label">{t("BMC_WARD_NAME")}</CardLabel>
               <Controller
                 control={control}
@@ -508,13 +436,13 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
                         selected={props.value}
                         select={(ward) => props.onChange(ward)}
                         onBlur={props.onBlur}
-                        option={filteredWards}
+                        option={wards}
                         optionKey="i18nKey"
                         t={t}
                         isMandatory={true}
                       />
                     ) : (
-                      <TextInput readOnly value={props.value?.label || ""} />
+                      <TextInput readOnly value={props.value?.name || ""} />
                     )}
                     {errors.wardName && <span style={{ color: "red" }}>{errors.wardName.message}</span>}
                   </div>
@@ -522,6 +450,43 @@ const AddressDetailCard = ({ onUpdate, initialRows = {}, AllowEdit = false, tena
               />
             </LabelFieldPair>
           </div>
+          <div className="bmc-col3-card">
+            <LabelFieldPair>
+              <CardLabel className="bmc-label">{t("BMC_ZONENAME")}</CardLabel>
+              <Controller
+                control={control}
+                name="zoneName"
+                render={(props) => (
+                  <div>
+                    <TextInput
+                      disabled
+                      readOnly
+                      value={props.value || ""}
+                    />
+                  </div>
+                )}
+              />
+            </LabelFieldPair>
+          </div>
+          <div className="bmc-col3-card">
+            <LabelFieldPair>
+              <CardLabel className="bmc-label">{t("BMC_BLOCKNAME")}</CardLabel>
+              <Controller
+                control={control}
+                name="blockName"
+                render={(props) => (
+                  <div>
+                    <TextInput
+                      disabled
+                      readOnly
+                      value={props.value || ""}
+                    />
+                  </div>
+                )}
+              />
+            </LabelFieldPair>
+          </div>
+          
         </div>
       </form>
     </React.Fragment>
