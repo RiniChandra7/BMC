@@ -150,7 +150,7 @@ public class UserDetailRowMapper implements ResultSetExtractor<List<UserDetails>
                 String bank = Objects.requireNonNullElse(rs.getString("ifsc"), "").concat(Objects.requireNonNullElse(rs.getString("accountnumber"), ""));
                 if (bank != null) {
                     BankDetails bankDetails = userDetails.getBankDetail().stream()
-                        .filter(c -> Objects.requireNonNullElse(c.getIfscCodes(), "")
+                        .filter(c -> Objects.requireNonNullElse(c.getIfsc(), "")
                         .concat(Objects.requireNonNullElse(c.getAccountnumber(), "")).equals(bank))
                         .findFirst()
                         .orElse(null);
@@ -158,10 +158,10 @@ public class UserDetailRowMapper implements ResultSetExtractor<List<UserDetails>
                     if (bankDetails == null) {
                         bankDetails = BankDetails.builder()
                             .accountnumber(rs.getString("accountnumber"))
-                            .branchNames(rs.getString("branchname"))
+                            .branchName(rs.getString("branchname"))
                             .name(rs.getString("bankname"))
-                            .ifscCodes(rs.getString("ifsc"))
-                            .micrCodes(rs.getString("micr"))
+                            .ifsc(rs.getString("ifsc"))
+                            .micr(rs.getString("micr"))
                             .build();
                         userDetails.getBankDetail().add(bankDetails);
                     }

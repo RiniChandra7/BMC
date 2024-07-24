@@ -16,6 +16,6 @@ public class ReligionService {
         religion.setName(schemeApplicationRequest.getName());
         religion.setDescription(schemeApplicationRequest.getDescription());
         return  religionRepositoty.save(religion);
-    }
+    }*/
 
 }
